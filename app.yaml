@@ -1,12 +1,5 @@
 runtime: nodejs10
 
-#handlers:
-#  - url: /
-#    static_files: client/build/index.html
-#    upload: client/build/index.html
-#  - url: /
-#    static_dir: client/build
-
 env_variables:
    DB_USER: root
    DB_NAME: project_x
