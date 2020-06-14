@@ -6,3 +6,11 @@ runtime: nodejs10
 #    upload: client/build/index.html
 #  - url: /
 #    static_dir: client/build
+
+env_variables:
+   DB_USER: root
+   DB_NAME: project_x
+   DB_PASS: 1123
+   DB_CONNECTION: /cloudsql/project-x-280014:asia-south1:project-x-db-ins
+   
+
