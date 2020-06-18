@@ -25,6 +25,6 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    tableName: 'Serivce_Area'
+    tableName: 'Service_Area'
   });
 };
