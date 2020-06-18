@@ -3,6 +3,6 @@ const addAreaController = require('../controllers/addArea');
 
 const router = express.Router();
 
-router.get('/addArea', addAreaController.addArea);
+router.post('/addArea', addAreaController.addArea);
 
 module.exports = router;

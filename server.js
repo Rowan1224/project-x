@@ -4,7 +4,10 @@ const app = express();
 const port = process.env.PORT || 8080;
 const sequelize = require('./server/util/database');
 
-const serviceProviderRoutes = require('./routes/serviceProvider');
+const serviceProviderRoutes = require('./server/routes/serviceProvider');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, "/client/build")));
 // console.log that your server is up and running
