@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import APITest from "../components/home/apiTest";
+import Layout from "../components/generic/layout";
 
 const Home = (props) => {
   return (
-    <div>
+    <Layout>
       <Link to="/about">About Us</Link>
-      <h1>Welcome to project-x</h1>
-      <APITest />
-    </div>
+      <h1 style={{ height: 1233 }}>Welcome to project-x</h1>
+    </Layout>
   );
 };
 
