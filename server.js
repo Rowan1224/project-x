@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "/client/build")));
 // console.log that your server is up and running
 
-sequelize.sync({ force: true }).then(result =>{
+sequelize.sync({ force: false }).then(result =>{
     app.listen(port, () => console.log(`Listening on port ${port}`));
 }).catch( err =>{
     console.log(err);
@@ -34,7 +34,7 @@ app.get("/db_connection", (req, res) => {
 
 // Service Provider Side APIs
 
-app.use('/service-provider', serviceProviderRoutes);
+app.use(serviceProviderRoutes);
 
 
 app.get('/*', (req, res) => {
