@@ -55,3 +55,33 @@
                 ],
                 "message": "Success"
             }
+
+* Update Employee
+
+    * Request (POST => /updateEmployee) 
+
+            {
+                "employee_id": 3,
+                "employee_name": "this_is_for_test",
+                "phone_number": "00000000000"
+            }
+
+    * Response
+
+            {
+                "message": "Success"
+            }
+
+* Delete Employee
+
+    * Request (POST => /deleteEmployee) 
+
+            {
+                "employee_id": 5
+            }
+
+    * Response
+
+            {
+                "message": "Success"
+            }
