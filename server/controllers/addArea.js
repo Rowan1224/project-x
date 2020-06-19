@@ -12,7 +12,7 @@ exports.addArea = (req, res, next) => {
     serviceArea.create({
         service_id: service_id,
         area_id: area_id
-    }).then(result => console.log(result)).catch(err => console.log(err));
+    }).then(result => console.log("Success!!!")).catch(err => console.log(err));
 
-    res.json({area_id: area_id, service_id: service_id});
+    res.status(200).json({message: "Success"});
 };
