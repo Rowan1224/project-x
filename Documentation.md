@@ -4,47 +4,47 @@
     
     * Request (POST => /addArea) 
 
-        ``{
-            "area_id": 1,
-            "service_id": 1
-        }``
+            {
+                "area_id": 1,
+                "service_id": 1
+            }
 
     * Response
 
-        ``{
-            "message": "Success"
-        }``
+            {
+                "message": "Success"
+            }
 
 
-** Employee Related APIS ** 
+**Employee Related APIS** 
 
-    * Add Employee
+* Add Employee
 
-        * Request (POST => /addEmployee) 
+    * Request (POST => /addEmployee) 
 
-            ``{
+            {
                 "service_id": 1,
                 "employee_name": "sldk",
                 "phone_number": "015214458454"
-            }``
+            }
 
-        * Response
+    * Response
 
-            ``{
+            {
                 "message": "Success"
-            }``
+            }
 
-    * Get all Employee of a Service Provider
+* Get all Employee of a Service Provider
 
-        * Request (POST => /getEmployee) 
+    * Request (POST => /getEmployee) 
 
-            ``{
+            {
                 "service_id": 1
-            }``
+            }
 
-        * Response
+    * Response
 
-            ``{
+            {
                 "employee": [
                     {
                         "employee_id": 1,
@@ -54,4 +54,4 @@
                     }
                 ],
                 "message": "Success"
-            }``
+            }
