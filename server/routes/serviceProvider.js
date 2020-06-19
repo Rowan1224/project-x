@@ -10,6 +10,8 @@ router.post('/addArea', addAreaController.addArea);
 // Employee Related Routes
 router.post('/addEmployee', employee.addEmployee);
 router.post('/getEmployee', employee.getEmployee);
+router.post('/updateEmployee', employee.updateEmployee);
+router.post('/deleteEmployee', employee.deleteEmployee);
 
 //Rowan
 const getServiceAreaController = require('../controllers/getServiceArea');
