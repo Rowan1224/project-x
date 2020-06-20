@@ -16,5 +16,5 @@ router.post('/deleteEmployee', employee.deleteEmployee);
 //Rowan
 const getServiceAreaController = require('../controllers/getServiceArea');
 router.get('/getServiceArea', getServiceAreaController.getServiceArea);
-
+router.get('/getServiceName/:areaId', getServiceAreaController.getServiceName);
 module.exports = router;

@@ -33,6 +33,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'Service_Inventory'
+    tableName: 'Service_Inventory',
+    timestamps: false
   });
 };

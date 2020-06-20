@@ -15,6 +15,55 @@
                 "message": "Success"
             }
 
+* Get all available area 
+    
+    * Request (GET => /getServiceArea) 
+
+
+    * Response
+
+          {
+           "areas": [
+                {
+                    "area_id": 1,
+                    "area_name": "Mirpur-10",
+                    "thana": "Mirpur",
+                    "upazilla": "Dhaka City",
+                    "district": "Dhaka",
+                    "lat": null,
+                    "long": null
+                },
+                {
+                    "area_id": 4,
+                    "area_name": "Mirpur-1",
+                    "thana": "Mirpur",
+                    "upazilla": "Dhaka City",
+                    "district": "Dhaka",
+                    "lat": null,
+                    "long": null
+                }
+                    ],
+            "message": "Success"
+           }
+* Get all available Services in selected area
+    
+    * Request (GET => /getServiceName/areaId) 
+
+
+    * Response
+
+          {
+    "services": [
+        [
+            {
+                "service_id": 1,
+                "service_name": "Hello Deliver",
+            
+            }
+        ]
+    ],
+    "message": "Success"
+          }   
 
 **Employee Related APIS** 
 

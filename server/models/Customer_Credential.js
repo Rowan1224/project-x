@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'Customer_Credential'
+    tableName: 'Customer_Credential',
+    timestamps: false
   });
 };
