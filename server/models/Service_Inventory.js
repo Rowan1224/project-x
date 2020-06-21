@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'product_id'
       }
     },
-    limit: {
+    delivery_limit: {
       type: DataTypes.STRING(30),
       allowNull: true
     },

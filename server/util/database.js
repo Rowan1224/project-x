@@ -14,7 +14,7 @@ sequelize.import('../models/Area_Details');
 sequelize.import('../models/Customer_Address');
 sequelize.import('../models/Customer_Credential');
 sequelize.import('../models/Employee');
-sequelize.import('../models/Order');
+sequelize.import('../models/Orders');
 sequelize.import('../models/Order_details');
 sequelize.import('../models/Service_Area');
 sequelize.import('../models/Service_Credential');
