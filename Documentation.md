@@ -134,3 +134,53 @@
             {
                 "message": "Success"
             }
+
+**Profile Related APIs**
+
+* Get All Profile Data
+
+    * Request (POST => /getProfile) 
+
+            {
+                "service_id": 1
+            }
+
+    * Response
+
+            {
+                "service_id": 1,
+                "service_name": "ABC Service",
+                "company_name": "ABC",
+                "phone_1": "01245152",
+                "phone_2": null,
+                "nid": null,
+                "trade_license": null,
+                "address": null,
+                "password": null,
+                "nid_photo": null,
+                "profile_picture": null
+            }
+
+* Update Profile Data
+
+    * Request (POST => /updateProfile) 
+
+            {
+                "service_id": 1,
+                "service_name": "Food Pandaas",
+                "company_name": "Food Team",
+                "phone_1": "01521461529",
+                "phone_2": "01782335868",
+                "nid": "2378SNS57446SC4",
+                "trade_license": "TLAF1C2SZSKLDHFN54",
+                "address": "THI SDJFOIJ SDJFOS,F DFJIOSDF",
+                "password": "324545SKJDJF",
+                "nid_photo": "LSDFKLKDFJ",
+                "profile_picture": "AKSDF"
+            }
+
+    * Response
+
+            {
+                "message": "Success"
+            }
