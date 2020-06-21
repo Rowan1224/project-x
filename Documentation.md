@@ -52,18 +52,18 @@
 
     * Response
 
-          {
-    "services": [
-        [
             {
-                "service_id": 1,
-                "service_name": "Hello Deliver",
-            
-            }
-        ]
+                "services": [
+                    [
+                        {
+                            "service_id": 1,
+                            "service_name": "Hello Deliver",
+
+                        }
+                    ]
                 ],
-    "message": "Success"
-          }   
+                "message": "Success"
+            }   
 
 **Employee Related APIS** 
 
@@ -182,5 +182,91 @@
     * Response
 
             {
+                "message": "Success"
+            }
+
+**Products Related APIs**
+
+* Get Universal Product Data
+
+    * Request (GET => /allProducts) 
+
+    * Response
+
+            {
+                "products": [
+                    {
+                        "product_id": 1,
+                        "product_name": "Chaal",
+                        "measure": "1kg",
+                        "company_name": "Bashmati",
+                        "vat": 10
+                    },
+                    {
+                        "product_id": 2,
+                        "product_name": "Daal",
+                        "measure": "1kg",
+                        "company_name": "slkdjfi",
+                        "vat": 15
+                    },
+                    {
+                        "product_id": 3,
+                        "product_name": "Pepsi",
+                        "measure": "250 ml",
+                        "company_name": "Pepsi",
+                        "vat": 1
+                    }
+                ],
+                "message": "Success"
+            }
+
+* Get Service-Providers All Product List
+
+    * Request (POST => /ownProducts) 
+
+            {
+                "service_id": 1
+            }
+    
+    * Response
+
+            {
+                "products": [
+                    {
+                        "service_id": 1,
+                        "product_id": 1,
+                        "delivery_limit": "2kg",
+                        "price": 50
+                    },
+                    {
+                        "service_id": 1,
+                        "product_id": 2,
+                        "delivery_limit": "",
+                        "price": 20
+                    }
+                ],
+                "message": "Success"
+            }
+
+* Get Particular Product Details
+
+    * Request (POST => /getProductDetails) 
+
+            {
+                "product_id": 1
+            }
+    
+    * Response
+
+            {
+                "products": [
+                    {
+                        "product_id": 1,
+                        "product_name": "Chaal",
+                        "measure": "1kg",
+                        "company_name": "Bashmati",
+                        "vat": 10
+                    }
+                ],
                 "message": "Success"
             }
