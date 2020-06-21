@@ -1,6 +1,8 @@
 const express = require('express');
+
 const addAreaController = require('../controllers/addArea');
-const employee = require('../controllers/employee');
+const employeeController = require('../controllers/employee');
+const profileController = require('../controllers/profile');
 
 const router = express.Router();
 
@@ -8,10 +10,14 @@ const router = express.Router();
 router.post('/addArea', addAreaController.addArea);
 
 // Employee Related Routes
-router.post('/addEmployee', employee.addEmployee);
-router.post('/getEmployee', employee.getEmployee);
-router.post('/updateEmployee', employee.updateEmployee);
-router.post('/deleteEmployee', employee.deleteEmployee);
+router.post('/addEmployee', employeeController.addEmployee);
+router.post('/getEmployee', employeeController.getEmployee);
+router.post('/updateEmployee', employeeController.updateEmployee);
+router.post('/deleteEmployee', employeeController.deleteEmployee);
+
+// Profile Related Routes
+router.post('/getProfile', profileController.getProfileData);
+router.post('/updateProfile', profileController.updateProfile)
 
 //Rowan
 const getServiceAreaController = require('../controllers/getServiceArea');
