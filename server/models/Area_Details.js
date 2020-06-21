@@ -24,11 +24,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(20),
       allowNull: true
     },
-    lat: {
+    lati: {
       type: DataTypes.FLOAT,
       allowNull: true
     },
-    long: {
+    longi: {
       type: DataTypes.FLOAT,
       allowNull: true
     }
