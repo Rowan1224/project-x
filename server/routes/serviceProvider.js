@@ -3,6 +3,7 @@ const express = require('express');
 const addAreaController = require('../controllers/addArea');
 const employeeController = require('../controllers/employee');
 const profileController = require('../controllers/profile');
+const productController = require('../controllers/products');
 
 const router = express.Router();
 
@@ -17,7 +18,12 @@ router.post('/deleteEmployee', employeeController.deleteEmployee);
 
 // Profile Related Routes
 router.post('/getProfile', profileController.getProfileData);
-router.post('/updateProfile', profileController.updateProfile)
+router.post('/updateProfile', profileController.updateProfile);
+
+// Product Related Routes
+router.get('/allProducts', productController.getUniversalProducts);
+router.post('/ownProducts', productController.getOwnProducts);
+router.post('/getProductDetails', productController.getProductDetails);
 
 //Rowan
 const getServiceAreaController = require('../controllers/getServiceArea');
