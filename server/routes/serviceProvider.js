@@ -24,6 +24,9 @@ router.post('/updateProfile', profileController.updateProfile);
 router.get('/allProducts', productController.getUniversalProducts);
 router.post('/ownProducts', productController.getOwnProducts);
 router.post('/getProductDetails', productController.getProductDetails);
+router.post('/addProduct', productController.addProduct);
+router.post('/updateProduct', productController.updateProduct);
+router.post('/deleteProduct', productController.deleteProduct);
 
 //Rowan
 const getServiceAreaController = require('../controllers/getServiceArea');
