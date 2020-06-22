@@ -233,12 +233,14 @@
             {
                 "products": [
                     {
+                        "inventory_id": 15,
                         "service_id": 1,
                         "product_id": 1,
                         "delivery_limit": "2kg",
                         "price": 50
                     },
                     {
+                        "inventory_id": 16,
                         "service_id": 1,
                         "product_id": 2,
                         "delivery_limit": "",
@@ -268,5 +270,52 @@
                         "vat": 10
                     }
                 ],
+                "message": "Success"
+            }
+
+* Add Product into Own Service Inventory
+
+    * Request (POST => /addProduct) 
+
+            {
+                "service_id": 3,
+                "product_id": 2,
+                "delivery_limit": "",
+                "price": 25
+            }
+    
+    * Response
+
+            {
+                "message": "Success"
+            }
+
+* Update Product
+
+    * Request (POST => /updateProduct) 
+
+            {
+                "inventory_id": 14,
+                "delivery_limit": "This is delivery_limit",
+                "price": 20
+            }
+    
+    * Response
+
+            {
+                "message": "Success"
+            }
+
+* Delete Product
+
+    * Request (POST => /deleteProduct) 
+
+            {
+                "inventory_id": 14
+            }
+    
+    * Response
+
+            {
                 "message": "Success"
             }
