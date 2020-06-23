@@ -4,6 +4,7 @@ const addAreaController = require('../controllers/addArea');
 const employeeController = require('../controllers/employee');
 const profileController = require('../controllers/profile');
 const productController = require('../controllers/products');
+const ordersController = require('../controllers/orders');
 
 const router = express.Router();
 
@@ -27,6 +28,10 @@ router.post('/getProductDetails', productController.getProductDetails);
 router.post('/addProduct', productController.addProduct);
 router.post('/updateProduct', productController.updateProduct);
 router.post('/deleteProduct', productController.deleteProduct);
+
+// Order Related APIs
+router.post('/createOrder', ordersController.createOrder);
+router.post('/assignEmployee', ordersController.assignEmployee);
 
 //Rowan
 const getServiceAreaController = require('../controllers/getServiceArea');
