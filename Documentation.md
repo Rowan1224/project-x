@@ -319,3 +319,38 @@
             {
                 "message": "Success"
             }
+
+**Order Related APIs**
+
+* Create Order
+
+    * Request (POST => /createOrder) 
+
+            {
+                "customer_id": 1,
+                "service_id": 3,
+                "order_time": "22-01-2020 11:15",
+                "customer_address_id": 2,
+                "payment": 25
+            }
+    
+    * Response
+
+            {
+                "message": "Success"
+            }
+
+* Assign Employee
+
+    * Request (POST => /assignEmployee) 
+
+            {
+                "order_id": 1,
+                "employee_id": 3
+            }
+    
+    * Response
+
+            {
+                "message": "Success"
+            }
