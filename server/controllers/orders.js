@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../util/database');
 const Orders = require('../models/Orders');
-const orders = require(sequelize, Sequelize);
+const orders = Orders(sequelize, Sequelize);
 const Order_Details = require('../models/Order_details');
-const orderDetails = require(sequelize, Sequelize);
+const orderDetails = Order_Details(sequelize, Sequelize);
 
 exports.createOrder = (req, res, next) => {
     const customer_id = req.body.customer_id;
