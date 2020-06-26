@@ -21,3 +21,18 @@ exports.createOrderDetails = (req, res, next) => {
         });
     });
 };
+
+exports.getOrderDetails = (req, res, next) => {
+    const orderId = req.body.orderId;
+
+    orderDetails.findAll({where :{order_id : orderId}}).then(details => {
+        res.status(200).json({
+            details: details,
+            message: "Success"
+        });
+    }).catch(err => {
+        res.status(504).json({
+            message: "Failed"
+        });
+    });
+};

@@ -340,6 +340,54 @@
                 "message": "Success"
             }
 
+    * Request (POST => /createOrderDetails) 
+
+            {
+	            "details":
+	            [
+		
+                    {"order_id":1, "product_id":1,"qty":"5 kg","price": 500},
+                    {"order_id":1, "product_id":2,"qty":"5 kg","price": 600},
+                    {"order_id":1, "product_id":3,"qty":"5 kg","price": 700},
+                    {"order_id":1, "product_id":4,"qty":"5 kg","price": 800}
+		
+	            ]
+            }
+    
+    * Response
+
+            {
+                "message": "Success"
+            }
+    * Request (POST => /getOrderDetails) 
+
+            {
+	            "orderId": 1
+            }
+    
+    * Response
+
+            {
+                "details": 
+                [
+                    {
+                        "order_details_id": 1,
+                        "order_id": 1,
+                        "product_id": 1,
+                        "qty": "5 kg",
+                        "price": 500
+                    },
+                    {
+                        "order_details_id": 2,
+                        "order_id": 1,
+                        "product_id": 2,
+                        "qty": "5 kg",
+                        "price": 600
+                    },
+                    
+                ],
+                "message": "Success"
+            }
 * Assign Employee
 
     * Request (POST => /assignEmployee) 
