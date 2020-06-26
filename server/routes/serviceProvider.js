@@ -5,6 +5,7 @@ const employeeController = require('../controllers/employee');
 const profileController = require('../controllers/profile');
 const productController = require('../controllers/products');
 const ordersController = require('../controllers/orders');
+const customerordersController = require('../controllers/customer-order');
 
 const router = express.Router();
 
@@ -37,4 +38,5 @@ router.post('/assignEmployee', ordersController.assignEmployee);
 const getServiceAreaController = require('../controllers/getServiceArea');
 router.get('/getServiceArea', getServiceAreaController.getServiceArea);
 router.get('/getServiceName/:areaId', getServiceAreaController.getServiceName);
+router.post('/createOrderDetails', customerordersController.createOrderDetails);
 module.exports = router;
