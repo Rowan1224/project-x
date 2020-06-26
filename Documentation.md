@@ -22,8 +22,9 @@
 
     * Response
 
-          {
-           "areas": [
+            {
+                "areas": 
+           [
                 {
                     "area_id": 1,
                     "area_name": "Mirpur-10",
@@ -42,7 +43,7 @@
                     "lat": null,
                     "long": null
                 }
-                    ],
+            ],
             "message": "Success"
            }
 * Get all available Services in selected area
@@ -400,5 +401,54 @@
     * Response
 
             {
+                "message": "Success"
+            }
+* Customer Address
+* Request (POST => /createCustomerAddress) 
+
+            {
+	            "address":
+                {
+                    "customer_id":1, 
+                    "road_no":"54/A",
+                    "house_no":"23-D",
+                    "area_id": 1
+                }
+            }
+    
+    * Response
+
+            {
+                "message": "Success"
+            }
+
+    * Request (POST => /getOrderDetails) 
+
+            {
+	            "customerId": 1
+            }
+    
+    * Response
+
+            {
+                "address": 
+                [
+                    {
+                        "customer_add_id": 1,
+                        "customer_id": 1,
+                        "road_no": "station_road-12",
+                        "house_no": "132",
+                        "area_id": 4,
+                        "further_description": null
+                    },
+                    {
+                        "customer_add_id": 6,
+                        "customer_id": 1,
+                        "road_no": "54/A",
+                        "house_no": "23-D",
+                        "area_id": 1,
+                        "further_description": null
+                    }
+                ],
                 "message": "Success"
             }

@@ -40,4 +40,6 @@ router.get('/getServiceArea', getServiceAreaController.getServiceArea);
 router.get('/getServiceName/:areaId', getServiceAreaController.getServiceName);
 router.post('/createOrderDetails', customerordersController.createOrderDetails);
 router.post('/getOrderDetails', customerordersController.getOrderDetails);
+router.post('/createCustomerAddress', customerordersController.createCustomerAddress);
+router.post('/getCustomerAddress', customerordersController.getCustomerAddress);
 module.exports = router;
