@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'product_id'
       }
     },
-    limit: {
+    delivery_limit: {
       type: DataTypes.STRING(30),
       allowNull: true
     },
@@ -33,6 +33,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'Service_Inventory'
+    tableName: 'Service_Inventory',
+    timestamps: false
   });
 };

@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       references: {
-        model: 'Order',
+        model: 'Orders',
         key: 'order_id'
       }
     },
@@ -33,6 +33,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'Order_details'
+    tableName: 'Order_details',
+    timestamps: false
   });
 };

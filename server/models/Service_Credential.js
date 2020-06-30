@@ -49,6 +49,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'Service_Credential'
+    tableName: 'Service_Credential',
+    timestamps: false
   });
 };

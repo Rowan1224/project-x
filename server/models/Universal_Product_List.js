@@ -25,6 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'Universal_Product_List'
+    tableName: 'Universal_Product_List',
+    timestamps: false
   });
 };

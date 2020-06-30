@@ -7,8 +7,6 @@ exports.addArea = (req, res, next) => {
     const area_id = req.body.area_id;
     const service_id = req.body.service_id;
 
-    console.log(area_id, service_id);
-
     serviceArea.create({
         service_id: service_id,
         area_id: area_id
