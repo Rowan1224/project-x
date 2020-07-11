@@ -19,7 +19,7 @@ const DropDown = (props) => {
             size="lg"
             title={ title }
             onSelect={ handleSelect }
-            className="col-sm"
+            className="col-sm ml-2"
         >
             { props.values.map(value => (
                 <Dropdown.Item eventKey={ value } key={ uuid() }>{ value }</Dropdown.Item>

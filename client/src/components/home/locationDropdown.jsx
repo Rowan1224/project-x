@@ -30,7 +30,7 @@ const LocationDropDown = (props) => {
                     size="lg"
                     variant="success"
                     type="submit"
-                    className="col-sm"
+                    className="col-sm ml-2"
                 >
                     Search
                 </Button>
