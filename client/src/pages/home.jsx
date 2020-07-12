@@ -1,11 +1,16 @@
 import React from "react";
 import Layout from "../components/generic/layout";
-import LocationSearch from "../components/home/locationSearch";
+import LocationDropDown from "../components/home/locationDropdown";
+import LocationContextProvider from "../contexts/LocationContext";
+import Services from "../components/home/services";
 
 const Home = (props) => {
   return (
     <Layout>
-      <LocationSearch />
+      <LocationContextProvider>
+        <LocationDropDown />
+      </LocationContextProvider>
+      <Services />
     </Layout>
   );
 };
