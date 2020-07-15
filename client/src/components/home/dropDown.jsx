@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Dropdown, SplitButton } from "react-bootstrap";
-import uuid from 'react-uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { LocationContext } from '../../contexts/LocationContext';
 
 const DropDown = (props) => {
@@ -22,7 +22,7 @@ const DropDown = (props) => {
             className="col-sm ml-2"
         >
             { props.values.map(value => (
-                <Dropdown.Item eventKey={ value } key={ uuid() }>{ value }</Dropdown.Item>
+                <Dropdown.Item eventKey={ value } key={ uuidv4() }>{ value }</Dropdown.Item>
             )) }
         </SplitButton>
     );
