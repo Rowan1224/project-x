@@ -1,7 +1,13 @@
 import React, { useState, useContext } from 'react';
-import { Dropdown, SplitButton } from "react-bootstrap";
+
+import {
+    Dropdown,
+    DropdownButton,
+    ButtonGroup
+} from "react-bootstrap";
+
 import { v4 as uuidv4 } from 'uuid';
-import { LocationContext } from '../../contexts/LocationContext';
+import { LocationContext } from '../../../contexts/LocationContext';
 
 const DropDown = (props) => {
     const [title, setTitle] = useState(props.title);
@@ -13,18 +19,18 @@ const DropDown = (props) => {
     }
 
     return (
-        <SplitButton 
-            id="dropdown-split-basic"
-            variant="secondary"
+        <DropdownButton 
             size="lg"
             title={ title }
+            as={ ButtonGroup }
+            variant="secondary"
             onSelect={ handleSelect }
-            className="col-sm ml-2"
+            className="col-sm mb-2"
         >
             { props.values.map(value => (
                 <Dropdown.Item eventKey={ value } key={ uuidv4() }>{ value }</Dropdown.Item>
             )) }
-        </SplitButton>
+        </DropdownButton>
     );
 }
  

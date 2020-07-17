@@ -3,7 +3,7 @@ import { Card, Button } from 'react-bootstrap';
 
 const Service = (props) => {
   return (
-    <div className='col-xl-3 col-md-4 col-sm-6 mb-3 text-center'>
+    <div className='col-xl-4 col-md-6 col-sm-12 mb-3 text-center'>
       <Card>
         {/* <Card.Img variant="top" src="holder.js/100px180/" alt="Card image cap"/> */}
         <Card.Body>
