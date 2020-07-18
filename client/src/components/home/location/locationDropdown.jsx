@@ -5,10 +5,11 @@ import { LocationContext } from '../../../contexts/LocationContext';
 
 
 const LocationDropDown = () => {
-    const { districts, areas, location } = useContext(LocationContext);
+    const { districts, areas, location, changeLocation } = useContext(LocationContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        changeLocation();
         console.log(location);
     };
 

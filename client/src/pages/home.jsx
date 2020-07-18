@@ -9,8 +9,8 @@ const Home = () => {
     <Layout>
       <LocationContextProvider>
         <LocationDropDown />
+        <Providers />
       </LocationContextProvider>
-      <Providers />
     </Layout>
   );
 };

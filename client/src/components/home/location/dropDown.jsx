@@ -11,11 +11,11 @@ import { LocationContext } from '../../../contexts/LocationContext';
 
 const DropDown = (props) => {
     const [title, setTitle] = useState(props.title);
-    const { changeLocation } = useContext(LocationContext);
+    const { selectLocation } = useContext(LocationContext);
 
     const handleSelect = e => {
         setTitle(e.toUpperCase());
-        changeLocation(props.title, e);
+        selectLocation(props.title, e);
     }
 
     return (
