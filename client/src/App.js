@@ -15,6 +15,8 @@ function App() {
           <Route path="/service-provider">
             <ServiceProviders />
           </Route>
+          <Route path="/about">
+          </Route>
           <Route path="/">
             <Home />
           </Route>
