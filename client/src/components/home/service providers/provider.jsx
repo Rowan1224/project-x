@@ -7,20 +7,23 @@ const Provider = (props) => {
       <Card>
         {/* className="d-flex justify-content-center" */}
         <Card.Img
-          variant="top"
-          // src={require('../../../assets/img/services.png')}
-          // src='./services.png'
-          alt="card image"
+          variant='top'
+          src={`https://picsum.photos/id/${Math.floor(
+            Math.random() * 1000
+          )}/800`}
+          alt='card image'
         />
         <Card.Body>
-          <Card.Title className="text-dark">{props.ServiceName}</Card.Title>
-          <Card.Text className="text-secondary">
+          <Card.Title className='text-dark'>{props.ServiceName}</Card.Title>
+          <Card.Text className='text-secondary'>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab enim
             dolores et error accusamus tenetur nemo totam provident. Provident
             sit asperiores veritatis dolor iure, enim alias? Ea id praesentium
             reiciendis?
           </Card.Text>
-          <Button variant="primary" href="/service-provider">Go somewhere</Button>
+          <Button variant='primary' href='/service-provider'>
+            Go somewhere
+          </Button>
         </Card.Body>
       </Card>
     </div>
