@@ -4,6 +4,7 @@ import Provider from './provider';
 import { v4 as uuidv4 } from 'uuid';
 import { LocationContext } from '../../../contexts/LocationContext';
 import emoji from 'react-easy-emoji'
+import Infobar from '../../generic/infobar';
 
 const Providers = () => {
   const services = [
@@ -35,11 +36,9 @@ const Providers = () => {
     </Container>
   ) : (
     <Container>
-      <div className='text-center mt-5 pt-5'>
-        <h2 className='bg-light border p-3 my-5'>
-          Select a location to see the service providers { emoji("😀") }
-        </h2>
-      </div>
+      <Infobar text="text-info">
+        Select a location to see the service providers { emoji("😀") }
+      </Infobar>
     </Container>
   );
 };

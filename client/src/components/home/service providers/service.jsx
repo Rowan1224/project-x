@@ -4,14 +4,16 @@ import { Card, Button } from 'react-bootstrap';
 const Service = (props) => {
   return (
     <div className='col-xl-4 col-md-6 col-sm-12 mb-3 text-center'>
-      <Card className="bg-light">
-        <Card.Img
-          variant='top'
-          src={`https://picsum.photos/id/${Math.floor(
-            Math.random() * 1000
-          )}/800`}
-          alt='card image'
-        />
+      <Card className="bg-light shadow">
+        <div className="inner">
+          <Card.Img
+            variant='top'
+            src={`https://picsum.photos/id/${Math.floor(
+              Math.random() * 1000
+            )}/800`}
+            alt='card image'
+          />
+        </div>
         <Card.Body>
           <Card.Title>{props.ServiceName}</Card.Title>
           <Card.Text>
