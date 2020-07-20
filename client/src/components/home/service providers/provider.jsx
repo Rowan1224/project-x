@@ -4,7 +4,7 @@ import { Card, Button } from 'react-bootstrap';
 const Provider = (props) => {
   return (
     <div className="col-12 mb-3">
-      <Card className="bg-light p-1">
+      <Card className="bg-light p-1 shadow">
         <div className="row">
           <Card.Img
             variant='top'
