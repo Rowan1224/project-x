@@ -5,6 +5,7 @@ import "./assets/styles/styles.scss";
 
 import Home from "./pages/home";
 import ServiceProviders from "./pages/serviceProviders";
+import ShoppingCart from "./pages/shoppingCart";
 
 
 function App() {
@@ -14,6 +15,9 @@ function App() {
         <Switch>
           <Route path="/service-provider">
             <ServiceProviders />
+          </Route>
+          <Route path="/cart">
+            <ShoppingCart />
           </Route>
           <Route path="/">
             <Home />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Provider = (props) => {
   return (
@@ -24,8 +25,9 @@ const Provider = (props) => {
             </Card.Text>
             <Button
               variant='primary'
-              href='/service-provider'
               className="mt-auto"
+              as={Link}
+              to="/service-provider"
             >
               Show their services
             </Button>
