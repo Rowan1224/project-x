@@ -16,13 +16,14 @@ const Service = (props) => {
         </div>
         <Card.Body>
           <Card.Title>{props.ServiceName}</Card.Title>
+          <h5 className="text-success">Tk 790</h5>
           <Card.Text>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab enim
             dolores et error accusamus tenetur nemo totam provident. Provident
             sit asperiores veritatis dolor iure, enim alias? Ea id praesentium
             reiciendis?
           </Card.Text>
-          <Button variant='primary'>Go somewhere</Button>
+          <Button variant='primary'>Add to cart</Button>
         </Card.Body>
       </Card>
     </div>

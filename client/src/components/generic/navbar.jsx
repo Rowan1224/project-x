@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { AccountCircle, ShoppingCart } from "@material-ui/icons";
 import { useWindowScroll } from "beautiful-react-hooks";
+import { NavLink } from "react-router-dom";
 
 const MainNav = (props) => {
   const [isShadow, setIsShadow] = useState(window.scrollY > 20);
@@ -22,16 +23,28 @@ const MainNav = (props) => {
       style={{ backgroundColor: "#fff", transition: "all 0.3s" }}
       className={isShadow ? "shadow" : ""}
     >
-      <Navbar.Brand style={{ fontFamily: "MuseoModerno" }} href="/">
+      <Navbar.Brand
+        style={{ fontFamily: "MuseoModerno" }}
+        as={NavLink}
+        to="/"
+      >
         ProjectX
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="main-nav" />
       <Navbar.Collapse id="main-nav">
         <Nav className="ml-auto">
-          <Nav.Link style={navLinkStyle}>
+          <Nav.Link
+            style={navLinkStyle}
+            as={NavLink}
+            to="#"
+          >
             <AccountCircle />
           </Nav.Link>
-          <Nav.Link style={navLinkStyle}>
+          <Nav.Link
+            style={navLinkStyle}
+            as={NavLink}
+            to="/cart"
+          >
             <ShoppingCart />
           </Nav.Link>
         </Nav>

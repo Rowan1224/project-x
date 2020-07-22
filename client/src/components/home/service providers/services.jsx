@@ -26,11 +26,19 @@ const Services = () => {
   return (
     <Container>
       <div className='mt-5 pt-1 text-center'>
-        <Image className='w-100 border border-secondary' src='/img/profile_pic.jpg' />
-        <Infobar text="text-primary">
+        <div className="inner">
+          <Image
+            className='w-100 border border-secondary profile-pic'
+            src={`https://picsum.photos/id/${Math.floor(
+              Math.random() * 1000
+            )}/800`}
+          />
+        </div>
+        
+        <Infobar text="text-info">
           Best dry cleaning service for the money { emoji("🤪") }
         </Infobar>
-        <h3 className='pt-3'>Our Services</h3>
+        <h3 className='pt-5'>Our Services</h3>
       </div>
       <div className='row mt-5'>
         {services.map((name) => (
