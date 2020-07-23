@@ -14,7 +14,7 @@ const DropDown = (props) => {
     const { selectLocation } = useContext(LocationContext);
 
     const handleSelect = e => {
-        setTitle(e.toUpperCase());
+        setTitle(e.charAt(0).toUpperCase() + e.slice(1).toLowerCase());
         selectLocation(props.title, e);
     }
 
@@ -28,7 +28,12 @@ const DropDown = (props) => {
             className="col-sm mb-2"
         >
             { props.values.map(value => (
-                <Dropdown.Item eventKey={ value } key={ uuidv4() }>{ value }</Dropdown.Item>
+                <Dropdown.Item
+                    eventKey={ value.charAt(0).toUpperCase() + value.slice(1).toLowerCase() }
+                    key={ uuidv4() }
+                >
+                    { value.charAt(0).toUpperCase() + value.slice(1).toLowerCase() }
+                </Dropdown.Item>
             )) }
         </DropdownButton>
     );

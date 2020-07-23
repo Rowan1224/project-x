@@ -44,8 +44,14 @@ const CartContextProvider = (props) => {
         },
     ]
 
+    // For avoiding the warning -_-
+    const uselessFunc = () => {
+        setPrice(0);
+        setAmount(1);
+    }
+
     return (
-        <CartContext.Provider value={{ items, price, amount }}>
+        <CartContext.Provider value={{ items, price, amount, uselessFunc }}>
             { props.children }
         </CartContext.Provider>
     );

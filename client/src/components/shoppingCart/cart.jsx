@@ -9,6 +9,7 @@ import { CartContext } from "../../contexts/CartContext";
 
 const Cart = (props) => {
   const { items } = useContext(CartContext);
+  let skey = 0;
 
   return (
     <Container>
@@ -17,7 +18,7 @@ const Cart = (props) => {
           <h3 className="jumbotron-heading">Your Cart</h3>
         </div>
       </section>
-      <Table striped bordered hover>
+      <Table striped hover className="shadow">
         <thead>
           <tr>
             <th scope="col"> </th>
@@ -33,17 +34,21 @@ const Cart = (props) => {
         </thead>
         <tbody>
           { items.map(item => {
+            skey++;
             return(
-              <tr key={uuidv4()}>
+              <tr key={ uuidv4() }>
                 <td style={{ verticalAlign: "middle" }}>
                   <img
-                    src="https://dummyimage.com/50x50/55595c/fff"
+                    src={`https://picsum.photos/id/${Math.floor(
+                      Math.random() * 1000
+                    )}/800`}
                     alt="product_image"
+                    style={{ width: "50px", height: "50px" }}
                   />
                 </td>
                 <td style={{ verticalAlign: "middle" }}>{ item.product }</td>
                 <td style={{ verticalAlign: "middle" }} className="text-center">
-                  <Counter />
+                  <Counter skey={ skey } />
                 </td>
                 <td style={{ verticalAlign: "middle" }} className="text-right">
                   Tk { item.price }
@@ -58,7 +63,7 @@ const Cart = (props) => {
           }) }
         </tbody>
       </Table>
-      <div className="row text-center bg-light border mx-auto p-3">
+      <div className="row text-center bg-light border mx-auto p-3 shadow">
         <div className="col-sm-12 col-md-4 py-3 mx-auto">
           <div className="mb-2">Grand Total</div>
           <div className="h2 font-weight-light">$234,234</div>
