@@ -26,7 +26,7 @@ const Providers = () => {
   ];
   const { location } = useContext(LocationContext);
 
-  return location['district'] && location['area'] ? (
+  return location && location.district && location.area ? (
     <Container>
       <div className='row mt-5'>
         {services.map((name) => (

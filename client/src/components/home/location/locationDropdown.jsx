@@ -5,12 +5,14 @@ import { LocationContext } from '../../../contexts/LocationContext';
 
 
 const LocationDropDown = () => {
-    const { districts, areas, location, changeLocation } = useContext(LocationContext);
+    const { districts, areas, changeLocation } = useContext(LocationContext);
+
+    const json = sessionStorage.getItem("location");
+    const localLocation = JSON.parse(json);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         changeLocation();
-        console.log(location);
     };
 
     return (
@@ -25,8 +27,14 @@ const LocationDropDown = () => {
                 onSubmit={ handleSubmit }
                 className="row"
             >
-                <DropDown title="District" values={ districts } />
-                <DropDown title="Area" values={ areas } />
+                <DropDown
+                    title={ localLocation && localLocation.district ? localLocation.district : "District" }
+                    values={ districts }
+                />
+                <DropDown
+                    title={ localLocation && localLocation.area ? localLocation.area : "Area" }
+                    values={ areas }
+                />
                 <Button
                     size="lg"
                     variant="success"
