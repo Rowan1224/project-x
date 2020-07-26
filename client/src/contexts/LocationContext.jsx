@@ -3,48 +3,45 @@ import React, { createContext, useState, useEffect } from 'react';
 export const LocationContext = createContext();
 
 const LocationContextProvider = (props) => {
-    const [district, setDistrict] = useState("");
-    const [area, setArea] = useState("");
-    const [location, setLocation] = useState({ district, area });
-
     // Dummy datas
     const districts = ["Dhaka", "Sylhet", "Rangpur", "Rajshahi"];
     const areas = ["Modina market", "Gulshan", "Banani", "Gazipur"];
+
+    const [location, setLocation] = useState({ district: "", area: "" });
     
     // componentDidMount
-    useEffect(() => {
-        const json = sessionStorage.getItem("location");
-        const localLocation = JSON.parse(json);
+    // useEffect(() => {
+    //     const json = sessionStorage.getItem("location");
+    //     const localLocation = JSON.parse(json);
     
-        if(localLocation)
-            setLocation(localLocation);
+    //     if(localLocation)
+    //         setLocation(localLocation);
         
-    }, [])
+    // }, [])
 
-    // componentDidUpdate
-    useEffect(() => {
-        const json = sessionStorage.getItem("location");
-        const localLocation = JSON.parse(json);
+    // // componentDidUpdate
+    // useEffect(() => {
+    //     const json = sessionStorage.getItem("location");
+    //     const localLocation = JSON.parse(json);
 
-        if(localLocation !== location)
-            sessionStorage.setItem("location", JSON.stringify(location));
+    //     if(localLocation !== location)
+    //         sessionStorage.setItem("location", JSON.stringify(location));
         
-    }, [location])
+    // }, [location])
     
-    const selectLocation = (title, selectedlocation) => {
-        title === "District" ?
-            setDistrict(selectedlocation) :  
-            setArea(selectedlocation)
-    }
+    // const selectLocation = (title, selectedlocation) => {
+    //     title === "District" ?
+    //         setDistrict(selectedlocation) :  
+    //         setArea(selectedlocation)
+    // }
 
-    const changeLocation = () => {
-        if(district && area){
-            setLocation({ ...location, district, area });
-        }
+    const changeLocation = (district, area) => {
+        setLocation({ ...location, district, area });
+        console.log(location);
     }
 
     return (
-        <LocationContext.Provider value={{ districts, areas, location, selectLocation, changeLocation }}>
+        <LocationContext.Provider value={{ districts, areas, location, changeLocation }}>
             { props.children }
         </LocationContext.Provider>
     );

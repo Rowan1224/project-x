@@ -1,18 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Button, Form } from "react-bootstrap";
 import DropDown from './dropDown';
 import { LocationContext } from '../../../contexts/LocationContext';
 
 
 const LocationDropDown = () => {
-    const { districts, areas, changeLocation } = useContext(LocationContext);
+    const [district, setDistrict] = useState("");
+    const [area, setArea] = useState("");
 
-    const json = sessionStorage.getItem("location");
-    const localLocation = JSON.parse(json);
+    const { districts, areas, location, changeLocation } = useContext(LocationContext);
 
-    const handleSubmit = (e) => {
+    const handleDistrictSelect = e => {
+        setDistrict(e);
+    }
+
+    const handleAreaSelect = e => {
+        setArea(e);
+    }
+
+    const handleSubmit = e => {
         e.preventDefault();
-        changeLocation();
+
+        if(district && area)
+            changeLocation(district, area);
+        
+        // console.log(location);
     };
 
     return (
@@ -28,12 +40,14 @@ const LocationDropDown = () => {
                 className="row"
             >
                 <DropDown
-                    title={ localLocation && localLocation.district ? localLocation.district : "District" }
+                    title={ "District" }
                     values={ districts }
+                    handleSelect={ handleDistrictSelect }
                 />
                 <DropDown
-                    title={ localLocation && localLocation.area ? localLocation.area : "Area" }
+                    title={ "Area" }
                     values={ areas }
+                    handleSelect={ handleAreaSelect }
                 />
                 <Button
                     size="lg"
