@@ -36,7 +36,7 @@ const MainNav = (props) => {
           <Nav.Link
             style={navLinkStyle}
             as={NavLink}
-            to="#"
+            to="/registration"
           >
             <AccountCircle />
           </Nav.Link>
