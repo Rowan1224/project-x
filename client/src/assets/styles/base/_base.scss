@@ -22,6 +22,10 @@
   transform: scale(1.5);
 }
 
+.link a {
+  text-decoration: none;
+}
+
 .profile-pic {
   max-height: 22rem;
 }
@@ -32,10 +36,6 @@
 
 .counter_remove:hover {
   color: #ff0000;
-}
-
-.link a {
-  text-decoration: none;
 }
 
 // User Registration Form
@@ -72,12 +72,12 @@
 }
 
 .btn-twitter {
-  background-color: #55ACEE;
+  background-color: #55acee;
   color: #fff;
 }
 
 .btn-twitter:hover {
-  background-color: darken(#55ACEE, 8%);
+  background-color: darken(#55acee, 8%);
   color: #fff;
 }
 // User Registration Form

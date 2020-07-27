@@ -6,7 +6,9 @@ const Layout = (props) => {
   return (
     <div>
       <MainNav />
-      <div className="vertical-center">{props.children}</div>
+      <div className="vertical-center">
+        <Container>{props.children}</Container>
+      </div>
     </div>
   );
 };

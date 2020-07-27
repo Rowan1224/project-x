@@ -1,6 +1,6 @@
 import React from "react";
 import Counter from "../generic/counter";
-import { Container, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
 import Icon from "@material-ui/core/Icon";
 import { useContext } from "react";
@@ -12,7 +12,7 @@ const Cart = (props) => {
   let skey = 0;
 
   return (
-    <Container>
+    <div>
       <section className="jumbotron text-center p-5">
         <div className="container">
           <h3 className="jumbotron-heading">Your Cart</h3>
@@ -103,7 +103,7 @@ const Cart = (props) => {
           </button>
         </div>
       </div>
-    </Container>
+    </div>
   );
 };
 

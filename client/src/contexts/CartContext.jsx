@@ -3,8 +3,7 @@ import React, { createContext, useState } from 'react';
 export const CartContext = createContext();
 
 const CartContextProvider = (props) => {
-    const [price, setPrice] = useState(0);
-    const [amount, setAmount] = useState(1);
+    // dummy data
     const items = [
         {
             product: "Toyota Car",
@@ -43,6 +42,9 @@ const CartContextProvider = (props) => {
             price: 789
         },
     ]
+
+    const [price, setPrice] = useState(0);
+    const [amount, setAmount] = useState(1);
 
     // For avoiding the warning -_-
     const uselessFunc = () => {

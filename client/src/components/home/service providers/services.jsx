@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Image } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import Service from './service';
 import { v4 as uuidv4 } from 'uuid';
 import emoji from 'react-easy-emoji'
@@ -24,7 +24,7 @@ const Services = () => {
     'Delivery',
   ];
   return (
-    <Container>
+    <div>
       <div className='mt-5 pt-1 text-center'>
         <div className="inner">
           <Image
@@ -45,7 +45,7 @@ const Services = () => {
           <Service ServiceName={name} key={uuidv4()} />
         ))}
       </div>
-    </Container>
+    </div>
   );
 };
 

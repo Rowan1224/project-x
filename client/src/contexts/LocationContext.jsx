@@ -4,36 +4,34 @@ export const LocationContext = createContext();
 
 const LocationContextProvider = (props) => {
   // Dummy datas
-  const districts = ['Dhaka', 'Sylhet', 'Rangpur', 'Rajshahi'];
-  const areas = ['Modina market', 'Gulshan', 'Banani', 'Gazipur'];
+  const dummyLocation = {
+    Dhaka: ['Gulshan', 'Banani', 'Dhanmondi', 'Mirpur'],
+    Sylhet: ['Amberkhana', 'Madina Market', 'SUST', 'Bagbari'],
+    Chittagong: ['College Road', 'Potenga', 'Coxs Bazar'],
+    Rajshahi: ['Rajshahi University', 'RUET', 'Noyabajar'],
+  };
 
   const [location, setLocation] = useState({ district: '', area: '' });
 
   // componentDidMount
-  // useEffect(() => {
-  //     const json = sessionStorage.getItem("location");
-  //     const localLocation = JSON.parse(json);
+  useEffect(() => {
+      const json = sessionStorage.getItem("location");
+      const localLocation = JSON.parse(json);
 
-  //     if(localLocation)
-  //         setLocation(localLocation);
+      if(localLocation)
+          setLocation(localLocation);
 
-  // }, [])
+  }, [])
 
-  // // componentDidUpdate
-  // useEffect(() => {
-  //     const json = sessionStorage.getItem("location");
-  //     const localLocation = JSON.parse(json);
+  // componentDidUpdate
+  useEffect(() => {
+      const json = sessionStorage.getItem("location");
+      const localLocation = JSON.parse(json);
 
-  //     if(localLocation !== location)
-  //         sessionStorage.setItem("location", JSON.stringify(location));
+      if(localLocation !== location)
+          sessionStorage.setItem("location", JSON.stringify(location));
 
-  // }, [location])
-
-  // const selectLocation = (title, selectedlocation) => {
-  //     title === "District" ?
-  //         setDistrict(selectedlocation) :
-  //         setArea(selectedlocation)
-  // }
+  }, [location])
 
   const changeLocation = (district, area) => {
     setLocation({ ...location, district, area });
@@ -41,7 +39,7 @@ const LocationContextProvider = (props) => {
 
   return (
     <LocationContext.Provider
-      value={{ districts, areas, location, changeLocation }}>
+      value={{ dummyLocation, location, changeLocation }}>
       {props.children}
     </LocationContext.Provider>
   );

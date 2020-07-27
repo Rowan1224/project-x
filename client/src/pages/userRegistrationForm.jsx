@@ -1,15 +1,16 @@
 import React from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter, faFacebook } from "@fortawesome/free-brands-svg-icons";
 
 import Layout from "../components/generic/layout";
+import { Link } from "react-router-dom";
 
 const RegistrationForm = () => {
   return (
     <Layout>
-      <Container>
+      <div>
         <div className="card py-4 bg-light shadow">
           <article className="card-body mx-auto" style={{ maxWidth: "500px" }}>
             <h4 className="card-title mt-3 text-center">Create an Account</h4>
@@ -123,12 +124,12 @@ const RegistrationForm = () => {
                 </Button>
               </div>
               <div className="link text-center">
-                Have an account? <a href="#">Log In</a>
+                Have an account? <Link to="#">Log In</Link>
               </div>
             </form>
           </article>
         </div>
-      </Container>
+      </div>
     </Layout>
   );
 };
