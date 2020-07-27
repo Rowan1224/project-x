@@ -4,9 +4,11 @@ import MainNav from "./navbar";
 
 const Layout = (props) => {
   return (
-    <div className="main">
+    <div>
       <MainNav />
-      <Container fluid>{props.children}</Container>
+      <div className="vertical-center">
+        <Container>{props.children}</Container>
+      </div>
     </div>
   );
 };
