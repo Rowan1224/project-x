@@ -1,3 +1,15 @@
+* {
+  font-weight: 500 !important;
+}
+
+.vertical-center {
+  min-height: 93%;
+  min-height: 93vh;
+
+  display: flex;
+  align-items: center;
+}
+
 .inner {
   overflow: hidden;
 }
@@ -22,21 +34,21 @@
   color: #ff0000;
 }
 
-// Registration
+.link a {
+  text-decoration: none;
+}
+
+// User Registration Form
 .divider-text {
   position: relative;
-  text-align: center;
-  margin-top: 15px;
-  margin-bottom: 15px;
 }
 .divider-text span {
-  padding: 7px;
   font-size: 12px;
   position: relative;
   z-index: 2;
 }
 .divider-text:after {
-  // content: "";
+  content: "";
   position: absolute;
   width: 100%;
   border-bottom: 1px solid #ddd;
@@ -45,12 +57,27 @@
   z-index: 1;
 }
 
+.fa-icon {
+  min-width: 1rem;
+}
+
 .btn-facebook {
   background-color: #405d9d;
   color: #fff;
 }
 
-.btn-twitter {
-  background-color: #42aeec;
+.btn-facebook:hover {
+  background-color: darken(#405d9d, 8%);
   color: #fff;
 }
+
+.btn-twitter {
+  background-color: #55ACEE;
+  color: #fff;
+}
+
+.btn-twitter:hover {
+  background-color: darken(#55ACEE, 8%);
+  color: #fff;
+}
+// User Registration Form
