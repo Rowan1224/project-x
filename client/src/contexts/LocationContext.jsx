@@ -6,7 +6,7 @@ const LocationContextProvider = (props) => {
   // Dummy datas
   const dummyLocation = {
     Dhaka: ['Gulshan', 'Banani', 'Dhanmondi', 'Mirpur'],
-    Sylhet: ['Amberkhana', 'Madina Market', 'SUST', 'Bagbari'],
+    Sylhet: ['Amberkhana', 'Madina Market', 'Shahjalal University of Science and Technology', 'Bagbari'],
     Chittagong: ['College Road', 'Potenga', 'Coxs Bazar'],
     Rajshahi: ['Rajshahi University', 'RUET', 'Noyabajar'],
   };

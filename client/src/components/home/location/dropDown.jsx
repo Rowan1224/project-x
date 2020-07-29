@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dropdown, DropdownButton, ButtonGroup } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 
 const DropDown = (props) => {
@@ -11,26 +11,24 @@ const DropDown = (props) => {
   };
 
   return (
-    <DropdownButton
-      size="lg"
-      title={title}
-      as={ButtonGroup}
-      variant="facebook"
-      onSelect={handleSelect}
-      className="shadow px-0 mx-3 col-sm mb-2"
-      // style={{ minWidth: "15rem" }}
-    >
-      {props.values.map((value) => (
-        <Dropdown.Item
-          eventKey={value}
-          key={uuidv4()}
-          className="card-body text-center"
-          // style={{ minWidth: "15rem" }}
-        >
-          {value}
-        </Dropdown.Item>
-      ))}
-    </DropdownButton>
+    <Dropdown>
+      <Dropdown.Toggle size="lg" disabled={props.status} variant="facebook" className="shadow mb-2 w-100">
+        {title}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu className="text-center bg-light w-100">
+        {props.values.map((value) => (
+          <Dropdown.Item
+            eventKey={value}
+            key={uuidv4()}
+            onSelect={handleSelect}
+            className="text-wrap dropdown-text"
+          >
+            {value}
+          </Dropdown.Item>
+        ))}
+      </Dropdown.Menu>
+    </Dropdown>
   );
 };
 

@@ -37,18 +37,22 @@ const LocationDropDown = () => {
         </h2>
       </div>
       <div className="row mt-5">
-        <DropDown
-          title={district ? district : "District"}
-          values={districts}
-          handleSelect={handleDistrictSelect}
-        />
-        {district && (
+        <div className="col-md-6">
+          <DropDown
+            title={district ? district : "District"}
+            values={districts ? districts : []}
+            handleSelect={handleDistrictSelect}
+            status=""
+          />
+        </div>
+        <div className="col-md-6">
           <DropDown
             title={area ? area : "Area"}
-            values={areas}
+            values={areas ? areas : []}
             handleSelect={handleAreaSelect}
+            status={!district}
           />
-        )}
+        </div>
         {/* <Button
           size="lg"
           variant="success"
