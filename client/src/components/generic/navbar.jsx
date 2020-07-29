@@ -21,7 +21,7 @@ const MainNav = (props) => {
     <Navbar
       sticky="top"
       style={{ backgroundColor: "#fff", transition: "all 0.3s" }}
-      className={isShadow ? "shadow" : "border"}
+      className={isShadow ? "shadow" : ""}
     >
       <Navbar.Brand
         style={{ fontFamily: "MuseoModerno" }}

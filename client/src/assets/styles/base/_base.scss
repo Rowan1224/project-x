@@ -3,8 +3,8 @@
 }
 
 .vertical-center {
-  min-height: 93%;
-  min-height: 93vh;
+  min-height: 86%;
+  min-height: 86vh;
 
   display: flex;
   align-items: center;
@@ -81,3 +81,10 @@
   color: #fff;
 }
 // User Registration Form
+
+// DropDown
+.dropdown-text:hover {
+  // background-color: #ffffff;
+  color: #0275d8;
+  // color: #0096b1;
+}
