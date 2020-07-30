@@ -37,7 +37,7 @@ const LocationDropDown = () => {
         </h2>
       </div>
       <div className="row mt-5">
-        <div className="col-md-6">
+        <div className="col-sm-12 col-md-6">
           <DropDown
             title={district ? district : "District"}
             values={districts ? districts : []}
@@ -45,7 +45,7 @@ const LocationDropDown = () => {
             status=""
           />
         </div>
-        <div className="col-md-6">
+        <div className="col-sm-12 col-md-6">
           <DropDown
             title={area ? area : "Area"}
             values={areas ? areas : []}
