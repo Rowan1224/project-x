@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Provider = (props) => {
   return (
     <div className="col-12 mb-3">
-      <Card className="bg-light p-3 shadow">
+      <Card className="bg-light custom-border p-3 shadow">
         <div className="row">
           <div className="col-md-3 col-sm-12 my-auto">
             <Card.Img
@@ -22,7 +22,7 @@ const Provider = (props) => {
             <Card.Title className="text-dark text-center">
               {props.ServiceName}
             </Card.Title>
-            <Card.Text className="text-secondary mt-auto">
+            <Card.Text className="text-secondary text-center mt-auto">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab enim
               dolores et error accusamus tenetur nemo totam provident. Provident
               sit asperiores veritatis dolor iure, enim alias? Ea id praesentium
@@ -33,7 +33,7 @@ const Provider = (props) => {
             </Card.Text>
             <Button
               variant="main"
-              className="shadow mt-auto"
+              className="mt-auto"
               as={Link}
               to="/service-provider"
             >

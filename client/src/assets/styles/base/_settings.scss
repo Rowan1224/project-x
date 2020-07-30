@@ -1,16 +1,28 @@
 // Colors
-$main: #3498db;
-$primary: #0275d8;
+// Main light
+$main: #2980b9;
+// Main black
+// $main: #feca57;
+
 $facebook: #405d9d;
-$twitter: #55acee;
+$twitter: #00acee;
 $hover: #ecf0f1;
-// $off-black: #20222b;
+$off-black: #20222b;
+
+$theme-colors: ();
+$theme-colors: map-merge(
+  (
+    "main":        $main,
+    "facebook":    $facebook,
+    "twitter":     $twitter,
+  ),
+  $theme-colors
+);
 // $off-white: #a5afd7;
 // $dark-blue: #333745;
 // $blue: #3c4251;
 // $light-blue: #464e5e;
 // $purple: #8357c5;
-// // $purple: #3092e2;
 
 // Spacing
 $spacer: 1rem;
