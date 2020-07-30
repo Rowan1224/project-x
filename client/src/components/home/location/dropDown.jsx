@@ -12,7 +12,7 @@ const DropDown = (props) => {
 
   return (
     <Dropdown>
-      <Dropdown.Toggle size="lg" disabled={props.status} variant="main" className="shadow text-wrap mb-2 w-100">
+      <Dropdown.Toggle size="lg" disabled={props.status} variant="main" className="text-wrap mb-2 w-100">
         {title}
       </Dropdown.Toggle>
 

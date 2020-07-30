@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
 import Icon from "@material-ui/core/Icon";
 import { useContext } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { CartContext } from "../../contexts/CartContext";
 
 const Cart = (props) => {
@@ -13,58 +13,69 @@ const Cart = (props) => {
 
   return (
     <div>
-      <section className="jumbotron text-center p-5">
+      <section className="jumbotron custom-border text-center p-5">
         <div className="container">
           <h3 className="jumbotron-heading">Your Cart</h3>
         </div>
       </section>
-      <Table striped hover className="shadow">
-        <thead>
-          <tr>
-            <th scope="col"> </th>
-            <th scope="col">Product</th>
-            <th scope="col" className="text-center">
-              Quantity
-            </th>
-            <th scope="col" className="text-right">
-              Price
-            </th>
-            <th scope="col"> </th>
-          </tr>
-        </thead>
-        <tbody>
-          { items.map(item => {
-            skey++;
-            return(
-              <tr key={ uuidv4() }>
-                <td style={{ verticalAlign: "middle" }}>
+      <div className="shadow custom-border rounded mb-3">
+        <Table striped hover>
+          <thead>
+            <tr>
+              {/* <th scope="col"> </th> */}
+              <th scope="col">Product</th>
+              <th scope="col" className="text-center">
+                Quantity
+              </th>
+              <th scope="col" className="text-right">
+                Price
+              </th>
+              <th scope="col"> </th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item) => {
+              skey++;
+              return (
+                <tr key={uuidv4()}>
+                  {/* <td style={{ verticalAlign: "middle" }}>
                   <img
                     src={`https://picsum.photos/id/${Math.floor(
                       Math.random() * 1000
                     )}/800`}
-                    alt="product_image"
-                    // className="col-1"
-                    style={{ width: "50px", height: "50px" }}
+                    alt="img"
+                    style={{ maxWidth: "50px", maxHeight: "50px" }}
                   />
-                </td>
-                <td style={{ verticalAlign: "middle" }}>{ item.product }</td>
-                <td style={{ verticalAlign: "middle" }} className="text-center">
-                  <Counter skey={ skey } />
-                </td>
-                <td style={{ verticalAlign: "middle" }} className="text-right">
-                  Tk { item.price }
-                </td>
-                <td style={{ verticalAlign: "middle" }} className="text-right">
-                  <button className="btn btn-sm btn-danger">
-                    <DeleteTwoToneIcon />
-                  </button>
-                </td>
-              </tr>
-            )
-          }) }
-        </tbody>
-      </Table>
-      <div className="row text-center bg-light border mx-auto p-3 shadow">
+                </td> */}
+                  <td style={{ verticalAlign: "middle" }}>{item.product}</td>
+                  <td
+                    style={{ verticalAlign: "middle" }}
+                    className="text-center"
+                  >
+                    <Counter skey={skey} />
+                  </td>
+                  <td
+                    style={{ verticalAlign: "middle" }}
+                    className="text-right"
+                  >
+                    Tk {item.price}
+                  </td>
+                  <td
+                    style={{ verticalAlign: "middle" }}
+                    className="text-right"
+                  >
+                    <button className="btn btn-sm btn-danger">
+                      <DeleteTwoToneIcon />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
+
+      <div className="row text-center bg-light custom-border rounded mx-auto p-3 shadow">
         <div className="col-sm-12 col-md-4 py-3 mx-auto">
           <div className="mb-2">Grand Total</div>
           <div className="h2 font-weight-light">$234,234</div>

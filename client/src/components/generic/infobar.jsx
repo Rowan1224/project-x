@@ -6,9 +6,9 @@ const Infobar = (props) => {
 
     return (
         <div className='text-center mt-5'>
-            <h2 className={'bg-light border p-3 my-5 shadow' + text_color}>
+            <h4 className={'bg-light rounded custom-border p-3 my-5 shadow' + text_color}>
                 { props.children }
-            </h2>
+            </h4>
         </div>
     );
 }

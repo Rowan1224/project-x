@@ -28,14 +28,15 @@ const Services = () => {
       <div className='mt-5 pt-1 text-center'>
         <div className="inner">
           <Image
-            className='w-100 border border-secondary profile-pic'
+            className='w-100 custom-border rounded profile-pic'
+            alt="profile picture"
             src={`https://picsum.photos/id/${Math.floor(
               Math.random() * 1000
             )}/800`}
           />
         </div>
         
-        <Infobar text="text-info">
+        <Infobar>
           Best dry cleaning service for the money { emoji("🤪") }
         </Infobar>
         <h3 className='pt-5'>Our Services</h3>
