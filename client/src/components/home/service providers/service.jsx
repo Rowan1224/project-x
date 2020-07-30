@@ -7,11 +7,11 @@ const Service = (props) => {
       <Card className="bg-light shadow">
         <div className="inner">
           <Card.Img
-            variant='top'
+            variant="top"
             src={`https://picsum.photos/id/${Math.floor(
               Math.random() * 1000
             )}/800`}
-            alt='card image'
+            alt="card image"
           />
         </div>
         <Card.Body>

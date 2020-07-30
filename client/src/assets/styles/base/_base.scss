@@ -38,6 +38,12 @@
   color: #ff0000;
 }
 
+.custom-border {
+  border-style: solid;
+  border-width: 1px;
+  border-color: lightsteelblue;
+}
+
 // User Registration Form
 .divider-text {
   position: relative;
@@ -61,30 +67,39 @@
   min-width: 1rem;
 }
 
+.btn-main {
+  background-color: $main;
+  color: white
+}
+
+.btn-main:hover {
+  background-color: darken($main, $hoverShade);
+  color: white;
+}
+
 .btn-facebook {
-  background-color: #405d9d;
-  color: #fff;
+  background-color: $facebook;
+  color: white;
 }
 
 .btn-facebook:hover {
-  background-color: darken(#405d9d, 8%);
-  color: #fff;
+  background-color: darken($facebook, $hoverShade);
+  color: white;
 }
 
 .btn-twitter {
-  background-color: #55acee;
-  color: #fff;
+  background-color: $twitter;
+  color: white;
 }
 
 .btn-twitter:hover {
-  background-color: darken(#55acee, 8%);
-  color: #fff;
+  background-color: darken($twitter, $hoverShade);
+  color: white;
 }
 // User Registration Form
 
 // DropDown
 .dropdown-text:hover {
-  // background-color: #ffffff;
-  color: #0275d8;
-  // color: #0096b1;
+  background-color: $hover;
+  color: $main;
 }

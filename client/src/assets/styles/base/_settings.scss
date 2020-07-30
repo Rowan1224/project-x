@@ -1,4 +1,9 @@
-// // Colors
+// Colors
+$main: #3498db;
+$primary: #0275d8;
+$facebook: #405d9d;
+$twitter: #55acee;
+$hover: #ecf0f1;
 // $off-black: #20222b;
 // $off-white: #a5afd7;
 // $dark-blue: #333745;
@@ -22,3 +27,6 @@ $spacers: map-merge(
 // $l-size: 3.2rem;
 // $xl-size: 4.8rem;
 // $desktop-breakpoint: 45rem;
+
+// Others
+$hoverShade: 8%;

@@ -43,6 +43,7 @@ const Cart = (props) => {
                       Math.random() * 1000
                     )}/800`}
                     alt="product_image"
+                    // className="col-1"
                     style={{ width: "50px", height: "50px" }}
                   />
                 </td>
