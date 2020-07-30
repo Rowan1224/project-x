@@ -3,6 +3,7 @@ import { Navbar, Nav } from "react-bootstrap";
 import { AccountCircle, ShoppingCart } from "@material-ui/icons";
 import { useWindowScroll } from "beautiful-react-hooks";
 import { NavLink } from "react-router-dom";
+import ToggleTheme from "../theme/ToggleTheme";
 
 const MainNav = (props) => {
   const [isShadow, setIsShadow] = useState(window.scrollY > 20);
@@ -25,6 +26,7 @@ const MainNav = (props) => {
     >
       <Navbar.Brand
         style={{ fontFamily: "MuseoModerno" }}
+        className="text-main"
         as={NavLink}
         to="/"
       >
@@ -35,6 +37,12 @@ const MainNav = (props) => {
         <Nav className="ml-auto">
           <Nav.Link
             style={navLinkStyle}
+          >
+            <ToggleTheme />
+          </Nav.Link>
+          <Nav.Link
+            style={navLinkStyle}
+            className="text-main"
             as={NavLink}
             to="/registration"
           >
@@ -42,6 +50,7 @@ const MainNav = (props) => {
           </Nav.Link>
           <Nav.Link
             style={navLinkStyle}
+            className="text-main"
             as={NavLink}
             to="/cart"
           >
