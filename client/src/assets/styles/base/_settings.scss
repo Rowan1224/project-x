@@ -1,30 +1,39 @@
 // Colors
-// Main light
-$main: #2980b9;
-// Main black
-// $main: #feca57;
 
-$facebook: #405d9d;
-$twitter: #00acee;
-$hover: #ecf0f1;
-$off-black: #20222b;
-
-$theme-colors: ();
-$theme-colors: map-merge(
-  (
-    "main":        $main,
-    "facebook":    $facebook,
-    "twitter":     $twitter,
-  ),
-  $theme-colors
-);
 // $off-white: #a5afd7;
 // $dark-blue: #333745;
 // $blue: #3c4251;
 // $light-blue: #464e5e;
 // $purple: #8357c5;
+// $off-black: #20222b;
+
+$main: #2980b9;
+$main-dark: #feca57;
+$facebook: #405d9d;
+$twitter: #00acee;
+$hover: #ecf0f1;
+$hover-dark: #cecece1f;
+
+$theme-colors: ();
+$theme-colors: map-merge(
+  (
+    "main":        $main,
+    "main-dark":   $main-dark,
+    "facebook":    $facebook,
+    "twitter":     $twitter,
+  ),
+  $theme-colors
+);
+
 
 // Spacing
+
+// $s-size: 1.2rem;
+// $m-size: 1.6rem;
+// $l-size: 3.2rem;
+// $xl-size: 4.8rem;
+// $desktop-breakpoint: 45rem;
+
 $spacer: 1rem;
 $spacers: ();
 $spacers: map-merge(
@@ -34,11 +43,7 @@ $spacers: map-merge(
   ),
   $spacers
 );
-// $s-size: 1.2rem;
-// $m-size: 1.6rem;
-// $l-size: 3.2rem;
-// $xl-size: 4.8rem;
-// $desktop-breakpoint: 45rem;
+
 
 // Others
 $hoverShade: 8%;

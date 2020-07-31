@@ -1,11 +1,22 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../../../contexts/ThemeContext";
 
 const Provider = (props) => {
+  // Themes
+  const { isLightTheme, theme } = useContext(ThemeContext);
+  const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
+  const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
+  const border = isLightTheme ? theme.light.border : theme.dark.border;
+  const type = isLightTheme ? theme.light.type : theme.dark.type;
+
   return (
     <div className="col-12 mb-3">
-      <Card className="bg-light custom-border p-3 shadow">
+      <Card
+        className={"p-3 shadow" + ui + border}
+      >
         <div className="row">
           <div className="col-md-3 col-sm-12 my-auto">
             <Card.Img
@@ -13,16 +24,18 @@ const Provider = (props) => {
               src={`https://picsum.photos/id/${Math.floor(
                 Math.random() * 1000
               )}/800`}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/img/Default.png";
+              }}
               alt="provider's image"
-              className="custom-border rounded shadow"
+              className={"rounded shadow" + border}
             />
           </div>
 
-          <Card.Body className="col-md-9 col-sm-12 d-flex flex-column">
-            <Card.Title className="text-dark text-center">
-              {props.ServiceName}
-            </Card.Title>
-            <Card.Text className="text-secondary text-center mt-auto">
+          <Card.Body className={"col-md-9 col-sm-12 d-flex flex-column" + syntax}>
+            <Card.Title className="text-center">{props.ServiceName}</Card.Title>
+            <Card.Text className="text-center mt-auto">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab enim
               dolores et error accusamus tenetur nemo totam provident. Provident
               sit asperiores veritatis dolor iure, enim alias? Ea id praesentium
@@ -32,7 +45,7 @@ const Provider = (props) => {
               quisquam accusantium temporibus? Magni, quas a?
             </Card.Text>
             <Button
-              variant="main"
+              variant={type}
               className="mt-auto"
               as={Link}
               to="/service-provider"

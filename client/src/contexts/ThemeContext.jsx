@@ -1,25 +1,63 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const ThemeContext = createContext();
 
 const ThemeContextProvider = (props) => {
-    const [isLightTheme, setIsLightTheme] = useState(false);
-    
-    const theme = {
-        light: { syntax: "#555", ui: "#ddd", bg: "#eee" },
-        dark: { syntax: "#ddd", ui: "#333", bg: "#555" }
-    }
+  const [isLightTheme, setIsLightTheme] = useState(true);
 
-    const toggleTheme = () => {
-        setIsLightTheme(!isLightTheme);
-        console.log(isLightTheme);
-    }
+  // componentDidMount
+  useEffect(() => {
+    const json = sessionStorage.getItem("theme");
+    const localTheme = JSON.parse(json);
 
-    return (
-        <ThemeContext.Provider value={{ isLightTheme, theme, toggleTheme }}>
-            {props.children}
-        </ThemeContext.Provider>
-    );
-}
- 
+    if (localTheme != null) setIsLightTheme(localTheme);
+  }, []);
+
+  // componentDidUpdate
+  useEffect(() => {
+    const json = sessionStorage.getItem("theme");
+    const localTheme = JSON.parse(json);
+
+    if (localTheme !== isLightTheme)
+      sessionStorage.setItem("theme", JSON.stringify(isLightTheme));
+  }, [isLightTheme]);
+
+  const theme = {
+    light: {
+      syntax:         "",
+      bg:             "#ffffff",
+      link:           " link",
+      ui:             " bg-light",
+      border:         " custom-border",
+      custom_text:    " text-main",
+      type:           "main",
+      dropdown_text:  " dropdown-text",
+      borderLeft:     " #eee",
+      currency_text:  " text-success",
+    },
+    dark: {
+      syntax:         " text-white",
+      bg:             "#20222b",
+      link:           " link-dark",
+      ui:             " bg-dark",
+      border:         " custom-border-dark",
+      custom_text:    " text-main-dark",
+      type:           "main-dark",
+      dropdown_text:  " dropdown-text-dark",
+      borderLeft:     " #cecece1f",
+      currency_text:  " text-twitter",
+    },
+  };
+
+  const toggleTheme = () => {
+    setIsLightTheme(!isLightTheme);
+  };
+
+  return (
+    <ThemeContext.Provider value={{ isLightTheme, theme, toggleTheme }}>
+      {props.children}
+    </ThemeContext.Provider>
+  );
+};
+
 export default ThemeContextProvider;

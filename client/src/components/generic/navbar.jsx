@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { AccountCircle, ShoppingCart } from "@material-ui/icons";
 import { useWindowScroll } from "beautiful-react-hooks";
 import { NavLink } from "react-router-dom";
 import ToggleTheme from "../theme/ToggleTheme";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const MainNav = (props) => {
   const [isShadow, setIsShadow] = useState(window.scrollY > 20);
@@ -12,8 +13,16 @@ const MainNav = (props) => {
     setIsShadow(window.scrollY > 20);
   });
 
+  // Themes
+  const { isLightTheme, theme } = useContext(ThemeContext);
+  const bg = isLightTheme ? theme.light.bg : theme.dark.bg;
+  const borderLeft = isLightTheme ? theme.light.borderLeft : theme.dark.borderLeft;
+  const custom_text = isLightTheme
+    ? theme.light.custom_text
+    : theme.dark.custom_text;
+
   const navLinkStyle = {
-    borderLeft: "1px solid #eee",
+    borderLeft: "1px solid" + borderLeft,
     paddingLeft: 15,
     paddingRight: 15,
   };
@@ -21,12 +30,12 @@ const MainNav = (props) => {
   return (
     <Navbar
       sticky="top"
-      style={{ backgroundColor: "#fff", transition: "all 0.3s" }}
+      style={{ backgroundColor: bg, transition: "all 0.3s" }}
       className={isShadow ? "shadow" : ""}
     >
       <Navbar.Brand
         style={{ fontFamily: "MuseoModerno" }}
-        className="text-main"
+        className={custom_text}
         as={NavLink}
         to="/"
       >
@@ -35,14 +44,12 @@ const MainNav = (props) => {
       <Navbar.Toggle aria-controls="main-nav" />
       <Navbar.Collapse id="main-nav">
         <Nav className="ml-auto">
-          <Nav.Link
-            style={navLinkStyle}
-          >
+          <Nav.Link style={navLinkStyle}>
             <ToggleTheme />
           </Nav.Link>
           <Nav.Link
             style={navLinkStyle}
-            className="text-main"
+            className={custom_text}
             as={NavLink}
             to="/registration"
           >
@@ -50,7 +57,7 @@ const MainNav = (props) => {
           </Nav.Link>
           <Nav.Link
             style={navLinkStyle}
-            className="text-main"
+            className={custom_text}
             as={NavLink}
             to="/cart"
           >

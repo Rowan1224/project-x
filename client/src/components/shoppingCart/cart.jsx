@@ -1,25 +1,35 @@
 import React from "react";
 import Counter from "../generic/counter";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
 import Icon from "@material-ui/core/Icon";
 import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { CartContext } from "../../contexts/CartContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const Cart = (props) => {
   const { items } = useContext(CartContext);
   let skey = 0;
 
+  // Themes
+  const { isLightTheme, theme } = useContext(ThemeContext);
+  const variant = isLightTheme ? "light" : "dark";
+  const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
+  const type = isLightTheme ? theme.light.type : theme.dark.type;
+  const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
+  const border = isLightTheme ? theme.light.border : theme.dark.border;
+  const custom_text = isLightTheme ? theme.light.custom_text : theme.dark.custom_text;
+
   return (
     <div>
-      <section className="jumbotron custom-border text-center p-5">
+      <section className={"jumbotron text-center p-3" + ui + syntax + border}>
         <div className="container">
-          <h3 className="jumbotron-heading">Your Cart</h3>
+          <h5 className="jumbotron-heading">Your Cart</h5>
         </div>
       </section>
-      <div className="shadow custom-border rounded mb-3">
-        <Table striped hover>
+      <div className={"shadow rounded mb-3" + border}>
+        <Table responsive="sm" striped hover variant={variant}>
           <thead>
             <tr>
               {/* <th scope="col"> </th> */}
@@ -47,7 +57,11 @@ const Cart = (props) => {
                     style={{ maxWidth: "50px", maxHeight: "50px" }}
                   />
                 </td> */}
-                  <td style={{ verticalAlign: "middle" }}>{item.product}</td>
+                  <td
+                    style={{ verticalAlign: "middle" }}
+                  >
+                    {item.product}
+                  </td>
                   <td
                     style={{ verticalAlign: "middle" }}
                     className="text-center"
@@ -64,7 +78,7 @@ const Cart = (props) => {
                     style={{ verticalAlign: "middle" }}
                     className="text-right"
                   >
-                    <button className="btn btn-sm btn-danger">
+                    <button className="btn btn-xs btn-danger">
                       <DeleteTwoToneIcon />
                     </button>
                   </td>
@@ -75,25 +89,28 @@ const Cart = (props) => {
         </Table>
       </div>
 
-      <div className="row text-center bg-light custom-border rounded mx-auto p-3 shadow">
+      <div className={"row text-center rounded mx-auto p-1 shadow" + ui + border + custom_text}>
         <div className="col-sm-12 col-md-4 py-3 mx-auto">
           <div className="mb-2">Grand Total</div>
-          <div className="h2 font-weight-light">$234,234</div>
+          <div className="h5 font-weight-light">Tk 234,234</div>
         </div>
 
         <div className="col-sm-12 col-md-4 py-3 mx-auto">
           <div className="mb-2">Discount</div>
-          <div className="h2 font-weight-light">10%</div>
+          <div className="h5 font-weight-light">10%</div>
         </div>
 
         <div className="col-sm-12 col-md-4 py-3 mx-auto">
-          <div className="mb-2">Sub - Total amount</div>
-          <div className="h2 font-weight-light">$32,432</div>
+          <div className="mb-2">Sub Total</div>
+          <div className="h5 font-weight-light">Tk 32,432</div>
         </div>
       </div>
       <div className="row mt-3">
         <div className="col-sm-12 mb-2 col-md-6">
-          <button className="btn btn-block btn-info">
+          <Button
+            variant={"outline-" + type}
+            className="w-100"
+          >
             <Icon
               style={{ verticalAlign: "middle", fontSize: "18px" }}
               className="mr-2 mb-1"
@@ -101,10 +118,13 @@ const Cart = (props) => {
               add_shopping_cart
             </Icon>
             Continue Shopping
-          </button>
+          </Button>
         </div>
         <div className="col-sm-12 col-md-6 mb-2 text-right">
-          <button className="btn btn-block btn-success">
+          <Button
+            variant={type}
+            className="w-100"
+          >
             <Icon
               style={{ verticalAlign: "middle", fontSize: "18px" }}
               className="mr-2 mb-1"
@@ -112,7 +132,7 @@ const Cart = (props) => {
               check
             </Icon>
             Checkout
-          </button>
+          </Button>
         </div>
       </div>
     </div>
