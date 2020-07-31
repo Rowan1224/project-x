@@ -33,7 +33,7 @@ const Providers = () => {
       ))}
     </div>
   ) : (
-    <Infobar text="text-dark">
+    <Infobar>
       Select a location to see the service providers {emoji("😀")}
     </Infobar>
   );

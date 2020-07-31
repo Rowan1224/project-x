@@ -30,19 +30,17 @@ const Counter = (props) => {
     return (
         <div>
             <Icon
-                color="primary"
-                style={{ verticalAlign: "middle", fontSize: "19px" }}
+                style={{ verticalAlign: "middle", fontSize: "18px", color: "#0275d8" }}
                 onClick={ handleAddOne }
-                className="counter_add mb-1"
+                className="mb-1"
             >
                 add_circle
             </Icon>
             <strong className="px-1">{ count }</strong>
             <Icon
-                color="error"
-                style={{ verticalAlign: "middle", fontSize: "19px" }}
+                style={{ verticalAlign: "middle", fontSize: "18px", color: "#d9534f" }}
                 onClick={ handleMinusOne }
-                className="counter_remove mb-1"
+                className="mb-1"
             >
                 remove_circle
             </Icon>

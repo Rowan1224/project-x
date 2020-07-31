@@ -6,11 +6,11 @@ import "./assets/styles/styles.scss";
 import Home from "./pages/home";
 import ServiceProviders from "./pages/serviceProviders";
 import ShoppingCart from "./pages/shoppingCart";
-import RegistrationForm from "./pages/userRegistrationForm";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
+import User from "./pages/user";
 
 library.add(far, fas)
 
@@ -26,7 +26,7 @@ function App() {
             <ShoppingCart />
           </Route>
           <Route path="/registration">
-            <RegistrationForm />
+            <User />
           </Route>
           <Route path="/">
             <Home />

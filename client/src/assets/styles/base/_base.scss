@@ -1,11 +1,19 @@
 * {
   font-weight: 500 !important;
-  // background-color: $off-black;
+}
+
+// button extra small
+.btn-group-xs > .btn,
+.btn-xs {
+  padding: 0.09rem 0.18rem;
+  font-size: 0.875rem;
+  line-height: 0.5;
+  border-radius: 0.2rem;
 }
 
 .vertical-center {
-  min-height: 86%;
-  min-height: 86vh;
+  min-height: 94%;
+  min-height: 94vh;
 
   display: flex;
   align-items: center;
@@ -25,24 +33,28 @@
 
 .link a {
   text-decoration: none;
+  color: $main;
+}
+
+.link-dark a {
+  text-decoration: none;
+  color: $main-dark;
 }
 
 .profile-pic {
   max-height: 20rem;
 }
 
-.counter_add:hover {
-  color: #0064c9;
-}
-
-.counter_remove:hover {
-  color: #ff0000;
-}
-
 .custom-border {
   border-style: solid;
-  border-width: 1px;
+  border-width: 2px;
   border-color: lighten($color: $main, $amount: 20%);
+}
+
+.custom-border-dark {
+  border-style: solid;
+  border-width: 2px;
+  border-color: lighten($color: $main-dark, $amount: 20%);
 }
 
 // User Registration Form
@@ -72,5 +84,10 @@
 // DropDown
 .dropdown-text:hover {
   background-color: $hover;
-  color: $main;
+  color: $main !important;
+}
+
+.dropdown-text-dark:hover {
+  background-color: $hover-dark;
+  color: $main-dark !important;
 }

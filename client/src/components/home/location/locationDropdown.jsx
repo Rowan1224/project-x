@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import DropDown from "./dropDown";
 import { LocationContext } from "../../../contexts/LocationContext";
+import { ThemeContext } from "../../../contexts/ThemeContext";
 
 const LocationDropDown = () => {
   const { dummyLocation, changeLocation } = useContext(LocationContext);
@@ -28,9 +29,13 @@ const LocationDropDown = () => {
     changeLocation(district, e);
   };
 
+  // Themes
+  const { isLightTheme, theme } = useContext(ThemeContext);
+  const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
+
   return (
     <div>
-      <div className="text-center">
+      <div className={"text-center" + syntax}>
         <h2>
           Why fear, when{" "}
           <span style={{ fontFamily: "MuseoModerno" }}>ProjectX</span> is here!

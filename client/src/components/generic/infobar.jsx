@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 const Infobar = (props) => {
-    const text = " " + props.text;
-    const text_color = text ? text : " text-dark";
+    // Themes
+    const { isLightTheme, theme } = useContext(ThemeContext);
+    const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
+    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
+    const border = isLightTheme ? theme.light.border : theme.dark.border;
+
+    const text_color = props.text ? " " + props.text : syntax;
 
     return (
         <div className='text-center mt-5'>
-            <h4 className={'bg-light rounded custom-border p-3 my-5 shadow' + text_color}>
+            <h4 className={'rounded p-3 my-5 shadow' + border + ui + text_color}>
                 { props.children }
             </h4>
         </div>

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image } from 'react-bootstrap';
 import Service from './service';
 import { v4 as uuidv4 } from 'uuid';
 import emoji from 'react-easy-emoji'
 import Infobar from '../../generic/infobar';
+import { ThemeContext } from '../../../contexts/ThemeContext';
 
 const Services = () => {
   const services = [
@@ -23,16 +24,22 @@ const Services = () => {
     'Delivery',
     'Delivery',
   ];
+
+  // Themes
+  const { isLightTheme, theme } = useContext(ThemeContext);
+  const border = isLightTheme ? theme.light.border : theme.dark.border;
+
   return (
     <div>
       <div className='mt-5 pt-1 text-center'>
         <div className="inner">
           <Image
-            className='w-100 custom-border rounded profile-pic'
+            className={'w-100 rounded profile-pic' + border}
             alt="profile picture"
             src={`https://picsum.photos/id/${Math.floor(
               Math.random() * 1000
             )}/800`}
+            onError={(e)=>{e.target.onerror = null; e.target.src="/img/profile_pic_default.png"}}
           />
         </div>
         
