@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Provider from "./provider";
 import { v4 as uuidv4 } from "uuid";
 import { LocationContext } from "../../../contexts/LocationContext";
@@ -6,30 +6,29 @@ import emoji from "react-easy-emoji";
 import Infobar from "../../generic/infobar";
 
 const Providers = () => {
-  // dummy data
-  const services = [
-    "Provider",
-    "Provider",
-    "Provider",
-    "Provider",
-    "Provider",
-    "Provider",
-    "Provider",
-    "Provider",
-    "Provider",
-    "Provider",
-    "Provider",
-    "Provider",
-    "Provider",
-    "Provider",
-    "Provider",
-  ];
   const { location } = useContext(LocationContext);
+
+  const [providers, setProviders] = useState([]);
+
+  // componentDidMount
+  useEffect(() => {
+    const API_URL = "http://localhost:8080/getServiceName/" + location.id;
+
+    const loadData = async () => {
+      const apiData = [];
+      const response = await fetch(API_URL);
+      const data = await response.json();
+
+      data.services.map((service) => apiData.push(service.service_name));
+      setProviders(apiData);
+    };
+    loadData();
+  }, [location]);
 
   return location && location.district && location.area ? (
     <div className="row mt-5">
-      {services.map((name) => (
-        <Provider ServiceName={name} key={uuidv4()} />
+      {providers.map((provider) => (
+        <Provider ServiceName={provider} key={uuidv4()} />
       ))}
     </div>
   ) : (

@@ -4,17 +4,47 @@ export const LocationContext = createContext();
 
 const LocationContextProvider = (props) => {
   // Dummy datas
-  const dummyLocation = {
-    Dhaka: ['Gulshan', 'Banani', 'Dhanmondi', 'Mirpur'],
-    Sylhet: ['Amberkhana', 'Madina Market', 'Shahjalal University of Science and Technology', 'Bagbari'],
-    Chittagong: ['College Road', 'Potenga', 'Coxs Bazar'],
-    Rajshahi: ['Rajshahi University', 'RUET', 'Noyabajar'],
-  };
-
-  const [location, setLocation] = useState({ district: '', area: '' });
+  // const dummyLocation = {
+  //     Dhaka: ['Gulshan', 'Banani', 'Dhanmondi', 'Mirpur'],
+  //     Sylhet: ['Amberkhana', 'Madina Market', 'Shahjalal University of Science and Technology', 'Bagbari'],
+  //     Chittagong: ['College Road', 'Potenga', 'Coxs Bazar'],
+  //     Rajshahi: ['Rajshahi University', 'RUET', 'Noyabajar'],
+  // };
+  
+  // locationsfs ==> locations from server
+  const [locationsfs, setLocationsfs] = useState({});
+  const [areaIDs, setAreaIDs] = useState({});
+  const [location, setLocation] = useState({ id: -1, district: '', area: '' });
 
   // componentDidMount
   useEffect(() => {
+      const API_URL = "http://localhost:8080/getServiceArea";
+
+      const loadData = async () => {
+          const apiData = {};
+          const response = await fetch(API_URL);
+          const data = await response.json();
+          const areaIDs = {};
+
+          let chk;
+
+          data.areas.map(area => {
+              chk = area.district in apiData;
+              
+              areaIDs[area.area_name] = area.area_id;
+
+              if(chk)
+                return apiData[area.district].push(area.area_name);
+              return(
+                apiData[area.district] = [],
+                apiData[area.district].push(area.area_name)
+              )
+          });
+          setLocationsfs(apiData);
+          setAreaIDs(areaIDs);
+      }
+      loadData();
+
       const json = sessionStorage.getItem("location");
       const localLocation = JSON.parse(json);
 
@@ -34,12 +64,13 @@ const LocationContextProvider = (props) => {
   }, [location])
 
   const changeLocation = (district, area) => {
-    setLocation({ ...location, district, area });
+    const id = areaIDs[area];
+    setLocation({ ...location, id, district, area });
   };
 
   return (
     <LocationContext.Provider
-      value={{ dummyLocation, location, changeLocation }}>
+      value={{ locationsfs, location, changeLocation }}>
       {props.children}
     </LocationContext.Provider>
   );
