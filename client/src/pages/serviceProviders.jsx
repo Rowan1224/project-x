@@ -1,11 +1,14 @@
 import React from 'react';
 import Layout from "../components/generic/layout";
 import Services from "../components/home/service providers/services";
+import LocationContextProvider from '../contexts/LocationContext';
 
 const ServiceProviders = () => {
     return (
         <Layout>
-            <Services />
+            <LocationContextProvider>
+                <Services />
+            </LocationContextProvider>
         </Layout>
     );
 }

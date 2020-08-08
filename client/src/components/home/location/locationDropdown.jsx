@@ -4,7 +4,7 @@ import { LocationContext } from "../../../contexts/LocationContext";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 
 const LocationDropDown = () => {
-  const { dummyLocation, changeLocation } = useContext(LocationContext);
+  const { locationsfs, changeLocation } = useContext(LocationContext);
 
   const json = sessionStorage.getItem("location");
   const localLocation = JSON.parse(json)
@@ -13,14 +13,14 @@ const LocationDropDown = () => {
 
   const [district, setDistrict] = useState(localLocation.district);
   const [area, setArea] = useState(localLocation.area);
-  const [areas, setAreas] = useState(dummyLocation[localLocation.district]);
+  const [areas, setAreas] = useState(locationsfs[localLocation.district]);
 
-  const districts = Object.keys(dummyLocation);
+  const districts = Object.keys(locationsfs);
 
   const handleDistrictSelect = (e) => {
     setArea("");
     setDistrict(e);
-    setAreas(dummyLocation[e]);
+    setAreas(locationsfs[e]);
     changeLocation(e, "");
   };
 

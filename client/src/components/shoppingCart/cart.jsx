@@ -91,8 +91,8 @@ const Cart = (props) => {
 
       <div className={"row text-center rounded mx-auto p-1 shadow" + ui + border + custom_text}>
         <div className="col-sm-12 col-md-4 py-3 mx-auto">
-          <div className="mb-2">Grand Total</div>
-          <div className="h5 font-weight-light">Tk 234,234</div>
+          <div className="mb-2">Sub Total</div>
+          <div className="h5 font-weight-light">Tk 32,432</div>
         </div>
 
         <div className="col-sm-12 col-md-4 py-3 mx-auto">
@@ -101,8 +101,8 @@ const Cart = (props) => {
         </div>
 
         <div className="col-sm-12 col-md-4 py-3 mx-auto">
-          <div className="mb-2">Sub Total</div>
-          <div className="h5 font-weight-light">Tk 32,432</div>
+          <div className="mb-2">Grand Total</div>
+          <div className="h5 font-weight-light">Tk 234,234</div>
         </div>
       </div>
       <div className="row mt-3">

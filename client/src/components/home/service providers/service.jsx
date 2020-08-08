@@ -8,8 +8,11 @@ const Service = (props) => {
   const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
   const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
   const border = isLightTheme ? theme.light.border : theme.dark.border;
+  const custom_text = isLightTheme ? theme.light.custom_text : theme.dark.custom_text;
   const currency_text = isLightTheme ? theme.light.currency_text : theme.dark.currency_text;
   const type = isLightTheme ? theme.light.type : theme.dark.type;
+
+  // console.log(props.serviceInfo);
 
   return (
     <div className='col-xl-4 col-md-6 col-sm-12 mb-4 text-center'>
@@ -25,8 +28,9 @@ const Service = (props) => {
           />
         </div>
         <Card.Body className={syntax}>
-          <Card.Title>{props.ServiceName}</Card.Title>
-          <h5 className={currency_text}>Tk 790</h5>
+          <Card.Title>{props.serviceInfo.product_id}</Card.Title>
+          <h5 className={currency_text}>Tk {props.serviceInfo.price}</h5>
+          <h6 className={custom_text}>Qty: {props.serviceInfo.delivery_limit}</h6>
           <Card.Text className="text-center">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab enim
             dolores et error accusamus tenetur nemo totam provident. Provident

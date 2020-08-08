@@ -39,22 +39,22 @@ const RegistrationForm = () => {
         </div>
 
         <form>
-          <div className="form-group input-group">
+          <div className={"form-group input-group rounded" + border}>
             <div className="input-group-prepend">
-              <span className="input-group-text">
+              <span className="input-group-text rounded-0">
                 <FontAwesomeIcon className="fa-icon" icon={["fas", "user"]} />
               </span>
             </div>
             <input
               name=""
-              className="form-control"
+              className="form-control rounded-0"
               placeholder="Full name"
               type="text"
             />
           </div>
-          <div className="form-group input-group">
+          <div className={"form-group input-group rounded" + border}>
             <div className="input-group-prepend">
-              <span className="input-group-text">
+              <span className="input-group-text rounded-0">
                 <FontAwesomeIcon
                   className="fa-icon"
                   icon={["fas", "envelope"]}
@@ -63,14 +63,14 @@ const RegistrationForm = () => {
             </div>
             <input
               name=""
-              className="form-control"
+              className="form-control rounded-0"
               placeholder="Email address"
               type="email"
             />
           </div>
-          <div className="form-group input-group">
+          <div className={"form-group input-group rounded" + border}>
             <div className="input-group-prepend">
-              <span className="input-group-text">
+              <span className="input-group-text rounded-0">
                 <FontAwesomeIcon className="fa-icon" icon={["fas", "phone"]} />
               </span>
             </div>
@@ -82,49 +82,49 @@ const RegistrationForm = () => {
             </select>
             <input
               name=""
-              className="form-control"
+              className="form-control rounded-0"
               placeholder="Phone number"
               type="text"
             />
           </div>
-          <div className="form-group input-group">
+          <div className={"form-group input-group rounded" + border}>
             <div className="input-group-prepend">
-              <span className="input-group-text">
+              <span className="input-group-text rounded-0">
                 <FontAwesomeIcon
                   className="fa-icon"
                   icon={["fas", "building"]}
                 />
               </span>
             </div>
-            <select className="form-control">
+            <select className="form-control rounded-0">
               <option defaultValue=""> Select job type</option>
               <option>Designer</option>
               <option>Manager</option>
               <option>Accaunting</option>
             </select>
           </div>
-          <div className="form-group input-group">
+          <div className={"form-group input-group rounded" + border}>
             <div className="input-group-prepend">
-              <span className="input-group-text">
+              <span className="input-group-text rounded-0">
                 <FontAwesomeIcon className="fa-icon" icon={["fas", "home"]} />
               </span>
             </div>
             <input
               name=""
-              className="form-control"
+              className="form-control rounded-0"
               placeholder="House"
               type="text"
             />
             <input
               name=""
-              className="form-control"
+              className="form-control rounded-0"
               placeholder="Road"
               type="text"
             />
           </div>
-          <div className="form-group input-group">
+          <div className={"form-group input-group rounded" + border}>
             <div className="input-group-prepend">
-              <span className="input-group-text">
+              <span className="input-group-text rounded-0">
                 <FontAwesomeIcon
                   className="fa-icon"
                   icon={["fas", "location-arrow"]}
@@ -133,31 +133,31 @@ const RegistrationForm = () => {
             </div>
             <input
               name=""
-              className="form-control"
+              className="form-control rounded-0"
               placeholder="Location Description"
               type="text"
             />
           </div>
-          <div className="form-group input-group">
+          <div className={"form-group input-group rounded" + border}>
             <div className="input-group-prepend">
-              <span className="input-group-text">
+              <span className="input-group-text rounded-0">
                 <FontAwesomeIcon className="fa-icon" icon={["fas", "lock"]} />
               </span>
             </div>
             <input
-              className="form-control"
+              className="form-control rounded-0"
               placeholder="Create password"
               type="password"
             />
           </div>
-          <div className="form-group input-group">
+          <div className={"form-group input-group rounded" + border}>
             <div className="input-group-prepend">
-              <span className="input-group-text">
+              <span className="input-group-text rounded-0">
                 <FontAwesomeIcon className="fa-icon" icon={["fas", "lock"]} />
               </span>
             </div>
             <input
-              className="form-control"
+              className="form-control rounded-0"
               placeholder="Repeat password"
               type="password"
             />

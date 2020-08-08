@@ -48,5 +48,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://project-x-280014.el.r.appspot.com:8080/"
+  "proxy": "http://localhost:8080/"
 }
