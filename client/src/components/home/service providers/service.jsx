@@ -1,8 +1,37 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { ThemeContext } from '../../../contexts/ThemeContext';
 
 const Service = (props) => {
+  const [productDetails, setProductDetails] = useState({});
+
+  // componentDidMount
+  useEffect(() => {
+    const API_URL = "http://localhost:8080/getProductDetails/";
+
+    const loadData = async () => {
+      const productID = {
+        "product_id": props.serviceInfo.product_id
+      };
+
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productID),
+      });
+
+      const data = await response.json();
+
+      setProductDetails(data.products[0]);
+    };
+    loadData();
+  }, []);
+
+  const price = Math.floor(props.serviceInfo.price+(props.serviceInfo.price*productDetails.vat)/100);
+
   // Themes
   const { isLightTheme, theme } = useContext(ThemeContext);
   const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
@@ -12,7 +41,7 @@ const Service = (props) => {
   const currency_text = isLightTheme ? theme.light.currency_text : theme.dark.currency_text;
   const type = isLightTheme ? theme.light.type : theme.dark.type;
 
-  // console.log(props.serviceInfo);
+  // console.log(productDetails);
 
   return (
     <div className='col-xl-4 col-md-6 col-sm-12 mb-4 text-center'>
@@ -28,14 +57,13 @@ const Service = (props) => {
           />
         </div>
         <Card.Body className={syntax}>
-          <Card.Title>{props.serviceInfo.product_id}</Card.Title>
-          <h5 className={currency_text}>Tk {props.serviceInfo.price}</h5>
-          <h6 className={custom_text}>Qty: {props.serviceInfo.delivery_limit}</h6>
-          <Card.Text className="text-center">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab enim
-            dolores et error accusamus tenetur nemo totam provident. Provident
-            sit asperiores veritatis dolor iure, enim alias? Ea id praesentium
-            reiciendis?
+          <Card.Title>{productDetails.product_name}</Card.Title>
+          <h5 className={currency_text}>Tk {price}</h5>
+          <p className={custom_text}>(Including vat)</p>
+          <Card.Text>
+            Vat: {productDetails.vat}% <br />
+            Quantity: {productDetails.measure} <br />
+            Company Name: {productDetails.company_name} <br />
           </Card.Text>
           <Button variant={type}>Add to cart</Button>
         </Card.Body>

@@ -15,7 +15,7 @@ const Services = () => {
 
     const loadData = async () => {
       const servideID = {
-        service_id: 1,
+        "service_id": 1,
       };
 
       const response = await fetch(API_URL, {
@@ -33,6 +33,8 @@ const Services = () => {
     };
     loadData();
   }, []);
+
+  // console.log(services);
 
   // Themes
   const { isLightTheme, theme } = useContext(ThemeContext);
