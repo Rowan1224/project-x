@@ -3,6 +3,7 @@ import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../../../contexts/ThemeContext";
+import { SPContext } from "../../../contexts/SPContext";
 
 const Provider = (props) => {
   // Themes
@@ -11,6 +12,12 @@ const Provider = (props) => {
   const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
   const border = isLightTheme ? theme.light.border : theme.dark.border;
   const type = isLightTheme ? theme.light.type : theme.dark.type;
+
+  const { handleServiceID } = useContext(SPContext);
+
+  const handleSubmit = () => {
+    handleServiceID(props.Service.service_id);
+  }
 
   return (
     <div className="col-12 mb-3">
@@ -34,7 +41,7 @@ const Provider = (props) => {
           </div>
 
           <Card.Body className={"col-md-9 col-sm-12 d-flex flex-column" + syntax}>
-            <Card.Title className="text-center">{props.ServiceName}</Card.Title>
+            <Card.Title className="text-center">{props.Service.service_name}</Card.Title>
             <Card.Text className="text-center mt-auto">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab enim
               dolores et error accusamus tenetur nemo totam provident. Provident
@@ -47,6 +54,7 @@ const Provider = (props) => {
             <Button
               variant={type}
               className="mt-auto"
+              onClick={handleSubmit}
               as={Link}
               to="/service-provider"
             >

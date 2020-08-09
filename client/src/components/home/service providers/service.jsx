@@ -28,7 +28,7 @@ const Service = (props) => {
       setProductDetails(data.products[0]);
     };
     loadData();
-  }, []);
+  }, [props.serviceInfo.product_id]);
 
   const price = Math.floor(props.serviceInfo.price+(props.serviceInfo.price*productDetails.vat)/100);
 

@@ -19,7 +19,7 @@ const Providers = () => {
       const response = await fetch(API_URL);
       const data = await response.json();
 
-      data.services.map((service) => apiData.push(service.service_name));
+      data.services.map((service) => apiData.push(service));
       setProviders(apiData);
     };
     loadData();
@@ -28,7 +28,7 @@ const Providers = () => {
   return location && location.district && location.area ? (
     <div className="row mt-5">
       {providers.map((provider) => (
-        <Provider ServiceName={provider} key={uuidv4()} />
+        <Provider Service={provider} key={uuidv4()} />
       ))}
     </div>
   ) : (
