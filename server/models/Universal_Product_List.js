@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     vat: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.FLOAT(),
       allowNull: true
     }
   }, {

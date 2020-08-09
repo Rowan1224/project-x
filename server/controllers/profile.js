@@ -13,12 +13,14 @@ exports.getProfileData = (req, res, next) => {
             service_id: serv.service_id,
             service_name: serv.service_name,
             company_name: serv.company_name,
+            description: serv.description,
+            service_type: serv.service_type,
+            delivery_charge: serv.delivery_charge,
             phone_1: serv.phone_1,
             phone_2: serv.phone_2,
             nid: serv.nid,
             trade_license: serv.trade_license,
             address: serv.address,
-            password: serv.password,
             nid_photo: serv.nid_photo,
             profile_picture: serv.profile_picture
         });
@@ -40,6 +42,10 @@ exports.updateProfile = (req, res, next) => {
     const new_nid_photo = req.body.nid_photo;
     const new_profile_picture = req.body.profile_picture;
 
+    const new_description = req.body.description;
+    const new_service_type = req.body.service_type;
+    const new_delivery_charge =  req.body.delivery_charge;
+
     service.findByPk(service_id).then((serv) => {
         serv.service_name = new_service_name;
         serv.company_name = new_company_name;
@@ -51,6 +57,10 @@ exports.updateProfile = (req, res, next) => {
         serv.password = new_password;
         serv.nid_photo = new_nid_photo;
         serv.profile_picture = new_profile_picture;
+        serv.description = new_description;
+        serv.delivery_charge = new_delivery_charge;
+        serv.service_type = new_service_type;
+
 
         return serv.save();
     }).then((sucess) => {

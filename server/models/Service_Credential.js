@@ -12,6 +12,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(30),
       allowNull: false
     },
+    description: {
+      type: DataTypes.STRING(300),
+      allowNull: false
+    },
+    service_type: {
+      type: DataTypes.STRING(30),
+      allowNull: false
+    },
+    delivery_charge: {
+      type: DataTypes.FLOAT(),
+      allowNull: false
+    },
     company_name: {
       type: DataTypes.STRING(30),
       allowNull: true
