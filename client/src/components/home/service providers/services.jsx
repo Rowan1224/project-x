@@ -5,9 +5,11 @@ import { v4 as uuidv4 } from "uuid";
 import emoji from "react-easy-emoji";
 import Infobar from "../../generic/infobar";
 import { ThemeContext } from "../../../contexts/ThemeContext";
+import { SPContext } from "../../../contexts/SPContext";
 
 const Services = () => {
   const [services, setServices] = useState([]);
+  const { serviceID } = useContext(SPContext);
 
   // componentDidMount
   useEffect(() => {
@@ -15,7 +17,7 @@ const Services = () => {
 
     const loadData = async () => {
       const servideID = {
-        "service_id": 1,
+        "service_id": serviceID,
       };
 
       const response = await fetch(API_URL, {
@@ -32,7 +34,7 @@ const Services = () => {
       setServices(data.products);
     };
     loadData();
-  }, []);
+  }, [serviceID]);
 
   // console.log(services);
 
