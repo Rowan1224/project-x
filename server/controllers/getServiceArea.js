@@ -23,7 +23,7 @@ exports.getServiceName = (req,res,next) =>
 {
     const areaId= req.params.areaId;
     
-    sequelize.query("SELECT service_id, service_name FROM `Service_Credential` WHERE service_id IN (SELECT service_id FROM Service_Area WHERE area_id =?)"
+    sequelize.query("SELECT service_id FROM `Service_Credential` WHERE service_id IN (SELECT service_id FROM Service_Area WHERE area_id =?)"
     ,{ replacements: [areaId], type: sequelize.QueryTypes.SELECT}).then(services =>
     {
         res.status(200).json({services:services, message:"Success"});
