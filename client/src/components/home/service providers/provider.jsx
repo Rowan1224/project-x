@@ -17,7 +17,7 @@ const Provider = (props) => {
 
     // componentDidMount
     useEffect(() => {
-        const API_URL = "http://localhost:8080/getProfile";
+        const API_URL = "/getProfile/";
 
         const loadData = async () => {
             const servideID = {

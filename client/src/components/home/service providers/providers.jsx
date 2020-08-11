@@ -12,7 +12,7 @@ const Providers = () => {
 
   // componentDidMount
   useEffect(() => {
-    const API_URL = "http://localhost:8080/getServiceName/" + location.id;
+    const API_URL = "getServiceName/" + location.id;
 
     const loadData = async () => {
       const apiData = [];

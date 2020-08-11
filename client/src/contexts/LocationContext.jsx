@@ -18,7 +18,7 @@ const LocationContextProvider = (props) => {
 
   // componentDidMount
   useEffect(() => {
-    const API_URL = "http://localhost:8080/getServiceArea";
+    const API_URL = "/getServiceArea/";
 
     const loadData = async () => {
       const apiData = {};
