@@ -7,7 +7,7 @@ const Service = (props) => {
 
   // componentDidMount
   useEffect(() => {
-    const API_URL = "http://localhost:8080/getProductDetails/";
+    const API_URL = "/getProductDetails/";
 
     const loadData = async () => {
       const productID = {
