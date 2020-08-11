@@ -1,12 +1,14 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
+
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
+$fontWeight: 500 !important;
+
 // Colors
-
-// $off-white: #a5afd7;
-// $dark-blue: #333745;
-// $blue: #3c4251;
-// $light-blue: #464e5e;
-// $purple: #8357c5;
-// $off-black: #20222b;
-
 $main: #2980b9;
 $main-dark: #feca57;
 $facebook: #405d9d;
@@ -16,33 +18,40 @@ $hover-dark: #cecece1f;
 
 $theme-colors: ();
 $theme-colors: map-merge(
-  (
-    "main":        $main,
-    "main-dark":   $main-dark,
-    "facebook":    $facebook,
-    "twitter":     $twitter,
-  ),
-  $theme-colors
+    (
+        "main": $main,
+        "main-dark": $main-dark,
+        "facebook": $facebook,
+        "twitter": $twitter,
+    ),
+    $theme-colors
 );
-
+// $off-white: #a5afd7;
+// $dark-blue: #333745;
+// $blue: #3c4251;
+// $light-blue: #464e5e;
+// $purple: #8357c5;
+// $off-black: #20222b;
 
 // Spacing
-
+$spacer: 1rem;
+$spacers: ();
+$spacers: map-merge(
+    (
+        6: (
+            $spacer * 5,
+        ),
+        7: (
+            $spacer * 18,
+        ),
+    ),
+    $spacers
+);
 // $s-size: 1.2rem;
 // $m-size: 1.6rem;
 // $l-size: 3.2rem;
 // $xl-size: 4.8rem;
 // $desktop-breakpoint: 45rem;
-
-$spacer: 1rem;
-$spacers: ();
-$spacers: map-merge(
-  (
-    6: ($spacer * 5),
-    7: ($spacer * 18),
-  ),
-  $spacers
-);
 
 
 // Others

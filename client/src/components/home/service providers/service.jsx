@@ -63,7 +63,7 @@ const Service = (props) => {
           <Card.Text>
             Vat: {productDetails.vat}% <br />
             Quantity: {productDetails.measure} <br />
-            Company Name: {productDetails.company_name} <br />
+            Company Name: {productDetails.company_name}
           </Card.Text>
           <Button variant={type}>Add to cart</Button>
         </Card.Body>

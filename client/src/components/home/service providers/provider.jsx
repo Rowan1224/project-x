@@ -1,70 +1,92 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../../contexts/ThemeContext";
-import { SPContext } from "../../../contexts/SPContext";
+import { useState } from "react";
 
 const Provider = (props) => {
-  // Themes
-  const { isLightTheme, theme } = useContext(ThemeContext);
-  const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
-  const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-  const border = isLightTheme ? theme.light.border : theme.dark.border;
-  const type = isLightTheme ? theme.light.type : theme.dark.type;
+    // Themes
+    const { isLightTheme, theme } = useContext(ThemeContext);
+    const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
+    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
+    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    const type = isLightTheme ? theme.light.type : theme.dark.type;
 
-  const { handleServiceID } = useContext(SPContext);
+    const [provider, setProvider] = useState({});
 
-  const handleSubmit = () => {
-    handleServiceID(props.Service.service_id);
-  }
+    // componentDidMount
+    useEffect(() => {
+        const API_URL = "http://localhost:8080/getProfile";
 
-  return (
-    <div className="col-12 mb-3">
-      <Card
-        className={"p-3 shadow" + ui + border}
-      >
-        <div className="row">
-          <div className="col-md-3 col-sm-12 my-auto">
-            <Card.Img
-              variant="top"
-              src={`https://picsum.photos/id/${Math.floor(
-                Math.random() * 1000
-              )}/800`}
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "/img/Default.png";
-              }}
-              alt="provider's image"
-              className={"rounded shadow" + border}
-            />
-          </div>
+        const loadData = async () => {
+            const servideID = {
+                service_id: props.Service.service_id
+            };
 
-          <Card.Body className={"col-md-9 col-sm-12 d-flex flex-column" + syntax}>
-            <Card.Title className="text-center">{props.Service.service_name}</Card.Title>
-            <Card.Text className="text-center mt-auto">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab enim
-              dolores et error accusamus tenetur nemo totam provident. Provident
-              sit asperiores veritatis dolor iure, enim alias? Ea id praesentium
-              reiciendis?Lorem ipsum dolor, sit amet consectetur adipisicing
-              elit. Quia doloribus inventore harum. Voluptate dolor voluptatum,
-              quae, inventore aspernatur quidem pariatur ad, eveniet ea labore
-              quisquam accusantium temporibus? Magni, quas a?
-            </Card.Text>
-            <Button
-              variant={type}
-              className="mt-auto"
-              onClick={handleSubmit}
-              as={Link}
-              to="/service-provider"
-            >
-              Show their services
-            </Button>
-          </Card.Body>
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(servideID),
+            });
+
+            const data = await response.json();
+
+            setProvider(data);
+        };
+        loadData();
+    }, [props.Service]);
+
+    return (
+        <div className="col-12 mb-3">
+            <Card className={"p-3 shadow" + ui + border}>
+                <div className="row">
+                    <div className="col-md-3 col-sm-12 my-auto">
+                        <Card.Img
+                            variant="top"
+                            src={`https://picsum.photos/id/${Math.floor(
+                                Math.random() * 1000
+                            )}/800`}
+                            onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = "/img/Default.png";
+                            }}
+                            alt="provider's image"
+                            className={"rounded shadow" + border}
+                        />
+                    </div>
+
+                    <Card.Body
+                        className={
+                            "col-md-9 col-sm-12 d-flex flex-column" + syntax
+                        }
+                    >
+                        <Card.Title className="text-center">
+                            {provider.service_name}
+                        </Card.Title>
+                        <Card.Text className="mt-auto">
+                            Company: {provider.company_name} <br />
+                            Service type: {provider.service_type} <br />
+                            Description: {provider.description} <br />
+                            Phone number: {provider.phone_1}, {provider.phone_2} <br />
+                            Address: {provider.address}
+                        </Card.Text>
+                        <Button
+                            variant={type}
+                            className="mt-auto"
+                            as={Link}
+                            to={"/service-provider/" + props.Service.service_id}
+                        >
+                            Show their services
+                        </Button>
+                    </Card.Body>
+                </div>
+            </Card>
         </div>
-      </Card>
-    </div>
-  );
+    );
 };
 
 export default Provider;
