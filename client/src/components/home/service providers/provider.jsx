@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { useState } from "react";
+import Title from "../../generic/title";
 
 const Provider = (props) => {
     // Themes
@@ -21,7 +22,7 @@ const Provider = (props) => {
 
         const loadData = async () => {
             const servideID = {
-                service_id: props.Service.service_id
+                service_id: props.Service.service_id,
             };
 
             const response = await fetch(API_URL, {
@@ -64,15 +65,22 @@ const Provider = (props) => {
                             "col-md-9 col-sm-12 d-flex flex-column" + syntax
                         }
                     >
-                        <Card.Title className="text-center">
+                        <Card.Title className="text-center mr-6">
                             {provider.service_name}
                         </Card.Title>
                         <Card.Text className="mt-auto">
-                            Company: {provider.company_name} <br />
-                            Service type: {provider.service_type} <br />
-                            Description: {provider.description} <br />
-                            Phone number: {provider.phone_1}, {provider.phone_2} <br />
-                            Address: {provider.address}
+                            <Title>Company: </Title> {provider.company_name}
+                            <br />
+                            <Title>Address: </Title> {provider.address}
+                            <br />
+                            <Title>Service type: </Title>{" "}
+                            {provider.service_type}
+                            <br />
+                            <Title>Phone number: </Title> {provider.phone_1},{" "}
+                            {provider.phone_2}
+                            <br />
+                            <Title>Description: </Title> {provider.description}
+                            <br />
                         </Card.Text>
                         <Button
                             variant={type}

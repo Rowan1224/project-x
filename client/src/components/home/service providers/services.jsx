@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 
 const Services = (props) => {
     const [services, setServices] = useState([]);
+    const [sName, setSName] = useState("");
     const params = useParams();
 
     // componentDidMount
@@ -17,7 +18,7 @@ const Services = (props) => {
 
         const loadData = async () => {
             const servideID = {
-                service_id: params.id
+                service_id: params.id,
             };
 
             const response = await fetch(API_URL, {
@@ -36,6 +37,29 @@ const Services = (props) => {
         loadData();
     }, [params]);
 
+    useEffect(() => {
+        const API_URL = "/getProfile/";
+         
+        const loadData = async () => {
+            const servideID = {
+                service_id: services.length > 0 ? services[0].service_id : undefined,
+            };
+
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(servideID),
+            });
+
+            const data = await response.json();
+
+            setSName(data.service_name);
+        };
+        loadData();
+    }, [services]);
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -59,7 +83,7 @@ const Services = (props) => {
                 </div>
 
                 <Infobar>
-                    Best dry cleaning service for the money {emoji("🤪")}
+                    {sName ? sName + " " : "Company name"}{emoji("🤪")}
                 </Infobar>
                 <h3 className="pt-5">Our Services</h3>
             </div>

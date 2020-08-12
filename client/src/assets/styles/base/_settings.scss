@@ -1,12 +1,10 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap");
 
 * {
     font-family: "Montserrat", sans-serif;
 }
-
-$fontWeight: 500 !important;
 
 // Colors
 $main: #2980b9;
@@ -39,7 +37,7 @@ $spacers: ();
 $spacers: map-merge(
     (
         6: (
-            $spacer * 5,
+            $spacer * 6,
         ),
         7: (
             $spacer * 18,
@@ -52,7 +50,6 @@ $spacers: map-merge(
 // $l-size: 3.2rem;
 // $xl-size: 4.8rem;
 // $desktop-breakpoint: 45rem;
-
 
 // Others
 $hoverShade: 8%;

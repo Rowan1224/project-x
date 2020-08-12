@@ -1,7 +1,3 @@
-* {
-    font-weight: $fontWeight;
-}
-
 // button extra small
 .btn-group-xs > .btn,
 .btn-xs {
@@ -61,11 +57,13 @@
 .divider-text {
     position: relative;
 }
+
 .divider-text span {
     font-size: 0.75rem;
     position: relative;
     z-index: 2;
 }
+
 .divider-text:after {
     content: "";
     position: absolute;
@@ -89,4 +87,8 @@
 .dropdown-text-dark:hover {
     background-color: $hover-dark;
     color: $main-dark !important;
+}
+
+.text-shadow {
+    text-shadow: 1px 1px 1px #2980b9;
 }
