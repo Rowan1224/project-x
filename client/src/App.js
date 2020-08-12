@@ -10,8 +10,8 @@ import ShoppingCart from "./pages/shoppingCart";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-
-import User from "./pages/user";
+import UserRegistration from "./pages/userRegistration";
+import UserLogin from "./pages/userLogin";
 
 library.add(far, fas);
 
@@ -25,7 +25,8 @@ function App() {
                         component={ServiceProviders}
                     />
                     <Route path="/cart" component={ShoppingCart} />
-                    <Route path="/registration" component={User} />
+                    <Route path="/registration" component={UserRegistration} />
+                    <Route path="/login" component={UserLogin} />
                     <Route path="/" component={Home} />
                 </Switch>
             </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../components/generic/layout';
 import RegistrationForm from '../components/user/userRegistrationForm';
 
-const User = () => {
+const UserRegistration = () => {
     return (
         <Layout>
             <RegistrationForm />
@@ -10,4 +10,4 @@ const User = () => {
     );
 }
  
-export default User;
+export default UserRegistration;
