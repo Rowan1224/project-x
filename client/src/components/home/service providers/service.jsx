@@ -2,9 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import Title from "../../generic/title";
+import { CartContext } from "../../../contexts/CartContext";
 
 const Service = (props) => {
     const [productDetails, setProductDetails] = useState({});
+    const { addItem } = useContext(CartContext);
 
     // componentDidMount
     useEffect(() => {
@@ -49,7 +51,14 @@ const Service = (props) => {
         : theme.dark.currency_text;
     const type = isLightTheme ? theme.light.type : theme.dark.type;
 
-    // console.log(productDetails);
+    const handleAddItem = () => {
+        const product = {
+            id: props.serviceInfo.product_id,
+            productName: productDetails.product_name,
+            price,
+        };
+        addItem(product);
+    };
 
     return (
         <div className="col-xl-4 col-md-6 col-sm-12 mb-4 text-center">
@@ -79,7 +88,9 @@ const Service = (props) => {
                         <Title>Company: </Title> {productDetails.company_name}
                         <br />
                     </Card.Text>
-                    <Button variant={type}>Add to cart</Button>
+                    <Button variant={type} onClick={handleAddItem}>
+                        Add to cart
+                    </Button>
                 </Card.Body>
             </Card>
         </div>

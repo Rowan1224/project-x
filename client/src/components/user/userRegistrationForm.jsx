@@ -193,7 +193,7 @@ const RegistrationForm = () => {
                         </Button>
                     </div>
                     <div className={"text-center" + link}>
-                        Have an account? <Link to="#">Log In</Link>
+                        Have an account? <Link to="/login">Log In</Link>
                     </div>
                 </form>
             </article>

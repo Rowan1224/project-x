@@ -9,134 +9,149 @@ import { CartContext } from "../../contexts/CartContext";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
 const Cart = (props) => {
-  const { items } = useContext(CartContext);
-  let skey = 0;
+    const { items } = useContext(CartContext);
+    let skey = 0;
 
-  // Themes
-  const { isLightTheme, theme } = useContext(ThemeContext);
-  const variant = isLightTheme ? "light" : "dark";
-  const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
-  const type = isLightTheme ? theme.light.type : theme.dark.type;
-  const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-  const border = isLightTheme ? theme.light.border : theme.dark.border;
-  const custom_text = isLightTheme ? theme.light.custom_text : theme.dark.custom_text;
+    // Themes
+    const { isLightTheme, theme } = useContext(ThemeContext);
+    const variant = isLightTheme ? "light" : "dark";
+    const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
+    const type = isLightTheme ? theme.light.type : theme.dark.type;
+    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
+    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    const custom_text = isLightTheme
+        ? theme.light.custom_text
+        : theme.dark.custom_text;
 
-  return (
-    <div>
-      <section className={"jumbotron text-center p-3" + ui + syntax + border}>
-        <div className="container">
-          <h5 className="jumbotron-heading">Your Cart</h5>
-        </div>
-      </section>
-      <div className={"shadow rounded mb-3" + border}>
-        <Table responsive="sm" striped hover variant={variant}>
-          <thead>
-            <tr>
-              {/* <th scope="col"> </th> */}
-              <th scope="col">Product</th>
-              <th scope="col" className="text-center">
-                Quantity
-              </th>
-              <th scope="col" className="text-right">
-                Price
-              </th>
-              <th scope="col"> </th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((item) => {
-              skey++;
-              return (
-                <tr key={uuidv4()}>
-                  {/* <td style={{ verticalAlign: "middle" }}>
-                  <img
-                    src={`https://picsum.photos/id/${Math.floor(
-                      Math.random() * 1000
-                    )}/800`}
-                    alt="img"
-                    style={{ maxWidth: "50px", maxHeight: "50px" }}
-                  />
-                </td> */}
-                  <td
-                    style={{ verticalAlign: "middle" }}
-                  >
-                    {item.product}
-                  </td>
-                  <td
-                    style={{ verticalAlign: "middle" }}
-                    className="text-center"
-                  >
-                    <Counter skey={skey} />
-                  </td>
-                  <td
-                    style={{ verticalAlign: "middle" }}
-                    className="text-right"
-                  >
-                    Tk {item.price}
-                  </td>
-                  <td
-                    style={{ verticalAlign: "middle" }}
-                    className="text-right"
-                  >
-                    <button className="btn btn-xs btn-danger">
-                      <DeleteTwoToneIcon />
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      </div>
+    // console.log("This cart ->", items);
 
-      <div className={"row text-center rounded mx-auto p-1 shadow" + ui + border + custom_text}>
-        <div className="col-sm-12 col-md-4 py-3 mx-auto">
-          <div className="mb-2">Sub Total</div>
-          <div className="h5 font-weight-light">Tk 32,432</div>
-        </div>
-
-        <div className="col-sm-12 col-md-4 py-3 mx-auto">
-          <div className="mb-2">Discount</div>
-          <div className="h5 font-weight-light">10%</div>
-        </div>
-
-        <div className="col-sm-12 col-md-4 py-3 mx-auto">
-          <div className="mb-2">Grand Total</div>
-          <div className="h5 font-weight-light">Tk 234,234</div>
-        </div>
-      </div>
-      <div className="row mt-3">
-        <div className="col-sm-12 mb-2 col-md-6">
-          <Button
-            variant={"outline-" + type}
-            className="w-100"
-          >
-            <Icon
-              style={{ verticalAlign: "middle", fontSize: "18px" }}
-              className="mr-2 mb-1"
+    return (
+        <div>
+            <section
+                className={"jumbotron text-center p-3" + ui + syntax + border}
             >
-              add_shopping_cart
-            </Icon>
-            Continue Shopping
-          </Button>
-        </div>
-        <div className="col-sm-12 col-md-6 mb-2 text-right">
-          <Button
-            variant={type}
-            className="w-100"
-          >
-            <Icon
-              style={{ verticalAlign: "middle", fontSize: "18px" }}
-              className="mr-2 mb-1"
+                <div className="container">
+                    <h5 className="jumbotron-heading">Your Cart</h5>
+                </div>
+            </section>
+            <div className={"shadow rounded mb-3" + border}>
+                <Table responsive="sm" striped hover variant={variant}>
+                    <thead>
+                        <tr>
+                            {/* <th scope="col"> </th> */}
+                            <th scope="col">Product</th>
+                            <th scope="col" className="text-center">
+                                Quantity
+                            </th>
+                            <th scope="col" className="text-right">
+                                Price
+                            </th>
+                            <th scope="col"> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items.map((item) => {
+                            skey++;
+                            return (
+                                <tr key={uuidv4()}>
+                                    {/* <td style={{ verticalAlign: "middle" }}>
+                                        <img
+                                            src={`https://picsum.photos/id/${Math.floor(
+                                                Math.random() * 1000
+                                            )}/800`}
+                                            alt="img"
+                                            style={{
+                                                maxWidth: "50px",
+                                                maxHeight: "50px",
+                                            }}
+                                        />
+                                    </td> */}
+
+                                    <td style={{ verticalAlign: "middle" }}>
+                                        {item.productName}
+                                    </td>
+                                    <td
+                                        style={{ verticalAlign: "middle" }}
+                                        className="text-center"
+                                    >
+                                        <Counter skey={skey} />
+                                    </td>
+                                    <td
+                                        style={{ verticalAlign: "middle" }}
+                                        className="text-right"
+                                    >
+                                        Tk {item.price}
+                                    </td>
+                                    <td
+                                        style={{ verticalAlign: "middle" }}
+                                        className="text-right"
+                                    >
+                                        <button className="btn btn-xs btn-danger">
+                                            <DeleteTwoToneIcon />
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </Table>
+            </div>
+
+            <div
+                className={
+                    "row text-center rounded mx-auto p-1 shadow" +
+                    ui +
+                    border +
+                    custom_text
+                }
             >
-              check
-            </Icon>
-            Checkout
-          </Button>
+                <div className="col-sm-12 col-md-4 py-3 mx-auto">
+                    <div className="mb-2">Sub Total</div>
+                    <div className="h5 font-weight-light">Tk 32,432</div>
+                </div>
+
+                <div className="col-sm-12 col-md-4 py-3 mx-auto">
+                    <div className="mb-2">Discount</div>
+                    <div className="h5 font-weight-light">10%</div>
+                </div>
+
+                <div className="col-sm-12 col-md-4 py-3 mx-auto">
+                    <div className="mb-2">Grand Total</div>
+                    <div className="h5 font-weight-light">Tk 234,234</div>
+                </div>
+            </div>
+            <div className="row mt-3">
+                <div className="col-sm-12 mb-2 col-md-6">
+                    <Button variant={"outline-" + type} className="w-100">
+                        <Icon
+                            style={{
+                                verticalAlign: "middle",
+                                fontSize: "18px",
+                            }}
+                            className="mr-2 mb-1"
+                        >
+                            add_shopping_cart
+                        </Icon>
+                        Continue Shopping
+                    </Button>
+                </div>
+                <div className="col-sm-12 col-md-6 mb-2 text-right">
+                    <Button variant={type} className="w-100">
+                        <Icon
+                            style={{
+                                verticalAlign: "middle",
+                                fontSize: "18px",
+                            }}
+                            className="mr-2 mb-1"
+                        >
+                            check
+                        </Icon>
+                        Checkout
+                    </Button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Cart;
