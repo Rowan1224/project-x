@@ -58,6 +58,8 @@ const Service = (props) => {
             price,
         };
         addItem(product);
+
+        props.handleShow();
     };
 
     return (
