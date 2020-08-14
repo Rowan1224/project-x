@@ -13,7 +13,7 @@ const Title = (props) => {
             className={custom_text}
             style={{ fontWeight: "600" }}
         >
-            {props.children.toUpperCase()}
+            {props.children}
         </span>
     );
 };
