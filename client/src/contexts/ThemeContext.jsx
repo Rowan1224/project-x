@@ -34,6 +34,7 @@ const ThemeContextProvider = (props) => {
       dropdown_text:  " dropdown-text",
       borderLeft:     " #eee",
       currency_text:  " text-success",
+      success:        "success",
     },
     dark: {
       syntax:         " text-white",
@@ -45,7 +46,8 @@ const ThemeContextProvider = (props) => {
       type:           "main-dark",
       dropdown_text:  " dropdown-text-dark",
       borderLeft:     " #cecece1f",
-      currency_text:  " text-twitter",
+      currency_text:  " text-success-dark",
+      success:        "success-dark",
     },
   };
 

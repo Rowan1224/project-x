@@ -9,8 +9,9 @@ import { CartContext } from "../../contexts/CartContext";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
 const Cart = (props) => {
-    const { items } = useContext(CartContext);
+    const { items, discount } = useContext(CartContext);
     let skey = 0;
+    let totalPrice = 0;
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -22,8 +23,6 @@ const Cart = (props) => {
     const custom_text = isLightTheme
         ? theme.light.custom_text
         : theme.dark.custom_text;
-
-    // console.log("This cart ->", items);
 
     return (
         <div>
@@ -46,12 +45,13 @@ const Cart = (props) => {
                             <th scope="col" className="text-right">
                                 Price
                             </th>
-                            <th scope="col"> </th>
+                            <th scope="col" className="text-right">Remove</th>
                         </tr>
                     </thead>
                     <tbody>
                         {items.map((item) => {
                             skey++;
+                            totalPrice += item.price;
                             return (
                                 <tr key={uuidv4()}>
                                     {/* <td style={{ verticalAlign: "middle" }}>
@@ -74,7 +74,7 @@ const Cart = (props) => {
                                         style={{ verticalAlign: "middle" }}
                                         className="text-center"
                                     >
-                                        <Counter skey={skey} />
+                                        <Counter skey={skey} id={item.id} />
                                     </td>
                                     <td
                                         style={{ verticalAlign: "middle" }}
@@ -107,17 +107,20 @@ const Cart = (props) => {
             >
                 <div className="col-sm-12 col-md-4 py-3 mx-auto">
                     <div className="mb-2">Sub Total</div>
-                    <div className="h5 font-weight-light">Tk 32,432</div>
+                    <div className="h5 font-weight-light">Tk {totalPrice}</div>
                 </div>
 
                 <div className="col-sm-12 col-md-4 py-3 mx-auto">
                     <div className="mb-2">Discount</div>
-                    <div className="h5 font-weight-light">10%</div>
+                    <div className="h5 font-weight-light">{discount}%</div>
                 </div>
 
                 <div className="col-sm-12 col-md-4 py-3 mx-auto">
                     <div className="mb-2">Grand Total</div>
-                    <div className="h5 font-weight-light">Tk 234,234</div>
+                    <div className="h5 font-weight-light">
+                        Tk{" "}
+                        {Math.ceil(totalPrice - totalPrice * (discount / 100))}
+                    </div>
                 </div>
             </div>
             <div className="row mt-3">

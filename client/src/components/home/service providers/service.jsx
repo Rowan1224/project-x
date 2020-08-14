@@ -4,9 +4,24 @@ import { ThemeContext } from "../../../contexts/ThemeContext";
 import Title from "../../generic/title";
 import { CartContext } from "../../../contexts/CartContext";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const Service = (props) => {
     const [productDetails, setProductDetails] = useState({});
+    const [show, setShow] = useState(false);
     const { addItem } = useContext(CartContext);
+
+    // componentDidMount
+    useEffect(() => {
+        const json = sessionStorage.getItem("items");
+        const local = JSON.parse(json);
+
+        if (local) {
+            local.map(item => (
+                item.id === props.serviceInfo.product_id ? setShow(true) : undefined
+            ))
+        }
+    }, [props.serviceInfo.product_id]);
 
     // componentDidMount
     useEffect(() => {
@@ -50,16 +65,23 @@ const Service = (props) => {
         ? theme.light.currency_text
         : theme.dark.currency_text;
     const type = isLightTheme ? theme.light.type : theme.dark.type;
+    const success = isLightTheme ? theme.light.success : theme.dark.success;
+
+    const handleShow = () => {
+        setShow(true);
+    };
 
     const handleAddItem = () => {
         const product = {
             id: props.serviceInfo.product_id,
             productName: productDetails.product_name,
+            count: 10,
             price,
         };
+
         addItem(product);
 
-        props.handleShow();
+        handleShow();
     };
 
     return (
@@ -90,8 +112,21 @@ const Service = (props) => {
                         <Title>Company: </Title> {productDetails.company_name}
                         <br />
                     </Card.Text>
-                    <Button variant={type} onClick={handleAddItem}>
-                        Add to cart
+                    <Button
+                        variant={show ? success : type}
+                        onClick={handleAddItem}
+                    >
+                        {show ? (
+                            <div>
+                                <FontAwesomeIcon
+                                    className="fa-icon mr-2"
+                                    icon={["fas", "check"]}
+                                />
+                                In cart
+                            </div>
+                        ) : (
+                            "Add to cart"
+                        )}
                     </Button>
                 </Card.Body>
             </Card>

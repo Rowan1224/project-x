@@ -4,6 +4,7 @@ export const CartContext = createContext();
 
 const CartContextProvider = (props) => {
     const [items, setItems] = useState([]);
+    const discount = 8;
 
     // componentDidMount
     useEffect(() => {
@@ -26,8 +27,21 @@ const CartContextProvider = (props) => {
         setItems([...items, item]);
     };
 
+    const handleCount = (id, count) => {
+        let tmp = items.map((item) => {
+            if (item.id === id) {
+                item.count = count;
+                return item;
+            }
+            return item;
+        });
+        // setItems([...tmp]);
+    };
+
+    console.log(items);
+
     return (
-        <CartContext.Provider value={{ items, addItem }}>
+        <CartContext.Provider value={{ items, discount, handleCount, addItem }}>
             {props.children}
         </CartContext.Provider>
     );
