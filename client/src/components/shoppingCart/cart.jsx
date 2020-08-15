@@ -7,9 +7,10 @@ import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { CartContext } from "../../contexts/CartContext";
 import { ThemeContext } from "../../contexts/ThemeContext";
+import { Link } from "react-router-dom";
 
 const Cart = (props) => {
-    const { items, discount } = useContext(CartContext);
+    const { items, discount, handleRemove } = useContext(CartContext);
     let skey = 0;
     let totalPrice = 0;
 
@@ -45,13 +46,15 @@ const Cart = (props) => {
                             <th scope="col" className="text-right">
                                 Price
                             </th>
-                            <th scope="col" className="text-right">Remove</th>
+                            <th scope="col" className="text-right">
+                                Remove
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {items.map((item) => {
                             skey++;
-                            totalPrice += item.price;
+                            totalPrice += item.count * item.price;
                             return (
                                 <tr key={uuidv4()}>
                                     {/* <td style={{ verticalAlign: "middle" }}>
@@ -60,10 +63,7 @@ const Cart = (props) => {
                                                 Math.random() * 1000
                                             )}/800`}
                                             alt="img"
-                                            style={{
-                                                maxWidth: "50px",
-                                                maxHeight: "50px",
-                                            }}
+                          check                   }}
                                         />
                                     </td> */}
 
@@ -80,13 +80,18 @@ const Cart = (props) => {
                                         style={{ verticalAlign: "middle" }}
                                         className="text-right"
                                     >
-                                        Tk {item.price}
+                                        Tk {item.count * item.price}
                                     </td>
                                     <td
                                         style={{ verticalAlign: "middle" }}
                                         className="text-right"
                                     >
-                                        <button className="btn btn-xs btn-danger">
+                                        <button
+                                            onClick={() => {
+                                                handleRemove(item.id);
+                                            }}
+                                            className="btn btn-xs btn-danger"
+                                        >
                                             <DeleteTwoToneIcon />
                                         </button>
                                     </td>
@@ -125,7 +130,12 @@ const Cart = (props) => {
             </div>
             <div className="row mt-3">
                 <div className="col-sm-12 mb-2 col-md-6">
-                    <Button variant={"outline-" + type} className="w-100">
+                    <Button
+                        variant={"outline-" + type}
+                        className="w-100"
+                        as={Link}
+                        to="/"
+                    >
                         <Icon
                             style={{
                                 verticalAlign: "middle",

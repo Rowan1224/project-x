@@ -27,21 +27,43 @@ const CartContextProvider = (props) => {
         setItems([...items, item]);
     };
 
-    const handleCount = (id, count) => {
-        let tmp = items.map((item) => {
+    const handleAddOne = (id) => {
+        let newItem = items.map((item) => {
             if (item.id === id) {
-                item.count = count;
+                item.count++;
                 return item;
             }
             return item;
         });
-        // setItems([...tmp]);
+        setItems([...newItem]);
     };
 
-    console.log(items);
+    const handleMinusOne = (id) => {
+        let newItem = items.map((item) => {
+            if (item.id === id) {
+                item.count > 1 ? item.count-- : (item.count = 1);
+                return item;
+            }
+            return item;
+        });
+        setItems([...newItem]);
+    };
+
+    const handleRemove = (id) => {
+        setItems(items.filter((item) => item.id !== id));
+    };
 
     return (
-        <CartContext.Provider value={{ items, discount, handleCount, addItem }}>
+        <CartContext.Provider
+            value={{
+                items,
+                discount,
+                handleAddOne,
+                handleMinusOne,
+                handleRemove,
+                addItem,
+            }}
+        >
             {props.children}
         </CartContext.Provider>
     );

@@ -3,13 +3,14 @@ import { Card, Button } from "react-bootstrap";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import Title from "../../generic/title";
 import { CartContext } from "../../../contexts/CartContext";
+import Icon from "@material-ui/core/Icon";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Service = (props) => {
     const [productDetails, setProductDetails] = useState({});
     const [show, setShow] = useState(false);
-    const { addItem } = useContext(CartContext);
+    const { items, addItem } = useContext(CartContext);
 
     // componentDidMount
     useEffect(() => {
@@ -17,9 +18,11 @@ const Service = (props) => {
         const local = JSON.parse(json);
 
         if (local) {
-            local.map(item => (
-                item.id === props.serviceInfo.product_id ? setShow(true) : undefined
-            ))
+            local.map((item) =>
+                item.id === props.serviceInfo.product_id
+                    ? setShow(true)
+                    : undefined
+            );
         }
     }, [props.serviceInfo.product_id]);
 
@@ -72,16 +75,28 @@ const Service = (props) => {
     };
 
     const handleAddItem = () => {
-        const product = {
-            id: props.serviceInfo.product_id,
-            productName: productDetails.product_name,
-            count: 10,
-            price,
-        };
+        let results = false;
 
-        addItem(product);
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].id === props.serviceInfo.product_id) {
+                results = true;
+                break;
+            }
+        }
 
-        handleShow();
+        console.log(results);
+
+        if (!results) {
+            const product = {
+                id: props.serviceInfo.product_id,
+                productName: productDetails.product_name,
+                count: 1,
+                price,
+            };
+
+            addItem(product);
+            handleShow();
+        }
     };
 
     return (
@@ -125,7 +140,18 @@ const Service = (props) => {
                                 In cart
                             </div>
                         ) : (
-                            "Add to cart"
+                            <div>
+                                <Icon
+                                    style={{
+                                        verticalAlign: "middle",
+                                        fontSize: "18px",
+                                    }}
+                                    className="mr-2 mb-1"
+                                >
+                                    add_shopping_cart
+                                </Icon>
+                                Add to cart
+                            </div>
                         )}
                     </Button>
                 </Card.Body>

@@ -4,13 +4,8 @@ import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 
 const Counter = (props) => {
-    const { items, handleCount } = useContext(CartContext);
+    const { items, handleAddOne, handleMinusOne } = useContext(CartContext);
     const [count, setCount] = useState(1);
-
-    const handleAddOne = () => setCount(count + 1);
-    const handleMinusOne = () => count > 1 ? setCount(count - 1) : setCount(1);
-
-    // const storageKey = props.skey ? props.skey : 0;
 
     useEffect(() => {
         items.map((item) =>
@@ -18,26 +13,13 @@ const Counter = (props) => {
         );
     }, [items, props.id]);
 
-    useEffect(() => {
-        handleCount(props.id, count);
-    }, [count, props.id, handleCount]);
+    const addOne = () => {
+        handleAddOne(props.id);
+    };
 
-    // useEffect(() => {
-    //     const json = sessionStorage.getItem(storageKey);
-    //     const localCount = parseInt(json, 10);
-
-    //     if(!isNaN(localCount))
-    //         setCount(localCount);
-    // }, [storageKey])
-
-    // // componentDidUpdate
-    // useEffect(() => {
-    //     const json = sessionStorage.getItem(storageKey);
-    //     const localCount = parseInt(json, 10);
-
-    //     if(localCount !== count)
-    //         sessionStorage.setItem(storageKey, count);
-    // }, [storageKey, count])
+    const minusOne = () => {
+        handleMinusOne(props.id);
+    };
 
     return (
         <div>
@@ -47,7 +29,7 @@ const Counter = (props) => {
                     fontSize: "18px",
                     color: "#0275d8",
                 }}
-                onClick={ handleAddOne }
+                onClick={addOne}
                 className="mb-1"
             >
                 add_circle
@@ -59,7 +41,7 @@ const Counter = (props) => {
                     fontSize: "18px",
                     color: "#d9534f",
                 }}
-                onClick={ handleMinusOne }
+                onClick={minusOne}
                 className="mb-1"
             >
                 remove_circle
