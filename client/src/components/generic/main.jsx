@@ -9,7 +9,7 @@ const Main = (props) => {
   
     return (
         <div
-            className="py-5 vertical-center"
+            className="vertical-center"
             style={{ background: bg }}
         >
             <Container>

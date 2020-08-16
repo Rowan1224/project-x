@@ -26,15 +26,17 @@ const Providers = () => {
     }, [location]);
 
     return location && location.district && location.area ? (
-        <div className="row mt-5">
+        <div className="row mt-4">
             {providers.map((provider) => (
                 <Provider Service={provider} key={uuidv4()} />
             ))}
         </div>
     ) : (
-        <Infobar>
-            Select a location to see the service providers {emoji("😀")}
-        </Infobar>
+        <div className="mt-4">
+            <Infobar>
+                Select a location to see the service providers {emoji("😀")}
+            </Infobar>
+        </div>
     );
 };
 

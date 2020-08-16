@@ -13,23 +13,15 @@ const Counter = (props) => {
         );
     }, [items, props.id]);
 
-    const addOne = () => {
-        handleAddOne(props.id);
-    };
-
-    const minusOne = () => {
-        handleMinusOne(props.id);
-    };
-
     return (
         <div>
             <Icon
                 style={{
                     verticalAlign: "middle",
-                    fontSize: "18px",
+                    fontSize: "1.125rem",
                     color: "#0275d8",
                 }}
-                onClick={addOne}
+                onClick={() => handleAddOne(props.id)}
                 className="mb-1"
             >
                 add_circle
@@ -38,10 +30,10 @@ const Counter = (props) => {
             <Icon
                 style={{
                     verticalAlign: "middle",
-                    fontSize: "18px",
+                    fontSize: "1.125rem",
                     color: "#d9534f",
                 }}
-                onClick={minusOne}
+                onClick={() => handleMinusOne(props.id)}
                 className="mb-1"
             >
                 remove_circle

@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { ThemeContext } from '../../contexts/ThemeContext';
+import React, { useContext } from "react";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const Infobar = (props) => {
     // Themes
@@ -11,12 +11,14 @@ const Infobar = (props) => {
     const text_color = props.text ? " " + props.text : syntax;
 
     return (
-        <div className='text-center mt-5'>
-            <h4 className={'rounded p-3 my-5 shadow' + border + ui + text_color}>
-                { props.children }
+        <div className="text-center">
+            <h4
+                className={"rounded p-2 shadow" + border + ui + text_color}
+            >
+                {props.children}
             </h4>
         </div>
     );
-}
- 
+};
+
 export default Infobar;
