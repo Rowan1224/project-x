@@ -46,6 +46,18 @@ const CartContextProvider = (props) => {
             }
             return item;
         });
+
+        setItems([...newItem]);
+    };
+
+    const postCountUpdate = (id, count) => {
+        let newItem = items.map((item) => {
+            if (item.id === id) {
+                item.count = count;
+                return item;
+            }
+            return item;
+        });
         setItems([...newItem]);
     };
 
@@ -60,6 +72,7 @@ const CartContextProvider = (props) => {
                 discount,
                 handleAddOne,
                 handleMinusOne,
+                postCountUpdate,
                 handleRemove,
                 addItem,
             }}

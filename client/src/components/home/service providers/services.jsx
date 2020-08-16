@@ -25,7 +25,7 @@ const Services = () => {
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: {
-                    Accept: "application/json",
+                    "Accept": "application/json",
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(servideID),
@@ -50,7 +50,7 @@ const Services = () => {
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: {
-                    Accept: "application/json",
+                    "Accept": "application/json",
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(servideID),
@@ -66,13 +66,15 @@ const Services = () => {
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const border = isLightTheme ? theme.light.border : theme.dark.border;
+    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
+    const custom_text = isLightTheme ? theme.light.custom_text : theme.dark.custom_text;
 
     return (
         <div>
-            <div className="mt-5 pt-1 text-center">
-                <div className="inner">
+            <div className={"text-center" + syntax}>
+                <div className={"inner rounded mb-4" + border}>
                     <Image
-                        className={"w-100 rounded profile-pic" + border}
+                        className="w-100 profile-pic"
                         alt="profile picture"
                         src={`https://picsum.photos/id/${Math.floor(
                             Math.random() * 1000
@@ -88,9 +90,9 @@ const Services = () => {
                     {sName ? sName + " " : "Company name"}
                     {emoji("🤪")}
                 </Infobar>
-                <h3 className="pt-5">Our Services</h3>
+                <h4 className={"my-4" + custom_text}>Our Services ...</h4>
             </div>
-            <div className="row mt-5">
+            <div className="row">
                 {services.map((service) => (
                     <Service
                         serviceInfo={service}

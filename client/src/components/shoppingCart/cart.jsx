@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 
 const Cart = (props) => {
     const { items, discount, handleRemove } = useContext(CartContext);
-    let skey = 0;
     let totalPrice = 0;
 
     // Themes
@@ -35,7 +34,7 @@ const Cart = (props) => {
                 </div>
             </section>
             <div className={"shadow rounded mb-3" + border}>
-                <Table responsive="sm" striped hover variant={variant}>
+                <Table responsive="sm" striped variant={variant}>
                     <thead>
                         <tr>
                             {/* <th scope="col"> </th> */}
@@ -53,8 +52,8 @@ const Cart = (props) => {
                     </thead>
                     <tbody>
                         {items.map((item) => {
-                            skey++;
                             totalPrice += item.count * item.price;
+
                             return (
                                 <tr key={uuidv4()}>
                                     {/* <td style={{ verticalAlign: "middle" }}>
@@ -74,7 +73,7 @@ const Cart = (props) => {
                                         style={{ verticalAlign: "middle" }}
                                         className="text-center"
                                     >
-                                        <Counter skey={skey} id={item.id} />
+                                        <Counter id={item.id} />
                                     </td>
                                     <td
                                         style={{ verticalAlign: "middle" }}

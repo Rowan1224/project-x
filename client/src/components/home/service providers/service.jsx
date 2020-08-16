@@ -10,23 +10,39 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Service = (props) => {
     const [productDetails, setProductDetails] = useState({});
     const [show, setShow] = useState(false);
-    const { items, addItem } = useContext(CartContext);
+    const [count, setCount] = useState(1);
+    const { items, addItem, postCountUpdate } = useContext(CartContext);
 
-    // componentDidMount
+    // Themes
+    const { isLightTheme, theme } = useContext(ThemeContext);
+    const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
+    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
+    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    const currency_text = isLightTheme
+        ? theme.light.currency_text
+        : theme.dark.currency_text;
+    const type = isLightTheme ? theme.light.type : theme.dark.type;
+    const success = isLightTheme ? theme.light.success : theme.dark.success;
+
     useEffect(() => {
         const json = sessionStorage.getItem("items");
         const local = JSON.parse(json);
 
         if (local) {
-            local.map((item) =>
-                item.id === props.serviceInfo.product_id
-                    ? setShow(true)
-                    : undefined
-            );
+            local.map((item) => {
+                if (item.id === props.serviceInfo.product_id) {
+                    setShow(true);
+                    setCount(item.count);
+                }
+                return item;
+            });
         }
     }, [props.serviceInfo.product_id]);
 
-    // componentDidMount
+    useEffect(() => {
+        if (show) postCountUpdate(props.serviceInfo.product_id, count);
+    }, [show, count, props.serviceInfo.product_id]);
+
     useEffect(() => {
         const API_URL = "/getProductDetails/";
 
@@ -38,7 +54,7 @@ const Service = (props) => {
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: {
-                    Accept: "application/json",
+                    "Accept": "application/json",
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(productID),
@@ -56,20 +72,6 @@ const Service = (props) => {
             (props.serviceInfo.price * productDetails.vat) / 100
     );
 
-    // Themes
-    const { isLightTheme, theme } = useContext(ThemeContext);
-    const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
-    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
-    const custom_text = isLightTheme
-        ? theme.light.custom_text
-        : theme.dark.custom_text;
-    const currency_text = isLightTheme
-        ? theme.light.currency_text
-        : theme.dark.currency_text;
-    const type = isLightTheme ? theme.light.type : theme.dark.type;
-    const success = isLightTheme ? theme.light.success : theme.dark.success;
-
     const handleShow = () => {
         setShow(true);
     };
@@ -84,13 +86,11 @@ const Service = (props) => {
             }
         }
 
-        console.log(results);
-
         if (!results) {
             const product = {
                 id: props.serviceInfo.product_id,
                 productName: productDetails.product_name,
-                count: 1,
+                count,
                 price,
             };
 
@@ -99,10 +99,13 @@ const Service = (props) => {
         }
     };
 
+    const addOne = () => setCount(count + 1);
+    const minusOne = () => (count > 1 ? setCount(count - 1) : setCount(1));
+
     return (
-        <div className="col-xl-4 col-md-6 col-sm-12 mb-4 text-center">
+        <div className="col-lg-3 col-md-4 col-sm-6 mb-4 text-center">
             <Card className={"shadow" + ui + border}>
-                <div className="inner">
+                <div className={"inner border-bottom border-" + type}>
                     <Card.Img
                         variant="top"
                         src={`https://picsum.photos/id/${Math.floor(
@@ -112,21 +115,47 @@ const Service = (props) => {
                             e.target.onerror = null;
                             e.target.src = "/img/Default.png";
                         }}
+                        style={{ maxHeight: "12rem" }}
                         alt="card image"
                     />
                 </div>
                 <Card.Body className={syntax}>
                     <Card.Title>{productDetails.product_name}</Card.Title>
                     <h5 className={currency_text}>Tk {price}</h5>
-                    <p className={custom_text}>(Including vat)</p>
-                    <Card.Text>
-                        <Title>Vat: </Title> {productDetails.vat}%
-                        <br />
-                        <Title>Quantity: </Title> {productDetails.measure}
+                    {/* <p className={custom_text}>(Including vat)</p> */}
+                    <div>
+                        {/* <Title>Vat: </Title> {productDetails.vat}%
+                        <br /> */}
+                        <Title>Measure: </Title> {productDetails.measure}
                         <br />
                         <Title>Company: </Title> {productDetails.company_name}
                         <br />
-                    </Card.Text>
+                        <div className="my-2">
+                            <Icon
+                                style={{
+                                    verticalAlign: "middle",
+                                    fontSize: "1.125rem",
+                                    color: "#0275d8",
+                                }}
+                                onClick={addOne}
+                                className="mb-1"
+                            >
+                                add_circle
+                            </Icon>
+                            <strong className="px-1">{count}</strong>
+                            <Icon
+                                style={{
+                                    verticalAlign: "middle",
+                                    fontSize: "1.125rem",
+                                    color: "#d9534f",
+                                }}
+                                onClick={minusOne}
+                                className="mb-1"
+                            >
+                                remove_circle
+                            </Icon>
+                        </div>
+                    </div>
                     <Button
                         variant={show ? success : type}
                         onClick={handleAddItem}
