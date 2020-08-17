@@ -15,10 +15,10 @@ const LoginForm = (props) => {
     const border = isLightTheme ? theme.light.border : theme.dark.border;
 
     return (
-        <div className="card">
-            <article className={"card-body p-5" + ui + syntax + border}>
-                <div className="row mb-4 mx-0">
-                    <div className="col-md-3 p-0">
+        <div className={"card" + ui + syntax + border}>
+            <article className="card-body p-5 mx-auto">
+                <div className="d-flex justify-content-between mb-4 mx-0">
+                    <div className="w-50 p-0">
                         <img
                             src="/img/profile_pic.png"
                             onError={(e) => {
@@ -30,8 +30,8 @@ const LoginForm = (props) => {
                         />
                     </div>
 
-                    <div className="col-md-7 mb-5"></div>
-                    <div className="col-md-2 text-center float-right my-auto">
+                    {/* <div className="col-2 mb-5"></div> */}
+                    <div className="text-center my-auto">
                         <Link
                             to="/registration"
                             className={"btn btn-outline-" + type}
