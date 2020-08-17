@@ -38,6 +38,18 @@ const Counter = (props) => {
             >
                 remove_circle
             </Icon>
+            {/* <div className="w-25 input-group">
+                <input
+                    type="text"
+                    className="form-control"
+                    // value={count}
+                />
+                <div className="input-group-append">
+                    <span className="input-group-text">
+                        a
+                    </span>
+                </div>
+            </div> */}
         </div>
     );
 };

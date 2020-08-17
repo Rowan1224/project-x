@@ -55,8 +55,8 @@ const Provider = (props) => {
                                 e.target.onerror = null;
                                 e.target.src = "/img/Default.png";
                             }}
-                            alt="provider's image"
-                            className={"rounded shadow" + border}
+                            alt="provider's"
+                            className={"profile-pic rounded shadow" + border}
                         />
                     </div>
 
@@ -65,7 +65,7 @@ const Provider = (props) => {
                             "col-md-9 col-sm-12 d-flex flex-column" + syntax
                         }
                     >
-                        <Card.Title className="text-center mr-6">
+                        <Card.Title className="text-center">
                             {provider.service_name}
                         </Card.Title>
                         <Card.Text className="mt-auto">

@@ -40,10 +40,10 @@ const LocationDropDown = () => {
 
     return (
         <div>
-            <div className={"text-center" + syntax}>
+            <div className={"text-center mt-2" + syntax}>
                 <h2>
                     Why fear, when{" "}
-                    <span style={{ fontFamily: "MuseoModerno" }}>ProjectX</span>{" "}
+                    <span className="logo-text">ProjectX</span>{" "}
                     is here!
                 </h2>
             </div>

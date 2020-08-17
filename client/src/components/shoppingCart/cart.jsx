@@ -27,25 +27,45 @@ const Cart = (props) => {
     return (
         <div>
             <section
-                className={"jumbotron text-center p-3" + ui + syntax + border}
+                className={
+                    "jumbotron text-center p-3 mb-3" + ui + syntax + border
+                }
             >
-                <div className="container">
-                    <h5 className="jumbotron-heading">Your Cart</h5>
-                </div>
+                <h5 className="jumbotron-heading my-auto cart-header">Your Cart</h5>
             </section>
-            <div className={"shadow rounded mb-3" + border}>
+            <div id="cart-table" className={"shadow rounded mb-3" + border}>
                 <Table responsive="sm" striped variant={variant}>
                     <thead>
                         <tr>
                             {/* <th scope="col"> </th> */}
-                            <th scope="col">Product</th>
-                            <th scope="col" className="text-center">
+                            <th
+                                scope="col"
+                                className="text-center align-middle"
+                            >
+                                Product
+                            </th>
+                            <th
+                                scope="col"
+                                className="text-center align-middle"
+                            >
                                 Quantity
                             </th>
-                            <th scope="col" className="text-right">
-                                Price
+                            <th
+                                scope="col"
+                                className="text-center align-middle"
+                            >
+                                Unit price
                             </th>
-                            <th scope="col" className="text-right">
+                            <th
+                                scope="col"
+                                className="text-center align-middle"
+                            >
+                                Total price
+                            </th>
+                            <th
+                                scope="col"
+                                className="text-center align-middle"
+                            >
                                 Remove
                             </th>
                         </tr>
@@ -66,25 +86,19 @@ const Cart = (props) => {
                                         />
                                     </td> */}
 
-                                    <td style={{ verticalAlign: "middle" }}>
+                                    <td className="text-center align-middle">
                                         {item.productName}
                                     </td>
-                                    <td
-                                        style={{ verticalAlign: "middle" }}
-                                        className="text-center"
-                                    >
+                                    <td className="text-center align-middle">
                                         <Counter id={item.id} />
                                     </td>
-                                    <td
-                                        style={{ verticalAlign: "middle" }}
-                                        className="text-right"
-                                    >
+                                    <td className="text-center align-middle">
+                                        Tk {item.price}
+                                    </td>
+                                    <td className="text-center align-middle">
                                         Tk {item.count * item.price}
                                     </td>
-                                    <td
-                                        style={{ verticalAlign: "middle" }}
-                                        className="text-right"
-                                    >
+                                    <td className="text-center align-middle">
                                         <button
                                             onClick={() => {
                                                 handleRemove(item.id);
@@ -103,25 +117,25 @@ const Cart = (props) => {
 
             <div
                 className={
-                    "row text-center rounded mx-auto p-1 shadow" +
+                    "row text-center rounded mx-auto shadow" +
                     ui +
                     border +
                     custom_text
                 }
             >
-                <div className="col-sm-12 col-md-4 py-3 mx-auto">
-                    <div className="mb-2">Sub Total</div>
-                    <div className="h5 font-weight-light">Tk {totalPrice}</div>
+                <div className="col-4 py-2 my-auto">
+                    <div className="amount-label">Sub Total</div>
+                    <div className="amount">Tk {totalPrice}</div>
                 </div>
 
-                <div className="col-sm-12 col-md-4 py-3 mx-auto">
-                    <div className="mb-2">Discount</div>
-                    <div className="h5 font-weight-light">{discount}%</div>
+                <div className="col-4 py-2 my-auto">
+                    <div className="amount-label">Discount</div>
+                    <div className="amount">{discount}%</div>
                 </div>
 
-                <div className="col-sm-12 col-md-4 py-3 mx-auto">
-                    <div className="mb-2">Grand Total</div>
-                    <div className="h5 font-weight-light">
+                <div className="col-4 py-2 my-auto">
+                    <div className="amount-label">Grand Total</div>
+                    <div className="amount">
                         Tk{" "}
                         {Math.ceil(totalPrice - totalPrice * (discount / 100))}
                     </div>
@@ -138,7 +152,7 @@ const Cart = (props) => {
                         <Icon
                             style={{
                                 verticalAlign: "middle",
-                                fontSize: "18px",
+                                fontSize: "1.125rem",
                             }}
                             className="mr-2 mb-1"
                         >
@@ -152,7 +166,7 @@ const Cart = (props) => {
                         <Icon
                             style={{
                                 verticalAlign: "middle",
-                                fontSize: "18px",
+                                fontSize: "1.125rem",
                             }}
                             className="mr-2 mb-1"
                         >
