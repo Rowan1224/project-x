@@ -14,7 +14,7 @@ const Counter = (props) => {
   }, [items, props.id]);
 
   return (
-    <div className='d-flex'>
+    <div className='d-flex justify-content-center'>
       <Icon
         style={{
           verticalAlign: 'middle',
