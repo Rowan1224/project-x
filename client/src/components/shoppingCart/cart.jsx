@@ -31,9 +31,14 @@ const Cart = (props) => {
                     "jumbotron text-center p-3 mb-3" + ui + syntax + border
                 }
             >
-                <h5 className="jumbotron-heading my-auto cart-header">Your Cart</h5>
+                <h5 className="jumbotron-heading my-auto cart-header">
+                    Your Cart
+                </h5>
             </section>
-            <div id="cart-table" className={"shadow rounded mb-3" + border}>
+            <div
+                // id="cart-table"
+                className={"shadow rounded mb-3" + border}
+            >
                 <Table responsive="sm" striped variant={variant}>
                     <thead>
                         <tr>
@@ -43,6 +48,12 @@ const Cart = (props) => {
                                 className="text-center align-middle"
                             >
                                 Product
+                            </th>
+                            <th
+                                scope="col"
+                                className="text-center align-middle"
+                            >
+                                Count
                             </th>
                             <th
                                 scope="col"
@@ -91,6 +102,9 @@ const Cart = (props) => {
                                     </td>
                                     <td className="text-center align-middle">
                                         <Counter id={item.id} />
+                                    </td>
+                                    <td className="text-center align-middle">
+                                        {item.count * item.qty} {item.unit}
                                     </td>
                                     <td className="text-center align-middle">
                                         Tk {item.price}

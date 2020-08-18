@@ -40,10 +40,6 @@ const Service = (props) => {
     }, [props.serviceInfo.product_id]);
 
     useEffect(() => {
-        if (show) postCountUpdate(props.serviceInfo.product_id, count);
-    }, [show, count, props.serviceInfo.product_id]);
-
-    useEffect(() => {
         const API_URL = "/getProductDetails/";
 
         const loadData = async () => {
@@ -54,7 +50,7 @@ const Service = (props) => {
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: {
-                    "Accept": "application/json",
+                    Accept: "application/json",
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(productID),
@@ -66,6 +62,10 @@ const Service = (props) => {
         };
         loadData();
     }, [props.serviceInfo.product_id]);
+
+    useEffect(() => {
+        if (show) postCountUpdate(props.serviceInfo.product_id, count);
+    }, [show, count, props.serviceInfo.product_id]);
 
     const price = Math.floor(
         props.serviceInfo.price +
@@ -90,6 +90,8 @@ const Service = (props) => {
             const product = {
                 id: props.serviceInfo.product_id,
                 productName: productDetails.product_name,
+                qty: productDetails.qty,
+                unit: productDetails.unit,
                 count,
                 price,
             };
@@ -121,36 +123,41 @@ const Service = (props) => {
                 </div>
                 <Card.Body className={syntax}>
                     <Card.Title>{productDetails.product_name}</Card.Title>
-                    <h5 className={currency_text}>Tk {price}</h5>
+                    <h5 className={currency_text}>Tk {count * price}</h5>
                     {/* <p className={custom_text}>(Including vat)</p> */}
                     <div>
                         {/* <Title>Vat: </Title> {productDetails.vat}%
                         <br /> */}
-                        <Title>Measure: </Title> {productDetails.measure}
+                        <Title>Quantity: </Title> {count * productDetails.qty}{" "}
+                        {productDetails.unit}
                         <br />
                         <Title>Company: </Title> {productDetails.company_name}
                         <br />
-                        <div className="my-2">
+                        <div className="my-3 d-flex justify-content-center">
                             <Icon
                                 style={{
-                                    verticalAlign: "middle",
                                     fontSize: "1.125rem",
                                     color: "#0275d8",
                                 }}
                                 onClick={addOne}
-                                className="mb-1"
+                                className="mt-1"
                             >
                                 add_circle
                             </Icon>
-                            <strong className="px-1">{count}</strong>
+                            <input
+                                // type="number"
+                                type="text"
+                                className={"show-cart-count mx-1" + syntax}
+                                value={count}
+                                onChange={(e) => setCount(e.target.value)}
+                            />
                             <Icon
                                 style={{
-                                    verticalAlign: "middle",
                                     fontSize: "1.125rem",
                                     color: "#d9534f",
                                 }}
                                 onClick={minusOne}
-                                className="mb-1"
+                                className="mt-1"
                             >
                                 remove_circle
                             </Icon>
