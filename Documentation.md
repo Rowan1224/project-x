@@ -204,21 +204,24 @@
                     {
                         "product_id": 1,
                         "product_name": "Chaal",
-                        "measure": "1kg",
+                        "qty": 1,
+                        "unit": "kg",
                         "company_name": "Bashmati",
                         "vat": 10
                     },
                     {
                         "product_id": 2,
                         "product_name": "Daal",
-                        "measure": "1kg",
+                        "qty": 1,
+                        "unit": "kg",
                         "company_name": "slkdjfi",
                         "vat": 15
                     },
                     {
                         "product_id": 3,
                         "product_name": "Pepsi",
-                        "measure": "250 ml",
+                        "qty": 250,
+                        "unit": "ml",
                         "company_name": "Pepsi",
                         "vat": 1
                     }
