@@ -12,7 +12,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(200),
       allowNull: true
     },
-    measure: {
+    qty: {
+      type: DataTypes.FLOAT(),
+      allowNull: true
+    },
+    unit: {
       type: DataTypes.STRING(20),
       allowNull: true
     },

@@ -272,9 +272,10 @@
             {
                 "products": [
                     {
-                        "product_id": 1,
+                       "product_id": 1,
                         "product_name": "Chaal",
-                        "measure": "1kg",
+                        "qty": 1,
+                        "unit": "kg",
                         "company_name": "Bashmati",
                         "vat": 10
                     }
