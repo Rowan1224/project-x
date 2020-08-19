@@ -65,7 +65,7 @@ const Provider = (props) => {
                             "col-md-9 col-sm-12 d-flex flex-column" + syntax
                         }
                     >
-                        <Card.Title className="text-center">
+                        <Card.Title className="text-center mr-md-6">
                             {provider.service_name}
                         </Card.Title>
                         <Card.Text className="mt-auto">

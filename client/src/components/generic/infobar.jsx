@@ -13,7 +13,7 @@ const Infobar = (props) => {
     return (
         <div className="text-center">
             <h4
-                className={"rounded p-2 shadow" + border + ui + text_color}
+                className={"rounded p-3 shadow" + border + ui + text_color}
             >
                 {props.children}
             </h4>

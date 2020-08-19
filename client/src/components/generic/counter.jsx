@@ -33,11 +33,15 @@ const Counter = (props) => {
                 add_circle
             </Icon>
             <input
-                type="text"
+                type="number"
                 className={"show-cart-count mx-1" + syntax}
                 value={count}
                 onChange={(e) => setCount(e.target.value)}
                 onBlur={(e) => postCountUpdate(props.id, e.target.value)}
+                onKeyDown={(e) =>
+                    ["e", "E", "+", "-", "."].includes(e.key) &&
+                    e.preventDefault()
+                }
             />
             <Icon
                 style={{

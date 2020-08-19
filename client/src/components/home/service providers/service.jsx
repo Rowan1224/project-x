@@ -65,6 +65,8 @@ const Service = (props) => {
 
     useEffect(() => {
         if (show) postCountUpdate(props.serviceInfo.product_id, count);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [show, count, props.serviceInfo.product_id]);
 
     const price = Math.floor(
@@ -145,11 +147,14 @@ const Service = (props) => {
                                 add_circle
                             </Icon>
                             <input
-                                // type="number"
-                                type="text"
+                                type="number"
                                 className={"show-cart-count mx-1" + syntax}
                                 value={count}
                                 onChange={(e) => setCount(e.target.value)}
+                                onKeyDown={(e) =>
+                                    ["e", "E", "+", "-", "."].includes(e.key) &&
+                                    e.preventDefault()
+                                }
                             />
                             <Icon
                                 style={{
