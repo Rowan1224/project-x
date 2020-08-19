@@ -15,22 +15,35 @@ const Providers = () => {
         const API_URL = "getServiceName/" + location.id;
 
         const loadData = async () => {
-            const apiData = [];
-            const response = await fetch(API_URL);
-            const data = await response.json();
+            try {
+                const apiData = [];
+                const response = await fetch(API_URL);
+                const data = await response.json();
 
-            data.services.map((service) => apiData.push(service));
-            setProviders(apiData);
+                data.services.map((service) => apiData.push(service));
+                setProviders(apiData);
+            } catch (error) {
+                console.log(error);
+            }
         };
         loadData();
     }, [location]);
 
     return location && location.district && location.area ? (
-        <div className="row mt-4">
-            {providers.map((provider) => (
-                <Provider Service={provider} key={uuidv4()} />
-            ))}
-        </div>
+        !providers.length > 0 ? (
+            <div className="mt-4">
+                <Infobar>
+                    Sorry, currently we are not providing service in this area{" "}
+                    {emoji("🙁")}
+                </Infobar>
+            </div>
+        ) : (
+            <div className="row mt-4">
+                {providers.map((provider) => (
+                    <Provider Service={provider} key={uuidv4()} />
+                ))}
+            </div>
+        )
     ) : (
         <div className="mt-4">
             <Infobar>

@@ -90,10 +90,6 @@
     color: $main-dark !important;
 }
 
-.text-shadow {
-    text-shadow: 1px 1px 1px #2980b9;
-}
-
 // Shopping Cart
 .show-cart-count {
     background-color: transparent;
@@ -111,37 +107,5 @@
         outline: none;
         border: none;
         border-bottom: 2px solid #333;
-    }
-}
-
-@media screen and (min-width: 901px) {
-    .amount {
-        font-size: 1.15rem;
-    }
-    .logo-text {
-        font-family: "MuseoModerno";
-        font-size: 2rem;
-    }
-}
-
-@media screen and (max-width: 900px) {
-    * {
-        font-size: 0.95rem;
-    }
-    .amount-label {
-        font-size: 0.95rem;
-    }
-    .amount {
-        font-size: 1.1rem;
-    }
-    .cart-header {
-        font-size: 1.125rem;
-    }
-    // #cart-table {
-    //     font-size: 0.8rem !important;
-    // }
-    .logo-text {
-        font-family: "MuseoModerno";
-        font-size: 2rem;
     }
 }

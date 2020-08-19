@@ -16,6 +16,7 @@ const DropDown = (props) => {
   const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
   const type = isLightTheme ? theme.light.type : theme.dark.type;
   const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
+  const border = isLightTheme ? theme.light.border : theme.dark.border;
   const dropdown_text = isLightTheme ? theme.light.dropdown_text : theme.dark.dropdown_text;
 
   return (
@@ -24,7 +25,7 @@ const DropDown = (props) => {
         {title}
       </Dropdown.Toggle>
 
-      <Dropdown.Menu className={"text-center w-100" + ui}>
+      <Dropdown.Menu className={"text-center w-100 shadow" + ui + border}>
         {props.values.map((value) => (
           <Dropdown.Item
             eventKey={value}

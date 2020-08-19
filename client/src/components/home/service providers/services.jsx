@@ -7,7 +7,6 @@ import Infobar from "../../generic/infobar";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { useParams } from "react-router-dom";
 
-
 const Services = () => {
     const [services, setServices] = useState([]);
     const [sName, setSName] = useState("");
@@ -25,7 +24,7 @@ const Services = () => {
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: {
-                    "Accept": "application/json",
+                    Accept: "application/json",
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(servideID),
@@ -39,35 +38,38 @@ const Services = () => {
     }, [params]);
 
     useEffect(() => {
-        const API_URL = "/getProfile/";
+        if (services.length > 0) {
+            const API_URL = "/getProfile/";
 
-        const loadData = async () => {
-            const servideID = {
-                service_id:
-                    services.length > 0 ? services[0].service_id : undefined,
+            const loadData = async () => {
+                const servideID = {
+                    service_id: services[0].service_id,
+                };
+
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(servideID),
+                });
+
+                const data = await response.json();
+
+                setSName(data.service_name);
             };
-
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(servideID),
-            });
-
-            const data = await response.json();
-
-            setSName(data.service_name);
-        };
-        loadData();
+            loadData();
+        }
     }, [services]);
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const border = isLightTheme ? theme.light.border : theme.dark.border;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const custom_text = isLightTheme ? theme.light.custom_text : theme.dark.custom_text;
+    const custom_text = isLightTheme
+        ? theme.light.custom_text
+        : theme.dark.custom_text;
 
     return (
         <div>
@@ -92,14 +94,19 @@ const Services = () => {
                 </Infobar>
                 <h4 className={"my-4" + custom_text}>Our Services ...</h4>
             </div>
-            <div className="row">
-                {services.map((service) => (
-                    <Service
-                        serviceInfo={service}
-                        key={uuidv4()}
-                    />
-                ))}
-            </div>
+
+            {services && services.length > 0 ? (
+                <div className="row">
+                    {services.map((service) => (
+                        <Service serviceInfo={service} key={uuidv4()} />
+                    ))}
+                </div>
+            ) : (
+                <Infobar>
+                    Sorry, we are not providing any services in this area at
+                    this moment {emoji("☹")}
+                </Infobar>
+            )}
         </div>
     );
 };
