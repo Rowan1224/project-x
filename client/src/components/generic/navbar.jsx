@@ -32,7 +32,7 @@ const MainNav = (props) => {
     return (
         <Navbar
             sticky="top"
-            style={{ backgroundColor: bg, transition: "all 0.3s" }}
+            style={{ backgroundColor: bg }}
             className={isShadow ? "shadow" : ""}
         >
             <Navbar.Brand

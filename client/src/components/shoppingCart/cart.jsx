@@ -89,7 +89,7 @@ const Cart = () => {
                                                 <Counter id={item.id} />
                                             </td>
                                             <td className="text-center align-middle">
-                                                Tk {item.count * item.price}
+                                                <b>৳</b> {item.count * item.price}
                                             </td>
                                             <td className="text-center align-middle">
                                                 <button
@@ -118,7 +118,7 @@ const Cart = () => {
                     >
                         <div className="col-4 py-2 my-auto">
                             <div className="amount-label">Sub Total</div>
-                            <div className="amount">Tk {totalPrice}</div>
+                            <div className="amount"><b>৳</b> {totalPrice}</div>
                         </div>
 
                         <div className="col-4 py-2 my-auto">
@@ -129,7 +129,7 @@ const Cart = () => {
                         <div className="col-4 py-2 my-auto">
                             <div className="amount-label">Grand Total</div>
                             <div className="amount">
-                                Tk{" "}
+                                <b>৳</b>{" "}
                                 {Math.ceil(
                                     totalPrice - totalPrice * (discount / 100)
                                 )}

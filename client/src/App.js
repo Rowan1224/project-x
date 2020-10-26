@@ -16,24 +16,26 @@ import NotFound from "./components/generic/notFound";
 
 library.add(far, fas);
 
-function App() {
+const App = () => {
     return (
         <Router>
-            <div>
-                <Switch>
-                    <Route
-                        path="/service-provider/:id"
-                        component={ServiceProviders}
-                    />
-                    <Route exact path="/cart" component={ShoppingCart} />
-                    <Route exact path="/registration" component={UserRegistration} />
-                    <Route exact path="/login" component={UserLogin} />
-                    <Route exact path="/" component={Home} />
-                    <Route component={NotFound} />
-                </Switch>
-            </div>
+            <Switch>
+                <Route
+                    path="/service-provider/:id"
+                    component={ServiceProviders}
+                />
+                <Route exact path="/cart" component={ShoppingCart} />
+                <Route
+                    exact
+                    path="/registration"
+                    component={UserRegistration}
+                />
+                <Route exact path="/login" component={UserLogin} />
+                <Route exact path="/" component={Home} />
+                <Route component={NotFound} />
+            </Switch>
         </Router>
     );
-}
+};
 
 export default App;

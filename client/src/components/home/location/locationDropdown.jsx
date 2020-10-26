@@ -42,9 +42,9 @@ const LocationDropDown = () => {
         <div>
             <div className={"text-center mt-2" + syntax}>
                 <h2>
-                    Why fear, when{" "}
+                    {/* Why fear, when{" "} */}
                     <span className="logo-text">ProjectX</span>{" "}
-                    is here!
+                    {/* is here! */}
                 </h2>
             </div>
             <div className="row mt-5">
