@@ -125,7 +125,7 @@ const Service = (props) => {
                 </div>
                 <Card.Body className={syntax}>
                     <Card.Title>{productDetails.product_name}</Card.Title>
-                    <h5 className={currency_text}>Tk {count * price}</h5>
+                    <h5 className={currency_text}><b>৳</b> {count * price}</h5>
                     {/* <p className={custom_text}>(Including vat)</p> */}
                     <div>
                         {/* <Title>Vat: </Title> {productDetails.vat}%
