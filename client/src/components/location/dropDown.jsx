@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Dropdown } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
-import { ThemeContext } from "../../../contexts/ThemeContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const DropDown = (props) => {
   const [title, setTitle] = useState(props.title);

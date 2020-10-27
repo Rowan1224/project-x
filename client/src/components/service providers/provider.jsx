@@ -2,9 +2,9 @@ import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import { ThemeContext } from "../../../contexts/ThemeContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 import { useState } from "react";
-import Title from "../../generic/title";
+import Title from "../generic/title";
 
 const Provider = (props) => {
     // Themes

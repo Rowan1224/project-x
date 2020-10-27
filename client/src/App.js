@@ -13,6 +13,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import UserRegistration from "./pages/userRegistration";
 import UserLogin from "./pages/userLogin";
 import NotFound from "./components/generic/notFound";
+import Inventory from "./pages/inventory";
 
 library.add(far, fas);
 
@@ -30,6 +31,7 @@ const App = () => {
                     path="/registration"
                     component={UserRegistration}
                 />
+                <Route exact path="/inventory" component={Inventory} />
                 <Route exact path="/login" component={UserLogin} />
                 <Route exact path="/" component={Home} />
                 <Route component={NotFound} />

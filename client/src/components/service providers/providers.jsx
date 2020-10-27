@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import Provider from "./provider";
 import { v4 as uuidv4 } from "uuid";
-import { LocationContext } from "../../../contexts/LocationContext";
+import { LocationContext } from "../../contexts/LocationContext";
 import emoji from "react-easy-emoji";
-import Infobar from "../../generic/infobar";
+import Infobar from "../generic/infobar";
 
 const Providers = () => {
     const { location } = useContext(LocationContext);

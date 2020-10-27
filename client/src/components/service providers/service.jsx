@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
-import { ThemeContext } from "../../../contexts/ThemeContext";
-import Title from "../../generic/title";
-import { CartContext } from "../../../contexts/CartContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
+import Title from "../generic/title";
+import { CartContext } from "../../contexts/CartContext";
 import Icon from "@material-ui/core/Icon";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

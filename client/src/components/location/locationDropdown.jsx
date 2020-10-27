@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import DropDown from "./dropDown";
-import { LocationContext } from "../../../contexts/LocationContext";
-import { ThemeContext } from "../../../contexts/ThemeContext";
+import { LocationContext } from "../../contexts/LocationContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const LocationDropDown = () => {
     const { locationsfs, changeLocation } = useContext(LocationContext);
