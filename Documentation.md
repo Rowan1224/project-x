@@ -461,3 +461,56 @@
                 ],
                 "message": "Success"
             }
+
+
+**Customer Register
+
+
+    *Request (POST => /register)
+
+            {
+                 "username" : toha,
+                 "phone" : 01534771222
+            }
+    
+    *Response
+
+            {
+                "message": "Success.User is registered."
+            }
+
+**Customer Login
+
+    *Request (POST => /login)
+
+            {
+                "phone" : 01534771222
+            }
+    
+    *Response 
+
+            {
+                "message": "Success.OTP is sent to the number."
+            }
+
+**Customer Verify
+
+    *Request (POST => /verify)
+
+                {
+                    "code" : "6 digit otp to the number"
+                }
+
+    *Response 
+
+            {
+                "message": "Success.User is logged in."
+
+                "token" :
+                [
+                    {
+                        "customer_id" : 9
+			            "customer_phone" : 01534771222
+                    }
+                ]
+            }

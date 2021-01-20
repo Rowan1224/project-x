@@ -107,97 +107,102 @@ const Service = (props) => {
     const minusOne = () => (count > 1 ? setCount(count - 1) : setCount(1));
 
     return (
-        <div className="col-lg-3 col-md-4 col-sm-6 mb-4 text-center">
-            <Card className={"shadow" + ui + border}>
-                <div className={"inner border-bottom border-" + type}>
-                    <Card.Img
-                        variant="top"
-                        src={`https://picsum.photos/id/${Math.floor(
-                            Math.random() * 1000
-                        )}/800`}
-                        onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = "/img/Default.png";
-                        }}
-                        style={{ maxHeight: "12rem" }}
-                        alt="card image"
-                    />
-                </div>
-                <Card.Body className={syntax}>
-                    <Card.Title>{productDetails.product_name}</Card.Title>
-                    <h5 className={currency_text}><b>৳</b> {count * price}</h5>
-                    {/* <p className={custom_text}>(Including vat)</p> */}
-                    <div>
-                        {/* <Title>Vat: </Title> {productDetails.vat}%
-                        <br /> */}
-                        <Title>Quantity: </Title> {count * productDetails.qty}{" "}
-                        {productDetails.unit}
-                        <br />
-                        <Title>Company: </Title> {productDetails.company_name}
-                        <br />
-                        <div className="my-3 d-flex justify-content-center">
-                            <Icon
-                                style={{
-                                    fontSize: "1.125rem",
-                                    color: "#0275d8",
-                                }}
-                                onClick={addOne}
-                                className="mt-1"
-                            >
-                                add_circle
-                            </Icon>
-                            <input
-                                type="number"
-                                className={"show-cart-count mx-1" + syntax}
-                                value={count}
-                                onChange={(e) => setCount(e.target.value)}
-                                onKeyDown={(e) =>
-                                    ["e", "E", "+", "-", "."].includes(e.key) &&
-                                    e.preventDefault()
-                                }
-                            />
-                            <Icon
-                                style={{
-                                    fontSize: "1.125rem",
-                                    color: "#d9534f",
-                                }}
-                                onClick={minusOne}
-                                className="mt-1"
-                            >
-                                remove_circle
-                            </Icon>
-                        </div>
+        <React.Fragment>
+            <div className="col-lg-3 col-md-4 col-sm-6 mb-4 text-center">
+                <Card className={"shadow" + ui + border}>
+                    <div className={"inner border-bottom border-" + type}>
+                        <Card.Img
+                            variant="top"
+                            src={`https://picsum.photos/id/${Math.floor(
+                                Math.random() * 1000
+                            )}/800`}
+                            onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = "/img/Default.png";
+                            }}
+                            style={{ maxHeight: "12rem" }}
+                            alt="card image"
+                        />
                     </div>
-                    <Button
-                        variant={show ? success : type}
-                        onClick={handleAddItem}
-                    >
-                        {show ? (
-                            <div>
-                                <FontAwesomeIcon
-                                    className="fa-icon mr-2"
-                                    icon={["fas", "check"]}
-                                />
-                                In cart
-                            </div>
-                        ) : (
-                            <div>
+                    <Card.Body className={syntax}>
+                        <Card.Title>{productDetails.product_name}</Card.Title>
+                        <h5 className={currency_text}>Tk {count * price}</h5>
+                        {/* <p className={custom_text}>(Including vat)</p> */}
+                        <div>
+                            {/* <Title>Vat: </Title> {productDetails.vat}%
+                            <br /> */}
+                            <Title>Quantity: </Title> {count * productDetails.qty}{" "}
+                            {productDetails.unit}
+                            <br />
+                            <Title>Company: </Title> {productDetails.company_name}
+                            <br />
+                            <div className="my-3 d-flex justify-content-center">
                                 <Icon
                                     style={{
-                                        verticalAlign: "middle",
-                                        fontSize: "18px",
+                                        fontSize: "1.125rem",
+                                        color: "#0275d8",
                                     }}
-                                    className="mr-2 mb-1"
+                                    onClick={addOne}
+                                    className="mt-1"
                                 >
-                                    add_shopping_cart
+                                    add_circle
                                 </Icon>
-                                Add to cart
+                                <input
+                                    type="number"
+                                    className={"show-cart-count mx-1" + syntax}
+                                    value={count}
+                                    onChange={(e) => setCount(e.target.value)}
+                                    onKeyDown={(e) =>
+                                        ["e", "E", "+", "-", "."].includes(e.key) &&
+                                        e.preventDefault()
+                                    }
+                                />
+                                <Icon
+                                    style={{
+                                        fontSize: "1.125rem",
+                                        color: "#d9534f",
+                                    }}
+                                    onClick={minusOne}
+                                    className="mt-1"
+                                >
+                                    remove_circle
+                                </Icon>
                             </div>
-                        )}
-                    </Button>
-                </Card.Body>
-            </Card>
-        </div>
+                        </div>
+                        <Button
+                            variant={show ? success : type}
+                            onClick={handleAddItem}
+                        >
+                            {show ? (
+                                <div>
+                                    <FontAwesomeIcon
+                                        className="fa-icon mr-2"
+                                        icon={["fas", "check"]}
+                                    />
+                                    Added to the cart
+                                </div>
+                            ) : (
+                                <div>
+                                    <Icon
+                                        style={{
+                                            verticalAlign: "middle",
+                                            fontSize: "18px",
+                                        }}
+                                        className="mr-2 mb-1"
+                                    >
+                                        add_shopping_cart
+                                    </Icon>
+                                    Add to cart
+                                </div>
+                            )}
+                        </Button>
+                    
+                    </Card.Body>
+                </Card>
+            </div>
+        </React.Fragment>
+
+        
     );
 };
 

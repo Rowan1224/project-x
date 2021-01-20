@@ -42,4 +42,11 @@ router.post('/createOrderDetails', customerordersController.createOrderDetails);
 router.post('/getOrderDetails', customerordersController.getOrderDetails);
 router.post('/createCustomerAddress', customerordersController.createCustomerAddress);
 router.post('/getCustomerAddress', customerordersController.getCustomerAddress);
+
+//toha
+const loginController = require('../controllers/login');
+router.post('/login',loginController.login);
+router.post('/verify',loginController.verify);
+router.post('/register',loginController.register);
+
 module.exports = router;
