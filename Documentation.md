@@ -509,11 +509,19 @@
                 "token" :
                 [
                     {
-                        "customer_id" : 9
 			            "customer_phone" : 01534771222
                     }
                 ]
             }
+**Customer Logout
+
+    *Request (GET => /logout)
+
+    *Response 
+
+        {
+            "message": "success"
+        }
 
 ** Service Register
 
@@ -573,10 +581,19 @@
                 "token" :
                 [
                     {
-                        "service_id" : 5
 			            "service_phone" : 01534771222
                     }
                 ]
             }
+ 
 
+ **Service Provider Logout
+
+    *Request (GET => /servicelogout)
+
+    *Response 
+
+        {
+            "message": "success"
+        }
 

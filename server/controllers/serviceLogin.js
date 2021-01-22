@@ -119,14 +119,14 @@ exports.serviceverify=(req,res) =>
 			service_id = result[0].service_id
 		});
 		const token = jwt.sign({
-			service_id : service_id,
 			service_phone : service_phone
 		},'SECRETKEY',{
 			expiresIn: '12h'
 		  }
         );
         res.clearCookie('otp');
-		res.clearCookie('number');
+        res.clearCookie('number');
+        res.cookie('token',token,{maxAge:43200,httpOnly:true});
 		res.status(200).json({
 			message: "Success.User is logged in.",
 			token
@@ -140,5 +140,10 @@ exports.serviceverify=(req,res) =>
 	}
 };
 
+exports.servicelogout=(req,res) =>
+{
+	res.clearCookie('token');
+ 	res.status(200).json({ status: 'success' });
+}
 
 

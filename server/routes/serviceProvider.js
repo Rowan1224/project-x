@@ -45,13 +45,19 @@ router.post('/getCustomerAddress', customerordersController.getCustomerAddress);
 
 //toha
 const loginController = require('../controllers/login');
+const auth = require ('../middleware/customerAuth');
 router.post('/login',loginController.login);
 router.post('/verify',loginController.verify);
 router.post('/register',loginController.register);
+//router.get('/works',auth,loginController.works); demo
+router.get('/logout',auth,loginController.logout);
 
 const serviceLoginController = require ('../controllers/serviceLogin');
+const authy = require ('../middleware/serviceAuth');
 router.post('/servicelogin',serviceLoginController.servicelogin);
 router.post('/serviceverify',serviceLoginController.serviceverify);
 router.post('/serviceregister',serviceLoginController.serviceregister);
+router.get('/servicelogout',authy,serviceLoginController.servicelogout);
+
 
 module.exports = router;

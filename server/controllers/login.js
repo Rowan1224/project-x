@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../server/util/database');
 const Customer= require('../../server/models/Customer_Credential');
+const customer_auth = require('../middleware/customerAuth');
 const customer=Customer(sequelize,Sequelize);
 var hash = require('object-hash');
 const { Cookie } = require('cookies');
@@ -105,14 +106,14 @@ exports.verify=(req,res) =>
 			customer_id = result[0].customer_id
 		});
 		const token = jwt.sign({
-			customer_id :customer_id,
-			customer_phone : customer_phone
+			customer_phone :customer_phone,
 		},'SECRETKEY',{
 			expiresIn: '12h'
 		  }
 		);
 		res.clearCookie('otp');
 		res.clearCookie('number');
+		res.cookie('token',token,{maxAge:43200,httpOnly:true});
 		res.status(200).json({
 			message: "Success.User is logged in.",
 			token
@@ -125,6 +126,20 @@ exports.verify=(req,res) =>
 		//console.log('otp given '+hash(req.body.code));
 	}
 };
+
+
+// exports.works=(req,res) =>
+// {
+// 	res.status(200).json({
+// 		message: "Success.User is logged in.",
+// 	});
+// }
+
+exports.logout=(req,res) =>
+{
+	res.clearCookie('token');
+ 	res.status(200).json({ status: 'success' });
+}
 
 
 
