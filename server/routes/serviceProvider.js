@@ -49,4 +49,9 @@ router.post('/login',loginController.login);
 router.post('/verify',loginController.verify);
 router.post('/register',loginController.register);
 
+const serviceLoginController = require ('../controllers/serviceLogin');
+router.post('/servicelogin',serviceLoginController.servicelogin);
+router.post('/serviceverify',serviceLoginController.serviceverify);
+router.post('/serviceregister',serviceLoginController.serviceregister);
+
 module.exports = router;

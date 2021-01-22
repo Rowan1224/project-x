@@ -514,3 +514,69 @@
                     }
                 ]
             }
+
+** Service Register
+
+    *Request (POST => /serviceregister)
+
+            {
+
+                "service_name" : "toto service",
+                "description" : "demo",
+                "service_type" : "Food",
+                "delivery_charge" : "60",
+                "company_name" : "toto",
+                "phone_1" : "01534771222",
+                "nid" : "12345678" ,
+                "trade_license" : "12345678",
+                "address" : "Sylhet"
+
+            }
+
+    *Response 
+
+            {
+                "message": "Success.Service Provider is registered."
+            }
+
+
+**Service Login
+
+    *Request (POST => /servicelogin)
+
+            {
+                "phone" : "01534771222"
+
+            }
+
+    *Response
+
+            {
+
+                 "message": "Success.OTP is sent to the number."
+                
+             }
+
+**Service Verify
+
+ *Request (POST => /serviceverify)
+
+                {
+                    "code" : "6 digit otp to the number"
+                }
+
+    *Response 
+
+            {
+                "message": "Success.User is logged in."
+
+                "token" :
+                [
+                    {
+                        "service_id" : 5
+			            "service_phone" : 01534771222
+                    }
+                ]
+            }
+
+

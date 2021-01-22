@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../server/util/database');
-const Customer= require('../../server/models/Customer_Credential');
-const customer=Customer(sequelize,Sequelize);
+const ServiceProvider= require('../../server/models/Service_Credential');
+const service=ServiceProvider(sequelize,Sequelize);
 var hash = require('object-hash');
 const { Cookie } = require('cookies');
 const cookieParser = require('cookie-parser');
@@ -10,23 +10,37 @@ var Cookies = require('cookies');
 var jwt = require('jsonwebtoken');
 
 
-exports.register = (req,res) =>
+exports.serviceregister = (req,res) =>
 {
 
-	const username = req.body.username;
-	const phone = req.body.phone;
+    const service_name = req.body.service_name;
+    const description = req.body.description;
+    const service_type = req.body.service_type;
+    const delivery_charge = req.body.delivery_charge;
+    const company_name = req.body.company_name;
+    const phone_1 = req.body.phone_1;
+    const nid = req.body.nid;
+    const trade_license = req.body.trade_license;
+    const address = req.body.address;
 
-	customer.findAll({ where: { customer_phone : phone } 
+	service.findAll({ where: { phone_1 : phone_1 } 
 	}).then(result =>{
 		if(result.length===0)
 		{
-			customer.create({
+			service.create({
 				//already : already,
-				customer_name : username,
-				customer_phone : phone,
+                service_name : service_name,
+                description : description,
+                service_type : service_type,
+                delivery_charge : delivery_charge,
+                company_name : company_name,
+                phone_1 : phone_1,
+                nid : nid ,
+                trade_license : trade_license,
+                address : address
 			}).then(result => {
 				res.status(200).json({
-					message: "Success.User is registered."
+					message: "Success.Service Provider is registered."
 				});
 			}).catch(err => {
 				res.status(504).json({
@@ -37,7 +51,7 @@ exports.register = (req,res) =>
 		else
 		{
 			res.status(504).json({
-				message: "User is Already Registered with the number."
+				message: "Service Provider is Already Registered with the number."
 			});
 		}
 	}).catch(err => {
@@ -48,17 +62,17 @@ exports.register = (req,res) =>
 	
 };
 
-exports.login= (req,res) =>
+exports.servicelogin= (req,res) =>
 {
-    const customer_phone=req.body.phone;
+    const service_phone=req.body.phone;
 	var otp =Math.random()*(999999-99999)+99999;
 	otp = parseInt(otp);
 	var xd=otp;
 	otp=hash(otp);
 	const regex= /^(?:\+?88)?01[13-9]\d{8}$/;
-	if(regex.test(customer_phone))
+	if(regex.test(service_phone))
 	{
-		customer.findAll({ where: { customer_phone : customer_phone } 
+		service.findAll({ where: { phone_1: service_phone } 
 		}).then(result =>{
 			if(result.length===0)
 			{
@@ -68,12 +82,12 @@ exports.login= (req,res) =>
 			}
 			else
 			{
-				res.cookie('otp',otp,{maxAge:900000,httpOnly:true})
-				res.cookie('number',customer_phone,{maxAge:900000,httpOnly:true})
+                res.cookie('otp',otp,{maxAge:900000,httpOnly:true})
+	            res.cookie('number',service_phone,{maxAge:900000,httpOnly:true})
 				res.status(200).json({
 					message: "Success.OTP is sent to the number."
 				});
-				console.log(customer_phone);
+				console.log(service_phone);
 				console.log(xd);
 			}
 		}).catch(err => {
@@ -89,29 +103,29 @@ exports.login= (req,res) =>
         });
 	}
 };
-exports.verify=(req,res) =>
+exports.serviceverify=(req,res) =>
 {
 	let auth=req.cookies['otp'];
-	let customer_phone = req.cookies['number'];
+	let service_phone = req.cookies['number'];
 	let gg=req.body.code;
 	gg=parseInt(gg);
 	console.log(gg);
 	console.log(auth);
 	//let number=req.cookies['phone'];
     if(hash(gg)===auth){
-		let customer_id;
-		customer.findAll({ where: { customer_phone : customer_phone } 
+		let service_id;
+		service.findAll({ where: { phone_1 : service_phone } 
 		}).then(result =>{
-			customer_id = result[0].customer_id
+			service_id = result[0].service_id
 		});
 		const token = jwt.sign({
-			customer_id :customer_id,
-			customer_phone : customer_phone
+			service_id : service_id,
+			service_phone : service_phone
 		},'SECRETKEY',{
 			expiresIn: '12h'
 		  }
-		);
-		res.clearCookie('otp');
+        );
+        res.clearCookie('otp');
 		res.clearCookie('number');
 		res.status(200).json({
 			message: "Success.User is logged in.",
