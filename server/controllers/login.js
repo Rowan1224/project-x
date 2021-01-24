@@ -138,7 +138,7 @@ exports.verify=(req,res) =>
 exports.logout=(req,res) =>
 {
 	res.clearCookie('token');
- 	res.status(200).json({ status: 'success' });
+ 	res.status(200).json({  message : 'success' });
 }
 
 
