@@ -18,10 +18,20 @@ exports.serviceregister = (req,res) =>
     const service_type = req.body.service_type;
     const delivery_charge = req.body.delivery_charge;
     const company_name = req.body.company_name;
-    const phone_1 = req.body.phone_1;
+    const phone_1 = req.body.phone;
     const nid = req.body.nid;
     const trade_license = req.body.trade_license;
-    const address = req.body.address;
+	const address = req.body.address;
+	
+	console.log(service_name);
+	console.log(description);
+	console.log(service_type);
+	console.log(delivery_charge);
+	console.log(company_name);
+	console.log(phone_1);
+	console.log(nid);
+	console.log(trade_license);
+	console.log(address);
 
 	service.findAll({ where: { phone_1 : phone_1 } 
 	}).then(result =>{

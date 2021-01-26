@@ -28,21 +28,33 @@ const RegistrationForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const API_URL = isServiceProvider ? "/serviceregister/" : "/register/";
+        const API_URL = isServiceProvider ? "/serviceregister" : "/register";
 
         const loadData = async () => {
             const formData = new FormData(form.current);
-
+            for (var pair of formData.entries()) {
+                console.log(pair[0]+ ' - ' + pair[1]); 
+            }
+            var object = {};
+            formData.forEach(function(value, key){
+                object[key] = value;
+            });
+            var json = JSON.stringify(object);
+            console.log(json);
             try {
                 const response = await fetch(API_URL, {
                     method: "POST",
-                    body: formData,
+                    //body: JSON.stringify(data_temp),
+                    headers: {
+                        'Content-Type': 'application/json',
+                      },
+                    body: json
                 });
 
                 const data = await response.json();
 
                 console.log(data);
-                // if (!response.ok) setStatus(data[Object.keys(data)[0]]);
+                //  if (!response.ok) setStatus(data[Object.keys(data)[0]]);
                 // else props.history.push(`/email/confirmation/sent/${email}`);
             } catch (error) {
                 // setStatus(error);
@@ -130,7 +142,7 @@ const RegistrationForm = () => {
                             <option value="3">+701</option> */}
                         </select>
                         <input
-                            name="phone_1"
+                            name="phone"
                             type="number"
                             className="form-control rounded-0"
                             placeholder="Phone number"

@@ -11,12 +11,14 @@ var Cookies = require('cookies');
 var jwt = require('jsonwebtoken');
 
 
+
 exports.register = (req,res) =>
 {
 
 	const username = req.body.username;
 	const phone = req.body.phone;
-
+	console.log(username);
+	console.log(phone);
 	customer.findAll({ where: { customer_phone : phone } 
 	}).then(result =>{
 		if(result.length===0)
@@ -31,7 +33,7 @@ exports.register = (req,res) =>
 				});
 			}).catch(err => {
 				res.status(504).json({
-					message: "Failed"
+					message: "Failed,,,,,,,,,"
 				});
 			});
 		}
@@ -43,7 +45,7 @@ exports.register = (req,res) =>
 		}
 	}).catch(err => {
         res.status(504).json({
-            message: "Failed"
+            message: "Failed.mew mew"
         });
     });
 	
@@ -56,6 +58,7 @@ exports.login= (req,res) =>
 	otp = parseInt(otp);
 	var xd=otp;
 	otp=hash(otp);
+	console.log(customer_phone);
 	const regex= /^(?:\+?88)?01[13-9]\d{8}$/;
 	if(regex.test(customer_phone))
 	{

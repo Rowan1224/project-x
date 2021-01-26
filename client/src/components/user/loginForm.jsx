@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { Button } from "react-bootstrap";
@@ -12,7 +12,6 @@ const LoginForm = (props) => {
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const border = isLightTheme ? theme.light.border : theme.dark.border;
-
     const form = useRef(null);
 
     const handleSubmit = (e) => {
@@ -22,12 +21,23 @@ const LoginForm = (props) => {
 
         const loadData = async () => {
             const formData = new FormData(form.current);
-
+            // const plainFormData = Object.fromEntries(formData.entries());
+	        // const formDataJsonString = JSON.stringify(plainFormData);
+            var object = {};
+            formData.forEach(function(value, key){
+                object[key] = value;
+            });
+            var json = JSON.stringify(object);
+            console.log(json);
             try {
                 const response = await fetch(API_URL, {
                     method: "POST",
-                    body: formData,
-                });
+                    headers: {
+                        'Content-Type': 'application/json',
+                        
+                    },
+                    body: json,
+                                })
 
                 const data = await response.json();
                 console.log(data);

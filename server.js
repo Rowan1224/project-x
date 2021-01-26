@@ -16,6 +16,8 @@ const serviceProviderRoutes = require('./server/routes/serviceProvider');
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json({limit:'1mb'}))
 //toha
 app.use(session({
 	secret: 'secret',
