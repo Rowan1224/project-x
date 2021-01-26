@@ -13,6 +13,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import UserRegistration from "./pages/userRegistration";
 import UserLogin from "./pages/userLogin";
 import NotFound from "./components/generic/notFound";
+import Checkout from "./components/shoppingCart/checkout";
 // import test from "./test";
 
 library.add(far, fas);
@@ -27,7 +28,12 @@ function App() {
                         component={ServiceProviders}
                     />
                     <Route exact path="/cart" component={ShoppingCart} />
-                    <Route exact path="/registration" component={UserRegistration} />
+                    <Route exact path="/checkout" component={Checkout} />
+                    <Route
+                        exact
+                        path="/registration"
+                        component={UserRegistration}
+                    />
                     <Route exact path="/login" component={UserLogin} />
                     {/* <Route exact path="/test" component={test} /> */}
                     <Route exact path="/" component={Home} />
