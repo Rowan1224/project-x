@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { Button } from "react-bootstrap";
@@ -14,11 +14,13 @@ const LoginForm = (props) => {
     const border = isLightTheme ? theme.light.border : theme.dark.border;
 
     const form = useRef(null);
+    const [isServiceProvider, setIsServiceProvider] = useState(false);
+    const [showVerificationArea, setShowVerificationArea] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const API_URL = "/login/";
+        const API_URL = isServiceProvider ? "/servicelogin/" : "/login/";
 
         const loadData = async () => {
             const formData = new FormData(form.current);
@@ -44,14 +46,17 @@ const LoginForm = (props) => {
         };
 
         loadData();
+        setShowVerificationArea(true);
     };
 
+    const handleCheck = () => setIsServiceProvider(!isServiceProvider);
+
     return (
-        <div className={"card" + ui + syntax + border}>
-            <article
-                className="card-body p-5 mx-auto"
-                style={{ maxWidth: "30rem" }}
-            >
+        <div
+            className={"card mx-auto" + ui + syntax + border}
+            style={{ maxWidth: "30rem" }}
+        >
+            <article className="card-body p-md-5 mx-auto">
                 <div className="d-flex justify-content-between mb-4 mx-0">
                     <div className="w-50 p-0">
                         <img
@@ -65,7 +70,6 @@ const LoginForm = (props) => {
                         />
                     </div>
 
-                    {/* <div className="col-2 mb-5"></div> */}
                     <div className="text-center my-auto">
                         <Link
                             to="/registration"
@@ -81,26 +85,6 @@ const LoginForm = (props) => {
                 </div>
 
                 <form ref={form} onSubmit={handleSubmit}>
-                    {/* <div className="form-group">
-                        <label>Your email</label>
-                        <div className={"input-group rounded" + border}>
-                            <div className="input-group-prepend">
-                                <span className="input-group-text rounded-0">
-                                    <FontAwesomeIcon
-                                        className="fa-icon"
-                                        icon={["fas", "user"]}
-                                    />
-                                </span>
-                            </div>
-                            <input
-                                name=""
-                                className="form-control rounded-0"
-                                placeholder="Email"
-                                type="email"
-                            />
-                        </div>
-                    </div> */}
-
                     <div className={"form-group input-group rounded" + border}>
                         <div className="input-group-prepend">
                             <span className="input-group-text rounded-0">
@@ -125,35 +109,33 @@ const LoginForm = (props) => {
                         />
                     </div>
 
-                    {/* <div className="form-group">
-                        <div className={link}>
-                            <Link className="float-right" to="#">
-                                Forgot?
-                            </Link>
-                        </div>
-                        <label>Your password</label>
-                        <div className={"input-group rounded" + border}>
+                    {showVerificationArea ? (
+                        <div
+                            className={
+                                "form-group input-group rounded" + border
+                            }
+                        >
                             <div className="input-group-prepend">
                                 <span className="input-group-text rounded-0">
-                                    <FontAwesomeIcon
-                                        className="fa-icon"
-                                        icon={["fas", "lock"]}
-                                    />
+                                    <FontAwesomeIcon icon={["fas", "code"]} />
                                 </span>
                             </div>
                             <input
+                                required
+                                name=""
+                                type="number"
+                                placeholder="Verification Code"
                                 className="form-control rounded-0"
-                                placeholder="Password"
-                                type="password"
                             />
                         </div>
-                    </div>
-                    <div className="form-group">
-                        <div className="checkbox">
-                            <input type="checkbox" />
-                            <label className="ml-1">Save password</label>
+                    ) : (
+                        <div className="text-center">
+                            <input type="checkbox" onClick={handleCheck} />
+                            <label className="ml-1">
+                                Login as a Service Provider
+                            </label>
                         </div>
-                    </div> */}
+                    )}
 
                     <div className="text-center mb-3">
                         <small>
@@ -164,7 +146,9 @@ const LoginForm = (props) => {
 
                     <div className="form-group">
                         <Button type="submit" variant={type} className="w-100">
-                            Send Verification Code
+                            {showVerificationArea
+                                ? "Login"
+                                : "Send Verification Code"}
                         </Button>
                     </div>
                 </form>

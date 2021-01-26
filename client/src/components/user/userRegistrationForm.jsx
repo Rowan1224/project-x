@@ -53,33 +53,17 @@ const RegistrationForm = () => {
     };
 
     return (
-        <div className={"card py-4 shadow" + ui + syntax + border}>
-            <article
-                className="card-body mx-auto"
-                style={{ maxWidth: "500px" }}
-            >
-                <h4 className="card-title mt-3 text-center">
+        <div
+            className={"card shadow mx-auto" + ui + syntax + border}
+            style={{ maxWidth: "30rem" }}
+        >
+            <article className="card-body mx-auto">
+                <h4 className="card-title text-center">
                     Create an Account
                 </h4>
                 <p className="text-center">
                     Get started with your free account
                 </p>
-
-                {/* <div className="text-center">
-                    <Button variant="twitter" className="mb-2 w-100">
-                        <FontAwesomeIcon className="mr-2" icon={faTwitter} />
-                        Signup via Twitter
-                    </Button>
-
-                    <Button variant="facebook" className="w-100">
-                        <FontAwesomeIcon className="mr-2" icon={faFacebook} />
-                        Signup via facebook
-                    </Button>
-                </div>
-
-                <div className="my-3 text-center divider-text">
-                    <span className={"px-4" + ui}>OR</span>
-                </div> */}
 
                 <form ref={form} onSubmit={handleSubmit}>
                     <div className={"form-group input-group rounded" + border}>
@@ -97,22 +81,6 @@ const RegistrationForm = () => {
                             className="form-control rounded-0"
                         />
                     </div>
-
-                    {/* <div className={"form-group input-group rounded" + border}>
-                        <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
-                                <FontAwesomeIcon
-                                    icon={["fas", "envelope"]}
-                                />
-                            </span>
-                        </div>
-                        <input
-                            name=""
-                            className="form-control rounded-0"
-                            placeholder="Email address"
-                            type="email"
-                        />
-                    </div> */}
 
                     <div className={"form-group input-group rounded" + border}>
                         <div className="input-group-prepend">
@@ -148,7 +116,6 @@ const RegistrationForm = () => {
                             onChange={handleSelect}
                             className="form-control rounded-0"
                         >
-                            {/* <option defaultValue="">Select your role</option> */}
                             <option defaultValue="1">Customer</option>
                             <option value="2">Service Provider</option>
                         </select>
@@ -325,35 +292,6 @@ const RegistrationForm = () => {
                             </div>
                         </>
                     )}
-
-                    {/* <div className={"form-group input-group rounded" + border}>
-                        <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
-                                <FontAwesomeIcon
-                                    icon={["fas", "lock"]}
-                                />
-                            </span>
-                        </div>
-                        <input
-                            className="form-control rounded-0"
-                            placeholder="Create password"
-                            type="password"
-                        />
-                    </div>
-                    <div className={"form-group input-group rounded" + border}>
-                        <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
-                                <FontAwesomeIcon
-                                    icon={["fas", "lock"]}
-                                />
-                            </span>
-                        </div>
-                        <input
-                            className="form-control rounded-0"
-                            placeholder="Repeat password"
-                            type="password"
-                        />
-                    </div> */}
 
                     <div className="form-group">
                         <Button variant={type} type="submit" className="w-100">
