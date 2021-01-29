@@ -1,5 +1,6 @@
 import React, { useContext, useState, useRef } from "react";
 import { Button } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faTwitter, faFacebook } from "@fortawesome/free-brands-svg-icons";
@@ -7,8 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
-const RegistrationForm = () => {
+import CustomAlert from "../generic/CustomAlert";
+
+const RegistrationForm = (props) => {
     const form = useRef(null);
+    const [status, setStatus] = useState("");
     const [isServiceProvider, setIsServiceProvider] = useState(false);
 
     // Themes
@@ -28,36 +32,36 @@ const RegistrationForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const API_URL = isServiceProvider ? "/serviceregister" : "/register";
+        const API_URL = isServiceProvider ? "/serviceregister/" : "/register/";
 
         const loadData = async () => {
             const formData = new FormData(form.current);
-            for (var pair of formData.entries()) {
-                console.log(pair[0]+ ' - ' + pair[1]); 
-            }
-            var object = {};
-            formData.forEach(function(value, key){
+
+            let object = {};
+            formData.forEach(function (value, key) {
                 object[key] = value;
             });
-            var json = JSON.stringify(object);
-            console.log(json);
+
+            // for (var pair of formData.entries()) {
+            //     console.log(pair[0] + " - " + pair[1]);
+            // }
+            // console.log(JSON.stringify(object));
+
             try {
                 const response = await fetch(API_URL, {
                     method: "POST",
-                    //body: JSON.stringify(data_temp),
                     headers: {
-                        'Content-Type': 'application/json',
-                      },
-                    body: json
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(object),
                 });
 
                 const data = await response.json();
 
-                console.log(data);
-                //  if (!response.ok) setStatus(data[Object.keys(data)[0]]);
-                // else props.history.push(`/email/confirmation/sent/${email}`);
+                if (!response.ok) setStatus(data[Object.keys(data)[0]]);
+                else props.history.push("/login/");
             } catch (error) {
-                // setStatus(error);
+                setStatus(error);
             }
         };
 
@@ -69,15 +73,18 @@ const RegistrationForm = () => {
             className={"card shadow mx-auto" + ui + syntax + border}
             style={{ maxWidth: "30rem" }}
         >
-            <article className="card-body mx-auto">
-                <h4 className="card-title text-center">
-                    Create an Account
-                </h4>
+            <article
+                style={{ maxWidth: "28rem" }}
+                className="card-body col mx-auto"
+            >
+                <h4 className="card-title text-center">Create an Account</h4>
                 <p className="text-center">
                     Get started with your free account
                 </p>
 
                 <form ref={form} onSubmit={handleSubmit}>
+                    {status && <CustomAlert status={status} />}
+
                     <div className={"form-group input-group rounded" + border}>
                         <div className="input-group-prepend">
                             <span className="input-group-text rounded-0">
@@ -100,15 +107,15 @@ const RegistrationForm = () => {
                                 <FontAwesomeIcon icon={["fas", "phone"]} />
                             </span>
                         </div>
-                        <select
+                        {/* <select
                             className="custom-select"
                             style={{ maxWidth: "85px" }}
                         >
-                            <option defaultValue="">+880</option>
-                            {/* <option value="1">+972</option>
+                            <option defaultValue="+880">+880</option>
+                            <option value="1">+972</option>
                             <option value="2">+198</option>
-                            <option value="3">+701</option> */}
-                        </select>
+                            <option value="3">+701</option>
+                        </select> */}
                         <input
                             name="phone"
                             type="number"
@@ -255,7 +262,7 @@ const RegistrationForm = () => {
                                 />
                             </div>
 
-                            <div
+                            {/* <div
                                 className={
                                     "form-group input-group rounded" + border
                                 }
@@ -281,7 +288,7 @@ const RegistrationForm = () => {
                                     className="form-control rounded-0"
                                     placeholder="Road"
                                 />
-                            </div>
+                            </div> */}
 
                             <div
                                 className={
@@ -320,4 +327,4 @@ const RegistrationForm = () => {
     );
 };
 
-export default RegistrationForm;
+export default withRouter(RegistrationForm);
