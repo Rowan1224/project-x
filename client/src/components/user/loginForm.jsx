@@ -16,6 +16,8 @@ const LoginForm = (props) => {
     const [isServiceProvider, setIsServiceProvider] = useState(false);
     const [showVerificationArea, setShowVerificationArea] = useState(false);
 
+    
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
