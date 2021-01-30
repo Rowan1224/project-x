@@ -59,5 +59,11 @@ router.post('/serviceverify',serviceLoginController.serviceverify);
 router.post('/serviceregister',serviceLoginController.serviceregister);
 router.get('/servicelogout',authy,serviceLoginController.servicelogout);
 
+const customerProfileController = require('../controllers/customerProfile');
+
+router.post('/customerprofile',customerProfileController.getCustomerProfile);
+router.post('/customerupdateprofile',customerProfileController.updateCustomerProfile);
+
+
 
 module.exports = router;

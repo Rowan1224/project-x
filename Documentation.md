@@ -597,3 +597,44 @@
             "message": "success"
         }
 
+
+
+** Customer Get Profile
+
+        *Request (POST => /customerprofile)
+
+           {
+
+                 "customer_id": 1
+
+            }
+    *Response
+
+            {
+
+                 "customer_id": 1,
+                 "customer_name": "Mew",
+                 "customer_phone": "01521776654"
+                
+             }
+
+
+** Customer Update Profile
+
+        *Request (POST => /customerupdateprofile)
+
+           {
+
+                 "customer_id": 1,
+                 "customer_name": "Mew",
+                 "customer_phone": "01521776654"
+
+            }
+    *Response
+
+            {
+
+                 "message": "Success"
+                
+             }
+
