@@ -103,7 +103,7 @@ const LoginForm = (props) => {
                                 <FontAwesomeIcon icon={["fas", "phone"]} />
                             </span>
                         </div>
-                        <select
+                        {/* <select
                             className="custom-select"
                             style={{ maxWidth: "85px" }}
                         >
@@ -111,7 +111,7 @@ const LoginForm = (props) => {
                             <option value="1">+972</option>
                             <option value="2">+198</option>
                             <option value="3">+701</option>
-                        </select>
+                        </select> */}
                         <input
                             required
                             name="phone"
