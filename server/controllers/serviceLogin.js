@@ -123,11 +123,7 @@ exports.serviceverify=(req,res) =>
 	console.log(auth);
 	//let number=req.cookies['phone'];
     if(hash(gg)===auth){
-		let service_id;
-		service.findAll({ where: { phone_1 : service_phone } 
-		}).then(result =>{
-			service_id = result[0].service_id
-		});
+		
 		const token = jwt.sign({
 			service_phone : service_phone
 		},'SECRETKEY',{
@@ -136,10 +132,16 @@ exports.serviceverify=(req,res) =>
         );
         res.clearCookie('otp');
         res.clearCookie('number');
-        res.cookie('token',token,{maxAge:43200,httpOnly:true});
-		res.status(200).json({
-			message: "Success.User is logged in.",
-			token
+		res.cookie('token',token,{maxAge:43200,httpOnly:true});
+		service.findAll({ where: { phone_1 : service_phone } 
+		}).then(result =>{
+			res.status(200).json({
+				message: "Success.User is logged in.",
+				service_id : result[0].service_id,
+				service_name : result[0].service_name,
+				token
+			});
+			
 		});
     }
     else{
