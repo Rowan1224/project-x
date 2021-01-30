@@ -14,6 +14,8 @@ import UserRegistration from "./pages/userRegistration";
 import UserLogin from "./pages/userLogin";
 import NotFound from "./components/generic/notFound";
 import Checkout from "./components/shoppingCart/checkout";
+import AuthenticationContextProvider from "./contexts/AuthenticationContext";
+import Profile from "./pages/Profile";
 // import test from "./test";
 
 library.add(far, fas);
@@ -21,7 +23,7 @@ library.add(far, fas);
 function App() {
     return (
         <Router>
-            <div>
+            <AuthenticationContextProvider>
                 <Switch>
                     <Route
                         path="/service-provider/:id"
@@ -35,11 +37,12 @@ function App() {
                         component={UserRegistration}
                     />
                     <Route exact path="/login" component={UserLogin} />
+                    <Route exact path="/profile" component={Profile} />
                     {/* <Route exact path="/test" component={test} /> */}
                     <Route exact path="/" component={Home} />
                     <Route component={NotFound} />
                 </Switch>
-            </div>
+            </AuthenticationContextProvider>
         </Router>
     );
 }

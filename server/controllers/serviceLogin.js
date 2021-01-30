@@ -136,9 +136,9 @@ exports.serviceverify=(req,res) =>
 		service.findAll({ where: { phone_1 : service_phone } 
 		}).then(result =>{
 			res.status(200).json({
-				message: "Success.User is logged in.",
-				service_id : result[0].service_id,
-				service_name : result[0].service_name,
+				message: "Success.ServiceProvider is logged in.",
+				userID : result[0].service_id,
+				username : result[0].service_name,
 				token
 			});
 			

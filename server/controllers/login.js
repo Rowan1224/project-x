@@ -117,8 +117,8 @@ exports.verify=(req,res) =>
 		}).then(result =>{
 		res.status(200).json({
 			message: "Success.User is logged in.",
-			customer_id : result[0].customer_id,
-			customer_name : result[0].customer_name,
+			userID : result[0].customer_id,
+			username : result[0].customer_name,
 			token
 			});
 		});
