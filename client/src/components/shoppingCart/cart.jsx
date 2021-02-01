@@ -12,8 +12,13 @@ import emoji from "react-easy-emoji";
 import Infobar from "../generic/infobar";
 
 const Cart = () => {
-    const { items, discount, handleRemove } = useContext(CartContext);
-    let totalPrice = 0;
+    const {
+        items,
+        discount,
+        totalPrice,
+        handleRemove,
+        subTotalPrice,
+    } = useContext(CartContext);
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -76,34 +81,30 @@ const Cart = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {items.map((item) => {
-                                    totalPrice += item.count * item.price;
-
-                                    return (
-                                        <tr key={uuidv4()}>
-                                            <td className="text-center align-middle">
-                                                {item.productName}
-                                                <br />({item.qty} {item.unit})
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                <Counter id={item.id} />
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                Tk {item.count * item.price}
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                <button
-                                                    onClick={() => {
-                                                        handleRemove(item.id);
-                                                    }}
-                                                    className="btn btn-xs btn-danger"
-                                                >
-                                                    <DeleteTwoToneIcon />
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
+                                {items.map((item) => (
+                                    <tr key={uuidv4()}>
+                                        <td className="text-center align-middle">
+                                            {item.productName}
+                                            <br />({item.qty} {item.unit})
+                                        </td>
+                                        <td className="text-center align-middle">
+                                            <Counter id={item.id} />
+                                        </td>
+                                        <td className="text-center align-middle">
+                                            Tk {item.count * item.price}
+                                        </td>
+                                        <td className="text-center align-middle">
+                                            <button
+                                                onClick={() => {
+                                                    handleRemove(item.id);
+                                                }}
+                                                className="btn btn-xs btn-danger"
+                                            >
+                                                <DeleteTwoToneIcon />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </Table>
                     </div>
@@ -118,7 +119,7 @@ const Cart = () => {
                     >
                         <div className="col-4 py-2 my-auto">
                             <div className="amount-label">Sub Total</div>
-                            <div className="amount">Tk {totalPrice}</div>
+                            <div className="amount">Tk {subTotalPrice}</div>
                         </div>
 
                         <div className="col-4 py-2 my-auto">
@@ -128,12 +129,7 @@ const Cart = () => {
 
                         <div className="col-4 py-2 my-auto">
                             <div className="amount-label">Grand Total</div>
-                            <div className="amount">
-                                Tk{" "}
-                                {Math.ceil(
-                                    totalPrice - totalPrice * (discount / 100)
-                                )}
-                            </div>
+                            <div className="amount">Tk {totalPrice}</div>
                         </div>
                     </div>
                 </div>

@@ -43,7 +43,7 @@ const Services = () => {
 
             const loadData = async () => {
                 const servideID = {
-                    service_id: services[0].service_id,
+                    userid: services[0].service_id,
                 };
 
                 const response = await fetch(API_URL, {

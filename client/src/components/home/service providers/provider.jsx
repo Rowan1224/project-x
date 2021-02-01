@@ -22,7 +22,7 @@ const Provider = (props) => {
 
         const loadData = async () => {
             const servideID = {
-                service_id: props.Service.service_id,
+                userid: props.Service.service_id,
             };
 
             const response = await fetch(API_URL, {

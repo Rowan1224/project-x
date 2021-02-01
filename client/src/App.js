@@ -13,9 +13,9 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import UserRegistration from "./pages/userRegistration";
 import UserLogin from "./pages/userLogin";
 import NotFound from "./components/generic/notFound";
-import Checkout from "./components/shoppingCart/checkout";
 import AuthenticationContextProvider from "./contexts/AuthenticationContext";
 import Profile from "./pages/Profile";
+import CheckoutPage from "./pages/CheckoutPage";
 // import test from "./test";
 
 library.add(far, fas);
@@ -30,7 +30,7 @@ function App() {
                         component={ServiceProviders}
                     />
                     <Route exact path="/cart" component={ShoppingCart} />
-                    <Route exact path="/checkout" component={Checkout} />
+                    <Route exact path="/checkout" component={CheckoutPage} />
                     <Route
                         exact
                         path="/registration"
