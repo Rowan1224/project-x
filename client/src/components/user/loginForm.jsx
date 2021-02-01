@@ -1,11 +1,19 @@
 import React, { useContext, useRef, useState } from "react";
+import { withRouter } from "react-router-dom";
+
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { Button } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import CustomAlert from "../generic/CustomAlert";
+import { AuthenticationContext } from "../../contexts/AuthenticationContext";
+
 const LoginForm = (props) => {
+    const [status, setStatus] = useState("");
+    const { handleAuthentication } = useContext(AuthenticationContext);
+
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
@@ -16,49 +24,55 @@ const LoginForm = (props) => {
     const [isServiceProvider, setIsServiceProvider] = useState(false);
     const [showVerificationArea, setShowVerificationArea] = useState(false);
 
-    
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const API_URL = isServiceProvider ? "/servicelogin/" : "/login/";
+        const API_URL = !showVerificationArea
+            ? isServiceProvider
+                ? "/servicelogin/"
+                : "/login/"
+            : "/verify/";
 
         const loadData = async () => {
             const formData = new FormData(form.current);
-            // const plainFormData = Object.fromEntries(formData.entries());
-	        // const formDataJsonString = JSON.stringify(plainFormData);
-            var object = {};
-            formData.forEach(function(value, key){
+            let object = {};
+            formData.forEach(function (value, key) {
                 object[key] = value;
             });
-            var json = JSON.stringify(object);
-            console.log(json);
+
             try {
                 const response = await fetch(API_URL, {
                     method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
-                        
+                        "Content-Type": "application/json",
                     },
-                    body: json,
-                                })
+                    body: JSON.stringify(object),
+                });
 
                 const data = await response.json();
-                console.log(data);
+                console.log(data, "WOR");
 
-                // if (!response.ok) setStatus(data.non_field_errors);
-                // else {
-                //     localStorage.setItem("userID", data.user.pk);
-                //     handleAuthentication("Yes");
-                //     window.location.replace("/");
-                // }
+                if (!response.ok) setStatus(data.message);
+                else if (!showVerificationArea) {
+                    setStatus("");
+                    setShowVerificationArea(true);
+                } else {
+                    localStorage.setItem("userID", data.userID);
+                    localStorage.setItem("username", data.username);
+                    // window.location.replace("/");
+                    localStorage.setItem(
+                        "isServiceProvider",
+                        isServiceProvider
+                    );
+                    handleAuthentication("Yes");
+                    props.history.push("/");
+                }
             } catch (error) {
-                // setStatus(error);
+                setStatus(error);
             }
         };
 
         loadData();
-        setShowVerificationArea(true);
     };
 
     const handleCheck = () => setIsServiceProvider(!isServiceProvider);
@@ -97,6 +111,8 @@ const LoginForm = (props) => {
                 </div>
 
                 <form ref={form} onSubmit={handleSubmit}>
+                    {status && <CustomAlert status={status} />}
+
                     <div className={"form-group input-group rounded" + border}>
                         <div className="input-group-prepend">
                             <span className="input-group-text rounded-0">
@@ -134,14 +150,14 @@ const LoginForm = (props) => {
                             </div>
                             <input
                                 required
-                                name=""
+                                name="code"
                                 type="number"
                                 placeholder="Verification Code"
                                 className="form-control rounded-0"
                             />
                         </div>
                     ) : (
-                        <div className="text-center">
+                        <div className="form-group">
                             <input type="checkbox" onClick={handleCheck} />
                             <label className="ml-1">
                                 Login as a Service Provider
@@ -149,12 +165,15 @@ const LoginForm = (props) => {
                         </div>
                     )}
 
-                    <div className="text-center mb-3">
-                        <small>
-                            A verification code will be sent to this phone
-                            number to login into your account
-                        </small>
-                    </div>
+                    {showVerificationArea && (
+                        <div className="text-center mb-3">
+                            <small>
+                                A 6 digit verification code has been sent to
+                                this phone number, type it to login into your
+                                account
+                            </small>
+                        </div>
+                    )}
 
                     <div className="form-group">
                         <Button type="submit" variant={type} className="w-100">
@@ -169,4 +188,4 @@ const LoginForm = (props) => {
     );
 };
 
-export default LoginForm;
+export default withRouter(LoginForm);

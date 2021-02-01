@@ -8,6 +8,7 @@ import { ThemeContext } from "../../contexts/ThemeContext";
 
 const MainNav = (props) => {
     const [isShadow, setIsShadow] = useState(window.scrollY > 20);
+    const [isAuthenticated] = useState(localStorage.getItem("isAuthenticated"));
 
     useWindowScroll((event) => {
         setIsShadow(window.scrollY > 20);
@@ -32,7 +33,7 @@ const MainNav = (props) => {
     return (
         <Navbar
             sticky="top"
-            style={{ backgroundColor: bg, transition: "all 0.3s" }}
+            style={{ backgroundColor: bg }}
             className={isShadow ? "shadow" : ""}
         >
             <Navbar.Brand
@@ -46,22 +47,24 @@ const MainNav = (props) => {
             <Navbar.Toggle aria-controls="main-nav" />
             <Navbar.Collapse id="main-nav">
                 <Nav className="ml-auto">
+                    <Nav.Link
+                        as={NavLink}
+                        className={custom_text}
+                        to={isAuthenticated ? "/profile" : "/login"}
+                    >
+                        <AccountCircle className="mb-1" />
+                        <span className="mx-2">Dhruvo</span>
+                    </Nav.Link>
+
                     <Nav.Link style={navLinkStyle}>
                         <ToggleTheme />
                     </Nav.Link>
+
                     <Nav.Link
-                        style={navLinkStyle}
-                        className={custom_text}
-                        as={NavLink}
-                        to="/login"
-                    >
-                        <AccountCircle />
-                    </Nav.Link>
-                    <Nav.Link
-                        style={navLinkStyle}
-                        className={custom_text}
-                        as={NavLink}
                         to="/cart"
+                        as={NavLink}
+                        style={navLinkStyle}
+                        className={custom_text}
                     >
                         <ShoppingCart />
                     </Nav.Link>
