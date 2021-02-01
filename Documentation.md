@@ -143,19 +143,19 @@
     * Request (POST => /getProfile) 
 
             {
-                "service_id": 1
+                "userid": 1
             }
 
     * Response
 
             {
-                "service_id": 1,
-                "service_name": "ABC Service",
+                "userid": 1,
+                "username": "ABC Service",
                 "company_name": "ABC",
                 "description": "description",
                 "service_type": "Grocery",
                 "delivery_charge": 50,
-                "phone_1": "01245152",
+                "userphone": "01245152",
                 "phone_2": null,
                 "nid": null,
                 "trade_license": null,
@@ -169,13 +169,13 @@
     * Request (POST => /updateProfile) 
 
             {
-                "service_id": 1,
-                "service_name": "Food Pandaas",
+                "userid": 1,
+                "username": "Food Pandaas",
                 "company_name": "Food Team",
                 "description": "description",
                 "service_type": "Grocery",
                 "delivery_charge": 50,
-                "phone_1": "01521461529",
+                "userphone": "01521461529",
                 "phone_2": "01782335868",
                 "nid": "2378SNS57446SC4",
                 "trade_license": "TLAF1C2SZSKLDHFN54",
@@ -605,16 +605,16 @@
 
            {
 
-                 "customer_id": 1
+                 "userid": 1
 
             }
     *Response
 
             {
 
-                 "customer_id": 1,
-                 "customer_name": "Mew",
-                 "customer_phone": "01521776654"
+                 "userid": 1,
+                 "username": "Mew",
+                 "userphone": "01521776654"
                 
              }
 
@@ -625,9 +625,9 @@
 
            {
 
-                 "customer_id": 1,
-                 "customer_name": "Mew",
-                 "customer_phone": "01521776654"
+                 "userid": 1,
+                 "username": "Mew",
+                 "userphone": "01521776654"
 
             }
     *Response

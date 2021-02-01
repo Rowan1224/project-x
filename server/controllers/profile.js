@@ -4,19 +4,19 @@ const Service = require('../models/Service_Credential');
 const service = Service(sequelize, Sequelize);
 
 exports.getProfileData = (req, res, next) => {
-    const service_id = req.body.service_id;
+    const service_id = req.body.userid;
 
     service.findByPk(service_id).then((serv) => {
         return serv;
     }).then((serv) => {
         res.status(200).json({
-            service_id: serv.service_id,
-            service_name: serv.service_name,
+            userid: serv.service_id,
+            username: serv.service_name,
             company_name: serv.company_name,
             description: serv.description,
             service_type: serv.service_type,
             delivery_charge: serv.delivery_charge,
-            phone_1: serv.phone_1,
+            userphone: serv.phone_1,
             phone_2: serv.phone_2,
             nid: serv.nid,
             trade_license: serv.trade_license,
@@ -30,10 +30,10 @@ exports.getProfileData = (req, res, next) => {
 };
 
 exports.updateProfile = (req, res, next) => {
-    const service_id = req.body.service_id;
-    const new_service_name = req.body.service_name;
+    const service_id = req.body.userid;
+    const new_service_name = req.body.username;
     const new_company_name = req.body.company_name;
-    const new_phone_1 = req.body.phone_1;
+    const new_phone_1 = req.body.userphone;
     const new_phone_2 = req.body.phone_2;
     const new_nid = req.body.nid;
     const new_trade_license = req.body.trade_license;

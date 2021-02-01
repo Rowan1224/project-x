@@ -123,7 +123,7 @@ exports.serviceverify=(req,res) =>
 	console.log(auth);
 	//let number=req.cookies['phone'];
     if(hash(gg)===auth){
-		
+
 		const token = jwt.sign({
 			service_phone : service_phone
 		},'SECRETKEY',{
@@ -136,9 +136,9 @@ exports.serviceverify=(req,res) =>
 		service.findAll({ where: { phone_1 : service_phone } 
 		}).then(result =>{
 			res.status(200).json({
-				message: "Success.User is logged in.",
-				service_id : result[0].service_id,
-				service_name : result[0].service_name,
+				message: "Success.Service Provider is logged in.",
+				userid : result[0].service_id,
+				username : result[0].service_name,
 				token
 			});
 			

@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../server/util/database');
 const Customer= require('../../server/models/Customer_Credential');
-const customer_auth = require('../middleware/customerAuth');
 const customer=Customer(sequelize,Sequelize);
+//const customerAddress = CustomerAddress(sequelize,Sequelize);
 var hash = require('object-hash');
 const { Cookie } = require('cookies');
 const cookieParser = require('cookie-parser');
@@ -117,8 +117,8 @@ exports.verify=(req,res) =>
 		}).then(result =>{
 		res.status(200).json({
 			message: "Success.User is logged in.",
-			customer_id : result[0].customer_id,
-			customer_name : result[0].customer_name,
+			userid : result[0].customer_id,
+			username : result[0].customer_name,
 			token
 			});
 		});
