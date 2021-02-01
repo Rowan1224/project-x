@@ -20,7 +20,7 @@ router.post('/deleteEmployee', employeeController.deleteEmployee);
 
 // Profile Related Routes
 router.post('/getProfile', profileController.getProfileData);
-router.post('/updateProfile', profileController.updateProfile);
+router.patch('/updateProfile', profileController.updateProfile);
 
 // Product Related Routes
 router.get('/allProducts', productController.getUniversalProducts);

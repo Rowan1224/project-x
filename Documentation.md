@@ -422,6 +422,7 @@
                     "road_no":"54/A",
                     "house_no":"23-D",
                     "area_id": 1
+                    
                 }
             }
     
@@ -431,7 +432,7 @@
                 "message": "Success"
             }
 
-    * Request (POST => /getOrderDetails) 
+    * Request (POST => /getCustomerAddress) 
 
             {
 	            "customerId": 1

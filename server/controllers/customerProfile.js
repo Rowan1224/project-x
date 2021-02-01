@@ -21,13 +21,13 @@ exports.getCustomerProfile = (req, res, next) => {
 
 
 exports.updateCustomerProfile = (req, res, next) => {
-    const customer_id = req.body.userid;
-    const new_customer_name = req.body.username;
-    const new_customer_phone = req.body.userphone;
+    var customer_id = req.body.userid;
+    var new_customer_name = req.body.username;
+    var new_customer_phone = req.body.userphone;
 
     customer.findByPk(customer_id).then((serv) => {
-        serv.customer_name = new_customer_name;
-        serv.customer_phone = new_customer_phone;
+        serv.customer_name = new_customer_name? new_customer_name :  serv.customer_name;
+        serv.customer_phone = new_customer_phone?new_customer_phone: serv.customer_phone;
         return serv.save();
     }).then((sucess) => {
         res.status(200).json({message: "Success"});
