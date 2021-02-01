@@ -70,8 +70,8 @@ const Checkout = (props) => {
                     </div>
                     <div className="form-check">
                         <input
-                            checked
                             type="radio"
+                            defaultChecked
                             name="payment_method"
                             className="form-check-input"
                         />

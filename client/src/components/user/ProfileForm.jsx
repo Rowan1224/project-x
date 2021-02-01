@@ -62,39 +62,41 @@ const ProfileForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // const API_URL = isServiceProvider
-        //     ? "/updateProfile/"
-        //     : "/customerupdateprofile/";
+        const API_URL = isServiceProvider
+            ? "/updateProfile/"
+            : "/customerupdateprofile/";
 
-        // const loadData = async () => {
-        //     const formData = new FormData(form.current);
-        //     let object = {};
-        //     formData.forEach((value, key) => {
-        //         object[key] = value;
-        //     });
+        const loadData = async () => {
+            const formData = new FormData(form.current);
+            let object = {};
+            formData.forEach((value, key) => {
+                object[key] = value;
+            });
+            object["userid"] = localStorage.getItem("userID");
 
-        //     try {
-        //         const response = await fetch(API_URL, {
-        //             method: "POST",
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //             },
-        //             body: JSON.stringify(object),
-        //         });
+            try {
+                const response = await fetch(API_URL, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(object),
+                });
 
-        //         const data = await response.json();
+                const data = await response.json();
 
-        //         if (!response.ok) setStatus(data.message);
-        //         else {
-        //             setVariant("success");
-        //             setStatus("Profile updated successfully");
-        //         }
-        //     } catch (error) {
-        //         setStatus(error);
-        //     }
-        // };
+                if (!response.ok) setStatus(data.message);
+                else {
+                    setVariant("success");
+                    setStatus("Profile updated successfully");
+                }
+            } catch (error) {
+                setStatus(error);
+            }
+        };
 
-        // loadData();
+        loadData();
+        setCanEdit(!canEdit);
     };
 
     return (
@@ -143,8 +145,8 @@ const ProfileForm = () => {
                         <Col md={8} sm={12}>
                             <div className={"input-group rounded" + border}>
                                 <input
-                                    name="phone"
                                     type="number"
+                                    name="userphone"
                                     readOnly={!canEdit}
                                     defaultValue={user.userphone}
                                     className="form-control text-center rounded-0"
