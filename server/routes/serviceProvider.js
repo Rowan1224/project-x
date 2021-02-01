@@ -65,9 +65,6 @@ router.get("/servicelogout", serviceLoginController.servicelogout);
 const customerProfileController = require("../controllers/customerProfile");
 
 router.post("/customerprofile", customerProfileController.getCustomerProfile);
-router.post(
-    "/customerupdateprofile",
-    customerProfileController.updateCustomerProfile
-);
+router.patch("/customerupdateprofile",customerProfileController.updateCustomerProfile);
 
 module.exports = router;
