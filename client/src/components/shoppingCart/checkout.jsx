@@ -10,10 +10,16 @@ import { ThemeContext } from "../../contexts/ThemeContext";
 import { Link } from "react-router-dom";
 import emoji from "react-easy-emoji";
 import Infobar from "../generic/infobar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Checkout = () => {
-    const { items, discount, handleRemove } = useContext(CartContext);
-    let totalPrice = 0;
+const Checkout = (props) => {
+    const {
+        items,
+        discount,
+        totalPrice,
+        handleRemove,
+        subTotalPrice,
+    } = useContext(CartContext);
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -28,155 +34,79 @@ const Checkout = () => {
 
     return (
         <div>
-            {items.length > 0 ? (
-                <div>
-                    <section
-                        className={
-                            "jumbotron text-center p-3 mb-3" +
-                            ui +
-                            syntax +
-                            border
-                        }
-                    >
-                        <h5 className="jumbotron-heading my-auto cart-header">
-                            Your Cart
-                        </h5>
-                    </section>
-                    <div
-                        // id="cart-table"
-                        className={"shadow rounded mb-3" + border}
-                    >
-                        <Table responsive="sm" striped variant={variant}>
-                            <thead>
-                                <tr>
-                                    <th
-                                        scope="col"
-                                        className="text-center align-middle"
-                                    >
-                                        Product
-                                    </th>
-                                    <th
-                                        scope="col"
-                                        className="text-center align-middle"
-                                    >
-                                        Quantity
-                                    </th>
-                                    <th
-                                        scope="col"
-                                        className="text-center align-middle"
-                                    >
-                                        Price
-                                    </th>
-                                    <th
-                                        scope="col"
-                                        className="text-center align-middle"
-                                    >
-                                        Remove
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {items.map((item) => {
-                                    totalPrice += item.count * item.price;
+            <div
+                className={
+                    "row text-center rounded mx-auto shadow" +
+                    ui +
+                    border +
+                    custom_text
+                }
+            >
+                <div className="col-4 py-2 my-auto">
+                    <div className="amount-label">Sub Total</div>
+                    <div className="amount">Tk {subTotalPrice}</div>
+                </div>
 
-                                    return (
-                                        <tr key={uuidv4()}>
-                                            <td className="text-center align-middle">
-                                                {item.productName}
-                                                <br />({item.qty} {item.unit})
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                <Counter id={item.id} />
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                Tk {item.count * item.price}
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                <button
-                                                    onClick={() => {
-                                                        handleRemove(item.id);
-                                                    }}
-                                                    className="btn btn-xs btn-danger"
-                                                >
-                                                    <DeleteTwoToneIcon />
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </Table>
+                <div className="col-4 py-2 my-auto">
+                    <div className="amount-label">Discount</div>
+                    <div className="amount">{discount}%</div>
+                </div>
+
+                <div className="col-4 py-2 my-auto">
+                    <div className="amount-label">Grand Total</div>
+                    <div className="amount">Tk {totalPrice}</div>
+                </div>
+
+                <div className="col-12 d-flex justify-content-around py-2 my-auto">
+                    Payment method:
+                    <div className="form-check">
+                        <input
+                            disabled
+                            type="radio"
+                            name="payment_method"
+                            className="form-check-input"
+                        />
+                        <label className="form-check-label">Bkash</label>
                     </div>
-
-                    <div
-                        className={
-                            "row text-center rounded mx-auto shadow" +
-                            ui +
-                            border +
-                            custom_text
-                        }
-                    >
-                        <div className="col-4 py-2 my-auto">
-                            <div className="amount-label">Sub Total</div>
-                            <div className="amount">Tk {totalPrice}</div>
-                        </div>
-
-                        <div className="col-4 py-2 my-auto">
-                            <div className="amount-label">Discount</div>
-                            <div className="amount">{discount}%</div>
-                        </div>
-
-                        <div className="col-4 py-2 my-auto">
-                            <div className="amount-label">Grand Total</div>
-                            <div className="amount">
-                                Tk{" "}
-                                {Math.ceil(
-                                    totalPrice - totalPrice * (discount / 100)
-                                )}
-                            </div>
-                        </div>
+                    <div className="form-check">
+                        <input
+                            checked
+                            type="radio"
+                            name="payment_method"
+                            className="form-check-input"
+                        />
+                        <label className="form-check-label">
+                            <FontAwesomeIcon
+                                className="mr-2"
+                                icon={["fas", "hand-holding-usd"]}
+                            />
+                            Cash on delivery
+                        </label>
                     </div>
                 </div>
-            ) : (
-                <div className="mb-3">
-                    <Infobar>Your cart is empty {emoji("🙁")}</Infobar>
-                </div>
-            )}
+            </div>
 
             <div className="row mt-3">
                 <div className="col-sm-12 mb-2 col-md-6">
                     <Button
-                        variant={"outline-" + type}
                         className="w-100"
-                        as={Link}
-                        to="/"
+                        variant={"outline-" + type}
+                        onClick={() => props.history.goBack()}
                     >
-                        <Icon
-                            style={{
-                                fontSize: "1.125rem",
-                            }}
-                            className="align-middle mr-2 mb-1"
-                        >
-                            add_shopping_cart
-                        </Icon>
-                        Continue Shopping
+                        <FontAwesomeIcon
+                            className="mr-2"
+                            icon={["fas", "arrow-circle-left"]}
+                        />
+                        Go Back
                     </Button>
                 </div>
                 <div className="col-sm-12 col-md-6 mb-2 text-right">
-                    <Button
-                        variant={type}
-                        className="w-100"
-                        disabled={!items.length > 0}
-                    >
-                        <Icon
-                            style={{
-                                fontSize: "1.125rem",
-                            }}
-                            className="align-middle mr-2 mb-1"
-                        >
-                            check
-                        </Icon>
-                        Checkout
+                    <Button disabled variant={type} className="w-100">
+                        <FontAwesomeIcon
+                            className="mr-2"
+                            icon={["fas", "check-circle"]}
+                        />
+                        Confirm
                     </Button>
                 </div>
             </div>

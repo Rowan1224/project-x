@@ -16,15 +16,17 @@ $twitter: #00acee;
 $success-dark: #8cfac7;
 $hover: #ecf0f1;
 $hover-dark: #cecece1f;
+$remove: #eb858e;
 
 $theme-colors: ();
 $theme-colors: map-merge(
     (
         "main": $main,
+        "remove": $remove,
+        "twitter": $twitter,
+        "facebook": $facebook,
         "main-dark": $main-dark,
         "success-dark": $success-dark,
-        "facebook": $facebook,
-        "twitter": $twitter,
     ),
     $theme-colors
 );

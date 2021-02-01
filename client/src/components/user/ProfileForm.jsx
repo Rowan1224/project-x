@@ -1,16 +1,21 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
-import { Button, Card, Container, Row } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
-import { Link } from "react-router-dom";
 import CustomAlert from "../generic/CustomAlert";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
-import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
 const ProfileForm = () => {
     const [user, setUser] = useState({});
+    const [canEdit, setCanEdit] = useState(false);
     const [status, setStatus] = useState(undefined);
+    const [variant, setVariant] = useState("danger");
+    const [isServiceProvider] = useState(
+        localStorage.getItem("isServiceProvider") === "true"
+    );
+
+    const form = useRef(null);
 
     const { handleLogOut } = useContext(AuthenticationContext);
 
@@ -20,77 +25,325 @@ const ProfileForm = () => {
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const border = isLightTheme ? theme.light.border : theme.dark.border;
-    const form = useRef(null);
-    const [isServiceProvider, setIsServiceProvider] = useState(false);
-    const [showVerificationArea, setShowVerificationArea] = useState(false);
 
     useEffect(() => {
         const loadData = async () => {
-            const API_URL = "";
+            const API_URL = isServiceProvider
+                ? "/getProfile/"
+                : "/customerprofile/";
+
+            const object = {
+                userid: localStorage.getItem("userID"),
+            };
+
             const response = await fetch(API_URL, {
-                method: "GET",
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(object),
             });
             // if (response.status === 401) handleLogOut();
 
-            const userData = await response.json();
+            const data = await response.json();
 
-            if (!response.ok) setStatus(userData.detail);
-            else
-                setUser({
-                    name: "dhruvo",
-                });
+            if (!response.ok) setStatus(data.detail);
+            else setUser({ ...data });
         };
 
         loadData();
-    }, []);
+    }, [isServiceProvider]);
 
-    const handleSubmit = () => {};
+    const handleEdit = () => {
+        setStatus("");
+        setCanEdit(!canEdit);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // const API_URL = isServiceProvider
+        //     ? "/updateProfile/"
+        //     : "/customerupdateprofile/";
+
+        // const loadData = async () => {
+        //     const formData = new FormData(form.current);
+        //     let object = {};
+        //     formData.forEach((value, key) => {
+        //         object[key] = value;
+        //     });
+
+        //     try {
+        //         const response = await fetch(API_URL, {
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-Type": "application/json",
+        //             },
+        //             body: JSON.stringify(object),
+        //         });
+
+        //         const data = await response.json();
+
+        //         if (!response.ok) setStatus(data.message);
+        //         else {
+        //             setVariant("success");
+        //             setStatus("Profile updated successfully");
+        //         }
+        //     } catch (error) {
+        //         setStatus(error);
+        //     }
+        // };
+
+        // loadData();
+    };
 
     return (
         <div
             className={"card mx-auto" + ui + syntax + border}
-            style={{ maxWidth: "50rem" }}
+            style={{ maxWidth: "38rem" }}
         >
             <article className="card-body">
-                <h2 className="text-center">My Profile</h2>
-                <form ref={form} onSubmit={handleSubmit}>
-                    {status && <CustomAlert status={status} />}
+                <h3 className="text-center mb-4">
+                    {user.username && user.username + "'s"} Profile
+                </h3>
+                <form ref={form} onSubmit={handleSubmit} className="mx-auto">
+                    {status && (
+                        <CustomAlert variant={variant} status={status} />
+                    )}
 
-                    <div className={"form-group input-group rounded" + border}>
-                        <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
-                                <FontAwesomeIcon icon={["fas", "user"]} />
-                            </span>
-                        </div>
-                        <input
-                            type="text"
-                            name="username"
-                            value="Shahriar Dhruvo"
-                            className="form-control rounded-0"
-                        />
-                    </div>
+                    <Row className="form-group">
+                        <Col className="my-auto">
+                            <FontAwesomeIcon
+                                className="mr-2"
+                                icon={["fas", "user"]}
+                            />
+                            Username:
+                        </Col>
+                        <Col md={8} sm={12}>
+                            <div className={"input-group rounded" + border}>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    readOnly={!canEdit}
+                                    defaultValue={user.username}
+                                    className="form-control text-center rounded-0"
+                                />
+                            </div>
+                        </Col>
+                    </Row>
 
-                    <div className={"form-group input-group rounded" + border}>
-                        <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
-                                <FontAwesomeIcon icon={["fas", "phone"]} />
-                            </span>
-                        </div>
-                        <input
-                            name="phone"
-                            type="number"
-                            placeholder="Phone number"
-                            className="form-control rounded-0"
-                        />
-                    </div>
+                    <Row className="form-group">
+                        <Col className="my-auto">
+                            <FontAwesomeIcon
+                                className="mr-2"
+                                icon={["fas", "phone"]}
+                            />
+                            Phone:
+                        </Col>
+                        <Col md={8} sm={12}>
+                            <div className={"input-group rounded" + border}>
+                                <input
+                                    name="phone"
+                                    type="number"
+                                    readOnly={!canEdit}
+                                    defaultValue={user.userphone}
+                                    className="form-control text-center rounded-0"
+                                />
+                            </div>
+                        </Col>
+                    </Row>
+
+                    {isServiceProvider && (
+                        <>
+                            <Row className="form-group">
+                                <Col className="my-auto">
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "building"]}
+                                    />
+                                    Company:
+                                </Col>
+                                <Col md={8} sm={12}>
+                                    <div
+                                        className={
+                                            "input-group rounded" + border
+                                        }
+                                    >
+                                        <input
+                                            type="text"
+                                            name="company_name"
+                                            readOnly={!canEdit}
+                                            defaultValue={user.company_name}
+                                            className="form-control text-center rounded-0"
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+
+                            <Row className="form-group">
+                                <Col className="my-auto">
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "hand-holding-usd"]}
+                                    />
+                                    Delivery Charge:
+                                </Col>
+                                <Col md={8} sm={12}>
+                                    <div
+                                        className={
+                                            "input-group rounded" + border
+                                        }
+                                    >
+                                        <input
+                                            type="number"
+                                            readOnly={!canEdit}
+                                            name="delivery_charge"
+                                            defaultValue={user.delivery_charge}
+                                            className="form-control text-center rounded-0"
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+
+                            <Row className="form-group">
+                                <Col className="my-auto">
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "plus"]}
+                                    />
+                                    Description:
+                                </Col>
+                                <Col md={8} sm={12}>
+                                    <div
+                                        className={
+                                            "input-group rounded" + border
+                                        }
+                                    >
+                                        <input
+                                            type="text"
+                                            name="description"
+                                            readOnly={!canEdit}
+                                            defaultValue={user.description}
+                                            className="form-control text-center rounded-0"
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+
+                            <Row className="form-group">
+                                <Col className="my-auto">
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "id-card"]}
+                                    />
+                                    NID:
+                                </Col>
+                                <Col md={8} sm={12}>
+                                    <div
+                                        className={
+                                            "input-group rounded" + border
+                                        }
+                                    >
+                                        <input
+                                            name="nid"
+                                            type="number"
+                                            readOnly={!canEdit}
+                                            defaultValue={user.nid}
+                                            className="form-control text-center rounded-0"
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+
+                            <Row className="form-group">
+                                <Col className="my-auto">
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "taxi"]}
+                                    />
+                                    Service type:
+                                </Col>
+                                <Col md={8} sm={12}>
+                                    <div
+                                        className={
+                                            "input-group rounded" + border
+                                        }
+                                    >
+                                        <input
+                                            type="text"
+                                            name="service_type"
+                                            readOnly={!canEdit}
+                                            defaultValue={user.service_type}
+                                            className="form-control text-center rounded-0"
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+
+                            <Row className="form-group">
+                                <Col className="my-auto">
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "id-card"]}
+                                    />
+                                    Trade license:
+                                </Col>
+                                <Col md={8} sm={12}>
+                                    <div
+                                        className={
+                                            "input-group rounded" + border
+                                        }
+                                    >
+                                        <input
+                                            type="number"
+                                            name="trade_license"
+                                            readOnly={!canEdit}
+                                            defaultValue={user.trade_license}
+                                            className="form-control text-center rounded-0"
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+
+                            <Row className="form-group">
+                                <Col className="my-auto">
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "location-arrow"]}
+                                    />
+                                    Address:
+                                </Col>
+                                <Col md={8} sm={12}>
+                                    <div
+                                        className={
+                                            "input-group rounded" + border
+                                        }
+                                    >
+                                        <input
+                                            type="text"
+                                            name="address"
+                                            readOnly={!canEdit}
+                                            defaultValue={user.address}
+                                            className="form-control text-center rounded-0"
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+                        </>
+                    )}
 
                     <div className="row mt-3">
-                        <div className="col-sm-12 mb-2 col-md-6">
+                        <div
+                            className={
+                                canEdit
+                                    ? "col-sm-12 mb-2 col-md-4"
+                                    : "col-sm-12 mb-2 col-md-6"
+                            }
+                        >
                             <Button
-                                variant={"outline-" + type}
                                 className="w-100"
-                                as={Link}
-                                to="/"
+                                onClick={handleLogOut}
+                                variant={"outline-" + type}
                             >
                                 <FontAwesomeIcon
                                     className="mr-2"
@@ -99,13 +352,46 @@ const ProfileForm = () => {
                                 Logout
                             </Button>
                         </div>
-                        <div className="col-sm-12 col-md-6 mb-2 text-right">
-                            <Button variant={type} className="w-100">
+
+                        {canEdit && (
+                            <div
+                                className={
+                                    canEdit
+                                        ? "col-sm-12 mb-2 col-md-4"
+                                        : "col-sm-12 mb-2 col-md-6"
+                                }
+                            >
+                                <Button
+                                    variant="remove"
+                                    className="w-100"
+                                    onClick={handleEdit}
+                                >
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "strikethrough"]}
+                                    />
+                                    Cancel Edit
+                                </Button>
+                            </div>
+                        )}
+
+                        <div
+                            className={
+                                canEdit
+                                    ? "col-sm-12 mb-2 col-md-4"
+                                    : "col-sm-12 mb-2 col-md-6"
+                            }
+                        >
+                            <Button
+                                variant={type}
+                                className="w-100"
+                                onClick={canEdit ? handleSubmit : handleEdit}
+                            >
                                 <FontAwesomeIcon
                                     className="mr-2"
-                                    icon={["fas", "wrench"]}
+                                    icon={["fas", canEdit ? "wrench" : "edit"]}
                                 />
-                                Update Profile
+                                {canEdit ? "Update Profile" : "Edit Profile"}
                             </Button>
                         </div>
                     </div>

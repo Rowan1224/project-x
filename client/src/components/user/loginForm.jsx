@@ -11,8 +11,12 @@ import CustomAlert from "../generic/CustomAlert";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 
 const LoginForm = (props) => {
+    const form = useRef(null);
     const [status, setStatus] = useState("");
     const { handleAuthentication } = useContext(AuthenticationContext);
+
+    const [isServiceProvider, setIsServiceProvider] = useState(false);
+    const [showVerificationArea, setShowVerificationArea] = useState(false);
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -20,9 +24,6 @@ const LoginForm = (props) => {
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const border = isLightTheme ? theme.light.border : theme.dark.border;
-    const form = useRef(null);
-    const [isServiceProvider, setIsServiceProvider] = useState(false);
-    const [showVerificationArea, setShowVerificationArea] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -31,12 +32,14 @@ const LoginForm = (props) => {
             ? isServiceProvider
                 ? "/servicelogin/"
                 : "/login/"
+            : isServiceProvider
+            ? "/serviceverify/"
             : "/verify/";
 
         const loadData = async () => {
             const formData = new FormData(form.current);
             let object = {};
-            formData.forEach(function (value, key) {
+            formData.forEach((value, key) => {
                 object[key] = value;
             });
 
@@ -50,14 +53,13 @@ const LoginForm = (props) => {
                 });
 
                 const data = await response.json();
-                console.log(data, "WOR");
 
                 if (!response.ok) setStatus(data.message);
                 else if (!showVerificationArea) {
                     setStatus("");
                     setShowVerificationArea(true);
                 } else {
-                    localStorage.setItem("userID", data.userID);
+                    localStorage.setItem("userID", data.userid);
                     localStorage.setItem("username", data.username);
                     // window.location.replace("/");
                     localStorage.setItem(

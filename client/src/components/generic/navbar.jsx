@@ -37,10 +37,10 @@ const MainNav = (props) => {
             className={isShadow ? "shadow" : ""}
         >
             <Navbar.Brand
-                style={{ fontFamily: "MuseoModerno" }}
-                className={custom_text}
-                as={NavLink}
                 to="/"
+                as={NavLink}
+                className={custom_text}
+                style={{ fontFamily: "MuseoModerno" }}
             >
                 ProjectX
             </Navbar.Brand>
@@ -49,11 +49,14 @@ const MainNav = (props) => {
                 <Nav className="ml-auto">
                     <Nav.Link
                         as={NavLink}
+                        style={navLinkStyle}
                         className={custom_text}
                         to={isAuthenticated ? "/profile" : "/login"}
                     >
                         <AccountCircle className="mb-1" />
-                        <span className="mx-2">Dhruvo</span>
+                        <span className="d-none d-md-inline ml-2">
+                            {localStorage.getItem("username")}
+                        </span>
                     </Nav.Link>
 
                     <Nav.Link style={navLinkStyle}>
