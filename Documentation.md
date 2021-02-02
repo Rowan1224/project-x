@@ -166,7 +166,7 @@
 
 * Update Profile Data
 
-    * Request (POST => /updateProfile) 
+    * Request (PATCH => /updateProfile) 
 
             {
                 "userid": 1,
@@ -334,15 +334,15 @@
 
 * Create Order
 
-    * Request (POST => /createOrder) 
+    <!-- * Request (POST => /createOrder) 
 
-            {
-                "customer_id": 1,
-                "service_id": 3,
-                "order_time": "22-01-2020 11:15",
-                "customer_address_id": 2,
-                "payment": 25
-            }
+                {
+                    "customer_id": 1,
+                    "service_id": 3,
+                    "order_time": "22-01-2020 11:15",
+                    "customer_address_id": 2,
+                    "payment": 25
+                }
     
     * Response
 
@@ -368,7 +368,7 @@
 
             {
                 "message": "Success"
-            }
+            } -->
     * Request (POST => /getOrderDetails) 
 
             {
@@ -422,7 +422,7 @@
                     "road_no":"54/A",
                     "house_no":"23-D",
                     "area_id": 1
-                    
+
                 }
             }
     
@@ -622,7 +622,7 @@
 
 ** Customer Update Profile
 
-        *Request (POST => /customerupdateprofile)
+        *Request (PATCH => /customerupdateprofile)
 
            {
 
@@ -638,4 +638,45 @@
                  "message": "Success"
                 
              }
+
+
+
+
+
+
+For 350 some decision was taken:
+
+*customer must login for order
+*updating number not handled in good way..if one want to update the phone number we have to send the otp to the previous number to change the number..but for now it was not handled.
+
+
+
+** Customer Create Orders
+
+        *Request (POST => /createcustomerorder)
+
+           {
+                    "userid": 2,
+                    "service_id": 2,
+                    "order_time": "2020-05-03 5:20",
+                    "customer_address_id": 1,
+                    "payment": 2500,
+                     "details":
+                     [
+		
+                        {"order_id":1, "product_id":1,"qty":"5 kg","price": 500},
+                        {"order_id":1, "product_id":2,"qty":"5 kg","price": 600},
+                        {"order_id":1, "product_id":3,"qty":"5 kg","price": 700},
+                        {"order_id":1, "product_id":4,"qty":"5 kg","price": 800}
+                     ]
+		
+	            
+            }
+    *Response
+
+           {
+
+                  "message": "Success"
+
+            }
 

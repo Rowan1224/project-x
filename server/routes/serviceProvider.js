@@ -67,4 +67,6 @@ const customerProfileController = require("../controllers/customerProfile");
 router.post("/customerprofile", customerProfileController.getCustomerProfile);
 router.patch("/customerupdateprofile",customerProfileController.updateCustomerProfile);
 
+const customerOrderController = require("../controllers/customerOrders");
+router.post("/createcustomerorder",customerOrderController.createCustomerOrderDetails);
 module.exports = router;

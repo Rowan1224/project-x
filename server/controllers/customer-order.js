@@ -10,6 +10,7 @@ const customer = Customer(sequelize,Sequelize);
 
 
 
+
 exports.createOrderDetails = (req, res, next) => {
     const details = req.body.details;
 
