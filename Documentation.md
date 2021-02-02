@@ -416,21 +416,23 @@
 * Request (POST => /createCustomerAddress) 
 
             {
-	            "address":
-                {
-                    "customer_id":1, 
-                    "road_no":"54/A",
-                    "house_no":"23-D",
-                    "area_id": 1
-
-                }
+	                "userid":1, 
+                    "road":"54/A",
+                    "house":"23-D",
+                    "area_id": 4
+                    "further_description": "null"
             }
     
     * Response
 
             {
-                "message": "Success"
+                 "customer_add_id": 24
             }
+
+** If there is duplicate data it will not create the address again and will show the customer_add_id.
+
+
+
 
     * Request (POST => /getCustomerAddress) 
 
