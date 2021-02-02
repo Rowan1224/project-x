@@ -61,6 +61,7 @@ const LoginForm = (props) => {
                 } else {
                     localStorage.setItem("userID", data.userid);
                     localStorage.setItem("username", data.username);
+                    localStorage.setItem("phone_number", object.phone);
                     // window.location.replace("/");
                     localStorage.setItem(
                         "isServiceProvider",

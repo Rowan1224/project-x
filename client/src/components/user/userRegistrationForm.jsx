@@ -175,8 +175,8 @@ const RegistrationForm = (props) => {
                                     </span>
                                 </div>
                                 <input
-                                    name="trade_license"
                                     type="number"
+                                    name="trade_license"
                                     className="form-control rounded-0"
                                     placeholder="Trade license number"
                                 />
@@ -195,8 +195,8 @@ const RegistrationForm = (props) => {
                                     </span>
                                 </div>
                                 <input
-                                    name="company_name"
                                     type="text"
+                                    name="company_name"
                                     className="form-control rounded-0"
                                     placeholder="Company name"
                                 />
@@ -215,8 +215,8 @@ const RegistrationForm = (props) => {
                                     </span>
                                 </div>
                                 <input
-                                    name="service_type"
                                     type="text"
+                                    name="service_type"
                                     className="form-control rounded-0"
                                     placeholder="Service type"
                                 />
@@ -235,8 +235,8 @@ const RegistrationForm = (props) => {
                                     </span>
                                 </div>
                                 <input
-                                    name="delivery_charge"
                                     type="number"
+                                    name="delivery_charge"
                                     className="form-control rounded-0"
                                     placeholder="Delivery charge"
                                 />
