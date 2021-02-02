@@ -29,7 +29,7 @@ const CartContextProvider = (props) => {
         let tmpPrice = 0;
         items.map((item) => (tmpPrice += item.count * item.price));
         setSubTotalPrice(tmpPrice);
-        tmpPrice = Math.ceil(tmpPrice - tmpPrice * (discount / 100));
+        tmpPrice = Math.floor(tmpPrice - tmpPrice * (discount / 100));
         setTotalPrice(tmpPrice);
     }, [items]);
 

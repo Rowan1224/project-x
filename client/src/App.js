@@ -12,11 +12,11 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import UserRegistration from "./pages/userRegistration";
 import UserLogin from "./pages/userLogin";
-import NotFound from "./components/generic/notFound";
 import AuthenticationContextProvider from "./contexts/AuthenticationContext";
 import Profile from "./pages/Profile";
 import CheckoutPage from "./pages/CheckoutPage";
-// import test from "./test";
+import NotFoundPage from "./pages/NotFoundPage";
+import TestPage from "./test/TestPage";
 
 library.add(far, fas);
 
@@ -38,9 +38,9 @@ function App() {
                     />
                     <Route exact path="/login" component={UserLogin} />
                     <Route exact path="/profile" component={Profile} />
-                    {/* <Route exact path="/test" component={test} /> */}
+                    <Route exact path="/test" component={TestPage} />
                     <Route exact path="/" component={Home} />
-                    <Route component={NotFound} />
+                    <Route component={NotFoundPage} />
                 </Switch>
             </AuthenticationContextProvider>
         </Router>
