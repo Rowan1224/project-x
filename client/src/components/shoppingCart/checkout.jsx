@@ -11,7 +11,7 @@ import emoji from "react-easy-emoji";
 import Infobar from "../generic/infobar";
 import CustomAlert from "../generic/CustomAlert";
 
-const Checkout = () => {
+const Checkout = (props) => {
     const form = useRef(null);
     const { items, discount, totalPrice } = useContext(CartContext);
     const [addressess, setAddressess] = useState([]);
@@ -77,7 +77,7 @@ const Checkout = () => {
             formData.forEach(function (value, key) {
                 object[key] = value;
             });
-            object["customer_id"] = localStorage.getItem("userID");
+            object["userid"] = localStorage.getItem("userID");
 
             try {
                 // Confirming Address
@@ -86,7 +86,7 @@ const Checkout = () => {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ address: object }),
+                    body: JSON.stringify(object),
                 });
 
                 let data = await response.json();
@@ -96,37 +96,49 @@ const Checkout = () => {
                     // Confirming Order
                     API_URL = "/createcustomerorder/";
 
-                    //     {
-                    //         "userid": 2,
-                    //         "service_id": 2,
-                    //         "order_time": "2020-05-03 5:20",
-                    //         "customer_address_id": 1,
-                    //         "payment": 2500,
-                    //          "details":
-                    //          [
+                    let details = [];
 
-                    //             {"order_id":1, "product_id":1,"qty":"5 kg","price": 500},
-                    //             {"order_id":1, "product_id":2,"qty":"5 kg","price": 600},
-                    //             {"order_id":1, "product_id":3,"qty":"5 kg","price": 700},
-                    //             {"order_id":1, "product_id":4,"qty":"5 kg","price": 800}
-                    //          ]
+                    items.map((item) =>
+                        details.push({
+                            price: item.price,
+                            product_id: item.id,
+                            qty: `${item.qty * item.count} ${item.unit}`,
+                        })
+                    );
 
-                    // }
+                    const today = new Date();
+                    const date =
+                        today.getFullYear() +
+                        "-" +
+                        (today.getMonth() + 1) +
+                        "-" +
+                        today.getDate();
+                    const time = today.getHours() + ":" + today.getMinutes();
+
+                    object = {};
+                    object["userid"] = localStorage.getItem("userID");
+                    object["service_id"] = sessionStorage.getItem("service_id");
+                    object["order_time"] = date + " " + time;
+                    object["customer_address_id"] = data.customer_add_id;
+                    object["payment"] = totalPrice;
+                    object["details"] = details;
 
                     response = await fetch(API_URL, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
-                        // body: JSON.stringify({ address: object }),
+                        body: JSON.stringify(object),
                     });
 
                     data = await response.json();
 
                     if (!response.ok) setStatus(data.message);
                     else {
-                        setStatus(data.message);
                         setStatusVariant("success");
+                        setStatus(
+                            "We have recieved your order successfully 😄"
+                        );
                     }
                 }
             } catch (error) {
@@ -135,6 +147,12 @@ const Checkout = () => {
         };
 
         loadData();
+    };
+
+    const handleCleanUP = () => {
+        sessionStorage.setItem("items", "[]");
+        sessionStorage.setItem("service_id", "");
+        props.history.push("/");
     };
 
     return (
@@ -470,13 +488,36 @@ const Checkout = () => {
                             />
                         )}
 
-                        <Button
-                            type="submit"
-                            variant={type}
-                            disabled={!items.length}
-                        >
-                            Confirm Purchase
-                        </Button>
+                        <div className="d-flex justify-content-between">
+                            <Button
+                                type="submit"
+                                variant={type}
+                                disabled={
+                                    !items.length || statusVariant === "success"
+                                }
+                            >
+                                <FontAwesomeIcon
+                                    className="mr-2"
+                                    icon={["fas", "check-circle"]}
+                                />
+                                Confirm Purchase
+                            </Button>
+
+                            <Button
+                                variant={type}
+                                onClick={handleCleanUP}
+                                disabled={
+                                    items.length &&
+                                    !(statusVariant === "success")
+                                }
+                            >
+                                <FontAwesomeIcon
+                                    className="mr-2"
+                                    icon={["fas", "home"]}
+                                />
+                                Back To Home Page
+                            </Button>
+                        </div>
                     </form>
                 </div>
             </div>

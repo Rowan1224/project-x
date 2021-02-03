@@ -47,8 +47,8 @@ exports.getOrderDetails = (req, res, next) => {
 
 exports.createCustomerAddress = (req, res, next) => {
     var customer_id = req.body.userid;
-    var road_no = req.body.road;
-    var house_no = req.body.house;
+    var road_no = req.body.road_no;
+    var house_no = req.body.house_no;
     var area_id = req.body.area_id;
     var further_description = req.body.further_description;
 

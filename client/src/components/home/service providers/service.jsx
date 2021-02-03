@@ -101,6 +101,8 @@ const Service = (props) => {
             addItem(product);
             handleShow();
         }
+
+        sessionStorage.setItem("service_id", props.serviceInfo.service_id);
     };
 
     const addOne = () => setCount(count + 1);
@@ -131,10 +133,11 @@ const Service = (props) => {
                         <div>
                             {/* <Title>Vat: </Title> {productDetails.vat}%
                             <br /> */}
-                            <Title>Quantity: </Title> {count * productDetails.qty}{" "}
-                            {productDetails.unit}
+                            <Title>Quantity: </Title>{" "}
+                            {count * productDetails.qty} {productDetails.unit}
                             <br />
-                            <Title>Company: </Title> {productDetails.company_name}
+                            <Title>Company: </Title>{" "}
+                            {productDetails.company_name}
                             <br />
                             <div className="my-3 d-flex justify-content-center">
                                 <Icon
@@ -153,8 +156,9 @@ const Service = (props) => {
                                     value={count}
                                     onChange={(e) => setCount(e.target.value)}
                                     onKeyDown={(e) =>
-                                        ["e", "E", "+", "-", "."].includes(e.key) &&
-                                        e.preventDefault()
+                                        ["e", "E", "+", "-", "."].includes(
+                                            e.key
+                                        ) && e.preventDefault()
                                     }
                                 />
                                 <Icon
@@ -196,13 +200,10 @@ const Service = (props) => {
                                 </div>
                             )}
                         </Button>
-                    
                     </Card.Body>
                 </Card>
             </div>
         </React.Fragment>
-
-        
     );
 };
 

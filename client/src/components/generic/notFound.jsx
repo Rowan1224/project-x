@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const NotFound = (props) => {
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -27,6 +29,7 @@ const NotFound = (props) => {
                     been removed. name changed or is temporarily unavailable
                 </p>
                 <Button variant={type} className="mt-3" as={Link} to="/">
+                    <FontAwesomeIcon className="mr-2" icon={["fas", "home"]} />
                     Go To Homepage
                 </Button>
                 <Button
@@ -34,6 +37,10 @@ const NotFound = (props) => {
                     className="mt-3 ml-2"
                     onClick={() => props.history.goBack()}
                 >
+                    <FontAwesomeIcon
+                        className="mr-2"
+                        icon={["fas", "arrow-circle-left"]}
+                    />
                     Go Back
                 </Button>
             </div>

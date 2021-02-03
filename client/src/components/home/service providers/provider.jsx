@@ -83,9 +83,9 @@ const Provider = (props) => {
                             <br />
                         </Card.Text>
                         <Button
+                            as={Link}
                             variant={type}
                             className="mt-auto"
-                            as={Link}
                             to={"/service-provider/" + props.Service.service_id}
                         >
                             Show their services

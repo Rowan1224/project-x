@@ -160,6 +160,8 @@ const Cart = () => {
                 </div>
                 <div className="col-sm-12 col-md-6 mb-2 text-right">
                     <Button
+                        as={Link}
+                        to="/checkout"
                         variant={type}
                         className="w-100"
                         disabled={!items.length > 0}
