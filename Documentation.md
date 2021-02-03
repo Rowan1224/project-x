@@ -666,10 +666,10 @@ For 350 some decision was taken:
                      "details":
                      [
 		
-                        {"order_id":1, "product_id":1,"qty":"5 kg","price": 500},
-                        {"order_id":1, "product_id":2,"qty":"5 kg","price": 600},
-                        {"order_id":1, "product_id":3,"qty":"5 kg","price": 700},
-                        {"order_id":1, "product_id":4,"qty":"5 kg","price": 800}
+                        {"product_id":1,"qty":"5 kg","price": 500},
+                        {"product_id":2,"qty":"5 kg","price": 600},
+                        {"product_id":3,"qty":"5 kg","price": 700},
+                        {"product_id":4,"qty":"5 kg","price": 800}
                      ]
 		
 	            

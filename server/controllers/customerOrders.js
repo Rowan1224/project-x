@@ -27,10 +27,15 @@ exports.createCustomerOrderDetails = (req, res, next) => {
         payment: payment,
         delivered : delivered
     }).then(result => {
+            details.forEach(element => {
+                element.order_id = result.order_id;
+            });
+           // console.log(result.order_id);
             orderDetails.bulkCreate(details,{
                     returning: true
                 }).then(result => {
                     res.status(200).json({
+                        
                         message: "Success"
                     });
                 }).catch(err => {
