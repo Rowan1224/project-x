@@ -69,4 +69,6 @@ router.patch("/customerupdateprofile",customerProfileController.updateCustomerPr
 
 const customerOrderController = require("../controllers/customerOrders");
 router.post("/createcustomerorder",customerOrderController.createCustomerOrderDetails);
+router.post("/getserviceorders",customerOrderController.getServiceOrder);
+router.post("/getserviceordersdetails",customerOrderController.getServiceOrderDetails);
 module.exports = router;

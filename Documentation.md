@@ -417,9 +417,9 @@
 
             {
 	                "userid":1, 
-                    "road":"54/A",
-                    "house":"23-D",
-                    "area_id": 4
+                    "road_no":"54/A",
+                    "house_no":"23-D",
+                    "area_id": 4,
                     "further_description": "null"
             }
     
@@ -430,6 +430,8 @@
             }
 
 ** If there is duplicate data it will not create the address again and will show the customer_add_id.
+**area id needed to know for an account
+
 
 
 
@@ -681,4 +683,104 @@ For 350 some decision was taken:
                   "message": "Success"
 
             }
+
+
+**service provider orders:
+
+    *Request (POST => /getserviceorders)
+    {
+         "userid": 1
+    }
+
+
+    *Response
+
+
+        {
+
+
+            "result": [
+                {
+                    "order_id": 6,
+                    "customer_id": 1,
+                    "service_id": 1,
+                    "employee_id": null,
+                    "delivered": 0,
+                    "order_time": "2020-05-03T04:20:00.000Z",
+                    "customer_address_id": 1,
+                    "payment": 25
+                },
+                {
+                    "order_id": 17,
+                    "customer_id": 13,
+                    "service_id": 1,
+                    "employee_id": null,
+                    "delivered": 0,
+                    "order_time": "2021-02-03T17:03:00.000Z",
+                    "customer_address_id": 26,
+                    "payment": 253
+                },
+                {
+                    "order_id": 18,
+                    "customer_id": 13,
+                    "service_id": 1,
+                    "employee_id": null,
+                    "delivered": 0,
+                    "order_time": "2021-02-03T21:41:00.000Z",
+                    "customer_address_id": 26,
+                    "payment": 253
+                }
+            ],
+            "message": "Success"
+    }
+
+
+
+**service provider Order Details
+
+
+    *Request(POST => /getserviceordersdetails)
+            {
+                   
+		            "orderid": 16
+                    
+            }
+
+    *Response
+            {
+                "details": [
+                    {
+                        "order_details_id": 41,
+                        "order_id": 16,
+                        "product_id": 1,
+                        "qty": "5 kg",
+                        "price": 500
+                    },
+                    {
+                        "order_details_id": 42,
+                        "order_id": 16,
+                        "product_id": 2,
+                        "qty": "5 kg",
+                        "price": 600
+                    },
+                    {
+                        "order_details_id": 43,
+                        "order_id": 16,
+                        "product_id": 3,
+                        "qty": "5 kg",
+                        "price": 700
+                    },
+                    {
+                        "order_details_id": 44,
+                        "order_id": 16,
+                        "product_id": 4,
+                        "qty": "5 kg",
+                        "price": 800
+                    }
+                ],
+                "message": "Success"
+        }
+
+
+
 

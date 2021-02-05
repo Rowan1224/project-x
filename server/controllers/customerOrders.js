@@ -8,6 +8,10 @@ const orderDetails = Order_Details(sequelize, Sequelize);
 const Customer =  require('../../server/models/Customer_Address');
 const customer = Customer(sequelize,Sequelize);
 
+const Universal_Products = require('../models/Universal_Product_List');
+const universal_products = Universal_Products(sequelize, Sequelize);
+const Service_Inventory = require('../models//Service_Inventory');
+const service_inventory = Service_Inventory(sequelize, Sequelize);
 
 
 exports.createCustomerOrderDetails = (req, res, next) => {
@@ -52,49 +56,51 @@ exports.createCustomerOrderDetails = (req, res, next) => {
 
 };
 
-exports.getServiceOrderDetails = (req, res, next) => {
-    const orderId = req.body.orderId;
+exports.getServiceOrder = (req, res, next) => {
+  //  const order_id = req.body.orderid;
+    const service_id = req.body.userid;
 
-    orderDetails.findAll({where :{order_id : orderId}}).then(details => {
-        res.status(200).json({
-            details: details,
-            message: "Success"
+    orders.findAll({
+        where : {
+            service_id : service_id,
+            delivered : false,
+        }
+    }).then(result =>
+        {
+            res.status(200).json({
+                    //    order_id : result.order_id,
+                    //    customer_id : result.customer_id,
+                    //    customer_address_id : result.customer_address_id,
+                    //    order_time : result.order_time,
+                    //    payment : result.payment,
+                    //    customer_address_id : result.customer_address_id,
+                    result : result,  
+                    message: "Success"
+                    });
+        }).catch(err => {
+                res.status(504).json({
+                    message: "Failed"
+                 });
+
         });
-    }).catch(err => {
-        res.status(504).json({
-            message: "Failed"
-        });
-    });
+
 };
 
 
 
+exports.getServiceOrderDetails = (req, res, next) => {
+             
+        const order_id = req.body.orderid;
+          
+        orderDetails.findAll({where :{order_id : order_id}}).then(details => {
+                res.status(200).json({
+                    details: details,
+                    message: "Success"
+                });
+            }).catch(err => {
+                res.status(504).json({
+                    message: "Failed"
+                });
+            })
 
-// exports.createCustomerAddress = (req, res, next) => {
-//     const address = req.body.address;
-
-//     customer.create(address).then(result => {
-//         res.status(200).json({
-//             message: "Success"
-//         });
-//     }).catch(err => {
-//         res.status(504).json({
-//             message: "Failed"
-//         });
-//     });
-// };
-
-// exports.getCustomerAddress = (req, res, next) => {
-//     const customerId = req.body.customerId;
-
-//     customer.findAll({where :{customer_id : customerId}}).then(address => {
-//         res.status(200).json({
-//             address: address,
-//             message: "Success"
-//         });
-//     }).catch(err => {
-//         res.status(504).json({
-//             message: "Failed"
-//         });
-//     });
-// };
+};
