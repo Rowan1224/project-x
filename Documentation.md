@@ -694,46 +694,38 @@ For 350 some decision was taken:
 
 
     *Response
-
-
         {
-
-
-            "result": [
+            "details": [
                 {
                     "order_id": 6,
-                    "customer_id": 1,
-                    "service_id": 1,
-                    "employee_id": null,
-                    "delivered": 0,
-                    "order_time": "2020-05-03T04:20:00.000Z",
-                    "customer_address_id": 1,
-                    "payment": 25
+                    "customer_name": "toha",
+                    "customer_phone": "01534771111",
+                    "address": "132,station_road-12,Tilagorh,Sylhet",
+                    "further_description": null,
+                    "payment": 25,
+                    "delivered": 0
                 },
                 {
                     "order_id": 17,
-                    "customer_id": 13,
-                    "service_id": 1,
-                    "employee_id": null,
-                    "delivered": 0,
-                    "order_time": "2021-02-03T17:03:00.000Z",
-                    "customer_address_id": 26,
-                    "payment": 253
+                    "customer_name": "toha",
+                    "customer_phone": "01534771222",
+                    "address": "23-D,54/A,Zindabazar,Sylhet",
+                    "further_description": "null",
+                    "payment": 253,
+                    "delivered": 0
                 },
                 {
                     "order_id": 18,
-                    "customer_id": 13,
-                    "service_id": 1,
-                    "employee_id": null,
-                    "delivered": 0,
-                    "order_time": "2021-02-03T21:41:00.000Z",
-                    "customer_address_id": 26,
-                    "payment": 253
+                    "customer_name": "toha",
+                    "customer_phone": "01534771222",
+                    "address": "23-D,54/A,Zindabazar,Sylhet",
+                    "further_description": "null",
+                    "payment": 253,
+                    "delivered": 0
                 }
             ],
-            "message": "Success"
-    }
-
+            "message": "Success."
+}
 
 
 **service provider Order Details
@@ -747,39 +739,29 @@ For 350 some decision was taken:
             }
 
     *Response
+                {
+        "details": [
             {
-                "details": [
-                    {
-                        "order_details_id": 41,
-                        "order_id": 16,
-                        "product_id": 1,
-                        "qty": "5 kg",
-                        "price": 500
-                    },
-                    {
-                        "order_details_id": 42,
-                        "order_id": 16,
-                        "product_id": 2,
-                        "qty": "5 kg",
-                        "price": 600
-                    },
-                    {
-                        "order_details_id": 43,
-                        "order_id": 16,
-                        "product_id": 3,
-                        "qty": "5 kg",
-                        "price": 700
-                    },
-                    {
-                        "order_details_id": 44,
-                        "order_id": 16,
-                        "product_id": 4,
-                        "qty": "5 kg",
-                        "price": 800
-                    }
-                ],
-                "message": "Success"
-        }
+                "product_name": "Coca-cola",
+                "quantity": "1500 ml",
+                "product price per unit": 20,
+                "product size": "500 ml"
+            },
+            {
+                "product_name": "Pepsi",
+                "quantity": "750 ml",
+                "product price per unit": 20,
+                "product size": "250 ml"
+            },
+            {
+                "product_name": "Chaal",
+                "quantity": "5 Kg",
+                "product price per unit": 55,
+                "product size": "1 Kg"
+            }
+        ],
+    "message": "Success."
+}
 
 
 

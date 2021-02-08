@@ -5,8 +5,10 @@ const orders = Orders(sequelize, Sequelize);
 const Order_Details = require('../../server/models/Order_details');
 const orderDetails = Order_Details(sequelize, Sequelize);
 
-const Customer =  require('../../server/models/Customer_Address');
-const customer = Customer(sequelize,Sequelize);
+const CustomerAddress =  require('../../server/models/Customer_Address');
+const customeraddress = CustomerAddress(sequelize,Sequelize);
+const Customer= require('../../server/models/Customer_Credential');
+const customer=Customer(sequelize,Sequelize);
 
 const Universal_Products = require('../models/Universal_Product_List');
 const universal_products = Universal_Products(sequelize, Sequelize);
@@ -59,30 +61,44 @@ exports.createCustomerOrderDetails = (req, res, next) => {
 exports.getServiceOrder = (req, res, next) => {
   //  const order_id = req.body.orderid;
     const service_id = req.body.userid;
-
-    orders.findAll({
-        where : {
-            service_id : service_id,
-            delivered : false,
-        }
-    }).then(result =>
+    sequelize.query("SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE service_id=? && delivered=false",{replacements: [service_id],type: sequelize.QueryTypes.SELECT})
+    .then(result =>
         {
-            res.status(200).json({
-                    //    order_id : result.order_id,
-                    //    customer_id : result.customer_id,
-                    //    customer_address_id : result.customer_address_id,
-                    //    order_time : result.order_time,
-                    //    payment : result.payment,
-                    //    customer_address_id : result.customer_address_id,
-                    result : result,  
-                    message: "Success"
+            var output = [];
+            if(result.length===0)
+                {  
+                    res.status(200).json({
+                       // details: details,
+                        message: "No Orders."
                     });
-        }).catch(err => {
-                res.status(504).json({
-                    message: "Failed"
-                 });
+                }
+            else{
+               
+                result.forEach(element => {
 
+                    var address = element.house_no+','+element.road_no+','+element.area_name+','+element.district;
+                    var productorder =
+                    {
+                        "order_id" :element.order_id,
+                        "customer_name" : element.customer_name,
+                        "customer_phone" : element.customer_phone,
+                        "address" : address,
+                        // "road_no" : element.road_no,
+                        // "house_no" :element.house_no,
+                        "further_description" : element.further_description,
+                        "payment" : element.payment,
+                        "delivered" : element.delivered
+                    };
+                    output.push(productorder);
+                });
+
+                res.status(200).json({
+                     details: output,
+                     message: "Success."
+                 });
+            }
         });
+   
 
 };
 
@@ -92,15 +108,57 @@ exports.getServiceOrderDetails = (req, res, next) => {
              
         const order_id = req.body.orderid;
           
-        orderDetails.findAll({where :{order_id : order_id}}).then(details => {
-                res.status(200).json({
-                    details: details,
-                    message: "Success"
-                });
-            }).catch(err => {
-                res.status(504).json({
-                    message: "Failed"
-                });
-            })
+        sequelize.query("SELECT Order_details.qty,Order_details.price,Universal_Product_List.product_name,Universal_Product_List.qty AS size,Universal_Product_List.unit FROM Order_details INNER JOIN Universal_Product_List ON Order_details.product_id= Universal_Product_List.product_id WHERE order_id=?",{replacements: [order_id],type: sequelize.QueryTypes.SELECT})
+        .then(result =>
+            {
+                var output = [];
+                if(result.length===0)
+                    {  
+                        res.status(200).json({
+                           // details: details,
+                            message: "No Orders."
+                        });
+                    }
+                else{
+                   
+                    result.forEach(element => {
+                        var producdetails = element.size+' '+element.unit;
+                       // var address = element.house_no+','+element.road_no+','+element.area_name+','+element.district;
+                        var productorder =
+                        {
+                            "product_name" : element.product_name,
+                            "quantity" : element.qty,
+                            "product price per unit" : element.price,
+                            "product size" :producdetails
+                        };
+                        output.push(productorder);
+                    });
+    
+                    res.status(200).json({
+                         details: output,
+                         message: "Success."
+                     });
+                }
+            });
 
 };
+
+
+
+// Order_Details.findAll({where :{order_id : order_id}
+// }).then(details =>
+//     {
+//         details.forEach(element => {
+//             var product_id = element.product_id;
+//              universal_products.findAll({where : {product_id : product_id}
+//             }).then(resp =>
+//                 {
+//                     product_name    = resp[0].product_name;
+//                 })
+//         });
+//     })
+
+
+// array.forEach(element => {
+    
+// });
