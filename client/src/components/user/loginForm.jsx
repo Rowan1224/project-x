@@ -68,7 +68,9 @@ const LoginForm = (props) => {
                         isServiceProvider
                     );
                     handleAuthentication("Yes");
-                    props.history.push("/");
+                    isServiceProvider
+                        ? props.history.push("/orders")
+                        : props.history.push("/");
                 }
             } catch (error) {
                 setStatus(error);

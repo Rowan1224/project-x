@@ -17,6 +17,8 @@ import Profile from "./pages/Profile";
 import CheckoutPage from "./pages/CheckoutPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TestPage from "./test/TestPage";
+import OrderPage from "./pages/OrderPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
 
 library.add(far, fas);
 
@@ -28,6 +30,12 @@ function App() {
                     <Route
                         path="/service-provider/:id"
                         component={ServiceProviders}
+                    />
+                    <Route exact path="/orders" component={OrderPage} />
+                    <Route
+                        exact
+                        path="/order/details/:order_id"
+                        component={OrderDetailsPage}
                     />
                     <Route exact path="/cart" component={ShoppingCart} />
                     <Route exact path="/checkout" component={CheckoutPage} />

@@ -139,8 +139,8 @@ exports.getServiceOrderDetails = (req, res, next) => {
                         {
                             "product_name" : element.product_name,
                             "quantity" : product_quantity,
-                            "product price per unit" : element.price,
-                            "product size" :producdetails
+                            "product_price_per_unit" : element.price,
+                            "product_size" :producdetails
                         };
                         output.push(productorder);
                     });
