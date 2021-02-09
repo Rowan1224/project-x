@@ -106,7 +106,7 @@ exports.getServiceOrder = (req, res, next) => {
 
 exports.getServiceOrderDetails = (req, res, next) => {
              
-        const order_id = req.body.orderid;
+        const order_id = req.body.order_id;
           
         sequelize.query("SELECT Order_details.qty,Order_details.price,Universal_Product_List.product_name,Universal_Product_List.qty AS size,Universal_Product_List.unit FROM Order_details INNER JOIN Universal_Product_List ON Order_details.product_id= Universal_Product_List.product_id WHERE order_id=?",{replacements: [order_id],type: sequelize.QueryTypes.SELECT})
         .then(result =>
@@ -123,11 +123,22 @@ exports.getServiceOrderDetails = (req, res, next) => {
                    
                     result.forEach(element => {
                         var producdetails = element.size+' '+element.unit;
+                        var prod="";
+                        for (let i = 0; i < element.qty.length; i++) {
+                            if(element.qty[i]===' ')
+                                break;
+                            prod +=element.qty[i];
+                        }
+                       // console.log(prod);
+                      //  prod = parseInt(prod)
+                        var product_quantity = parseInt(prod)/parseInt(element.size);
+                        //console.log(product_quantity);
+
                        // var address = element.house_no+','+element.road_no+','+element.area_name+','+element.district;
                         var productorder =
                         {
                             "product_name" : element.product_name,
-                            "quantity" : element.qty,
+                            "quantity" : product_quantity,
                             "product price per unit" : element.price,
                             "product size" :producdetails
                         };
@@ -145,20 +156,19 @@ exports.getServiceOrderDetails = (req, res, next) => {
 
 
 
-// Order_Details.findAll({where :{order_id : order_id}
-// }).then(details =>
-//     {
-//         details.forEach(element => {
-//             var product_id = element.product_id;
-//              universal_products.findAll({where : {product_id : product_id}
-//             }).then(resp =>
-//                 {
-//                     product_name    = resp[0].product_name;
-//                 })
-//         });
-//     })
+exports.completeServiceOrder = (req,res,nxt ) =>{
+
+    const order_id = req.body.order_id;
+    //const service_id = req.body.userid;
+
+    orders.findByPk(order_id).then((serv) => {
+            serv.delivered = true;
+            return serv.save();
+    }).then((sucess) => {
+        res.status(200).json({message: "Success"});
+    }).catch((err) => {
+        res.status(504).json({message: "Failed"});
+    });
 
 
-// array.forEach(element => {
-    
-// });
+};

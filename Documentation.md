@@ -734,7 +734,7 @@ For 350 some decision was taken:
     *Request(POST => /getserviceordersdetails)
             {
                    
-		            "orderid": 16
+		            "orderid": 19
                     
             }
 
@@ -743,25 +743,39 @@ For 350 some decision was taken:
         "details": [
             {
                 "product_name": "Coca-cola",
-                "quantity": "1500 ml",
+                "quantity": "3",
                 "product price per unit": 20,
                 "product size": "500 ml"
             },
             {
                 "product_name": "Pepsi",
-                "quantity": "750 ml",
+                "quantity": "3",
                 "product price per unit": 20,
                 "product size": "250 ml"
             },
             {
                 "product_name": "Chaal",
-                "quantity": "5 Kg",
+                "quantity": "5",
                 "product price per unit": 55,
                 "product size": "1 Kg"
             }
         ],
     "message": "Success."
 }
+
+
+**service Provider Complete Order
+
+
+    *Request (POST => /completeserviceorder)
+    {
+        "order_id": 6
+    }
+
+    *Response 
+    {
+        "message": "Success"
+    }
 
 
 

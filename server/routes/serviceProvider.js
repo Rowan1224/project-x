@@ -71,4 +71,5 @@ const customerOrderController = require("../controllers/customerOrders");
 router.post("/createcustomerorder",customerOrderController.createCustomerOrderDetails);
 router.post("/getserviceorders",customerOrderController.getServiceOrder);
 router.post("/getserviceordersdetails",customerOrderController.getServiceOrderDetails);
+router.post("/completeserviceorder",customerOrderController.completeServiceOrder);
 module.exports = router;
