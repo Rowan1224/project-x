@@ -249,7 +249,7 @@ exports.deleteProduct = (req, res, next) => {
 
     const service_id = req.body.service_id;
     const product_name = req.body.product_name;
-    const new_price = req.body.price;
+    var  price = req.body.price? req.body.price : 0;
 
     universal_products.findAll({
         where : {product_name : product_name}
