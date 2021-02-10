@@ -30,6 +30,7 @@ const AuthenticationContextProvider = (props) => {
             handleAuthentication("");
             localStorage.setItem("userID", "");
             localStorage.setItem("username", "");
+            localStorage.setItem("phone_number", "");
             window.location.replace("/login");
         }
     };

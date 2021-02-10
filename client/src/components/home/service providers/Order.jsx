@@ -31,7 +31,7 @@ const Order = (props) => {
 
         const loadData = async () => {
             const userID = {
-                userid: localStorage.getItem("user_id"),
+                userid: localStorage.getItem("userID"),
             };
 
             const response = await fetch(API_URL, {
@@ -68,10 +68,15 @@ const Order = (props) => {
 
             const data = await response.json();
 
-            if (response.ok) alert("Order completed successfully");
+            if (response.ok) if(!alert("Order Id "+order_id+" completed successfully")){window.location.reload();};
+           
         };
         loadData();
     };
+
+    const refreshPage = ()=>{
+        window.location.reload();
+     }
 
     return (
         <>
@@ -130,7 +135,7 @@ const Order = (props) => {
                                     <Link
                                         to={`/order/details/${order.order_id}/`}
                                     >
-                                        {order.order_id}
+                                        {5000+order.order_id}
                                     </Link>
                                 </td>
 

@@ -138,7 +138,7 @@
 
 **Profile Related APIs**
 
-* Get All Profile Data
+* Get service provider All Profile Data
 
     * Request (POST => /getProfile) 
 
@@ -164,7 +164,7 @@
                 "profile_picture": null
             }
 
-* Update Profile Data
+* Update service provider Profile Data
 
     * Request (PATCH => /updateProfile) 
 
@@ -285,19 +285,20 @@
 
 * Add Product into Own Service Inventory
 
-    * Request (POST => /addProduct) 
+
+    * Request (POST => /addProduct) (Toha)
 
             {
+
                 "service_id": 3,
-                "product_id": 2,
-                "delivery_limit": "",
-                "price": 25
+                "product_name": "Mojo",
+                "price": 50
             }
     
     * Response
 
             {
-                "message": "Success"
+                "message": "Successfully Enlisted."
             }
 
 * Update Product
@@ -305,15 +306,17 @@
     * Request (POST => /updateProduct) 
 
             {
-                "inventory_id": 14,
-                "delivery_limit": "This is delivery_limit",
-                "price": 20
+                 "service_id": 3,
+                "product_name": "Mojo",
+                "price": 40
+
+                
             }
     
     * Response
 
             {
-                "message": "Success"
+                 "message": "Successfully Updated"
             }
 
 * Delete Product
@@ -321,13 +324,15 @@
     * Request (POST => /deleteProduct) 
 
             {
-                "inventory_id": 14
+               "service_id": 3,
+                "product_name": "Mojo",
+                "price": 40
             }
     
     * Response
 
             {
-                "message": "Success"
+                "message": "Successfully Deleted."
             }
 
 **Order Related APIs**
@@ -734,7 +739,7 @@ For 350 some decision was taken:
     *Request(POST => /getserviceordersdetails)
             {
                    
-		            "orderid": 19
+		            "order_id": 19
                     
             }
 

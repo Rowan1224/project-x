@@ -87,7 +87,7 @@ exports.getServiceOrder = (req, res, next) => {
                         // "house_no" :element.house_no,
                         "further_description" : element.further_description,
                         "payment" : element.payment,
-                        "delivered" : element.delivered
+                        "time" : element.order_time
                     };
                     output.push(productorder);
                 });

@@ -76,7 +76,7 @@ exports.createCustomerAddress = (req, res, next) => {
                         res.status(200).json({customer_add_id : result.customer_add_id}
                         );
                     }).catch((err) => {
-                        res.status(504).json({message: "Failedddd"});
+                        res.status(504).json({message: "Failed to create customer address"});
                     });
             }
         }).catch(err => {
