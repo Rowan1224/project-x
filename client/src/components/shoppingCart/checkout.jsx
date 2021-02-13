@@ -29,6 +29,8 @@ const Checkout = (props) => {
     const success = isLightTheme ? theme.light.success : theme.dark.success;
     const border = isLightTheme ? theme.light.border : theme.dark.border;
 
+    
+
     useEffect(() => {
         const loadData = async () => {
             const API_URL = "/getCustomerAddress/";

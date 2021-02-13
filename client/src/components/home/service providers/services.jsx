@@ -90,7 +90,7 @@ const Services = () => {
 
                 <Infobar>
                     {sName ? sName + " " : "Company name"}
-                    {emoji("🤪")}
+                    {/* {emoji("🤪")} */}
                 </Infobar>
                 <h4 className={"my-4" + custom_text}>Our Services ...</h4>
             </div>

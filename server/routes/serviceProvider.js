@@ -69,7 +69,12 @@ router.patch("/customerupdateprofile",customerProfileController.updateCustomerPr
 
 const customerOrderController = require("../controllers/customerOrders");
 router.post("/createcustomerorder",customerOrderController.createCustomerOrderDetails);
-router.post("/getserviceorders",customerOrderController.getServiceOrder);
-router.post("/getserviceordersdetails",customerOrderController.getServiceOrderDetails);
-router.post("/completeserviceorder",customerOrderController.completeServiceOrder);
+router.post("/getcustomerorderhistory",customerOrderController.getCustomerOrderHistory);
+
+const serviceStatsController = require("../controllers/servicestats");
+router.post("/getservicestats",serviceStatsController.getServiceStats);
+router.post("/getserviceorderhistory",serviceStatsController.getServiceOrderHistory);
+router.post("/getserviceorders",serviceStatsController.getServiceOrder);
+router.post("/getserviceordersdetails",serviceStatsController.getServiceOrderDetails);
+router.post("/completeserviceorder",serviceStatsController.completeServiceOrder);
 module.exports = router;

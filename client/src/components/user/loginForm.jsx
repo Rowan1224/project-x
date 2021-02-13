@@ -91,7 +91,7 @@ const LoginForm = (props) => {
                 <div className="d-flex justify-content-between mb-4 mx-0">
                     <div className="w-50 p-0">
                         <img
-                            src="/img/profile_pic.png"
+                            src="/img/profilpic.jpg"
                             onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src = "/img/Default.png";

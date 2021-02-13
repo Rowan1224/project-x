@@ -657,8 +657,7 @@ For 350 some decision was taken:
 
 *customer must login for order
 *updating number not handled in good way..if one want to update the phone number we have to send the otp to the previous number to change the number..but for now it was not handled.
-
-
+*If the cart is empty,checkout should not work. 
 
 ** Customer Create Orders
 
@@ -783,5 +782,176 @@ For 350 some decision was taken:
     }
 
 
+**service Provider Add Product
+
+     *Request (POST => /addproduct)
+    {
+        "service_id": 1,
+        "product_name": "Mojo",
+        "price": 90
+    }
+
+    *Response 
+    {
+        "message": "Successfully Enlisted."
+    }
+
+**service Provider Update Product
+
+     *Request (POST => /updateproduct)
+    {
+        "service_id": 1,
+        "product_name": "Mojo",
+        "price": 90
+    }
+
+    *Response 
+    {
+        "message": "Successfully Updated"
+    }
+
+**service Provider delete Product
+
+     *Request (POST => /deleteproduct)
+    {
+        "service_id": 1,
+        "product_name": "Mojo",
+        "price": 90
+    }
+
+    *Response 
+    {
+        "message": "Successfully deleted"
+    }
 
 
+**Service Provider Statistics
+
+ *Request (POST => /getservicestats)
+    {
+        "start_date": "2021-02-10",
+        "end_date": "2021-02-11",
+        "service_id": 1
+    }
+
+    *Response 
+    {
+          "total_orders": 2,
+          "delivered": 2,
+          "income": 901,
+          "message": "Success"
+    }
+
+** Service Order History
+
+    *Request (POST => /getserviceorderhistory)
+    {
+        "service_id": 1
+    }
+
+    *Response 
+    {
+    "details": [
+            {
+                "order_id": 2,
+                "customer_name": "samay",
+                "customer_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 01574312323",
+                "payment": 506,
+                "time": "2021-02-10T20:54:00.000Z"
+            },
+            {
+                "order_id": 3,
+                "customer_name": "samay",
+                "customer_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "",
+                "payment": 395,
+                "time": "2021-02-10T20:55:00.000Z"
+            },
+            {
+                "order_id": 4,
+                "customer_name": "samay",
+                "customer_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 01765431234",
+                "payment": 92,
+                "time": "2021-02-11T08:57:00.000Z"
+            },
+            {
+                "order_id": 5,
+                "customer_name": "samay",
+                "customer_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 01574312323",
+                "payment": 211,
+                "time": "2021-02-11T09:05:00.000Z"
+            },
+            {
+                "order_id": 6,
+                "customer_name": "samay",
+                "customer_phone": "01534771222",
+                "address": "13,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 012345678",
+                "payment": 654,
+                "time": "2021-02-11T10:50:00.000Z"
+            }
+        ],
+        "message": "Success."
+    }
+
+
+**Customer Order History
+
+
+     *Request (POST => /getserviceorderhistory)
+    {
+        "customer_id": 13
+    }
+    *Response
+            {
+        "details": [
+            {
+                "order_id": 2,
+                "your_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 01574312323",
+                "payment": 506,
+                "time": "2021-02-10T20:54:00.000Z"
+            },
+            {
+                "order_id": 3,
+                "your_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "",
+                "payment": 395,
+                "time": "2021-02-10T20:55:00.000Z"
+            },
+            {
+                "order_id": 4,
+                "your_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 01765431234",
+                "payment": 92,
+                "time": "2021-02-11T08:57:00.000Z"
+            },
+            {
+                "order_id": 5,
+                "your_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 01574312323",
+                "payment": 211,
+                "time": "2021-02-11T09:05:00.000Z"
+            },
+            {
+                "order_id": 6,
+                "your_phone": "01534771222",
+                "address": "13,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 012345678",
+                "payment": 654,
+                "time": "2021-02-11T10:50:00.000Z"
+            }
+        ],
+        "message": "Success."
+    }

@@ -9,6 +9,9 @@ import { ThemeContext } from "../../contexts/ThemeContext";
 const MainNav = (props) => {
     const [isShadow, setIsShadow] = useState(window.scrollY > 20);
     const [isAuthenticated] = useState(localStorage.getItem("isAuthenticated"));
+    const [isServiceProvider] = useState(
+        localStorage.getItem("isServiceProvider") === "true"
+    );
 
     useWindowScroll((event) => {
         setIsShadow(window.scrollY > 20);
@@ -37,7 +40,7 @@ const MainNav = (props) => {
             className={isShadow ? "shadow" : ""}
         >
             <Navbar.Brand
-                to="/"
+                to={isServiceProvider? "/orders" : "/"}
                 as={NavLink}
                 className={custom_text}
                 style={{ fontFamily: "MuseoModerno" }}
@@ -64,7 +67,7 @@ const MainNav = (props) => {
                     </Nav.Link>
 
                     <Nav.Link
-                        to="/cart"
+                        to={isServiceProvider? "/orders" : "/cart"}
                         as={NavLink}
                         style={navLinkStyle}
                         className={custom_text}
