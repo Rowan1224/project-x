@@ -56,7 +56,7 @@ const LoginForm = (props) => {
 
                 if (!response.ok) setStatus(data.message);
                 else if (!showVerificationArea) {
-                    setStatus("");
+                    setStatus(undefined);
                     setShowVerificationArea(true);
                 } else {
                     localStorage.setItem("userID", data.userid);

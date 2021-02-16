@@ -248,7 +248,7 @@ const ProfileForm = () => {
                                     >
                                         <input
                                             name="nid"
-                                            type="number"
+                                            type="text"
                                             readOnly={!canEdit}
                                             defaultValue={user.nid}
                                             className="form-control text-center rounded-0"
@@ -297,7 +297,7 @@ const ProfileForm = () => {
                                         }
                                     >
                                         <input
-                                            type="number"
+                                            type="text"
                                             name="trade_license"
                                             readOnly={!canEdit}
                                             defaultValue={user.trade_license}

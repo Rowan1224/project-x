@@ -364,7 +364,7 @@ const Checkout = (props) => {
                         </div>
 
                         <div className="row">
-                            <div className="col-md-4 mb-3">
+                            <div className="col-md-6 mb-3">
                                 <label htmlFor="house_no">House No</label>
                                 <input
                                     required
@@ -381,7 +381,7 @@ const Checkout = (props) => {
                                     Please select a valid house.
                                 </div>
                             </div>
-                            <div className="col-md-4 mb-3">
+                            <div className="col-md-6 mb-3">
                                 <label htmlFor="road_no">Road No</label>
                                 <input
                                     required
@@ -398,7 +398,7 @@ const Checkout = (props) => {
                                     Please provide a valid road number.
                                 </div>
                             </div>
-                            <div className="col-md-4 mb-3">
+                            <div className="d-none">
                                 <label htmlFor="area_id">Area ID</label>
                                 <input
                                     required

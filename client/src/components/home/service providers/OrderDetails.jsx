@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Counter from "../../generic/counter";
-import { Table, Button } from "react-bootstrap";
-import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
-import Icon from "@material-ui/core/Icon";
+// import Counter from "../../generic/counter";
+import { Table } from "react-bootstrap";
+// import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
+// import Icon from "@material-ui/core/Icon";
 import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ThemeContext } from "../../../contexts/ThemeContext";
-import { Link } from "react-router-dom";
-import emoji from "react-easy-emoji";
-import Infobar from "../../generic/infobar";
+// import { Link } from "react-router-dom";
+// import emoji from "react-easy-emoji";
+// import Infobar from "../../generic/infobar";
 import { useParams } from "react-router-dom";
 
 const OrderDetails = (props) => {
@@ -16,15 +16,16 @@ const OrderDetails = (props) => {
     const [orderDetails, setOrderDetails] = useState([]);
 
     // Themes
-    const { isLightTheme, theme } = useContext(ThemeContext);
+    // const { isLightTheme, theme } = useContext(ThemeContext);
+    const { isLightTheme } = useContext(ThemeContext);
     const variant = isLightTheme ? "light" : "dark";
-    const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
-    const type = isLightTheme ? theme.light.type : theme.dark.type;
-    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
-    const custom_text = isLightTheme
-        ? theme.light.custom_text
-        : theme.dark.custom_text;
+    // const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
+    // const type = isLightTheme ? theme.light.type : theme.dark.type;
+    // const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const custom_text = isLightTheme
+    //     ? theme.light.custom_text
+    //     : theme.dark.custom_text;
 
     // componentDidMount
     useEffect(() => {
@@ -48,7 +49,7 @@ const OrderDetails = (props) => {
             setOrderDetails(data.details);
         };
         loadData();
-    }, []);
+    }, [params.order_id]);
 
     return (
         <Table responsive="sm" striped bordered variant={variant}>

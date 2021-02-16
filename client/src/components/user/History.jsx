@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 // import Counter from "../../generic/counter";
-import { Table, Button } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 // import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
 // import Icon from "@material-ui/core/Icon";
 import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
-import Moment from "moment";
-import { ThemeContext } from "../../../contexts/ThemeContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 import { Link } from "react-router-dom";
 // import emoji from "react-easy-emoji";
-import Infobar from "../../generic/infobar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Infobar from "../generic/infobar";
+import Moment from "moment";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Order = (props) => {
-    const [flag, setFlag] = useState(true);
-    const [orders, setOrders] = useState([]);
+const History = (props) => {
+    const [isServiceProvider] = useState(
+        localStorage.getItem("isServiceProvider") === "true"
+    );
+    const [histories, setHistories] = useState([]);
 
     // Themes
     // const { isLightTheme, theme } = useContext(ThemeContext);
@@ -30,7 +32,9 @@ const Order = (props) => {
 
     // componentDidMount
     useEffect(() => {
-        const API_URL = "/getserviceorders/";
+        const API_URL = isServiceProvider
+            ? "/getserviceorderhistory/"
+            : "/getcustomerorderhistory";
 
         const loadData = async () => {
             const userID = {
@@ -47,39 +51,14 @@ const Order = (props) => {
             });
 
             const data = await response.json();
-            setOrders(data.details);
+            setHistories(data.details);
         };
         loadData();
-    }, [flag]);
-
-    const handleComplete = (order_id) => {
-        const API_URL = "/completeserviceorder";
-
-        const loadData = async () => {
-            const orderID = {
-                order_id: order_id,
-            };
-
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(orderID),
-            });
-
-            if (response.ok) {
-                !alert("Order Id " + order_id + " completed successfully") &&
-                    setFlag(!flag);
-            }
-        };
-        loadData();
-    };
+    }, [isServiceProvider]);
 
     return (
         <>
-            {orders ? (
+            {histories ? (
                 <Table responsive="sm" striped bordered variant={variant}>
                     <thead>
                         <tr>
@@ -89,17 +68,19 @@ const Order = (props) => {
                             >
                                 Order ID
                             </th>
+                            {isServiceProvider && (
+                                <th
+                                    scope="col"
+                                    className="text-center align-middle"
+                                >
+                                    Customer Name
+                                </th>
+                            )}
                             <th
                                 scope="col"
                                 className="text-center align-middle"
                             >
-                                Customer Name
-                            </th>
-                            <th
-                                scope="col"
-                                className="text-center align-middle"
-                            >
-                                Customer Phone
+                                Phone
                             </th>
                             <th
                                 scope="col"
@@ -125,73 +106,55 @@ const Order = (props) => {
                             >
                                 Time
                             </th>
-                            <th
-                                scope="col"
-                                className="text-center align-middle"
-                            >
-                                Action
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map((order) => (
+                        {histories.map((history) => (
                             <tr key={uuidv4()}>
                                 <td className="text-center align-middle">
                                     <Link
-                                        to={`/order/details/${order.order_id}/`}
+                                        to={`/order/details/${history.order_id}/`}
                                     >
-                                        {order.order_id}
+                                        {history.order_id}
                                     </Link>
                                 </td>
 
+                                {isServiceProvider && (
+                                    <td className="text-center align-middle">
+                                        {history.customer_name}
+                                    </td>
+                                )}
+
                                 <td className="text-center align-middle">
-                                    {order.customer_name}
+                                    {history.customer_phone}
                                 </td>
 
                                 <td className="text-center align-middle">
-                                    {order.customer_phone}
+                                    {history.address}
                                 </td>
 
                                 <td className="text-center align-middle">
-                                    {order.address}
+                                    {history.further_description}
                                 </td>
 
                                 <td className="text-center align-middle">
-                                    {order.further_description}
+                                    {history.payment}
                                 </td>
 
                                 <td className="text-center align-middle">
-                                    {order.payment}
-                                </td>
-
-                                <td className="text-center align-middle">
-                                    {Moment(order.time).format(
+                                    {Moment(history.time).format(
                                         "DD/MM/YY hh:mmA"
                                     )}
-                                </td>
-
-                                <td className="text-center align-middle">
-                                    <Button
-                                        size="sm"
-                                        variant="success"
-                                        onClick={() =>
-                                            handleComplete(order.order_id)
-                                        }
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={["fas", "check"]}
-                                        />
-                                    </Button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </Table>
             ) : (
-                <Infobar>You have no orders to show</Infobar>
+                <Infobar>You have no history to show</Infobar>
             )}
         </>
     );
 };
 
-export default Order;
+export default History;

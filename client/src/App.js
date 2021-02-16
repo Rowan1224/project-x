@@ -9,6 +9,7 @@ import ShoppingCart from "./pages/shoppingCart";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import UserRegistration from "./pages/userRegistration";
 import UserLogin from "./pages/userLogin";
@@ -19,8 +20,11 @@ import NotFoundPage from "./pages/NotFoundPage";
 import TestPage from "./test/TestPage";
 import OrderPage from "./pages/OrderPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
+import AddProductPage from "./pages/AddProductPage";
+import StatisticsPage from "./pages/StatisticsPage";
+import HistoryPage from "./pages/HistoryPage";
 
-library.add(far, fas);
+library.add(far, fas, fab);
 
 function App() {
     return (
@@ -37,8 +41,18 @@ function App() {
                         path="/order/details/:order_id"
                         component={OrderDetailsPage}
                     />
-                    <Route exact path="/cart" component={ShoppingCart} />
+                    <Route
+                        exact
+                        path="/add/product"
+                        component={AddProductPage}
+                    />
+                    <Route
+                        exact
+                        path="/statistics"
+                        component={StatisticsPage}
+                    />
                     <Route exact path="/checkout" component={CheckoutPage} />
+                    <Route exact path="/cart" component={ShoppingCart} />
                     <Route
                         exact
                         path="/registration"
@@ -46,6 +60,7 @@ function App() {
                     />
                     <Route exact path="/login" component={UserLogin} />
                     <Route exact path="/profile" component={Profile} />
+                    <Route exact path="/history" component={HistoryPage} />
                     <Route exact path="/test" component={TestPage} />
                     <Route exact path="/" component={Home} />
                     <Route component={NotFoundPage} />

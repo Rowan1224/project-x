@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import { AccountCircle, ShoppingCart } from "@material-ui/icons";
+import { AccountCircle, ShoppingCart, History } from "@material-ui/icons";
 import { useWindowScroll } from "beautiful-react-hooks";
 import { NavLink } from "react-router-dom";
 import ToggleTheme from "../theme/ToggleTheme";
@@ -40,7 +40,7 @@ const MainNav = (props) => {
             className={isShadow ? "shadow" : ""}
         >
             <Navbar.Brand
-                to={isServiceProvider? "/orders" : "/"}
+                to={isServiceProvider ? "/orders" : "/"}
                 as={NavLink}
                 className={custom_text}
                 style={{ fontFamily: "MuseoModerno" }}
@@ -67,10 +67,19 @@ const MainNav = (props) => {
                     </Nav.Link>
 
                     <Nav.Link
-                        to={isServiceProvider? "/orders" : "/cart"}
+                        as={NavLink}
+                        to={"/history"}
+                        style={navLinkStyle}
+                        className={custom_text}
+                    >
+                        <History />
+                    </Nav.Link>
+
+                    <Nav.Link
                         as={NavLink}
                         style={navLinkStyle}
                         className={custom_text}
+                        to={isServiceProvider ? "/orders" : "/cart"}
                     >
                         <ShoppingCart />
                     </Nav.Link>

@@ -73,6 +73,7 @@ const CartContextProvider = (props) => {
 
     const handleRemove = (id) => {
         setItems(items.filter((item) => item.id !== id));
+        items.length === 1 && sessionStorage.setItem("service_id", "");
     };
 
     return (
