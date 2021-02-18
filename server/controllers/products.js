@@ -84,8 +84,8 @@ exports.addProduct = (req, res, next) => {
                 {
                     if(element.length>0)
                     {
-                        res.status(504).json({
-                                message: "Already enlisted in products."
+                        res.status(409).json({
+                                message: "Already enlisted in products"
                         });
                     }
                     else
@@ -98,12 +98,12 @@ exports.addProduct = (req, res, next) => {
                         }).then(elem =>
                             {
                                 res.status(200).json({
-                                     message: "Successfully Enlisted."
+                                     message: "Successfully Enlisted"
                                          });
                             }).catch(err =>
                                 {
                                     res.status(504).json({
-                                        message: "Failed."
+                                        message: "Failed"
                                      });
                                 });
 

@@ -158,7 +158,7 @@ exports.getServiceStats = (req,res,nxt) =>
 exports.getServiceOrderHistory = (req,res,nxt) =>
 {
 
-    const service_id = req.body.service_id;
+    const service_id = req.body.userid;
 
     sequelize.query("SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE service_id=? && delivered=true",{replacements: [service_id],type: sequelize.QueryTypes.SELECT})
     .then(result =>
