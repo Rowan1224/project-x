@@ -161,7 +161,7 @@ const Order = (props) => {
                                 </td>
 
                                 <td className="text-center align-middle">
-                                    {order.payment}
+                                ৳{order.payment}
                                 </td>
 
                                 <td className="text-center align-middle">

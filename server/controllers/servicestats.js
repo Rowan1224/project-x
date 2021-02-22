@@ -4,12 +4,14 @@ const Orders = require('../../server/models/Orders');
 const orders = Orders(sequelize, Sequelize);
 const Order_Details = require('../../server/models/Order_details');
 const orderDetails = Order_Details(sequelize, Sequelize);
+const Employee = require('../../server/models/Employee');
+const employee = Employee(sequelize, Sequelize);
 
 
 exports.getServiceOrder = (req, res, next) => {
     //  const order_id = req.body.orderid;
       const service_id = req.body.userid;
-      sequelize.query("SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE service_id=? && delivered=false",{replacements: [service_id],type: sequelize.QueryTypes.SELECT})
+      sequelize.query("SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id WHERE service_id=? && delivered=false ORDER BY order_time DESC",{replacements: [service_id],type: sequelize.QueryTypes.SELECT})
       .then(result =>
           {
               var output = [];
@@ -48,10 +50,53 @@ exports.getServiceOrder = (req, res, next) => {
           });
      
   
-  };
+};
+
+exports.getAssignedServiceOrder = (req, res, next) => {
+    //  const order_id = req.body.orderid;
+      const service_id = req.body.userid;
+      sequelize.query("SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  INNER JOIN Employee ON Orders.employee_id=Employee.employee_id  WHERE Orders.service_id=? &&  Orders.employee_id IS NOT NULL",{replacements: [service_id],type: sequelize.QueryTypes.SELECT})
+      .then(result =>
+          {
+              var output = [];
+              if(result.length===0)
+                  {  
+                      res.status(200).json({
+                         // details: details,
+                          message: "No Orders."
+                      });
+                  }
+              else{
+                 
+                  result.forEach(element => {
   
+                      var address = element.house_no+','+element.road_no+','+element.area_name+','+element.district;
+                      var productorder =
+                      {
+                          "order_id" :element.order_id,
+                          "customer_name" : element.customer_name,
+                          "customer_phone" : element.customer_phone,
+                          "address" : address,
+                          // "road_no" : element.road_no,
+                          // "house_no" :element.house_no,
+                          "further_description" : element.further_description,
+                          "payment" : element.payment,
+                          "employee" : element.employee_name,
+                          "time" : element.order_time
+                      };
+                      output.push(productorder);
+                  });
   
+                  res.status(200).json({
+                       details: output,
+                       message: "Success."
+                   });
+              }
+          });
+     
   
+};
+
   exports.getServiceOrderDetails = (req, res, next) => {
                
           const order_id = req.body.order_id;
@@ -101,8 +146,58 @@ exports.getServiceOrder = (req, res, next) => {
               });
   
   };
-  
-  
+
+exports.assignEmployee = (req, res, next) => {
+    const order_id = req.body.order_id;
+    const service_id = req.body.service_id;
+    const employee_name = req.body.employee_name;
+
+    employee.findAll({
+        where : {
+             employee_name : employee_name,
+             service_id : service_id
+            } 
+    }).then(ret =>
+        {
+            if(ret.length>0)
+            {
+                let employee_id = ret[0].employee_id;
+                orders.findByPk(order_id).then(result => {
+                    result.employee_id = employee_id;
+                    return result.save();             
+                }).then(reto => {
+                    res.status(200).json({
+                        message: "Success.Employee Selected."
+                    });
+                }).catch(err => {
+                    res.status(504).json({
+                        message: "Failed."
+                    });
+                });
+            }
+            else
+            {
+                res.status(504).json({
+                    message: "No Employee matched for the service provider."
+                });
+            }
+
+        })
+
+    // orders.findByPk(order_id).then(result => {
+    //     result.employee_id = employee_id;
+
+    //     return result.save();             
+    // }).then(ret => {
+    //     res.status(200).json({
+    //         message: "Success"
+    //     });
+    // }).catch(err => {
+    //     res.status(504).json({
+    //         message: "Failed"
+    //     });
+    // });
+};
   
   exports.completeServiceOrder = (req,res,nxt ) =>{
   
@@ -158,9 +253,9 @@ exports.getServiceStats = (req,res,nxt) =>
 exports.getServiceOrderHistory = (req,res,nxt) =>
 {
 
-    const service_id = req.body.service_id;
+    const service_id = req.body.userid;
 
-    sequelize.query("SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE service_id=? && delivered=true",{replacements: [service_id],type: sequelize.QueryTypes.SELECT})
+    sequelize.query("SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE service_id=? && delivered=true ORDER BY order_time DESC",{replacements: [service_id],type: sequelize.QueryTypes.SELECT})
     .then(result =>
         {
             var output = [];

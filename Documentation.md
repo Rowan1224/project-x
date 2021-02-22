@@ -408,14 +408,15 @@
     * Request (POST => /assignEmployee) 
 
             {
-                "order_id": 1,
-                "employee_id": 3
+                "order_id" : 2,
+                "service_id" : 1,
+                "employee_name" : "sldkfj"
             }
     
     * Response
 
             {
-                "message": "Success"
+                "message": "Success.Employee Selected"
             }
 * Customer Address
 * Request (POST => /createCustomerAddress) 
@@ -731,6 +732,32 @@ For 350 some decision was taken:
             "message": "Success."
 }
 
+**service provider employee assigned orders:
+
+
+*Request (POST => /getassignedserviceorders)
+    {
+         "userid": 1
+    }
+
+
+    *Response
+        {
+            
+            "details": [
+                {
+                    "order_id": 2,
+                    "customer_name": "samay",
+                    "customer_phone": "01534771222",
+                    "address": "23-D,54/A,Zindabazar,Sylhet",
+                    "further_description": "call to 01574312323",
+                    "payment": 506,
+                    "employee": "sldkfj",
+                    "time": "2021-02-10T20:54:00.000Z"
+                }
+            ],
+            "message": "Success."
+        }
 
 **service provider Order Details
 
@@ -846,7 +873,7 @@ For 350 some decision was taken:
 
     *Request (POST => /getserviceorderhistory)
     {
-        "service_id": 1
+        "userid": 1
     }
 
     *Response 
@@ -891,7 +918,7 @@ For 350 some decision was taken:
             {
                 "order_id": 6,
                 "customer_name": "samay",
-                "customer_phone": "01534771222",
+                "phone": "01534771222",
                 "address": "13,54/A,Zindabazar,Sylhet",
                 "further_description": "call to 012345678",
                 "payment": 654,
@@ -905,16 +932,16 @@ For 350 some decision was taken:
 **Customer Order History
 
 
-     *Request (POST => /getserviceorderhistory)
+     *Request (POST => /getcustomerorderhistory)
     {
-        "customer_id": 13
+        "userid": 13
     }
     *Response
             {
         "details": [
             {
                 "order_id": 2,
-                "your_phone": "01534771222",
+                "customer_phone": "01534771222",
                 "address": "23-D,54/A,Zindabazar,Sylhet",
                 "further_description": "call to 01574312323",
                 "payment": 506,
@@ -922,7 +949,7 @@ For 350 some decision was taken:
             },
             {
                 "order_id": 3,
-                "your_phone": "01534771222",
+                "customer_phone": "01534771222",
                 "address": "23-D,54/A,Zindabazar,Sylhet",
                 "further_description": "",
                 "payment": 395,
@@ -930,7 +957,7 @@ For 350 some decision was taken:
             },
             {
                 "order_id": 4,
-                "your_phone": "01534771222",
+                "customer_phone": "01534771222",
                 "address": "23-D,54/A,Zindabazar,Sylhet",
                 "further_description": "call to 01765431234",
                 "payment": 92,
@@ -938,7 +965,7 @@ For 350 some decision was taken:
             },
             {
                 "order_id": 5,
-                "your_phone": "01534771222",
+                "customer_phone": "01534771222",
                 "address": "23-D,54/A,Zindabazar,Sylhet",
                 "further_description": "call to 01574312323",
                 "payment": 211,
@@ -946,7 +973,7 @@ For 350 some decision was taken:
             },
             {
                 "order_id": 6,
-                "your_phone": "01534771222",
+                "customer_phone": "01534771222",
                 "address": "13,54/A,Zindabazar,Sylhet",
                 "further_description": "call to 012345678",
                 "payment": 654,
@@ -955,3 +982,7 @@ For 350 some decision was taken:
         ],
         "message": "Success."
     }
+
+
+
+

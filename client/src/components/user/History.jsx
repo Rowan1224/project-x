@@ -138,7 +138,7 @@ const History = (props) => {
                                 </td>
 
                                 <td className="text-center align-middle">
-                                    {history.payment}
+                                 ৳{history.payment}
                                 </td>
 
                                 <td className="text-center align-middle">

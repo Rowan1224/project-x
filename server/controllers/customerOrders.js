@@ -62,9 +62,9 @@ exports.createCustomerOrderDetails = (req, res, next) => {
 exports.getCustomerOrderHistory = (req,res,nxt) =>
 {
 
-    const customer_id = req.body.customer_id;
+    const customer_id = req.body.userid;
 
-    sequelize.query("SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE Orders.customer_id=? && delivered=true",{replacements: [customer_id],type: sequelize.QueryTypes.SELECT})
+    sequelize.query("SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE Orders.customer_id=? ORDER BY order_time DESC ",{replacements: [customer_id],type: sequelize.QueryTypes.SELECT})
     .then(result =>
         {
             var output = [];
@@ -83,7 +83,7 @@ exports.getCustomerOrderHistory = (req,res,nxt) =>
                     var productorder =
                     {
                         "order_id" :element.order_id,
-                        "your_phone" : element.customer_phone,
+                        "customer_phone" : element.customer_phone,
                         "address" : address,
                         "further_description" : element.further_description,
                         "payment" : element.payment,

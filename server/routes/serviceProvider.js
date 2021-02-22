@@ -32,7 +32,6 @@ router.post("/deleteProduct", productController.deleteProduct);
 
 // Order Related APIs
 router.post("/createOrder", ordersController.createOrder);
-router.post("/assignEmployee", ordersController.assignEmployee);
 
 //Rowan
 const getServiceAreaController = require("../controllers/getServiceArea");
@@ -75,6 +74,8 @@ const serviceStatsController = require("../controllers/servicestats");
 router.post("/getservicestats",serviceStatsController.getServiceStats);
 router.post("/getserviceorderhistory",serviceStatsController.getServiceOrderHistory);
 router.post("/getserviceorders",serviceStatsController.getServiceOrder);
+router.post("/getassignedserviceorders",serviceStatsController.getAssignedServiceOrder);
 router.post("/getserviceordersdetails",serviceStatsController.getServiceOrderDetails);
 router.post("/completeserviceorder",serviceStatsController.completeServiceOrder);
+router.post("/assignEmployee", serviceStatsController.assignEmployee);
 module.exports = router;

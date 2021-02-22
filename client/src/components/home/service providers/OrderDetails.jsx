@@ -81,7 +81,7 @@ const OrderDetails = (props) => {
                         </td>
 
                         <td className="text-center align-middle">
-                            {orderDetail.product_price_per_unit}
+                        ৳{orderDetail.product_price_per_unit}
                         </td>
 
                         <td className="text-center align-middle">
