@@ -263,7 +263,7 @@ exports.getServiceOrderHistory = (req, res, nxt) => {
 
     sequelize
         .query(
-            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE service_id=? && delivered=true ORDER BY order_time DESC",
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  INNER JOIN Employee ON Orders.employee_id=Employee.employee_id  WHERE Orders.service_id=? && delivered=true ORDER BY order_time DESC",
             { replacements: [service_id], type: sequelize.QueryTypes.SELECT }
         )
         .then((result) => {
@@ -291,6 +291,7 @@ exports.getServiceOrderHistory = (req, res, nxt) => {
                         further_description: element.further_description,
                         payment: element.payment,
                         time: element.order_time,
+                        employee: element.employee_name,
                     };
                     output.push(productorder);
                 });
