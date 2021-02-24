@@ -38,7 +38,7 @@ exports.addEmployee = (req, res, next) => {
     employee
         .findAll({
             where: {
-                phone_number: phone_number
+                phone_number: phone_number,
             },
         })
         .then((ret) => {
@@ -54,14 +54,15 @@ exports.addEmployee = (req, res, next) => {
                         phone_number: phone_number,
                     })
                     .then((result) => {
-                        res.status(200).json({ message: "Successfully added." });
+                        res.status(200).json({
+                            message: "Successfully added.",
+                        });
                     })
                     .catch((err) => {
                         res.status(504).json({ message: "Failed to add." });
                     });
             }
         });
-
 };
 
 exports.updateEmployee = (req, res, next) => {
@@ -70,22 +71,38 @@ exports.updateEmployee = (req, res, next) => {
     let updated_phone_number = req.body.phone_number;
 
     employee
-        .findByPk(employee_id)
-        .then((emp) => {
-            emp.employee_name = updated_employee_name
-                ? updated_employee_name
-                : emp.employee_name;
-            emp.phone_number = updated_phone_number
-                ? updated_phone_number
-                : emp.phone_number;
+        .findAll({
+            where: {
+                phone_number: updated_phone_number,
+            },
+        })
+        .then((ret) => {
+            if (ret.length > 0) {
+                res.status(504).json({
+                    message: "Already an employee with that number",
+                });
+            } else {
+                employee
+                    .findByPk(employee_id)
+                    .then((emp) => {
+                        emp.employee_name = updated_employee_name
+                            ? updated_employee_name
+                            : emp.employee_name;
+                        emp.phone_number = updated_phone_number
+                            ? updated_phone_number
+                            : emp.phone_number;
 
-            return emp.save();
-        })
-        .then((result) => {
-            res.status(200).json({ message: "Success.Update Completed" });
-        })
-        .catch((err) => {
-            res.status(504).json({ message: "Failed to Update." });
+                        return emp.save();
+                    })
+                    .then((result) => {
+                        res.status(200).json({
+                            message: "Success.Update Completed",
+                        });
+                    })
+                    .catch((err) => {
+                        res.status(504).json({ message: "Failed to Update." });
+                    });
+            }
         });
 };
 
