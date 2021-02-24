@@ -40,20 +40,20 @@ exports.addEmployee = (req, res, next) => {
 
 exports.updateEmployee = (req, res, next) => {
     const employee_id = req.body.employee_id;
-    const updated_employee_name = req.body.employee_name;
-    const updated_phone_number = req.body.phone_number;
+    let updated_employee_name = req.body.employee_name;
+    let  updated_phone_number = req.body.phone_number ;
 
     employee.findByPk(employee_id).then(
         emp => {
-            emp.employee_name = updated_employee_name;
-            emp.phone_number = updated_phone_number;
+            emp.employee_name = updated_employee_name ? updated_employee_name : emp.employee_name ;
+            emp.phone_number = updated_phone_number? updated_phone_number : emp.phone_number ;
 
             return emp.save();
         }
     ).then((result) => {
-        res.status(200).json({message: "Success"});
+        res.status(200).json({message: "Success.Update Completed"});
     }).catch((err) => {
-        res.status(504).json({message: "Failed"});
+        res.status(504).json({message: "Failed to Update."});
     });
 };
 
