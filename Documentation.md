@@ -138,24 +138,24 @@
 
 **Profile Related APIs**
 
-* Get All Profile Data
+* Get service provider All Profile Data
 
     * Request (POST => /getProfile) 
 
             {
-                "service_id": 1
+                "userid": 1
             }
 
     * Response
 
             {
-                "service_id": 1,
-                "service_name": "ABC Service",
+                "userid": 1,
+                "username": "ABC Service",
                 "company_name": "ABC",
                 "description": "description",
                 "service_type": "Grocery",
                 "delivery_charge": 50,
-                "phone_1": "01245152",
+                "userphone": "01245152",
                 "phone_2": null,
                 "nid": null,
                 "trade_license": null,
@@ -164,18 +164,18 @@
                 "profile_picture": null
             }
 
-* Update Profile Data
+* Update service provider Profile Data
 
-    * Request (POST => /updateProfile) 
+    * Request (PATCH => /updateProfile) 
 
             {
-                "service_id": 1,
-                "service_name": "Food Pandaas",
+                "userid": 1,
+                "username": "Food Pandaas",
                 "company_name": "Food Team",
                 "description": "description",
                 "service_type": "Grocery",
                 "delivery_charge": 50,
-                "phone_1": "01521461529",
+                "userphone": "01521461529",
                 "phone_2": "01782335868",
                 "nid": "2378SNS57446SC4",
                 "trade_license": "TLAF1C2SZSKLDHFN54",
@@ -285,19 +285,20 @@
 
 * Add Product into Own Service Inventory
 
-    * Request (POST => /addProduct) 
+
+    * Request (POST => /addProduct) (Toha)
 
             {
+
                 "service_id": 3,
-                "product_id": 2,
-                "delivery_limit": "",
-                "price": 25
+                "product_name": "Mojo",
+                "price": 50
             }
     
     * Response
 
             {
-                "message": "Success"
+                "message": "Successfully Enlisted."
             }
 
 * Update Product
@@ -305,15 +306,17 @@
     * Request (POST => /updateProduct) 
 
             {
-                "inventory_id": 14,
-                "delivery_limit": "This is delivery_limit",
-                "price": 20
+                 "service_id": 3,
+                "product_name": "Mojo",
+                "price": 40
+
+                
             }
     
     * Response
 
             {
-                "message": "Success"
+                 "message": "Successfully Updated"
             }
 
 * Delete Product
@@ -321,28 +324,30 @@
     * Request (POST => /deleteProduct) 
 
             {
-                "inventory_id": 14
+               "service_id": 3,
+                "product_name": "Mojo",
+                "price": 40
             }
     
     * Response
 
             {
-                "message": "Success"
+                "message": "Successfully Deleted."
             }
 
 **Order Related APIs**
 
 * Create Order
 
-    * Request (POST => /createOrder) 
+    <!-- * Request (POST => /createOrder) 
 
-            {
-                "customer_id": 1,
-                "service_id": 3,
-                "order_time": "22-01-2020 11:15",
-                "customer_address_id": 2,
-                "payment": 25
-            }
+                {
+                    "customer_id": 1,
+                    "service_id": 3,
+                    "order_time": "22-01-2020 11:15",
+                    "customer_address_id": 2,
+                    "payment": 25
+                }
     
     * Response
 
@@ -368,7 +373,7 @@
 
             {
                 "message": "Success"
-            }
+            } -->
     * Request (POST => /getOrderDetails) 
 
             {
@@ -403,35 +408,41 @@
     * Request (POST => /assignEmployee) 
 
             {
-                "order_id": 1,
-                "employee_id": 3
+                "order_id" : 2,
+                "service_id" : 1,
+                "employee_name" : "sldkfj"
             }
     
     * Response
 
             {
-                "message": "Success"
+                "message": "Success.Employee Selected"
             }
 * Customer Address
 * Request (POST => /createCustomerAddress) 
 
             {
-	            "address":
-                {
-                    "customer_id":1, 
+	                "userid":1, 
                     "road_no":"54/A",
                     "house_no":"23-D",
-                    "area_id": 1
-                }
+                    "area_id": 4,
+                    "further_description": "null"
             }
     
     * Response
 
             {
-                "message": "Success"
+                 "customer_add_id": 24
             }
 
-    * Request (POST => /getOrderDetails) 
+** If there is duplicate data it will not create the address again and will show the customer_add_id.
+**area id needed to know for an account
+
+
+
+
+
+    * Request (POST => /getCustomerAddress) 
 
             {
 	            "customerId": 1
@@ -461,3 +472,517 @@
                 ],
                 "message": "Success"
             }
+
+
+**Customer Register
+
+
+    *Request (POST => /register)
+
+            {
+                 "username" : toha,
+                 "phone" : 01534771222
+            }
+    
+    *Response
+
+            {
+                "message": "Success.User is registered."
+            }
+
+**Customer Login
+
+    *Request (POST => /login)
+
+            {
+                "phone" : 01534771222
+            }
+    
+    *Response 
+
+            {
+                "message": "Success.OTP is sent to the number."
+            }
+
+**Customer Verify
+
+    *Request (POST => /verify)
+
+                {
+                    "code" : "6 digit otp to the number"
+                }
+
+    *Response 
+
+            {
+                "message": "Success.User is logged in."
+
+                "token" :
+                [
+                    {
+			            "customer_phone" : 01534771222
+                    }
+                ]
+            }
+**Customer Logout
+
+    *Request (GET => /logout)
+
+    *Response 
+
+        {
+            "message": "success"
+        }
+
+** Service Register
+
+    *Request (POST => /serviceregister)
+
+            {
+
+                "service_name" : "toto service",
+                "description" : "demo",
+                "service_type" : "Food",
+                "delivery_charge" : "60",
+                "company_name" : "toto",
+                "phone_1" : "01534771222",
+                "nid" : "12345678" ,
+                "trade_license" : "12345678",
+                "address" : "Sylhet"
+
+            }
+
+    *Response 
+
+            {
+                "message": "Success.Service Provider is registered."
+            }
+
+
+**Service Login
+
+    *Request (POST => /servicelogin)
+
+            {
+                "phone" : "01534771222"
+
+            }
+
+    *Response
+
+            {
+
+                 "message": "Success.OTP is sent to the number."
+                
+             }
+
+**Service Verify
+
+ *Request (POST => /serviceverify)
+
+                {
+                    "code" : "6 digit otp to the number"
+                }
+
+    *Response 
+
+            {
+                "message": "Success.User is logged in."
+
+                "token" :
+                [
+                    {
+			            "service_phone" : 01534771222
+                    }
+                ]
+            }
+ 
+
+ **Service Provider Logout
+
+    *Request (GET => /servicelogout)
+
+    *Response 
+
+        {
+            "message": "success"
+        }
+
+
+
+** Customer Get Profile
+
+        *Request (POST => /customerprofile)
+
+           {
+
+                 "userid": 1
+
+            }
+    *Response
+
+            {
+
+                 "userid": 1,
+                 "username": "Mew",
+                 "userphone": "01521776654"
+                
+             }
+
+
+** Customer Update Profile
+
+        *Request (PATCH => /customerupdateprofile)
+
+           {
+
+                 "userid": 1,
+                 "username": "Mew",
+                 "userphone": "01521776654"
+
+            }
+    *Response
+
+            {
+
+                 "message": "Success"
+                
+             }
+
+
+
+
+
+
+For 350 some decision was taken:
+
+*customer must login for order
+*updating number not handled in good way..if one want to update the phone number we have to send the otp to the previous number to change the number..but for now it was not handled.
+*If the cart is empty,checkout should not work. 
+
+** Customer Create Orders
+
+        *Request (POST => /createcustomerorder)
+
+           {
+                    "userid": 2,
+                    "service_id": 2,
+                    "order_time": "2020-05-03 5:20",
+                    "customer_address_id": 1,
+                    "payment": 2500,
+                     "details":
+                     [
+		
+                        {"product_id":1,"qty":"5 kg","price": 500},
+                        {"product_id":2,"qty":"5 kg","price": 600},
+                        {"product_id":3,"qty":"5 kg","price": 700},
+                        {"product_id":4,"qty":"5 kg","price": 800}
+                     ]
+		
+	            
+            }
+    *Response
+
+           {
+
+                  "message": "Success"
+
+            }
+
+
+**service provider orders:
+
+    *Request (POST => /getserviceorders)
+    {
+         "userid": 1
+    }
+
+
+    *Response
+        {
+            "details": [
+                {
+                    "order_id": 6,
+                    "customer_name": "toha",
+                    "customer_phone": "01534771111",
+                    "address": "132,station_road-12,Tilagorh,Sylhet",
+                    "further_description": null,
+                    "payment": 25,
+                    "delivered": 0
+                },
+                {
+                    "order_id": 17,
+                    "customer_name": "toha",
+                    "customer_phone": "01534771222",
+                    "address": "23-D,54/A,Zindabazar,Sylhet",
+                    "further_description": "null",
+                    "payment": 253,
+                    "delivered": 0
+                },
+                {
+                    "order_id": 18,
+                    "customer_name": "toha",
+                    "customer_phone": "01534771222",
+                    "address": "23-D,54/A,Zindabazar,Sylhet",
+                    "further_description": "null",
+                    "payment": 253,
+                    "delivered": 0
+                }
+            ],
+            "message": "Success."
+}
+
+**service provider employee assigned orders:
+
+
+*Request (POST => /getassignedserviceorders)
+    {
+         "userid": 1
+    }
+
+
+    *Response
+        {
+            
+            "details": [
+                {
+                    "order_id": 2,
+                    "customer_name": "samay",
+                    "customer_phone": "01534771222",
+                    "address": "23-D,54/A,Zindabazar,Sylhet",
+                    "further_description": "call to 01574312323",
+                    "payment": 506,
+                    "employee": "sldkfj",
+                    "time": "2021-02-10T20:54:00.000Z"
+                }
+            ],
+            "message": "Success."
+        }
+
+**service provider Order Details
+
+
+    *Request(POST => /getserviceordersdetails)
+            {
+                   
+		            "order_id": 19
+                    
+            }
+
+    *Response
+                {
+        "details": [
+            {
+                "product_name": "Coca-cola",
+                "quantity": "3",
+                "product price per unit": 20,
+                "product size": "500 ml"
+            },
+            {
+                "product_name": "Pepsi",
+                "quantity": "3",
+                "product price per unit": 20,
+                "product size": "250 ml"
+            },
+            {
+                "product_name": "Chaal",
+                "quantity": "5",
+                "product price per unit": 55,
+                "product size": "1 Kg"
+            }
+        ],
+    "message": "Success."
+}
+
+
+**service Provider Complete Order
+
+
+    *Request (POST => /completeserviceorder)
+    {
+        "order_id": 6
+    }
+
+    *Response 
+    {
+        "message": "Success"
+    }
+
+
+**service Provider Add Product
+
+     *Request (POST => /addproduct)
+    {
+        "service_id": 1,
+        "product_name": "Mojo",
+        "price": 90
+    }
+
+    *Response 
+    {
+        "message": "Successfully Enlisted."
+    }
+
+**service Provider Update Product
+
+     *Request (POST => /updateproduct)
+    {
+        "service_id": 1,
+        "product_name": "Mojo",
+        "price": 90
+    }
+
+    *Response 
+    {
+        "message": "Successfully Updated"
+    }
+
+**service Provider delete Product
+
+     *Request (POST => /deleteproduct)
+    {
+        "service_id": 1,
+        "product_name": "Mojo",
+        "price": 90
+    }
+
+    *Response 
+    {
+        "message": "Successfully deleted"
+    }
+
+
+**Service Provider Statistics
+
+ *Request (POST => /getservicestats)
+    {
+        "start_date": "2021-02-10",
+        "end_date": "2021-02-11",
+        "service_id": 1
+    }
+
+    *Response 
+    {
+          "total_orders": 2,
+          "delivered": 2,
+          "income": 901,
+          "message": "Success"
+    }
+
+** Service Order History
+
+    *Request (POST => /getserviceorderhistory)
+    {
+        "userid": 1
+    }
+
+    *Response 
+    {
+    "details": [
+            {
+                "order_id": 2,
+                "customer_name": "samay",
+                "customer_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 01574312323",
+                "payment": 506,
+                "time": "2021-02-10T20:54:00.000Z"
+            },
+            {
+                "order_id": 3,
+                "customer_name": "samay",
+                "customer_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "",
+                "payment": 395,
+                "time": "2021-02-10T20:55:00.000Z"
+            },
+            {
+                "order_id": 4,
+                "customer_name": "samay",
+                "customer_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 01765431234",
+                "payment": 92,
+                "time": "2021-02-11T08:57:00.000Z"
+            },
+            {
+                "order_id": 5,
+                "customer_name": "samay",
+                "customer_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 01574312323",
+                "payment": 211,
+                "time": "2021-02-11T09:05:00.000Z"
+            },
+            {
+                "order_id": 6,
+                "customer_name": "samay",
+                "phone": "01534771222",
+                "address": "13,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 012345678",
+                "payment": 654,
+                "time": "2021-02-11T10:50:00.000Z"
+            }
+        ],
+        "message": "Success."
+    }
+
+
+**Customer Order History
+
+
+     *Request (POST => /getcustomerorderhistory)
+    {
+        "userid": 13
+    }
+    *Response
+            {
+        "details": [
+            {
+                "order_id": 2,
+                "customer_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 01574312323",
+                "payment": 506,
+                "time": "2021-02-10T20:54:00.000Z"
+            },
+            {
+                "order_id": 3,
+                "customer_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "",
+                "payment": 395,
+                "time": "2021-02-10T20:55:00.000Z"
+            },
+            {
+                "order_id": 4,
+                "customer_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 01765431234",
+                "payment": 92,
+                "time": "2021-02-11T08:57:00.000Z"
+            },
+            {
+                "order_id": 5,
+                "customer_phone": "01534771222",
+                "address": "23-D,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 01574312323",
+                "payment": 211,
+                "time": "2021-02-11T09:05:00.000Z"
+            },
+            {
+                "order_id": 6,
+                "customer_phone": "01534771222",
+                "address": "13,54/A,Zindabazar,Sylhet",
+                "further_description": "call to 012345678",
+                "payment": 654,
+                "time": "2021-02-11T10:50:00.000Z"
+            }
+        ],
+        "message": "Success."
+    }
+
+
+
+

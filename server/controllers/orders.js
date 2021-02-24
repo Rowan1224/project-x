@@ -1,9 +1,21 @@
+// const Sequelize = require('sequelize');
+// const sequelize = require('../util/database');
+// const Orders = require('../models/Orders');
+// const orders = Orders(sequelize, Sequelize);
+// const Order_Details = require('../models/Order_details');
+// const orderDetails = Order_Details(sequelize, Sequelize);
+
+
 const Sequelize = require('sequelize');
-const sequelize = require('../util/database');
-const Orders = require('../models/Orders');
+const sequelize = require('../../server/util/database');
+const Orders = require('../../server/models/Orders');
 const orders = Orders(sequelize, Sequelize);
-const Order_Details = require('../models/Order_details');
+const Order_Details = require('../../server/models/Order_details');
 const orderDetails = Order_Details(sequelize, Sequelize);
+
+const Customer =  require('../../server/models/Customer_Address');
+const customer = Customer(sequelize,Sequelize);
+
 
 exports.createOrder = (req, res, next) => {
     const customer_id = req.body.customer_id;

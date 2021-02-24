@@ -101,6 +101,8 @@ const Service = (props) => {
             addItem(product);
             handleShow();
         }
+
+        sessionStorage.setItem("service_id", props.serviceInfo.service_id);
     };
 
     const addOne = () => setCount(count + 1);
@@ -125,11 +127,11 @@ const Service = (props) => {
                 </div>
                 <Card.Body className={syntax}>
                     <Card.Title>{productDetails.product_name}</Card.Title>
-                    <h5 className={currency_text}><b>৳</b> {count * price}</h5>
+                    <h5 className={currency_text}>Tk {count * price}</h5>
                     {/* <p className={custom_text}>(Including vat)</p> */}
                     <div>
                         {/* <Title>Vat: </Title> {productDetails.vat}%
-                        <br /> */}
+                            <br /> */}
                         <Title>Quantity: </Title> {count * productDetails.qty}{" "}
                         {productDetails.unit}
                         <br />
@@ -178,7 +180,7 @@ const Service = (props) => {
                                     className="fa-icon mr-2"
                                     icon={["fas", "check"]}
                                 />
-                                In cart
+                                Added to the cart
                             </div>
                         ) : (
                             <div>

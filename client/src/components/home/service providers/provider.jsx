@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../../contexts/ThemeContext";
-import { useState } from "react";
 import Title from "../../generic/title";
 
 const Provider = (props) => {
+    const [show, setShow] = useState(true);
+
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
@@ -22,7 +23,7 @@ const Provider = (props) => {
 
         const loadData = async () => {
             const servideID = {
-                service_id: props.Service.service_id,
+                userid: props.Service.service_id,
             };
 
             const response = await fetch(API_URL, {
@@ -39,7 +40,14 @@ const Provider = (props) => {
             setProvider(data);
         };
         loadData();
-    }, [props.Service]);
+
+        if (
+            provider.userid &&
+            sessionStorage.getItem("service_id") &&
+            sessionStorage.getItem("service_id") !== provider.userid.toString()
+        )
+            setShow(false);
+    }, [props.Service, provider.userid]);
 
     return (
         <div className="col-12 mb-3">
@@ -84,8 +92,9 @@ const Provider = (props) => {
                         </Card.Text>
                         <Button
                             variant={type}
+                            disabled={!show}
+                            as={show && Link}
                             className="mt-auto"
-                            as={Link}
                             to={"/service-provider/" + props.Service.service_id}
                         >
                             Show their services

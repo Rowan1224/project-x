@@ -43,7 +43,7 @@ const Services = () => {
 
             const loadData = async () => {
                 const servideID = {
-                    service_id: services[0].service_id,
+                    userid: services[0].service_id,
                 };
 
                 const response = await fetch(API_URL, {
@@ -90,7 +90,7 @@ const Services = () => {
 
                 <Infobar>
                     {sName ? sName + " " : "Company name"}
-                    {emoji("🤪")}
+                    {/* {emoji("🤪")} */}
                 </Infobar>
                 <h4 className={"my-4" + custom_text}>Our Services ...</h4>
             </div>
@@ -98,6 +98,7 @@ const Services = () => {
             {services && services.length > 0 ? (
                 <div className="row">
                     {services.map((service) => (
+                        // Here gives unmounted error 🙁
                         <Service serviceInfo={service} key={uuidv4()} />
                     ))}
                 </div>
