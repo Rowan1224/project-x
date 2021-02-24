@@ -106,6 +106,14 @@ const History = (props) => {
                             >
                                 Time
                             </th>
+                            {isServiceProvider && (
+                                <th
+                                    scope="col"
+                                    className="text-center align-middle"
+                                >
+                                    Employee
+                                </th>
+                            )}
                         </tr>
                     </thead>
                     <tbody>
@@ -128,24 +136,25 @@ const History = (props) => {
                                 <td className="text-center align-middle">
                                     {history.customer_phone}
                                 </td>
-
                                 <td className="text-center align-middle">
                                     {history.address}
                                 </td>
-
                                 <td className="text-center align-middle">
                                     {history.further_description}
                                 </td>
-
                                 <td className="text-center align-middle">
-                                 ৳{history.payment}
+                                    ৳{history.payment}
                                 </td>
-
                                 <td className="text-center align-middle">
                                     {Moment(history.time).format(
                                         "DD/MM/YY hh:mmA"
                                     )}
                                 </td>
+                                {isServiceProvider && (
+                                    <td className="text-center align-middle">
+                                        {history.employee}
+                                    </td>
+                                )}
                             </tr>
                         ))}
                     </tbody>

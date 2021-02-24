@@ -1,17 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
-import { ThemeContext } from "../../../contexts/ThemeContext";
-import Title from "../../generic/title";
-import { CartContext } from "../../../contexts/CartContext";
+import Profile from "./pages/Profile";
+import { ThemeContext } from "../../contexts/ThemeContext";
+import Title from "../generic/title";
+// import { CartContext } from "../../contexts/CartContext";
 import Icon from "@material-ui/core/Icon";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Service = (props) => {
+const Product = (props) => {
     const [productDetails, setProductDetails] = useState({});
     const [show, setShow] = useState(false);
     const [count, setCount] = useState(1);
-    const { items, addItem, postCountUpdate } = useContext(CartContext);
+    // const { items, addItem, postCountUpdate } = useContext(CartContext);
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -203,4 +204,4 @@ const Service = (props) => {
     );
 };
 
-export default Service;
+export default Product;

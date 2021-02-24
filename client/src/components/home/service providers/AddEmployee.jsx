@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CustomAlert from "../../generic/CustomAlert";
 // import { AuthenticationContext } from "../../../contexts/AuthenticationContext";
 
-const AddProduct = (props) => {
+const AddEmployee = (props) => {
     const form = useRef(null);
     const [status, setStatus] = useState(undefined);
     const [variant, setVariant] = useState("danger");
@@ -28,7 +28,7 @@ const AddProduct = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const API_URL = "/addProduct/";
+        const API_URL = "/addEmployee/";
 
         const loadData = async () => {
             const formData = new FormData(form.current);
@@ -75,16 +75,14 @@ const AddProduct = (props) => {
                     <div className={"form-group input-group rounded" + border}>
                         <div className="input-group-prepend">
                             <span className="input-group-text rounded-0">
-                                <FontAwesomeIcon
-                                    icon={["fab", "product-hunt"]}
-                                />
+                                <FontAwesomeIcon icon={["fas", "user-plus"]} />
                             </span>
                         </div>
                         <input
                             required
                             type="text"
-                            name="product_name"
-                            placeholder="Product name"
+                            name="employee_name"
+                            placeholder="Employee name"
                             className="form-control rounded-0"
                         />
                     </div>
@@ -94,15 +92,15 @@ const AddProduct = (props) => {
                             <span className="input-group-text rounded-0">
                                 <FontAwesomeIcon
                                     className="mx-1"
-                                    icon={["fas", "dollar-sign"]}
+                                    icon={["fas", "phone"]}
                                 />
                             </span>
                         </div>
                         <input
                             required
-                            name="price"
                             type="number"
-                            placeholder="Price"
+                            name="phone_number"
+                            placeholder="Phone Number"
                             className="form-control rounded-0"
                         />
                     </div>
@@ -111,15 +109,15 @@ const AddProduct = (props) => {
                         <div className="col-md-6">
                             <Button
                                 as={Link}
-                                to="/inventory"
+                                to="/employee/list"
                                 variant={"outline-" + type}
                                 className="w-100 mb-2 mb-md-0"
                             >
                                 <FontAwesomeIcon
                                     className="mr-2"
-                                    icon={["fas", "boxes"]}
+                                    icon={["fas", "users"]}
                                 />
-                                Show my inventory
+                                Show employee list
                             </Button>
                         </div>
 
@@ -133,7 +131,7 @@ const AddProduct = (props) => {
                                     className="mr-2"
                                     icon={["fas", "plus"]}
                                 />
-                                Add Product
+                                Add Employee
                             </Button>
                         </div>
                     </div>
@@ -143,4 +141,4 @@ const AddProduct = (props) => {
     );
 };
 
-export default AddProduct;
+export default AddEmployee;

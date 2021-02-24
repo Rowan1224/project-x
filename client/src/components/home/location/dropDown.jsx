@@ -24,10 +24,12 @@ const DropDown = (props) => {
     return (
         <Dropdown>
             <Dropdown.Toggle
-                size="lg"
-                disabled={props.status}
-                variant={type}
-                className="text-wrap mb-2 w-100"
+                size={props.size}
+                disabled={props.status && props.status}
+                variant={props.type ? props.type : type}
+                className={
+                    props.customClass && props.customClass + " text-wrap"
+                }
             >
                 {title}
             </Dropdown.Toggle>
@@ -35,12 +37,14 @@ const DropDown = (props) => {
             <Dropdown.Menu className={"text-center w-100 shadow" + ui + border}>
                 {props.values.map((value) => (
                     <Dropdown.Item
-                        eventKey={value}
+                        eventKey={
+                            props.subElement ? value[props.subElement] : value
+                        }
                         key={uuidv4()}
                         onSelect={handleSelect}
                         className={"text-wrap" + syntax + dropdown_text}
                     >
-                        {value}
+                        {props.subElement ? value[props.subElement] : value}
                     </Dropdown.Item>
                 ))}
             </Dropdown.Menu>

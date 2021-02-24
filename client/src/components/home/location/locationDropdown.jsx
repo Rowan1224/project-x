@@ -42,26 +42,29 @@ const LocationDropDown = () => {
         <div>
             <div className={"text-center mt-2" + syntax}>
                 <h2>
-                    Everything seems easy, when{" "}
-                    <span className="logo-text">ProjectX</span>{" "}
+                    Why fear, when <span className="logo-text">ProjectX</span>{" "}
                     is here!
                 </h2>
             </div>
             <div className="row mt-5">
                 <div className="col-sm-12 col-md-6">
                     <DropDown
-                        title={district ? district : "District"}
+                        size="lg"
+                        status=""
+                        customClass="mb-2 w-100"
                         values={districts ? districts : []}
                         handleSelect={handleDistrictSelect}
-                        status=""
+                        title={district ? district : "District"}
                     />
                 </div>
                 <div className="col-sm-12 col-md-6">
                     <DropDown
-                        title={area ? area : "Area"}
-                        values={areas ? areas : []}
-                        handleSelect={handleAreaSelect}
+                        size="lg"
                         status={!district}
+                        customClass="mb-2 w-100"
+                        values={areas ? areas : []}
+                        title={area ? area : "Area"}
+                        handleSelect={handleAreaSelect}
                     />
                 </div>
                 {/* <Button
