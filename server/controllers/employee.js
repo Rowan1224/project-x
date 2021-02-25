@@ -77,7 +77,7 @@ exports.updateEmployee = (req, res, next) => {
             },
         })
         .then((ret) => {
-            if (ret.length > 0) {
+            if (ret.length > 0 && ret[0].employee_id != employee_id) {
                 res.status(504).json({
                     message: "Already an employee with that number",
                 });
