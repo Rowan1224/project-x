@@ -11,6 +11,7 @@ const router = express.Router();
 
 // Area Related Routes
 router.post("/addArea", addAreaController.addArea);
+router.post("/removearea",addAreaController.removeArea);
 
 // Employee Related Routes
 router.post("/addEmployee", employeeController.addEmployee);

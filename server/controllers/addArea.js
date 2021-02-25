@@ -11,8 +11,25 @@ exports.addArea = (req, res, next) => {
         service_id: service_id,
         area_id: area_id
     }).then((result) => {
-        res.status(200).json({message: "Success"});
+        res.status(200).json({message: "Successfully added the area"});
     }).catch((err) => {
-        res.status(504).json({message: "Failed"});
+        res.status(504).json({message: "Failed to add the area"});
     });
+};
+
+exports.removeArea = (req, res, next) => {
+    const area_id = req.body.area_id;
+    const service_id = req.body.service_id;
+
+    serviceArea.destroy({
+        where : {
+            service_id : service_id,
+            area_id : area_id
+        }
+    }).then(result => {
+        res.status(200).json({message: "Successfully deleted the area"});
+    }).catch(err => {
+        res.status(504).json({message: "Failed to delete the area"});
+    })
+    
 };
