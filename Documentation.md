@@ -998,5 +998,19 @@ For 350 some decision was taken:
     }
 
 
+**Service Provider Remove Area
+
+*Request(POST => /removearea)
+    {
+        "service_id": 1,
+        "area_id" :1
+    }
+
+*Response 
+    {
+           "message": "Successfully deleted the area"
+    }
+
+
 
 
