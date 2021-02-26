@@ -1,22 +1,21 @@
 import React, { useContext, useRef, useState } from "react";
-import { Modal } from "react-bootstrap";
-import { SettingsContext } from "../../../contexts/SettingsContext";
+import CustomModalAlert from "../../generic/CustomModalAlert";
 import CustomAlert from "../../generic/CustomAlert";
+import CustomModal from "../../generic/CustomModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ThemeContext } from "../../../contexts/ThemeContext";
 
 const UpdateEmployeeDetails = (props) => {
     const form = useRef(null);
-    const [show, setShow] = useState(false);
     const [status, setStatus] = useState(undefined);
-    const { isAnimated } = useContext(SettingsContext);
     const [statusVariant, setStatusVariant] = useState("danger");
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    // Themes
+    const { isLightTheme, theme } = useContext(ThemeContext);
+    const type = isLightTheme ? theme.light.type : theme.dark.type;
+    const border = isLightTheme ? theme.light.border : theme.dark.border;
 
-    const handleUpdate = (e) => {
-        e.preventDefault();
-
+    const handleUpdate = () => {
         const API_URL = "/updateEmployee/";
         const loadData = async () => {
             const formData = new FormData(form.current);
@@ -25,7 +24,7 @@ const UpdateEmployeeDetails = (props) => {
             formData.forEach(function (value, key) {
                 object[key] = value;
             });
-            object["employee_id"] = props.employee_id;
+            object["employee_id"] = props.employee.employee_id;
 
             const response = await fetch(API_URL, {
                 method: "POST",
@@ -37,73 +36,105 @@ const UpdateEmployeeDetails = (props) => {
             });
             const data = await response.json();
             if (response.ok) {
+                setStatus(data.message);
                 setStatusVariant("success");
-                handleClose();
-                props.updateFlag();
+            } else {
+                setStatus(data.message);
+                setStatusVariant("danger");
             }
-            setStatus(data.message);
         };
         loadData();
     };
 
     return (
-        <>
-            <button onClick={handleShow} className={props.actionButtonClass}>
-                {props.children}
-            </button>
-
-            <Modal
-                centered
-                size="sm"
-                show={show}
-                onHide={handleClose}
-                animation={isAnimated}
-            >
-                <Modal.Header closeButton>{props.modalTitle}</Modal.Header>
-                <Modal.Body>
-                    <form ref={form} onSubmit={handleUpdate}>
-                        {status && (
+        <CustomModal
+            // size="md"
+            actionVariant={type}
+            handleAction={handleUpdate}
+            modalTitle="Update Employee Details"
+            actionButtonBody={
+                <>
+                    <FontAwesomeIcon
+                        className="fa-icon mr-2"
+                        icon={["fas", "wrench"]}
+                    />
+                    Update
+                </>
+            }
+            modalButtonClass={"btn btn-sm btn-" + type}
+            modalBody={
+                <form ref={form}>
+                    {status &&
+                        (statusVariant === "success" ? (
+                            <CustomModalAlert
+                                status={status}
+                                setStatus={setStatus}
+                                variant={statusVariant}
+                                updateFlag={props.updateFlag}
+                            />
+                        ) : (
                             <CustomAlert
                                 status={status}
                                 variant={statusVariant}
                             />
-                        )}
+                        ))}
 
-                        <div className="form-group">
-                            <label>Employee Name</label>
+                    <div className="form-group">
+                        <label>Employee Name</label>
 
+                        <div
+                            className={
+                                "form-group input-group rounded" + border
+                            }
+                        >
+                            <div className="input-group-prepend">
+                                <span className="input-group-text rounded-0">
+                                    <FontAwesomeIcon
+                                        className="fa-icon"
+                                        icon={["fas", "user"]}
+                                    />
+                                </span>
+                            </div>
                             <input
                                 required
                                 autoFocus
                                 type="text"
                                 name="employee_name"
-                                className="form-control"
                                 placeholder="Employee Name"
-                                defaultValue={props.employee_name}
-                            />
-
-                            <label className="mt-3">Phone Number</label>
-
-                            <input
-                                type="text"
-                                name="phone_number"
-                                className="form-control"
-                                placeholder="Phone Number"
-                                defaultValue={props.phone_number}
+                                className="form-control rounded-0"
+                                defaultValue={props.employee.employee_name}
                             />
                         </div>
 
-                        <button type="submit" className="w-100 btn btn-main">
-                            <FontAwesomeIcon
-                                icon={["fas", "wrench"]}
-                                className="mr-2"
+                        <label className="mt-3">Phone Number</label>
+
+                        <div
+                            className={
+                                "form-group input-group rounded" + border
+                            }
+                        >
+                            <div className="input-group-prepend">
+                                <span className="input-group-text rounded-0">
+                                    <FontAwesomeIcon
+                                        className="fa-icon"
+                                        icon={["fas", "phone"]}
+                                    />
+                                </span>
+                            </div>
+                            <input
+                                type="text"
+                                name="phone_number"
+                                placeholder="Phone Number"
+                                className="form-control rounded-0"
+                                defaultValue={props.employee.phone_number}
                             />
-                            Update
-                        </button>
-                    </form>
-                </Modal.Body>
-            </Modal>
-        </>
+                        </div>
+                    </div>
+                </form>
+            }
+        >
+            <FontAwesomeIcon className="fa-icon" icon={["fa", "wrench"]} />
+        </CustomModal>
     );
 };
 

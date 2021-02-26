@@ -37,7 +37,7 @@ const App = () => {
                 <AuthenticationContextProvider>
                     <Switch>
                         <Route
-                            path="/service-provider/:id"
+                            path="/service/provider/:id"
                             component={ServiceProviders}
                         />
                         <Route exact path="/orders" component={OrderPage} />

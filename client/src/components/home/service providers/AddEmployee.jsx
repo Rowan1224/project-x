@@ -7,6 +7,7 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CustomAlert from "../../generic/CustomAlert";
+import CustomModalAlert from "../../generic/CustomModalAlert";
 // import { AuthenticationContext } from "../../../contexts/AuthenticationContext";
 
 const AddEmployee = (props) => {
@@ -68,14 +69,25 @@ const AddEmployee = (props) => {
         >
             <div className="card-body col">
                 <form ref={form} onSubmit={handleSubmit}>
-                    {status && (
-                        <CustomAlert variant={variant} status={status} />
-                    )}
+                    {status &&
+                        (variant === "success" ? (
+                            <CustomModalAlert
+                                status={status}
+                                variant={variant}
+                                setStatus={setStatus}
+                                redirect="/employee/list"
+                            />
+                        ) : (
+                            <CustomAlert status={status} variant={variant} />
+                        ))}
 
                     <div className={"form-group input-group rounded" + border}>
                         <div className="input-group-prepend">
                             <span className="input-group-text rounded-0">
-                                <FontAwesomeIcon icon={["fas", "user-plus"]} />
+                                <FontAwesomeIcon
+                                    className="fa-icon"
+                                    icon={["fas", "user-plus"]}
+                                />
                             </span>
                         </div>
                         <input
@@ -91,7 +103,7 @@ const AddEmployee = (props) => {
                         <div className="input-group-prepend">
                             <span className="input-group-text rounded-0">
                                 <FontAwesomeIcon
-                                    className="mx-1"
+                                    className="fa-icon mr-1"
                                     icon={["fas", "phone"]}
                                 />
                             </span>
@@ -117,7 +129,7 @@ const AddEmployee = (props) => {
                                     className="mr-2"
                                     icon={["fas", "users"]}
                                 />
-                                Show employee list
+                                Show Employee List
                             </Button>
                         </div>
 
@@ -129,7 +141,7 @@ const AddEmployee = (props) => {
                             >
                                 <FontAwesomeIcon
                                     className="mr-2"
-                                    icon={["fas", "plus"]}
+                                    icon={["fas", "user-plus"]}
                                 />
                                 Add Employee
                             </Button>
