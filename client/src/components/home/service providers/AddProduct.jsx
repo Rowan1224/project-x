@@ -111,9 +111,11 @@ const AddProduct = (props) => {
                         <div className="col-md-6">
                             <Button
                                 as={Link}
-                                to="/inventory"
                                 variant={"outline-" + type}
                                 className="w-100 mb-2 mb-md-0"
+                                to={`/service/provider/${localStorage.getItem(
+                                    "userID"
+                                )}`}
                             >
                                 <FontAwesomeIcon
                                     className="mr-2"

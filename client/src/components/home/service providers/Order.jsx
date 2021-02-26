@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import Moment from "moment";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { Link } from "react-router-dom";
-// import emoji from "react-easy-emoji";
+import emoji from "react-easy-emoji";
 import Infobar from "../../generic/infobar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DropDown from "../location/dropDown";
@@ -32,13 +32,14 @@ const Order = (props) => {
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const variant = isLightTheme ? "light" : "dark";
-    // const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
+    const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
+    const tabColor = isLightTheme ? theme.light.tabColor : theme.dark.tabColor;
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     // const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const border = isLightTheme ? theme.light.border : theme.dark.border;
-    // const dropdown_text = isLightTheme
-    //     ? theme.light.dropdown_text
-    //     : theme.dark.dropdown_text;
+    const custom_text = isLightTheme
+        ? theme.light.custom_text
+        : theme.dark.custom_text;
 
     // componentDidMount
     useEffect(() => {
@@ -206,18 +207,13 @@ const Order = (props) => {
 
     return (
         <>
-            <AppBar
-                color="default"
-                position="static"
-                className="text-primary rounded"
-            >
+            <AppBar position="static" className={"rounded" + ui}>
                 <Tabs
                     value={value}
-                    textColor="primary"
-                    variant="scrollable"
-                    scrollButtons="auto"
+                    className={custom_text}
+                    TabIndicatorProps={{ style: { background: tabColor } }}
+                    variant="fullWidth"
                     onChange={handleChange}
-                    indicatorColor="primary"
                 >
                     {tabs.map((tab) => (
                         <Tab
@@ -408,8 +404,14 @@ const Order = (props) => {
                                 </tbody>
                             </Table>
                         </div>
+                    ) : index === 0 ? (
+                        <Infobar>
+                            You have no orders to show {emoji("🥲")}
+                        </Infobar>
                     ) : (
-                        <Infobar>You have no orders to show</Infobar>
+                        <Infobar>
+                            You haven't assigned any orders yet! {emoji("🙁")}
+                        </Infobar>
                     )}
                 </TabPanel>
             ))}

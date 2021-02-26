@@ -11,6 +11,7 @@
 // Colors
 $main: #2980b9;
 $main-dark: #feca57;
+$secondary-dark: #ec9474;
 $facebook: #405d9d;
 $twitter: #00acee;
 $success-dark: #8cfac7;
@@ -27,6 +28,7 @@ $theme-colors: map-merge(
         "facebook": $facebook,
         "main-dark": $main-dark,
         "success-dark": $success-dark,
+        "secondary-dark": $secondary-dark,
     ),
     $theme-colors
 );

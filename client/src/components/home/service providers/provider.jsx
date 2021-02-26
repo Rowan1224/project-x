@@ -95,7 +95,7 @@ const Provider = (props) => {
                             disabled={!show}
                             as={show && Link}
                             className="mt-auto"
-                            to={"/service-provider/" + props.Service.service_id}
+                            to={"/service/provider/" + props.Service.service_id}
                         >
                             Show their services
                         </Button>

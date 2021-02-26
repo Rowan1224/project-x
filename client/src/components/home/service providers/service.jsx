@@ -8,9 +8,12 @@ import Icon from "@material-ui/core/Icon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Service = (props) => {
-    const [productDetails, setProductDetails] = useState({});
     const [show, setShow] = useState(false);
     const [count, setCount] = useState(1);
+    const [isServiceProvider] = useState(
+        localStorage.getItem("isServiceProvider") === "true"
+    );
+    const [productDetails, setProductDetails] = useState({});
     const { items, addItem, postCountUpdate } = useContext(CartContext);
 
     // Themes
@@ -105,6 +108,9 @@ const Service = (props) => {
         sessionStorage.setItem("service_id", props.serviceInfo.service_id);
     };
 
+    const handleUpdateItem = () => {};
+    const handleDeleteItem = () => {};
+
     const addOne = () => setCount(count + 1);
     const minusOne = () => (count > 1 ? setCount(count - 1) : setCount(1));
 
@@ -136,67 +142,104 @@ const Service = (props) => {
                         {productDetails.unit}
                         <br />
                         <Title>Company: </Title> {productDetails.company_name}
-                        <br />
-                        <div className="my-3 d-flex justify-content-center">
-                            <Icon
-                                style={{
-                                    fontSize: "1.125rem",
-                                    color: "#0275d8",
-                                }}
-                                onClick={addOne}
-                                className="mt-1"
-                            >
-                                add_circle
-                            </Icon>
-                            <input
-                                type="number"
-                                className={"show-cart-count mx-1" + syntax}
-                                value={count}
-                                onChange={(e) => setCount(e.target.value)}
-                                onKeyDown={(e) =>
-                                    ["e", "E", "+", "-", "."].includes(e.key) &&
-                                    e.preventDefault()
-                                }
-                            />
-                            <Icon
-                                style={{
-                                    fontSize: "1.125rem",
-                                    color: "#d9534f",
-                                }}
-                                onClick={minusOne}
-                                className="mt-1"
-                            >
-                                remove_circle
-                            </Icon>
-                        </div>
-                    </div>
-                    <Button
-                        variant={show ? success : type}
-                        onClick={handleAddItem}
-                    >
-                        {show ? (
-                            <div>
-                                <FontAwesomeIcon
-                                    className="fa-icon mr-2"
-                                    icon={["fas", "check"]}
-                                />
-                                Added to the cart
-                            </div>
-                        ) : (
-                            <div>
-                                <Icon
-                                    style={{
-                                        verticalAlign: "middle",
-                                        fontSize: "18px",
-                                    }}
-                                    className="mr-2 mb-1"
-                                >
-                                    add_shopping_cart
-                                </Icon>
-                                Add to cart
-                            </div>
+                        {!isServiceProvider && (
+                            <>
+                                <br />
+                                <div className="my-3 d-flex justify-content-center">
+                                    <Icon
+                                        style={{
+                                            fontSize: "1.125rem",
+                                            color: "#0275d8",
+                                        }}
+                                        onClick={addOne}
+                                        className="mt-1"
+                                    >
+                                        add_circle
+                                    </Icon>
+                                    <input
+                                        type="number"
+                                        className={
+                                            "show-cart-count mx-1" + syntax
+                                        }
+                                        value={count}
+                                        onChange={(e) =>
+                                            setCount(e.target.value)
+                                        }
+                                        onKeyDown={(e) =>
+                                            ["e", "E", "+", "-", "."].includes(
+                                                e.key
+                                            ) && e.preventDefault()
+                                        }
+                                    />
+                                    <Icon
+                                        style={{
+                                            fontSize: "1.125rem",
+                                            color: "#d9534f",
+                                        }}
+                                        onClick={minusOne}
+                                        className="mt-1"
+                                    >
+                                        remove_circle
+                                    </Icon>
+                                </div>
+                            </>
                         )}
-                    </Button>
+                    </div>
+
+                    {isServiceProvider ? (
+                        <div className="d-flex justify-content-around mt-3">
+                            <Button
+                                size="sm"
+                                variant={type}
+                                onClick={handleUpdateItem}
+                            >
+                                <FontAwesomeIcon
+                                    className="fa-icon"
+                                    icon={["fas", "wrench"]}
+                                />
+                                Update
+                            </Button>
+                            <Button
+                                size="sm"
+                                variant="danger"
+                                onClick={handleDeleteItem}
+                            >
+                                <FontAwesomeIcon
+                                    className="fa-icon"
+                                    icon={["fas", "trash"]}
+                                />
+                                Delete
+                            </Button>
+                        </div>
+                    ) : (
+                        <Button
+                            variant={show ? success : type}
+                            onClick={handleAddItem}
+                        >
+                            {show ? (
+                                <div>
+                                    <FontAwesomeIcon
+                                        className="fa-icon mr-2"
+                                        icon={["fas", "check"]}
+                                    />
+                                    Added to the cart
+                                </div>
+                            ) : (
+                                <div>
+                                    <Icon
+                                        style={{
+                                            verticalAlign: "middle",
+                                            fontSize: "18px",
+                                        }}
+                                        className="mr-2 mb-1"
+                                    >
+                                        add_shopping_cart
+                                    </Icon>
+                                    Add to cart
+                                </div>
+                            )}
+                        </Button>
+                    )}
                 </Card.Body>
             </Card>
         </div>
