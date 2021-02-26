@@ -283,57 +283,7 @@
                 "message": "Success"
             }
 
-* Add Product into Own Service Inventory
 
-
-    * Request (POST => /addProduct) (Toha)
-
-            {
-
-                "service_id": 3,
-                "product_name": "Mojo",
-                "price": 50
-            }
-    
-    * Response
-
-            {
-                "message": "Successfully Enlisted."
-            }
-
-* Update Product
-
-    * Request (POST => /updateProduct) 
-
-            {
-                 "service_id": 3,
-                "product_name": "Mojo",
-                "price": 40
-
-                
-            }
-    
-    * Response
-
-            {
-                 "message": "Successfully Updated"
-            }
-
-* Delete Product
-
-    * Request (POST => /deleteProduct) 
-
-            {
-               "service_id": 3,
-                "product_name": "Mojo",
-                "price": 40
-            }
-    
-    * Response
-
-            {
-                "message": "Successfully Deleted."
-            }
 
 **Order Related APIs**
 
@@ -814,7 +764,7 @@ For 350 some decision was taken:
      *Request (POST => /addproduct)
     {
         "service_id": 1,
-        "product_name": "Mojo",
+        "product_id": 1,
         "price": 90
     }
 
@@ -828,7 +778,7 @@ For 350 some decision was taken:
      *Request (POST => /updateproduct)
     {
         "service_id": 1,
-        "product_name": "Mojo",
+        "product_id": 1,
         "price": 90
     }
 
@@ -842,8 +792,7 @@ For 350 some decision was taken:
      *Request (POST => /deleteproduct)
     {
         "service_id": 1,
-        "product_name": "Mojo",
-        "price": 90
+        "product_id": 1,
     }
 
     *Response 
@@ -1012,5 +961,25 @@ For 350 some decision was taken:
     }
 
 
+**Service Provider product details:
+   
+    *Request(POST => /removearea)
+        {
+                "service_id": 1,
+                "product_id" :1
+        }
+    *Response
+    {
+        "products": [
+            {
+                "inventory_id": 1,
+                "service_id": 1,
+                "product_id": 1,
+                "delivery_limit": "2kg",
+                "price": 50
+            }
+        ],
+        "message": "Success"
+    }
 
 
