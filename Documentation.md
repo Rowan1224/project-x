@@ -963,7 +963,7 @@ For 350 some decision was taken:
 
 **Service Provider product details:
    
-    *Request(POST => /removearea)
+    *Request(POST => /getOwnProductDetails)
         {
                 "service_id": 1,
                 "product_id" :1
