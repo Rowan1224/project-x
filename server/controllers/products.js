@@ -76,18 +76,36 @@ exports.getOwnProductDetails = (req, res, next) => {
     const service_id = req.body.service_id;
     const product_id = req.body.product_id;
 
-    service_inventory
+    universal_products
         .findAll({
-            where: {    
+            where: {
                 product_id: product_id,
-                service_id: service_id
             },
         })
-        .then((products) => {
-            res.status(200).json({
-                products: products,
-                message: "Success",
-            });
+        .then((result) => {
+            service_inventory
+                .findAll({
+                    where: {
+                        product_id: product_id,
+                        service_id: service_id,
+                    },
+                })
+                .then((ret) => {
+                    res.status(200).json({
+                        "product_name": result[0].product_name,
+                        "product_qty": result[0].qty,
+                        "unit": result[0].unit,
+                        "company_name": result[0].company_name,
+                        "vat":result[0].vat,
+                        "price" : ret[0].price,
+                        message: "Success",
+                    });
+                })
+                .catch((err) => {
+                    res.status(504).json({
+                        message: "Failed",
+                    });
+                });
         })
         .catch((err) => {
             res.status(504).json({

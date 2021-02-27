@@ -970,16 +970,14 @@ For 350 some decision was taken:
         }
     *Response
     {
-        "products": [
-            {
-                "inventory_id": 1,
-                "service_id": 1,
-                "product_id": 1,
-                "delivery_limit": "2kg",
-                "price": 50
-            }
-        ],
-        "message": "Success"
+            "product_name": "Chaal",
+            "product_qty": 1,
+            "unit": "Kg",
+            "company_name": "Bashmati",
+            "vat": 10,
+            "price": 50,
+            "message": "Success"
+
     }
 
 
