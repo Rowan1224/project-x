@@ -9,8 +9,17 @@ import { useParams } from "react-router-dom";
 
 const Services = () => {
     const [services, setServices] = useState([]);
+    const [flag, setFlag] = useState(true);
     const [sName, setSName] = useState("");
     const params = useParams();
+
+    // Themes
+    const { isLightTheme, theme } = useContext(ThemeContext);
+    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
+    const custom_text = isLightTheme
+        ? theme.light.custom_text
+        : theme.dark.custom_text;
 
     // componentDidMount
     useEffect(() => {
@@ -35,7 +44,7 @@ const Services = () => {
             setServices(data.products);
         };
         loadData();
-    }, [params]);
+    }, [params, flag]);
 
     useEffect(() => {
         if (services.length > 0) {
@@ -63,13 +72,7 @@ const Services = () => {
         }
     }, [services]);
 
-    // Themes
-    const { isLightTheme, theme } = useContext(ThemeContext);
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
-    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const custom_text = isLightTheme
-        ? theme.light.custom_text
-        : theme.dark.custom_text;
+    const updateFlag = () => setFlag(!flag);
 
     return (
         <div>
@@ -99,7 +102,11 @@ const Services = () => {
                 <div className="row">
                     {services.map((service) => (
                         // Here gives unmounted error 🙁
-                        <Service serviceInfo={service} key={uuidv4()} />
+                        <Service
+                            key={uuidv4()}
+                            serviceInfo={service}
+                            updateFlag={updateFlag}
+                        />
                     ))}
                 </div>
             ) : (

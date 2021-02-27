@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from "react";
-// import Counter from "../../generic/counter";
-import { Table, Button } from "react-bootstrap";
-// import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
-// import Icon from "@material-ui/core/Icon";
 import { useContext } from "react";
-import { v4 as uuidv4 } from "uuid";
-// import emoji from "react-easy-emoji";
+import emoji from "react-easy-emoji";
 import Infobar from "../../generic/infobar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ThemeContext } from "../../../contexts/ThemeContext";
-import CustomAlert from "../../generic/CustomAlert";
+import React, { useState, useEffect } from "react";
+import DeleteModal from "../../generic/DeleteModal";
+import CustomTable from "../../generic/CustomTable";
 import UpdateEmployeeDetails from "./UpdateEmployeeDetails";
+import { ThemeContext } from "../../../contexts/ThemeContext";
+import CustomModalAlert from "../../generic/CustomModalAlert";
 
 const EmployeeList = (props) => {
     const [flag, setFlag] = useState(true);
@@ -20,14 +16,12 @@ const EmployeeList = (props) => {
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
-    const variant = isLightTheme ? "light" : "dark";
-    // const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
-    const type = isLightTheme ? theme.light.type : theme.dark.type;
-    // const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
-    // const custom_text = isLightTheme
-    //     ? theme.light.custom_text
-    //     : theme.dark.custom_text;
+    const dangerTextColor = isLightTheme
+        ? theme.light.dangerTextColor
+        : theme.dark.dangerTextColor;
+    const custom_text = isLightTheme
+        ? theme.light.custom_text
+        : theme.dark.custom_text;
 
     // componentDidMount
     useEffect(() => {
@@ -79,104 +73,79 @@ const EmployeeList = (props) => {
 
     const updateFlag = () => setFlag(!flag);
 
+    const tableData = {
+        ths: [
+            { className: "", value: "Index" },
+            { className: "", value: "Employee Name" },
+            { className: "", value: "Phone" },
+            { className: "", value: "Update" },
+            { className: "", value: "Delete" },
+        ],
+        allowedEntry: ["employee_name", "phone_number"],
+    };
+
     return (
         <>
             {employes ? (
-                <div className={"shadow rounded" + border}>
+                <>
                     {status && (
-                        <CustomAlert variant={statusVariant} status={status} />
+                        <CustomModalAlert
+                            status={status}
+                            setStatus={setStatus}
+                            variant={statusVariant}
+                        />
                     )}
 
-                    <Table responsive="sm" striped variant={variant}>
-                        <thead>
-                            <tr>
-                                <th
-                                    scope="col"
-                                    className="text-center align-middle"
-                                >
-                                    Index
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="text-center align-middle"
-                                >
-                                    Employee Name
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="text-center align-middle"
-                                >
-                                    Phone
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="text-center align-middle"
-                                >
-                                    Update
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="text-center align-middle"
-                                >
-                                    Delete
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {employes.map((employee, index) => (
-                                <tr key={uuidv4()}>
-                                    <td className="text-center align-middle">
-                                        {index + 1}
-                                    </td>
-
-                                    <td className="text-center align-middle">
-                                        {employee.employee_name}
-                                    </td>
-
-                                    <td className="text-center align-middle">
-                                        {employee.phone_number}
-                                    </td>
-                                    <td className="text-center align-middle">
-                                        <UpdateEmployeeDetails
-                                            actionVariant={type}
-                                            updateFlag={updateFlag}
-                                            employee_id={employee.employee_id}
-                                            phone_number={employee.phone_number}
-                                            modalTitle="Update Employee Details"
-                                            employee_name={
-                                                employee.employee_name
-                                            }
-                                            actionButtonClass={
-                                                "btn btn-sm btn-" + type
-                                            }
-                                        >
-                                            <FontAwesomeIcon
-                                                icon={["fas", "wrench"]}
-                                            />
-                                        </UpdateEmployeeDetails>
-                                    </td>
-                                    <td className="text-center align-middle">
-                                        <Button
-                                            size="sm"
-                                            variant="danger"
-                                            onClick={() =>
-                                                handleDelete(
-                                                    employee.employee_id
-                                                )
-                                            }
-                                        >
-                                            <FontAwesomeIcon
-                                                icon={["fas", "trash"]}
-                                            />
-                                        </Button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                </div>
+                    <CustomTable
+                        index={true}
+                        datas={employes}
+                        ths={tableData.ths}
+                        allowedEntry={tableData.allowedEntry}
+                        ActionComponents={[
+                            {
+                                component: (employee) => (
+                                    <UpdateEmployeeDetails
+                                        employee={employee}
+                                        updateFlag={updateFlag}
+                                    />
+                                ),
+                                className: "",
+                            },
+                            {
+                                component: (employee) => (
+                                    <DeleteModal
+                                        employee={employee}
+                                        updateFlag={updateFlag}
+                                        handleAction={() =>
+                                            handleDelete(employee.employee_id)
+                                        }
+                                        modalBody={
+                                            <>
+                                                Do you really want to delete
+                                                details of Employee:{" "}
+                                                <span className={custom_text}>
+                                                    {employee.employee_name}
+                                                </span>
+                                                ?<br />
+                                                <span
+                                                    className={dangerTextColor}
+                                                >
+                                                    Caution: This action cannot
+                                                    be undone
+                                                </span>
+                                            </>
+                                        }
+                                    />
+                                ),
+                                className: "",
+                            },
+                        ]}
+                    />
+                </>
             ) : (
-                <Infobar>You have no employee details to show</Infobar>
+                <Infobar>
+                    You have no employee details to show {emoji("🙁")}
+                </Infobar>
             )}
         </>
     );

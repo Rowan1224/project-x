@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-// import Counter from "../../generic/counter";
-import { Table, Button } from "react-bootstrap";
-// import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
-// import Icon from "@material-ui/core/Icon";
+import { Button } from "react-bootstrap";
 import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Moment from "moment";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { Link } from "react-router-dom";
-// import emoji from "react-easy-emoji";
+import emoji from "react-easy-emoji";
 import Infobar from "../../generic/infobar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DropDown from "../location/dropDown";
@@ -18,6 +15,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 import CustomAlert from "../../generic/CustomAlert";
+import CustomTable from "../../generic/CustomTable";
 
 const Order = (props) => {
     const [value, setValue] = useState(0);
@@ -31,14 +29,14 @@ const Order = (props) => {
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
-    const variant = isLightTheme ? "light" : "dark";
-    // const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
+    const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
     const type = isLightTheme ? theme.light.type : theme.dark.type;
-    // const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
-    // const dropdown_text = isLightTheme
-    //     ? theme.light.dropdown_text
-    //     : theme.dark.dropdown_text;
+    const link = isLightTheme ? theme.light.link : theme.dark.link;
+    const success = isLightTheme ? theme.light.success : theme.dark.success;
+    const tabColor = isLightTheme ? theme.light.tabColor : theme.dark.tabColor;
+    const custom_text = isLightTheme
+        ? theme.light.custom_text
+        : theme.dark.custom_text;
 
     // componentDidMount
     useEffect(() => {
@@ -170,7 +168,7 @@ const Order = (props) => {
         setSelectedEmployee({ ...selectedEmployee, [id]: e });
     };
 
-    // Tab related things.....
+    // Tab related settings.....
     const TabPanel = (props) => {
         const { children, value, index, ...other } = props;
 
@@ -204,20 +202,43 @@ const Order = (props) => {
         setValue(newValue);
     };
 
+    const tableData = {
+        ths: [
+            { className: "", value: "Order ID" },
+            { className: "", value: "Customer Name" },
+            { className: "", value: "Customer Phone" },
+            { className: "", value: "Address" },
+            {
+                className: "",
+                value: "Further Description",
+            },
+            { className: "", value: "Payment" },
+            { className: "", value: "Time" },
+            {
+                className: "",
+                value: "Employee",
+                // value: index === 0 ? "Select Employee" : "Employee",
+            },
+            { className: "", value: "Action" },
+        ],
+        tdsClassName: ["", "", "text-break", ""],
+        allowedEntry: [
+            "customer_name",
+            "customer_phone",
+            "address",
+            "further_description",
+        ],
+    };
+
     return (
         <>
-            <AppBar
-                color="default"
-                position="static"
-                className="text-primary rounded"
-            >
+            <AppBar position="static" className={"rounded" + ui}>
                 <Tabs
                     value={value}
-                    textColor="primary"
-                    variant="scrollable"
-                    scrollButtons="auto"
+                    variant="fullWidth"
+                    className={custom_text}
                     onChange={handleChange}
-                    indicatorColor="primary"
+                    TabIndicatorProps={{ style: { background: tabColor } }}
                 >
                     {tabs.map((tab) => (
                         <Tab
@@ -242,174 +263,122 @@ const Order = (props) => {
                     )}
 
                     {(index === 0 ? orders : assignedOrders) ? (
-                        <div className={"shadow rounded" + border}>
-                            <Table
-                                striped
-                                // bordered
-                                responsive="sm"
-                                variant={variant}
-                            >
-                                <thead>
-                                    <tr>
-                                        <th
-                                            scope="col"
-                                            className="text-center align-middle"
+                        <CustomTable
+                            ths={tableData.ths}
+                            allowedEntry={tableData.allowedEntry}
+                            PreActionComponents={[
+                                {
+                                    component: (order) => (
+                                        <Link
+                                            to={`/order/details/${order.order_id}/`}
                                         >
-                                            Order ID
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="text-center align-middle"
+                                            {order.order_id}
+                                        </Link>
+                                    ),
+                                    className: link,
+                                },
+                            ]}
+                            tdsClassName={tableData.tdsClassName}
+                            datas={index === 0 ? orders : assignedOrders}
+                            ActionComponents={[
+                                {
+                                    component: (order) => (
+                                        <>
+                                            <span className="font-weight-bold">
+                                                ৳{" "}
+                                            </span>
+                                            {order.payment}
+                                        </>
+                                    ),
+                                    className: "",
+                                },
+                                {
+                                    component: (order) =>
+                                        Moment(order.time).format(
+                                            "DD/MM/YY hh:mmA"
+                                        ),
+                                    className: "",
+                                },
+                                {
+                                    component: (order) =>
+                                        index === 0 ? (
+                                            <DropDown
+                                                size="sm"
+                                                type={
+                                                    selectedEmployee[
+                                                        order.order_id
+                                                    ]
+                                                        ? type
+                                                        : "outline-" + type
+                                                }
+                                                subElement="employee_name"
+                                                values={
+                                                    employes ? employes : []
+                                                }
+                                                title={
+                                                    selectedEmployee[
+                                                        order.order_id
+                                                    ]
+                                                        ? selectedEmployee[
+                                                              order.order_id
+                                                          ]
+                                                        : "Assign"
+                                                }
+                                                handleSelect={(e) =>
+                                                    handleEmployeeSelect(
+                                                        order.order_id,
+                                                        e
+                                                    )
+                                                }
+                                            />
+                                        ) : (
+                                            order.employee
+                                        ),
+                                    className: "",
+                                },
+                                {
+                                    component: (order) => (
+                                        <Button
+                                            size="sm"
+                                            variant={success}
+                                            disabled={
+                                                selectedEmployee[order.order_id]
+                                                    ? false
+                                                    : index === 0
+                                            }
+                                            onClick={() =>
+                                                index === 0
+                                                    ? handleAssignComplete(
+                                                          order.order_id
+                                                      )
+                                                    : handleOrderComplete(
+                                                          order.order_id
+                                                      )
+                                            }
                                         >
-                                            Customer Name
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="text-center align-middle"
-                                        >
-                                            Customer Phone
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="text-center align-middle"
-                                        >
-                                            Address
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="text-center align-middle"
-                                        >
-                                            Further Description
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="text-center align-middle"
-                                        >
-                                            Payment
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="text-center align-middle"
-                                        >
-                                            Time
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="text-center align-middle"
-                                        >
-                                            {index === 0
-                                                ? "Select Employee"
-                                                : "Employee"}
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="text-center align-middle"
-                                        >
-                                            Action
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {(index === 0
-                                        ? orders
-                                        : assignedOrders
-                                    ).map((order) => (
-                                        <tr key={uuidv4()}>
-                                            <td className="text-center align-middle">
-                                                <Link
-                                                    to={`/order/details/${order.order_id}/`}
-                                                >
-                                                    {order.order_id}
-                                                </Link>
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                {order.customer_name}
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                {order.customer_phone}
-                                            </td>
-                                            <td className="text-center text-break align-middle">
-                                                {order.address}
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                {order.further_description}
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                <span className="font-weight-bold">
-                                                    ৳{" "}
-                                                </span>
-                                                {order.payment}
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                {Moment(order.time).format(
-                                                    "DD/MM/YY hh:mmA"
-                                                )}
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                {index === 0 ? (
-                                                    <DropDown
-                                                        size="sm"
-                                                        type={
-                                                            selectedEmployee[
-                                                                order.order_id
-                                                            ]
-                                                                ? type
-                                                                : "outline-" +
-                                                                  type
-                                                        }
-                                                        subElement="employee_name"
-                                                        values={
-                                                            employes
-                                                                ? employes
-                                                                : []
-                                                        }
-                                                        title={
-                                                            selectedEmployee[
-                                                                order.order_id
-                                                            ]
-                                                                ? selectedEmployee[
-                                                                      order
-                                                                          .order_id
-                                                                  ]
-                                                                : "Assign"
-                                                        }
-                                                        handleSelect={(e) =>
-                                                            handleEmployeeSelect(
-                                                                order.order_id,
-                                                                e
-                                                            )
-                                                        }
-                                                    />
-                                                ) : (
-                                                    order.employee
-                                                )}
-                                            </td>
-                                            <td className="text-center align-middle">
-                                                <Button
-                                                    size="sm"
-                                                    variant="success"
-                                                    onClick={() =>
-                                                        index === 0
-                                                            ? handleAssignComplete(
-                                                                  order.order_id
-                                                              )
-                                                            : handleOrderComplete(
-                                                                  order.order_id
-                                                              )
-                                                    }
-                                                >
-                                                    <FontAwesomeIcon
-                                                        icon={["fas", "check"]}
-                                                    />
-                                                </Button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        </div>
+                                            {index === 0 ? (
+                                                <FontAwesomeIcon
+                                                    icon={["fas", "user-check"]}
+                                                />
+                                            ) : (
+                                                <FontAwesomeIcon
+                                                    icon={["fas", "check"]}
+                                                />
+                                            )}
+                                        </Button>
+                                    ),
+                                    className: "",
+                                },
+                            ]}
+                        />
+                    ) : index === 0 ? (
+                        <Infobar>
+                            You have no orders to show {emoji("🥲")}
+                        </Infobar>
                     ) : (
-                        <Infobar>You have no orders to show</Infobar>
+                        <Infobar>
+                            You haven't assigned any orders yet! {emoji("🙁")}
+                        </Infobar>
                     )}
                 </TabPanel>
             ))}

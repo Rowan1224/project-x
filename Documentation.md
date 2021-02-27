@@ -283,57 +283,7 @@
                 "message": "Success"
             }
 
-* Add Product into Own Service Inventory
 
-
-    * Request (POST => /addProduct) (Toha)
-
-            {
-
-                "service_id": 3,
-                "product_name": "Mojo",
-                "price": 50
-            }
-    
-    * Response
-
-            {
-                "message": "Successfully Enlisted."
-            }
-
-* Update Product
-
-    * Request (POST => /updateProduct) 
-
-            {
-                 "service_id": 3,
-                "product_name": "Mojo",
-                "price": 40
-
-                
-            }
-    
-    * Response
-
-            {
-                 "message": "Successfully Updated"
-            }
-
-* Delete Product
-
-    * Request (POST => /deleteProduct) 
-
-            {
-               "service_id": 3,
-                "product_name": "Mojo",
-                "price": 40
-            }
-    
-    * Response
-
-            {
-                "message": "Successfully Deleted."
-            }
 
 **Order Related APIs**
 
@@ -814,7 +764,7 @@ For 350 some decision was taken:
      *Request (POST => /addproduct)
     {
         "service_id": 1,
-        "product_name": "Mojo",
+        "product_id": 1,
         "price": 90
     }
 
@@ -828,7 +778,7 @@ For 350 some decision was taken:
      *Request (POST => /updateproduct)
     {
         "service_id": 1,
-        "product_name": "Mojo",
+        "product_id": 1,
         "price": 90
     }
 
@@ -842,8 +792,7 @@ For 350 some decision was taken:
      *Request (POST => /deleteproduct)
     {
         "service_id": 1,
-        "product_name": "Mojo",
-        "price": 90
+        "product_id": 1,
     }
 
     *Response 
@@ -862,12 +811,26 @@ For 350 some decision was taken:
     }
 
     *Response 
-    {
-          "total_orders": 2,
-          "delivered": 2,
-          "income": 901,
-          "message": "Success"
-    }
+    
+        {
+            "total_orders": 2,
+            "delivered": 2,
+            "income": 527,
+            "employee": [
+                {
+                    "name": "Ahmed Ullah Jumman",
+                    "income": 506,
+                    "delivered": 1
+                },
+                {
+                    "name": "Jamal Ahmed",
+                    "income": 21,
+                    "delivered": 1
+                }
+            ],
+            "message": "Success"
+        }
+    
 
 ** Service Order History
 
@@ -984,5 +947,37 @@ For 350 some decision was taken:
     }
 
 
+**Service Provider Remove Area
+
+*Request(POST => /removearea)
+    {
+        "service_id": 1,
+        "area_id" :1
+    }
+
+*Response 
+    {
+           "message": "Successfully deleted the area"
+    }
+
+
+**Service Provider product details:
+   
+    *Request(POST => /getOwnProductDetails)
+        {
+                "service_id": 1,
+                "product_id" :1
+        }
+    *Response
+    {
+            "product_name": "Chaal",
+            "qty": 1,
+            "unit": "Kg",
+            "company_name": "Bashmati",
+            "vat": 10,
+            "price": 50,
+            "message": "Success"
+
+    }
 
 

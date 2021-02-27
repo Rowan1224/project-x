@@ -11,6 +11,7 @@ const router = express.Router();
 
 // Area Related Routes
 router.post("/addArea", addAreaController.addArea);
+router.post("/removearea",addAreaController.removeArea);
 
 // Employee Related Routes
 router.post("/addEmployee", employeeController.addEmployee);
@@ -26,6 +27,7 @@ router.patch('/updateProfile', profileController.updateProfile);
 router.get("/allProducts", productController.getUniversalProducts);
 router.post("/ownProducts", productController.getOwnProducts);
 router.post("/getProductDetails", productController.getProductDetails);
+router.post("/getOwnProductDetails", productController.getOwnProductDetails);
 router.post("/addProduct", productController.addProduct);
 router.post("/updateProduct", productController.updateProduct);
 router.post("/deleteProduct", productController.deleteProduct);

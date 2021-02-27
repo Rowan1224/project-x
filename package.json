@@ -18,6 +18,7 @@
     "cookies": "^0.8.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "immutable": "^4.0.0-rc.12",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.1.0",
     "nodemon": "^2.0.4",
