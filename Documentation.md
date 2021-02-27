@@ -971,7 +971,7 @@ For 350 some decision was taken:
     *Response
     {
             "product_name": "Chaal",
-            "product_qty": 1,
+            "qty": 1,
             "unit": "Kg",
             "company_name": "Bashmati",
             "vat": 10,

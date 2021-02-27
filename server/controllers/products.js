@@ -93,7 +93,7 @@ exports.getOwnProductDetails = (req, res, next) => {
                 .then((ret) => {
                     res.status(200).json({
                         "product_name": result[0].product_name,
-                        "product_qty": result[0].qty,
+                        "qty": result[0].qty,
                         "unit": result[0].unit,
                         "company_name": result[0].company_name,
                         "vat":result[0].vat,

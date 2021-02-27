@@ -4,16 +4,24 @@ import { ThemeContext } from "../../../contexts/ThemeContext";
 import Title from "../../generic/title";
 import { CartContext } from "../../../contexts/CartContext";
 import Icon from "@material-ui/core/Icon";
+import { useParams } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import UpdateProductDetails from "./UpdateProductDetails";
+import DeleteModal from "../../generic/DeleteModal";
+import CustomModalAlert from "../../generic/CustomModalAlert";
 
 const Service = (props) => {
+    const params = useParams();
     const [show, setShow] = useState(false);
     const [count, setCount] = useState(1);
     const [isServiceProvider] = useState(
         localStorage.getItem("isServiceProvider") === "true"
     );
+    const [status, setStatus] = useState(undefined);
     const [productDetails, setProductDetails] = useState({});
+    const [statusVariant, setStatusVariant] = useState("danger");
+
     const { items, addItem, postCountUpdate } = useContext(CartContext);
 
     // Themes
@@ -21,11 +29,17 @@ const Service = (props) => {
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const border = isLightTheme ? theme.light.border : theme.dark.border;
+    const type = isLightTheme ? theme.light.type : theme.dark.type;
+    const success = isLightTheme ? theme.light.success : theme.dark.success;
     const currency_text = isLightTheme
         ? theme.light.currency_text
         : theme.dark.currency_text;
-    const type = isLightTheme ? theme.light.type : theme.dark.type;
-    const success = isLightTheme ? theme.light.success : theme.dark.success;
+    const dangerTextColor = isLightTheme
+        ? theme.light.dangerTextColor
+        : theme.dark.dangerTextColor;
+    const custom_text = isLightTheme
+        ? theme.light.custom_text
+        : theme.dark.custom_text;
 
     useEffect(() => {
         const json = sessionStorage.getItem("items");
@@ -43,10 +57,11 @@ const Service = (props) => {
     }, [props.serviceInfo.product_id]);
 
     useEffect(() => {
-        const API_URL = "/getProductDetails/";
+        const API_URL = "/getOwnProductDetails/";
 
         const loadData = async () => {
-            const productID = {
+            const bodyData = {
+                service_id: params.id,
                 product_id: props.serviceInfo.product_id,
             };
 
@@ -56,15 +71,15 @@ const Service = (props) => {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(productID),
+                body: JSON.stringify(bodyData),
             });
 
             const data = await response.json();
 
-            setProductDetails(data.products[0]);
+            setProductDetails(data);
         };
         loadData();
-    }, [props.serviceInfo.product_id]);
+    }, [props.serviceInfo.product_id, params.id]);
 
     useEffect(() => {
         if (show) postCountUpdate(props.serviceInfo.product_id, count);
@@ -108,8 +123,27 @@ const Service = (props) => {
         sessionStorage.setItem("service_id", props.serviceInfo.service_id);
     };
 
-    const handleUpdateItem = () => {};
-    const handleDeleteItem = () => {};
+    const handleDeleteItem = (id) => {
+        const API_URL = "/deleteproduct/";
+        const loadData = async () => {
+            const bodyData = {
+                product_id: id,
+                service_id: localStorage.getItem("userID"),
+            };
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(bodyData),
+            });
+            const data = await response.json();
+            if (response.ok) setStatusVariant("success");
+            setStatus(data.message);
+        };
+        loadData();
+    };
 
     const addOne = () => setCount(count + 1);
     const minusOne = () => (count > 1 ? setCount(count - 1) : setCount(1));
@@ -117,6 +151,14 @@ const Service = (props) => {
     return (
         <div className="col-lg-3 col-md-4 col-sm-6 mb-4 text-center">
             <Card className={"shadow" + ui + border}>
+                {status && (
+                    <CustomModalAlert
+                        status={status}
+                        setStatus={setStatus}
+                        variant={statusVariant}
+                    />
+                )}
+
                 <div className={"inner border-bottom border-" + type}>
                     <Card.Img
                         variant="top"
@@ -133,11 +175,23 @@ const Service = (props) => {
                 </div>
                 <Card.Body className={syntax}>
                     <Card.Title>{productDetails.product_name}</Card.Title>
-                    <h5 className={currency_text}>Tk {count * price}</h5>
-                    {/* <p className={custom_text}>(Including vat)</p> */}
+                    <h5 className={currency_text}>
+                        <span className="font-weight-bold">৳ </span>
+
+                        {isServiceProvider
+                            ? productDetails.price
+                            : count * price}
+                    </h5>
+
+                    {isServiceProvider ? (
+                        <p className={custom_text}>(Vat Excluded)</p>
+                    ) : (
+                        <p className={custom_text}>(Vat included)</p>
+                    )}
+
                     <div>
-                        {/* <Title>Vat: </Title> {productDetails.vat}%
-                            <br /> */}
+                        <Title>Vat: </Title> {productDetails.vat}%
+                        <br />
                         <Title>Quantity: </Title> {count * productDetails.qty}{" "}
                         {productDetails.unit}
                         <br />
@@ -188,28 +242,36 @@ const Service = (props) => {
 
                     {isServiceProvider ? (
                         <div className="d-flex justify-content-around mt-3">
-                            <Button
-                                size="sm"
-                                variant={type}
-                                onClick={handleUpdateItem}
-                            >
-                                <FontAwesomeIcon
-                                    className="fa-icon"
-                                    icon={["fas", "wrench"]}
-                                />
-                                Update
-                            </Button>
-                            <Button
-                                size="sm"
-                                variant="danger"
-                                onClick={handleDeleteItem}
-                            >
-                                <FontAwesomeIcon
-                                    className="fa-icon"
-                                    icon={["fas", "trash"]}
-                                />
-                                Delete
-                            </Button>
+                            <UpdateProductDetails
+                                product={productDetails}
+                                updateFlag={props.updateFlag}
+                                id={props.serviceInfo.product_id}
+                                service_id={localStorage.getItem("userID")}
+                            />
+
+                            <DeleteModal
+                                deleteText={true}
+                                updateFlag={props.updateFlag}
+                                handleAction={() =>
+                                    handleDeleteItem(
+                                        props.serviceInfo.product_id
+                                    )
+                                }
+                                modalBody={
+                                    <>
+                                        Do you really want to delete Product:{" "}
+                                        <span className={custom_text}>
+                                            {productDetails.product_name}
+                                        </span>{" "}
+                                        from your inventory?
+                                        <br />
+                                        <span className={dangerTextColor}>
+                                            Caution: This action cannot be
+                                            undone
+                                        </span>
+                                    </>
+                                }
+                            />
                         </div>
                     ) : (
                         <Button

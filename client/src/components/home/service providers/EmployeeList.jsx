@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Table } from "react-bootstrap";
 import { useContext } from "react";
-import { v4 as uuidv4 } from "uuid";
+import emoji from "react-easy-emoji";
 import Infobar from "../../generic/infobar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect } from "react";
+import DeleteModal from "../../generic/DeleteModal";
+import CustomTable from "../../generic/CustomTable";
+import UpdateEmployeeDetails from "./UpdateEmployeeDetails";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import CustomModalAlert from "../../generic/CustomModalAlert";
-import UpdateEmployeeDetails from "./UpdateEmployeeDetails";
-import CustomModal from "../../generic/CustomModal";
 
 const EmployeeList = (props) => {
     const [flag, setFlag] = useState(true);
@@ -17,8 +16,6 @@ const EmployeeList = (props) => {
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
-    const variant = isLightTheme ? "light" : "dark";
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
     const dangerTextColor = isLightTheme
         ? theme.light.dangerTextColor
         : theme.dark.dangerTextColor;
@@ -76,10 +73,21 @@ const EmployeeList = (props) => {
 
     const updateFlag = () => setFlag(!flag);
 
+    const tableData = {
+        ths: [
+            { className: "", value: "Index" },
+            { className: "", value: "Employee Name" },
+            { className: "", value: "Phone" },
+            { className: "", value: "Update" },
+            { className: "", value: "Delete" },
+        ],
+        allowedEntry: ["employee_name", "phone_number"],
+    };
+
     return (
         <>
             {employes ? (
-                <div className={"shadow rounded" + border}>
+                <>
                     {status && (
                         <CustomModalAlert
                             status={status}
@@ -88,123 +96,56 @@ const EmployeeList = (props) => {
                         />
                     )}
 
-                    <Table
-                        striped
-                        responsive="sm"
-                        className="mb-0"
-                        variant={variant}
-                    >
-                        <thead>
-                            <tr>
-                                <th
-                                    scope="col"
-                                    className="text-center align-middle"
-                                >
-                                    Index
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="text-center align-middle"
-                                >
-                                    Employee Name
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="text-center align-middle"
-                                >
-                                    Phone
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="text-center align-middle"
-                                >
-                                    Update
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="text-center align-middle"
-                                >
-                                    Delete
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {employes.map((employee, index) => (
-                                <tr key={uuidv4()}>
-                                    <td className="text-center align-middle">
-                                        {index + 1}
-                                    </td>
-
-                                    <td className="text-center align-middle">
-                                        {employee.employee_name}
-                                    </td>
-
-                                    <td className="text-center align-middle">
-                                        {employee.phone_number}
-                                    </td>
-                                    <td className="text-center align-middle">
-                                        <UpdateEmployeeDetails
-                                            employee={employee}
-                                            updateFlag={updateFlag}
-                                        />
-                                    </td>
-                                    <td className="text-center align-middle">
-                                        <CustomModal
-                                            modalTitle="Delete"
-                                            actionVariant="danger"
-                                            updateFlag={updateFlag}
-                                            handleAction={() =>
-                                                handleDelete(
-                                                    employee.employee_id
-                                                )
-                                            }
-                                            modalButtonClass="btn btn-sm btn-danger"
-                                            modalBody={
-                                                <>
-                                                    Do you really want to delete
-                                                    details of Employee:{" "}
-                                                    <span
-                                                        className={custom_text}
-                                                    >
-                                                        {employee.employee_name}
-                                                    </span>
-                                                    ?<br />
-                                                    <span
-                                                        className={
-                                                            dangerTextColor
-                                                        }
-                                                    >
-                                                        Caution: This action
-                                                        cannot be undone
-                                                    </span>
-                                                </>
-                                            }
-                                            actionButtonBody={
-                                                <>
-                                                    <FontAwesomeIcon
-                                                        className="fa-icon mr-2"
-                                                        icon={[
-                                                            "fas",
-                                                            "trash-alt",
-                                                        ]}
-                                                    />
-                                                    Delete
-                                                </>
-                                            }
-                                        >
-                                            <FontAwesomeIcon
-                                                className="fa-icon"
-                                                icon={["fas", "trash-alt"]}
-                                            />
-                                        </CustomModal>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                </div>
+                    <CustomTable
+                        index={true}
+                        datas={employes}
+                        ths={tableData.ths}
+                        allowedEntry={tableData.allowedEntry}
+                        ActionComponents={[
+                            {
+                                component: (employee) => (
+                                    <UpdateEmployeeDetails
+                                        employee={employee}
+                                        updateFlag={updateFlag}
+                                    />
+                                ),
+                                className: "",
+                            },
+                            {
+                                component: (employee) => (
+                                    <DeleteModal
+                                        employee={employee}
+                                        updateFlag={updateFlag}
+                                        handleAction={() =>
+                                            handleDelete(employee.employee_id)
+                                        }
+                                        modalBody={
+                                            <>
+                                                Do you really want to delete
+                                                details of Employee:{" "}
+                                                <span className={custom_text}>
+                                                    {employee.employee_name}
+                                                </span>
+                                                ?<br />
+                                                <span
+                                                    className={dangerTextColor}
+                                                >
+                                                    Caution: This action cannot
+                                                    be undone
+                                                </span>
+                                            </>
+                                        }
+                                    />
+                                ),
+                                className: "",
+                            },
+                        ]}
+                    />
+                </>
             ) : (
-                <Infobar>You have no employee details to show</Infobar>
+                <Infobar>
+                    You have no employee details to show {emoji("🙁")}
+                </Infobar>
             )}
         </>
     );

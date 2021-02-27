@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useContext, useEffect, useCallback } from "react";
 
 const CustomModalAlert = (props) => {
-    const timeoutTime = 2000;
+    const timeoutTime = 1000;
     const history = useHistory();
     const { setStatus, redirect, updateFlag } = props;
     const [show, setShow] = useState(true);
