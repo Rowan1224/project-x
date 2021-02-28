@@ -980,4 +980,72 @@ For 350 some decision was taken:
 
     }
 
+**Pie Chart
 
+    *Request(POST => /piechart)
+    {
+        "service_id" : 1
+    }
+
+    *Response
+    {
+        "products": [
+            {
+                "name": "Chaal",
+                "ordered": 4
+            },
+            {
+                "name": "Pepsi",
+                "ordered": 2
+            },
+            {
+                "name": "Daal",
+                "ordered": 4
+            },
+            {
+                "name": "Mojo",
+                "ordered": 1
+            }
+        ],
+        "message": "Successful"
+    }
+
+**Line Chart
+
+    *Request(POST => /linechart)
+    {
+       "start_date": "2021-02-10",
+        "end_date": "2021-02-28",
+        "service_id": 1
+    }
+
+    *Response
+    {
+        "details": [
+        {
+            "date": "23-1-2021",
+            "orders": 1
+        }
+    ],
+    "message": "Success"
+    }
+
+**Horizontal Bar Chart
+
+   *Request(POST => /horizontalbarchart)
+    {
+       "start_date": "2021-02-10",
+        "end_date": "2021-02-28",
+        "service_id": 1
+    }
+
+    *Response
+    {
+            "details": [
+            {
+                "name": "Jamal Ahmed",
+                "income": 21
+            }
+        ],
+        "message": "Success"
+    }

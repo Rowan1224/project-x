@@ -80,4 +80,9 @@ router.post("/getassignedserviceorders",serviceStatsController.getAssignedServic
 router.post("/getserviceordersdetails",serviceStatsController.getServiceOrderDetails);
 router.post("/completeserviceorder",serviceStatsController.completeServiceOrder);
 router.post("/assignEmployee", serviceStatsController.assignEmployee);
+
+const statChart = require ("../controllers/statchart");
+router.post("/piechart",statChart.pieChart);
+router.post("/linechart",statChart.lineChart);
+router.post("/horizontalbarchart",statChart.horizontalBar);
 module.exports = router;
