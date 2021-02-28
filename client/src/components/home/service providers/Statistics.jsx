@@ -1,6 +1,7 @@
-import Moment from "moment";
-import React, { useContext, useRef, useState } from "react";
+import moment from "moment";
+import "moment-duration-format";
 import { withRouter } from "react-router-dom";
+import React, { useContext, useRef, useState, useEffect } from "react";
 
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { Button, Row, Col } from "react-bootstrap";
@@ -12,9 +13,15 @@ import CustomTable from "../../generic/CustomTable";
 
 const Statistics = (props) => {
     const form = useRef(null);
-    const [showStat, setShowStat] = useState(false);
+    // const [showStat, setShowStat] = useState(false);
     const [status, setStatus] = useState(undefined);
     const [statistics, setStatistics] = useState({});
+    const [date, setDate] = useState({
+        start_date: moment(new Date().toLocaleDateString("en-CA"))
+            .subtract(1, "year")
+            .format("YYYY-MM-DD"),
+        end_date: new Date().toLocaleDateString("en-CA"),
+    });
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -22,9 +29,17 @@ const Statistics = (props) => {
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const border = isLightTheme ? theme.light.border : theme.dark.border;
+    const custom_text = isLightTheme
+        ? theme.light.custom_text
+        : theme.dark.custom_text;
+
+    // componentDidMount
+    useEffect(() => {
+        handleSubmit();
+    }, []);
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e && e.preventDefault();
 
         const API_URL = "/getservicestats/";
 
@@ -37,9 +52,14 @@ const Statistics = (props) => {
             });
 
             object["service_id"] = localStorage.getItem("userID");
-            object["end_date"] = Moment(object["end_date"])
+            object["end_date"] = moment(object["end_date"])
                 .add(1, "days")
                 .format("YYYY-MM-DD");
+
+            setDate({
+                start_date: object["start_date"],
+                end_date: object["end_date"],
+            });
 
             try {
                 const response = await fetch(API_URL, {
@@ -54,7 +74,7 @@ const Statistics = (props) => {
 
                 if (!response.ok) setStatus(data.message);
                 else {
-                    setShowStat(true);
+                    // setShowStat(true);
                     setStatistics(data);
                 }
             } catch (error) {
@@ -76,20 +96,30 @@ const Statistics = (props) => {
 
     return (
         <>
+            <h3 className={"text-center mb-4" + custom_text}>
+                Statistics of last{" "}
+                {moment
+                    .duration(
+                        moment(date.end_date).diff(moment(date.start_date))
+                    )
+                    .format("Y [year] M [month] w [week] d [days]")}
+            </h3>
+
             <Row>
                 <Col
-                    md={showStat && 6}
-                    className="mb-4 mx-auto"
-                    style={{ maxWidth: "36rem" }}
+                    md={6}
+                    className="mb-4"
+                    // md={showStat && 6}
+                    // style={{ maxWidth: "36rem" }}
                 >
                     <div className={"card h-100" + ui + syntax + border}>
                         <div
-                            style={{ maxWidth: "30rem" }}
-                            className="card-body d-flex mx-auto"
+                            // style={{ maxWidth: "30rem" }}
+                            className="card-body d-flex mx-auto col"
                         >
                             <form
                                 ref={form}
-                                className="my-auto"
+                                className="my-auto col"
                                 onSubmit={handleSubmit}
                             >
                                 {status && <CustomAlert status={status} />}
@@ -104,10 +134,8 @@ const Statistics = (props) => {
                                             type="date"
                                             id="start_date"
                                             name="start_date"
-                                            placeholder="2021-02-17"
-                                            defaultValue={new Date().toLocaleDateString(
-                                                "en-CA"
-                                            )}
+                                            placeholder="2020-02-17"
+                                            defaultValue={date.start_date}
                                             className={
                                                 "form-control text-center" +
                                                 border
@@ -127,9 +155,7 @@ const Statistics = (props) => {
                                             id="end_date"
                                             name="end_date"
                                             placeholder="2021-02-18"
-                                            defaultValue={new Date().toLocaleDateString(
-                                                "en-CA"
-                                            )}
+                                            defaultValue={date.end_date}
                                             className={
                                                 "form-control text-center" +
                                                 border
@@ -157,110 +183,100 @@ const Statistics = (props) => {
                     </div>
                 </Col>
 
-                {showStat && (
-                    <Col md={6} className="mb-4">
-                        <div className={"card" + ui + syntax + border}>
-                            <div
-                                style={{ maxWidth: "30rem" }}
-                                className="card-body d-flex mx-auto"
-                            >
-                                <form
-                                    className="my-auto"
-                                    onSubmit={handleSubmit}
-                                >
-                                    <Row className="form-group">
-                                        <Col className="my-auto">
-                                            <FontAwesomeIcon
-                                                className="mr-2"
-                                                icon={[
-                                                    "fas",
-                                                    "sort-amount-down",
-                                                ]}
+                {/* {showStat && ( */}
+                <Col md={6} className="mb-4">
+                    <div className={"card" + ui + syntax + border}>
+                        <div
+                            style={{ maxWidth: "30rem" }}
+                            className="card-body d-flex mx-auto"
+                        >
+                            <form className="my-auto" onSubmit={handleSubmit}>
+                                <Row className="form-group">
+                                    <Col className="my-auto">
+                                        <FontAwesomeIcon
+                                            className="mr-2"
+                                            icon={["fas", "sort-amount-down"]}
+                                        />
+                                        Orders Recieved:
+                                    </Col>
+                                    <Col md={6} sm={12}>
+                                        <div
+                                            className={
+                                                "input-group rounded" + border
+                                            }
+                                        >
+                                            <input
+                                                readOnly
+                                                type="number"
+                                                name="total_orders"
+                                                defaultValue={
+                                                    statistics.total_orders
+                                                }
+                                                className="form-control text-center rounded-0"
                                             />
-                                            Total Orders:
-                                        </Col>
-                                        <Col md={6} sm={12}>
-                                            <div
-                                                className={
-                                                    "input-group rounded" +
-                                                    border
-                                                }
-                                            >
-                                                <input
-                                                    readOnly
-                                                    type="number"
-                                                    name="total_orders"
-                                                    defaultValue={
-                                                        statistics.total_orders
-                                                    }
-                                                    className="form-control text-center rounded-0"
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
+                                        </div>
+                                    </Col>
+                                </Row>
 
-                                    <Row className="form-group">
-                                        <Col className="my-auto">
-                                            <FontAwesomeIcon
-                                                className="mr-2"
-                                                icon={["fas", "truck"]}
+                                <Row className="form-group">
+                                    <Col className="my-auto">
+                                        <FontAwesomeIcon
+                                            className="mr-2"
+                                            icon={["fas", "truck"]}
+                                        />
+                                        Delivered:
+                                    </Col>
+                                    <Col md={6} sm={12}>
+                                        <div
+                                            className={
+                                                "input-group rounded" + border
+                                            }
+                                        >
+                                            <input
+                                                readOnly
+                                                type="number"
+                                                name="delivered"
+                                                defaultValue={
+                                                    statistics.delivered
+                                                }
+                                                className="form-control text-center rounded-0"
                                             />
-                                            Delivered:
-                                        </Col>
-                                        <Col md={6} sm={12}>
-                                            <div
-                                                className={
-                                                    "input-group rounded" +
-                                                    border
-                                                }
-                                            >
-                                                <input
-                                                    readOnly
-                                                    type="number"
-                                                    name="delivered"
-                                                    defaultValue={
-                                                        statistics.delivered
-                                                    }
-                                                    className="form-control text-center rounded-0"
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
+                                        </div>
+                                    </Col>
+                                </Row>
 
-                                    <Row>
-                                        <Col className="my-auto">
-                                            <span className="font-weight-bold mr-2">
-                                                ৳
-                                            </span>
-                                            Total Income:
-                                        </Col>
-                                        <Col md={6} sm={12}>
-                                            <div
-                                                className={
-                                                    "input-group rounded" +
-                                                    border
-                                                }
-                                            >
-                                                <input
-                                                    readOnly
-                                                    type="number"
-                                                    name="income"
-                                                    defaultValue={
-                                                        statistics.income
-                                                    }
-                                                    className="form-control text-center rounded-0"
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </form>
-                            </div>
+                                <Row>
+                                    <Col className="my-auto">
+                                        <span className="font-weight-bold mr-2">
+                                            ৳
+                                        </span>
+                                        Total Income:
+                                    </Col>
+                                    <Col md={6} sm={12}>
+                                        <div
+                                            className={
+                                                "input-group rounded" + border
+                                            }
+                                        >
+                                            <input
+                                                readOnly
+                                                type="number"
+                                                name="income"
+                                                defaultValue={statistics.income}
+                                                className="form-control text-center rounded-0"
+                                            />
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </form>
                         </div>
-                    </Col>
-                )}
+                    </div>
+                </Col>
+                {/* )} */}
             </Row>
 
-            {showStat && statistics.employee && statistics.employee.length > 0 && (
+            {/* {showStat && statistics.employee && statistics.employee.length > 0 && ( */}
+            {statistics.employee && statistics.employee.length > 0 && (
                 <Row>
                     <Col>
                         <CustomTable
