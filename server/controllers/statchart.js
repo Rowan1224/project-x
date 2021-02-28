@@ -53,11 +53,12 @@ exports.pieChart =(req,res,nxt) =>
             
         // }
 
-
+        let details = [];
+        details.push(product_name);
+        details.push(product_ordered);
         res.status(200).json({
             //orders : success,
-            "name" : products,
-            "ordered" :product_ordered,
+            "details" : details,
             message: "Successful",
         });
 
@@ -87,7 +88,7 @@ exports.lineChart =(req,res,nxt) =>
             let delivered_date = new Map();
             result.forEach((element) => {
                 if (element.delivered === 1) {
-                    let time = element.order_time.getDate().padStart(2, "0")+'-'+element.order_time.getMonth().padStart(2, "0")+'-'+element.order_time.getFullYear();
+                    let time = element.order_time.getDate()+'-'+element.order_time.getMonth()+'-'+element.order_time.getFullYear();
                     let ord =
                         delivered_date.get(time) ===
                         undefined
@@ -122,12 +123,15 @@ exports.lineChart =(req,res,nxt) =>
             //     };
             //     linechartdetails.push(data);
             // }
+            let details = [];
+            details.push(date);
+            details.push(orders_date);
             res.status(200).json({
                 //orders : success,
-                "date" : date,
-                "orders" : orders_date,
-                message: "Success",
+                "details" : details,
+                message: "Successful",
             });
+            
         })
         .catch((err) => {
             res.status(504).json({ message: "Failed" });
@@ -182,11 +186,13 @@ exports.horizontalBar =(req,res,nxt) =>
             //     };
             //     horizontalBarDetails.push(data);
             // }
+            let details = [];
+            details.push(employee_name);
+            details.push(employee_income);
             res.status(200).json({
                 //orders : success,
-                "employee_name" : employee_name,
-                "income" : employee_income,
-                message: "Success",
+                "details" : details,
+                message: "Successful",
             });
         })
         .catch((err) => {
