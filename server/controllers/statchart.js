@@ -38,25 +38,26 @@ exports.pieChart =(req,res,nxt) =>
                 product_ordered.push(value);
             }
         
-        let products = [];
+        // let products = [];
 
-        for (let i = 0; i < product_name.length; i++) {
-            const name = product_name[i];
-            const ordered = product_ordered[i];
+        // for (let i = 0; i < product_name.length; i++) {
+        //     const name = product_name[i];
+        //     const ordered = product_ordered[i];
             
-            let product =
-            {
-                "name" : name,
-                "ordered" : ordered
-            }
-            products.push(product);
+        //     let product =
+        //     {
+        //         "name" : name,
+        //         "ordered" : ordered
+        //     }
+        //     products.push(product);
             
-        }
+        // }
 
 
         res.status(200).json({
             //orders : success,
-            "products" : products,
+            "name" : products,
+            "ordered" :product_ordered,
             message: "Successful",
         });
 
@@ -86,7 +87,7 @@ exports.lineChart =(req,res,nxt) =>
             let delivered_date = new Map();
             result.forEach((element) => {
                 if (element.delivered === 1) {
-                    let time = element.order_time.getDate()+'-'+element.order_time.getMonth()+'-'+element.order_time.getFullYear();
+                    let time = element.order_time.getDate().padStart(2, "0")+'-'+element.order_time.getMonth().padStart(2, "0")+'-'+element.order_time.getFullYear();
                     let ord =
                         delivered_date.get(time) ===
                         undefined
@@ -113,17 +114,18 @@ exports.lineChart =(req,res,nxt) =>
             // console.log(employeename);
             // console.log(employeeincome);
             // console.log(employeedelivered);
-             let linechartdetails = [];
-            for (let i = 0; i < (date.length || 5) ; i++) {
-                var data = {
-                    "date" : date[i],
-                    "orders": orders_date[i],
-                };
-                linechartdetails.push(data);
-            }
+            //  let linechartdetails = [];
+            // for (let i = 0; i < (date.length || 5) ; i++) {
+            //     var data = {
+            //         "date" : date[i],
+            //         "orders": orders_date[i],
+            //     };
+            //     linechartdetails.push(data);
+            // }
             res.status(200).json({
                 //orders : success,
-                "details" : linechartdetails,
+                "date" : date,
+                "orders" : orders_date,
                 message: "Success",
             });
         })
@@ -172,17 +174,18 @@ exports.horizontalBar =(req,res,nxt) =>
                 employee_income.push(value);
             }
             
-             let horizontalBarDetails = [];
-            for (let i = 0; i < (employee_name.length || 5) ; i++) {
-                var data = {
-                    "name" : employee_name[i],
-                    "income": employee_income[i],
-                };
-                horizontalBarDetails.push(data);
-            }
+            //  let horizontalBarDetails = [];
+            // for (let i = 0; i < (employee_name.length || 5) ; i++) {
+            //     var data = {
+            //         "name" : employee_name[i],
+            //         "income": employee_income[i],
+            //     };
+            //     horizontalBarDetails.push(data);
+            // }
             res.status(200).json({
                 //orders : success,
-                "details" : horizontalBarDetails,
+                "employee_name" : employee_name,
+                "income" : employee_income,
                 message: "Success",
             });
         })
