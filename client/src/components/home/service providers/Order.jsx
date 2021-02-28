@@ -33,7 +33,9 @@ const Order = (props) => {
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const link = isLightTheme ? theme.light.link : theme.dark.link;
     const success = isLightTheme ? theme.light.success : theme.dark.success;
-    const tabColor = isLightTheme ? theme.light.tabColor : theme.dark.tabColor;
+    const mainColor = isLightTheme
+        ? theme.light.mainColor
+        : theme.dark.mainColor;
     const custom_text = isLightTheme
         ? theme.light.custom_text
         : theme.dark.custom_text;
@@ -238,7 +240,7 @@ const Order = (props) => {
                     variant="fullWidth"
                     className={custom_text}
                     onChange={handleChange}
-                    TabIndicatorProps={{ style: { background: tabColor } }}
+                    TabIndicatorProps={{ style: { background: mainColor } }}
                 >
                     {tabs.map((tab) => (
                         <Tab

@@ -36,8 +36,9 @@ const ThemeContextProvider = (props) => {
       currency_text:  " text-success",
       success:        "success",
       secondary:      "secondary",
-      tabColor:       "#2980b9", // main color
-      dangerTextColor:" text-danger", // main color
+      mainColor:      "#2980b9",
+      dangerTextColor:" text-danger",
+      lineChartbg:    "rgba(41, 127, 185, 0.15)",
     },
     dark: {
       syntax:         " text-white",
@@ -52,8 +53,9 @@ const ThemeContextProvider = (props) => {
       currency_text:  " text-success-dark",
       success:        "success-dark",
       secondary:      "secondary-dark",
-      tabColor:       "#feca57", // main-dark color
-      dangerTextColor:" text-remove", // main-dark color
+      mainColor:      "#feca57",
+      dangerTextColor:" text-remove",
+      lineChartbg:    "rgba(254, 201, 87, 0.15)",
     },
   };
 

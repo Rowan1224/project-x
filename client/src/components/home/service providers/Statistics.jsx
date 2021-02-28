@@ -10,10 +10,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CustomAlert from "../../generic/CustomAlert";
 import CustomTable from "../../generic/CustomTable";
+import Charts from "./Charts";
 
 const Statistics = (props) => {
     const form = useRef(null);
-    // const [showStat, setShowStat] = useState(false);
     const [status, setStatus] = useState(undefined);
     const [statistics, setStatistics] = useState({});
     const [date, setDate] = useState({
@@ -73,10 +73,7 @@ const Statistics = (props) => {
                 const data = await response.json();
 
                 if (!response.ok) setStatus(data.message);
-                else {
-                    // setShowStat(true);
-                    setStatistics(data);
-                }
+                else setStatistics(data);
             } catch (error) {
                 setStatus(error);
             }
@@ -105,92 +102,129 @@ const Statistics = (props) => {
                     .format("Y [year] M [month] w [week] d [days]")}
             </h3>
 
+            {status && <CustomAlert status={status} />}
+
             <Row>
-                <Col
-                    md={6}
-                    className="mb-4"
-                    // md={showStat && 6}
-                    // style={{ maxWidth: "36rem" }}
-                >
-                    <div className={"card h-100" + ui + syntax + border}>
-                        <div
-                            // style={{ maxWidth: "30rem" }}
-                            className="card-body d-flex mx-auto col"
-                        >
-                            <form
-                                ref={form}
-                                className="my-auto col"
-                                onSubmit={handleSubmit}
-                            >
-                                {status && <CustomAlert status={status} />}
+                <Col className="mb-4">
+                    <div className={"card" + ui + syntax + border}>
+                        <div className="card-body">
+                            <form ref={form} onSubmit={handleSubmit}>
+                                <Row className="d-flex align-items-center">
+                                    <Col lg={4}>
+                                        <Row className="mb-lg-0 mb-3">
+                                            <Col className="my-auto">
+                                                <FontAwesomeIcon
+                                                    className="mr-2"
+                                                    icon={[
+                                                        "fas",
+                                                        "hourglass-start",
+                                                    ]}
+                                                />
+                                                Start Date:
+                                            </Col>
+                                            <Col
+                                                md={7}
+                                                sm={12}
+                                                className="my-auto"
+                                            >
+                                                <div
+                                                    className={
+                                                        "input-group rounded" +
+                                                        border
+                                                    }
+                                                >
+                                                    <input
+                                                        required
+                                                        type="date"
+                                                        id="start_date"
+                                                        name="start_date"
+                                                        placeholder="2020-02-17"
+                                                        defaultValue={
+                                                            date.start_date
+                                                        }
+                                                        className="form-control text-center rounded-0"
+                                                    />
+                                                    <div className="invalid-feedback">
+                                                        Please select a valid
+                                                        date
+                                                    </div>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </Col>
 
-                                <div className="row">
-                                    <div className="col-md-6 mb-3">
-                                        <label htmlFor="start_date">
-                                            Start Date
-                                        </label>
-                                        <input
-                                            required
-                                            type="date"
-                                            id="start_date"
-                                            name="start_date"
-                                            placeholder="2020-02-17"
-                                            defaultValue={date.start_date}
-                                            className={
-                                                "form-control text-center" +
-                                                border
-                                            }
-                                        />
-                                        <div className="invalid-feedback">
-                                            Please select a valid date
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 mb-3">
-                                        <label htmlFor="end_date">
-                                            End date
-                                        </label>
-                                        <input
-                                            required
-                                            type="date"
-                                            id="end_date"
-                                            name="end_date"
-                                            placeholder="2021-02-18"
-                                            defaultValue={date.end_date}
-                                            className={
-                                                "form-control text-center" +
-                                                border
-                                            }
-                                        />
-                                        <div className="invalid-feedback">
-                                            Please provide a valid date
-                                        </div>
-                                    </div>
-                                </div>
+                                    <Col lg={4}>
+                                        <Row className="mb-lg-0 mb-3">
+                                            <Col className="my-auto">
+                                                <FontAwesomeIcon
+                                                    className="mr-2"
+                                                    icon={[
+                                                        "fas",
+                                                        "hourglass-end",
+                                                    ]}
+                                                />
+                                                Start Date:
+                                            </Col>
+                                            <Col
+                                                md={7}
+                                                sm={12}
+                                                className="my-auto"
+                                            >
+                                                <div
+                                                    className={
+                                                        "input-group rounded" +
+                                                        border
+                                                    }
+                                                >
+                                                    <input
+                                                        required
+                                                        type="date"
+                                                        id="end_date"
+                                                        name="end_date"
+                                                        placeholder="2021-02-18"
+                                                        defaultValue={
+                                                            date.end_date
+                                                        }
+                                                        className="form-control text-center rounded-0"
+                                                    />
+                                                    <div className="invalid-feedback">
+                                                        Please provide a valid
+                                                        date
+                                                    </div>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </Col>
 
-                                <Button
-                                    type="submit"
-                                    variant={type}
-                                    className="w-100"
-                                >
-                                    <FontAwesomeIcon
-                                        className="mr-2"
-                                        icon={["fas", "file-invoice-dollar"]}
-                                    />
-                                    Show statistics
-                                </Button>
+                                    <Col lg={4}>
+                                        <Button
+                                            type="submit"
+                                            variant={type}
+                                            className="w-100"
+                                        >
+                                            <FontAwesomeIcon
+                                                className="mr-2"
+                                                icon={[
+                                                    "fas",
+                                                    "file-invoice-dollar",
+                                                ]}
+                                            />
+                                            Update statistics
+                                        </Button>
+                                    </Col>
+                                </Row>
                             </form>
                         </div>
                     </div>
                 </Col>
+            </Row>
 
-                {/* {showStat && ( */}
-                <Col md={6} className="mb-4">
-                    <div className={"card" + ui + syntax + border}>
-                        <div
-                            style={{ maxWidth: "30rem" }}
-                            className="card-body d-flex mx-auto"
-                        >
-                            <form className="my-auto" onSubmit={handleSubmit}>
+            <Charts
+                date={date}
+                extraData={
+                    <div className={"card h-100" + ui + syntax + border}>
+                        <div className="card-body d-flex mx-auto">
+                            <div className="my-auto">
                                 <Row className="form-group">
                                     <Col className="my-auto">
                                         <FontAwesomeIcon
@@ -268,14 +302,12 @@ const Statistics = (props) => {
                                         </div>
                                     </Col>
                                 </Row>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </Col>
-                {/* )} */}
-            </Row>
+                }
+            />
 
-            {/* {showStat && statistics.employee && statistics.employee.length > 0 && ( */}
             {statistics.employee && statistics.employee.length > 0 && (
                 <Row>
                     <Col>
