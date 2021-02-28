@@ -11,10 +11,12 @@ const employee = Employee(sequelize, Sequelize);
 exports.pieChart =(req,res,nxt) =>
 {
     const service_id = req.body.service_id;
+    const start_date = req.body.start_date;
+    const end_date = req.body.end_date;
     sequelize
     .query(
-        "SELECT *  FROM  Orders INNER JOIN Order_details ON Orders.order_id=Order_details.order_id INNER JOIN Universal_Product_List ON Order_details.product_id=Universal_Product_List.product_id WHERE service_id=? && Orders.delivered=true",
-        { replacements: [service_id], type: sequelize.QueryTypes.SELECT }
+        "SELECT *  FROM  Orders INNER JOIN Order_details ON Orders.order_id=Order_details.order_id INNER JOIN Universal_Product_List ON Order_details.product_id=Universal_Product_List.product_id WHERE Orders.order_time BETWEEN  ? AND  ? &&  service_id=? && Orders.delivered=true",
+        { replacements: [[start_date], [end_date], [service_id]], type: sequelize.QueryTypes.SELECT }
     )
     .then((result) =>
     {
