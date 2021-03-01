@@ -35,12 +35,11 @@ exports.pieChart = (req, res, nxt) => {
             let product_name = [],
                 product_ordered = [];
 
-            for (let key of hotproducts.keys()) {
-                product_name.push(key);
-            }
-            for (let value of hotproducts.values()) {
+            for (let [key,value] of hotproducts) {
+                product_name.push(key+': '+value);
                 product_ordered.push(value);
             }
+
 
             // let products = [];
 
@@ -169,12 +168,12 @@ exports.horizontalBar = (req, res, nxt) => {
             result.forEach((element) => {
                 if (element.delivered === 1) {
                     let inc =
-                        emplpoyee_income.get(element.employee_name) ===
+                        emplpoyee_income.get(element.phone_number) ===
                         undefined
                             ? 0 + parseInt(element.payment)
-                            : emplpoyee_income.get(element.employee_name) +
+                            : emplpoyee_income.get(element.phone_number) +
                               parseInt(element.payment);
-                    emplpoyee_income.set(element.employee_name, inc);
+                    emplpoyee_income.set(element.phone_number, inc);
                 }
             });
             const mapSort1 = new Map(

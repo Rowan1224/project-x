@@ -223,6 +223,7 @@ exports.getServiceStats = (req, res, nxt) => {
             let total_income = 0,
                 deliveredOrders = 0;
             let employee_delivered = new Map();
+            let employee_phone = new Map();
             let emplpoyee_income = new Map();
             result.forEach((element) => {
                 if (element.delivered === 1) {
@@ -233,7 +234,7 @@ exports.getServiceStats = (req, res, nxt) => {
                         undefined
                             ? 1
                             : employee_delivered.get(element.employee_name) + 1;
-                    //console.log(ord);
+                    employee_phone.set(element.employee_name,element.phone_number);
                     employee_delivered.set(element.employee_name, ord);
                     let inc =
                         emplpoyee_income.get(element.employee_name) ===
@@ -247,7 +248,8 @@ exports.getServiceStats = (req, res, nxt) => {
             });
             let employeename = [],
                 employeeincome = [],
-                employeedelivered = [];
+                employeedelivered = [],
+                employeephone = [];
             for (let key of employee_delivered.keys()) {
                 employeename.push(key);
             }
@@ -257,7 +259,10 @@ exports.getServiceStats = (req, res, nxt) => {
             for (let value of employee_delivered.values()) {
                 employeedelivered.push(value);
             }
-            // console.log(employeename);
+            for (let value of employee_phone.values()) {
+                employeephone.push(value);
+            }
+            console.log(employeephone);
             // console.log(employeeincome);
             // console.log(employeedelivered);
             let employeedetails = [];
@@ -266,6 +271,7 @@ exports.getServiceStats = (req, res, nxt) => {
                     name: employeename[i],
                     income: employeeincome[i],
                     delivered: employeedelivered[i],
+                    phone: employeephone[i]
                 };
                 employeedetails.push(employeedata);
             }
