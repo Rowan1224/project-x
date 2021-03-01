@@ -359,8 +359,7 @@
 
             {
                 "order_id" : 2,
-                "service_id" : 1,
-                "employee_name" : "sldkfj"
+                "employee_id" : "1"
             }
     
     * Response

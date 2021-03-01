@@ -149,40 +149,23 @@ exports.getServiceOrderDetails = (req, res, next) => {
 
 exports.assignEmployee = (req, res, next) => {
     const order_id = req.body.order_id;
-    const service_id = req.body.service_id;
-    const employee_name = req.body.employee_name;
+    const employee_id = req.body.employee_id;
 
-    employee
-        .findAll({
-            where: {
-                employee_name: employee_name,
-                service_id: service_id,
-            },
+    orders
+        .findByPk(order_id)
+        .then((result) => {
+            result.employee_id = employee_id;
+            return result.save();
         })
-        .then((ret) => {
-            if (ret.length > 0) {
-                let employee_id = ret[0].employee_id;
-                orders
-                    .findByPk(order_id)
-                    .then((result) => {
-                        result.employee_id = employee_id;
-                        return result.save();
-                    })
-                    .then((reto) => {
-                        res.status(200).json({
-                            message: "Success.Employee Selected.",
-                        });
-                    })
-                    .catch((err) => {
-                        res.status(504).json({
-                            message: "Failed.",
-                        });
-                    });
-            } else {
-                res.status(504).json({
-                    message: "No Employee matched for the service provider.",
-                });
-            }
+        .then((reto) => {
+            res.status(200).json({
+                message: "Success.Employee Selected.",
+            });
+        })
+        .catch((err) => {
+            res.status(504).json({
+                message: "Failed.",
+            });
         });
 };
 
@@ -234,7 +217,10 @@ exports.getServiceStats = (req, res, nxt) => {
                         undefined
                             ? 1
                             : employee_delivered.get(element.employee_name) + 1;
-                    employee_phone.set(element.employee_name,element.phone_number);
+                    employee_phone.set(
+                        element.employee_name,
+                        element.phone_number
+                    );
                     employee_delivered.set(element.employee_name, ord);
                     let inc =
                         emplpoyee_income.get(element.employee_name) ===
@@ -272,7 +258,6 @@ exports.getServiceStats = (req, res, nxt) => {
                     phone: employeephone[i],
                     income: employeeincome[i],
                     delivered: employeedelivered[i],
-                    
                 };
                 employeedetails.push(employeedata);
             }
