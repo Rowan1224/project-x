@@ -85,17 +85,18 @@ const Statistics = (props) => {
     const tableData = {
         ths: [
             { className: "", value: "Employee Name" },
+            { className: "", value: "Phone Number" },
             { className: "", value: "Delivered" },
             { className: "", value: "Income" },
         ],
-        allowedEntry: ["name", "delivered"],
+        allowedEntry: ["name", "phone", "delivered"],
     };
 
     return (
         <>
             <div className={"card mb-4" + ui + syntax + border}>
                 <div className="card-body">
-                    <h3 className={"text-center m-0" + custom_text}>
+                    <h4 className={"text-center m-0" + custom_text}>
                         Statistics of last{" "}
                         {moment
                             .duration(
@@ -104,7 +105,7 @@ const Statistics = (props) => {
                                 )
                             )
                             .format("Y [year] M [month] w [week] d [days]")}
-                    </h3>
+                    </h4>
                 </div>
             </div>
 
