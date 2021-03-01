@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import emoji from "react-easy-emoji";
 import Infobar from "../../generic/infobar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import DropDown from "../location/dropDown";
+import EmployeeDropDown from "./EmployeeDropDown";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -25,7 +25,8 @@ const Order = (props) => {
     const [status, setStatus] = useState(undefined);
     const [tabs] = useState(["Not Assigned", "Assigned"]);
     const [assignedOrders, setAssignedOrders] = useState([]);
-    const [selectedEmployee, setSelectedEmployee] = useState({}); // {27: "Toha", 28: "Dhruvo", 32: "lkbnefj".........}
+    const [selectedEmployeeID, setSelectedEmployeeID] = useState({}); // {27: 17, 28: 2, 32: 28.........}
+    const [selectedEmployeeName, setSelectedEmployeeName] = useState({}); // {27: "Toha", 28: "Dhruvo", 32: "lkbnefj".........}
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -33,7 +34,9 @@ const Order = (props) => {
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const link = isLightTheme ? theme.light.link : theme.dark.link;
     const success = isLightTheme ? theme.light.success : theme.dark.success;
-    const tabColor = isLightTheme ? theme.light.tabColor : theme.dark.tabColor;
+    const mainColor = isLightTheme
+        ? theme.light.mainColor
+        : theme.dark.mainColor;
     const custom_text = isLightTheme
         ? theme.light.custom_text
         : theme.dark.custom_text;
@@ -140,8 +143,7 @@ const Order = (props) => {
         const loadData = async () => {
             const body = {
                 order_id: order_id,
-                employee_name: selectedEmployee[order_id],
-                service_id: localStorage.getItem("userID"),
+                employee_id: selectedEmployeeID[order_id],
             };
 
             const response = await fetch(API_URL, {
@@ -157,15 +159,16 @@ const Order = (props) => {
 
             if (response.ok) {
                 !alert(
-                    `Employee ${selectedEmployee[order_id]} has been assigned successfully for Order Id: ${order_id}`
+                    `Employee ${selectedEmployeeName[order_id]} has been assigned successfully for Order Id: ${order_id}`
                 ) && setFlag(!flag);
             } else setStatus(data.message);
         };
         loadData();
     };
 
-    const handleEmployeeSelect = (id, e) => {
-        setSelectedEmployee({ ...selectedEmployee, [id]: e });
+    const handleEmployeeSelect = (e, id) => {
+        setSelectedEmployeeID({ ...selectedEmployeeID, [id]: e.id });
+        setSelectedEmployeeName({ ...selectedEmployeeName, [id]: e.name });
     };
 
     // Tab related settings.....
@@ -238,7 +241,7 @@ const Order = (props) => {
                     variant="fullWidth"
                     className={custom_text}
                     onChange={handleChange}
-                    TabIndicatorProps={{ style: { background: tabColor } }}
+                    TabIndicatorProps={{ style: { background: mainColor } }}
                 >
                     {tabs.map((tab) => (
                         <Tab
@@ -302,32 +305,33 @@ const Order = (props) => {
                                 {
                                     component: (order) =>
                                         index === 0 ? (
-                                            <DropDown
+                                            <EmployeeDropDown
                                                 size="sm"
                                                 type={
-                                                    selectedEmployee[
+                                                    selectedEmployeeName[
                                                         order.order_id
                                                     ]
                                                         ? type
                                                         : "outline-" + type
                                                 }
-                                                subElement="employee_name"
+                                                subElementKey="employee_id"
+                                                subElementValue="employee_name"
                                                 values={
                                                     employes ? employes : []
                                                 }
                                                 title={
-                                                    selectedEmployee[
+                                                    selectedEmployeeName[
                                                         order.order_id
                                                     ]
-                                                        ? selectedEmployee[
+                                                        ? selectedEmployeeName[
                                                               order.order_id
                                                           ]
                                                         : "Assign"
                                                 }
                                                 handleSelect={(e) =>
                                                     handleEmployeeSelect(
-                                                        order.order_id,
-                                                        e
+                                                        e,
+                                                        order.order_id
                                                     )
                                                 }
                                             />
@@ -342,7 +346,9 @@ const Order = (props) => {
                                             size="sm"
                                             variant={success}
                                             disabled={
-                                                selectedEmployee[order.order_id]
+                                                selectedEmployeeName[
+                                                    order.order_id
+                                                ]
                                                     ? false
                                                     : index === 0
                                             }

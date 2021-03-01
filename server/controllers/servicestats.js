@@ -86,7 +86,7 @@ exports.getAssignedServiceOrder = (req, res, next) => {
                         // "house_no" :element.house_no,
                         further_description: element.further_description,
                         payment: element.payment,
-                        employee: element.employee_name,
+                        employee: element.phone_number,
                         time: element.order_time,
                     };
                     output.push(productorder);
@@ -149,40 +149,23 @@ exports.getServiceOrderDetails = (req, res, next) => {
 
 exports.assignEmployee = (req, res, next) => {
     const order_id = req.body.order_id;
-    const service_id = req.body.service_id;
-    const employee_name = req.body.employee_name;
+    const employee_id = req.body.employee_id;
 
-    employee
-        .findAll({
-            where: {
-                employee_name: employee_name,
-                service_id: service_id,
-            },
+    orders
+        .findByPk(order_id)
+        .then((result) => {
+            result.employee_id = employee_id;
+            return result.save();
         })
-        .then((ret) => {
-            if (ret.length > 0) {
-                let employee_id = ret[0].employee_id;
-                orders
-                    .findByPk(order_id)
-                    .then((result) => {
-                        result.employee_id = employee_id;
-                        return result.save();
-                    })
-                    .then((reto) => {
-                        res.status(200).json({
-                            message: "Success.Employee Selected.",
-                        });
-                    })
-                    .catch((err) => {
-                        res.status(504).json({
-                            message: "Failed.",
-                        });
-                    });
-            } else {
-                res.status(504).json({
-                    message: "No Employee matched for the service provider.",
-                });
-            }
+        .then((reto) => {
+            res.status(200).json({
+                message: "Success.Employee Selected.",
+            });
+        })
+        .catch((err) => {
+            res.status(504).json({
+                message: "Failed.",
+            });
         });
 };
 
@@ -223,33 +206,38 @@ exports.getServiceStats = (req, res, nxt) => {
             let total_income = 0,
                 deliveredOrders = 0;
             let employee_delivered = new Map();
+            let employee_name = new Map();
             let emplpoyee_income = new Map();
             result.forEach((element) => {
                 if (element.delivered === 1) {
                     deliveredOrders++;
                     // console.log(element.or)
                     let ord =
-                        employee_delivered.get(element.employee_name) ===
+                        employee_delivered.get(element.phone_number) ===
                         undefined
                             ? 1
-                            : employee_delivered.get(element.employee_name) + 1;
-                    //console.log(ord);
-                    employee_delivered.set(element.employee_name, ord);
+                            : employee_delivered.get(element.phone_number) + 1;
+                    employee_name.set(
+                        element.phone_number,
+                        element.employee_name
+                    );
+                    employee_delivered.set(element.phone_number, ord);
                     let inc =
-                        emplpoyee_income.get(element.employee_name) ===
+                        emplpoyee_income.get(element.phone_number) ===
                         undefined
                             ? 0 + parseInt(element.payment)
-                            : emplpoyee_income.get(element.employee_name) +
+                            : emplpoyee_income.get(element.phone_number) +
                               parseInt(element.payment);
-                    emplpoyee_income.set(element.employee_name, inc);
+                    emplpoyee_income.set(element.phone_number, inc);
                     total_income += parseInt(element.payment);
                 }
             });
             let employeename = [],
                 employeeincome = [],
-                employeedelivered = [];
+                employeedelivered = [],
+                employeephone = [];
             for (let key of employee_delivered.keys()) {
-                employeename.push(key);
+                employeephone.push(key);
             }
             for (let value of emplpoyee_income.values()) {
                 employeeincome.push(value);
@@ -257,13 +245,17 @@ exports.getServiceStats = (req, res, nxt) => {
             for (let value of employee_delivered.values()) {
                 employeedelivered.push(value);
             }
-            // console.log(employeename);
+            for (let value of employee_name.values()) {
+                employeename.push(value);
+            }
+            //console.log(employeephone);
             // console.log(employeeincome);
             // console.log(employeedelivered);
             let employeedetails = [];
             for (let i = 0; i < employeename.length; i++) {
                 var employeedata = {
                     name: employeename[i],
+                    phone: employeephone[i],
                     income: employeeincome[i],
                     delivered: employeedelivered[i],
                 };
@@ -316,7 +308,7 @@ exports.getServiceOrderHistory = (req, res, nxt) => {
                         further_description: element.further_description,
                         payment: element.payment,
                         time: element.order_time,
-                        employee: element.employee_name,
+                        employee: element.phone_number,
                     };
                     output.push(productorder);
                 });

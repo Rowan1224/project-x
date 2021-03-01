@@ -359,8 +359,7 @@
 
             {
                 "order_id" : 2,
-                "service_id" : 1,
-                "employee_name" : "sldkfj"
+                "employee_id" : "1"
             }
     
     * Response
@@ -759,18 +758,41 @@ For 350 some decision was taken:
     }
 
 
-**service Provider Add Product
+**service Provider Add Product List
 
      *Request (POST => /addproduct)
     {
         "service_id": 1,
-        "product_id": 1,
-        "price": 90
     }
 
     *Response 
     {
-        "message": "Successfully Enlisted."
+         "items": [
+        {
+            "product_id": 5,
+            "product_name": "Mojo",
+            "qty": 1,
+            "unit": "litre",
+            "company_name": "skdfj",
+            "vat": 1
+        }
+    ],
+    "message": "success."
+    }
+
+**service Provider Add Product List
+
+     *Request (POST => /addtoinventory)
+    {
+        "service_id": 3,
+        "product_id" : 4,
+        "price" : "100"
+    }
+
+    *Response 
+    {
+        
+        "message": "success."
     }
 
 **service Provider Update Product
@@ -980,4 +1002,72 @@ For 350 some decision was taken:
 
     }
 
+**Pie Chart
 
+    *Request(POST => /piechart)
+    {
+        "service_id" : 1
+    }
+
+    *Response
+    {
+        "products": [
+            {
+                "name": "Chaal",
+                "ordered": 4
+            },
+            {
+                "name": "Pepsi",
+                "ordered": 2
+            },
+            {
+                "name": "Daal",
+                "ordered": 4
+            },
+            {
+                "name": "Mojo",
+                "ordered": 1
+            }
+        ],
+        "message": "Successful"
+    }
+
+**Line Chart
+
+    *Request(POST => /linechart)
+    {
+       "start_date": "2021-02-10",
+        "end_date": "2021-02-28",
+        "service_id": 1
+    }
+
+    *Response
+    {
+        "details": [
+        {
+            "date": "23-1-2021",
+            "orders": 1
+        }
+    ],
+    "message": "Success"
+    }
+
+**Horizontal Bar Chart
+
+   *Request(POST => /horizontalbarchart)
+    {
+       "start_date": "2021-02-10",
+        "end_date": "2021-02-28",
+        "service_id": 1
+    }
+
+    *Response
+    {
+            "details": [
+            {
+                "name": "Jamal Ahmed",
+                "income": 21
+            }
+        ],
+        "message": "Success"
+    }

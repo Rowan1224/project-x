@@ -29,69 +29,90 @@ const CustomTable = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.datas.map((data, index) => (
-                        <tr key={uuidv4()}>
-                            {props.index && (
-                                <td className="text-center align-middle">
-                                    {index + 1}
-                                </td>
-                            )}
-
-                            {props.PreActionComponents &&
-                                props.PreActionComponents.map(
-                                    (PreActionComponent) => (
-                                        <td
-                                            key={uuidv4()}
-                                            className={
-                                                "text-center align-middle " +
-                                                PreActionComponent.className
-                                            }
-                                        >
-                                            {PreActionComponent.component(data)}
-                                        </td>
-                                    )
+                    {props.datas &&
+                        props.datas.map((data, index) => (
+                            <tr key={uuidv4()}>
+                                {props.index && (
+                                    <td className="text-center align-middle">
+                                        {index + 1}
+                                    </td>
                                 )}
 
-                            {/* Filter data[key] by the props.allowedEntry array */}
-                            {Object.keys(
-                                Object.keys(data)
-                                    .filter((key) =>
-                                        props.allowedEntry.includes(key)
-                                    )
-                                    .reduce((obj, key) => {
-                                        obj[key] = data[key];
-                                        return obj;
-                                    }, {})
-                            ).map((key, i) => (
-                                <td
-                                    key={uuidv4()}
-                                    className={
-                                        props.tdsClassName
-                                            ? "text-center align-middle " +
-                                              props.tdsClassName[i]
-                                            : "text-center align-middle"
-                                    }
-                                >
-                                    {data[key]}
-                                </td>
-                            ))}
+                                {props.PreActionComponents &&
+                                    props.PreActionComponents.map(
+                                        (PreActionComponent) => (
+                                            <td
+                                                key={uuidv4()}
+                                                className={
+                                                    "text-center align-middle " +
+                                                    PreActionComponent.className
+                                                }
+                                            >
+                                                {PreActionComponent.component(
+                                                    data
+                                                )}
+                                            </td>
+                                        )
+                                    )}
 
-                            {props.ActionComponents &&
-                                props.ActionComponents.map(
-                                    (ActionComponent) => (
-                                        <td
-                                            key={uuidv4()}
-                                            className={
-                                                "text-center align-middle " +
-                                                ActionComponent.className
-                                            }
-                                        >
-                                            {ActionComponent.component(data)}
-                                        </td>
-                                    )
-                                )}
-                        </tr>
-                    ))}
+                                {/* Filter data[key] by the props.allowedEntry array */}
+                                {props.allowedEntry
+                                    ? Object.keys(
+                                          Object.keys(data)
+                                              .filter((key) =>
+                                                  props.allowedEntry.includes(
+                                                      key
+                                                  )
+                                              )
+                                              .reduce((obj, key) => {
+                                                  obj[key] = data[key];
+                                                  return obj;
+                                              }, {})
+                                      ).map((key, i) => (
+                                          <td
+                                              key={uuidv4()}
+                                              className={
+                                                  props.tdsClassName
+                                                      ? "text-center align-middle " +
+                                                        props.tdsClassName[i]
+                                                      : "text-center align-middle"
+                                              }
+                                          >
+                                              {data[key]}
+                                          </td>
+                                      ))
+                                    : Object.keys(data).map((key, i) => (
+                                          <td
+                                              key={uuidv4()}
+                                              className={
+                                                  props.tdsClassName
+                                                      ? "text-center align-middle " +
+                                                        props.tdsClassName[i]
+                                                      : "text-center align-middle"
+                                              }
+                                          >
+                                              {data[key]}
+                                          </td>
+                                      ))}
+
+                                {props.ActionComponents &&
+                                    props.ActionComponents.map(
+                                        (ActionComponent) => (
+                                            <td
+                                                key={uuidv4()}
+                                                className={
+                                                    "text-center align-middle " +
+                                                    ActionComponent.className
+                                                }
+                                            >
+                                                {ActionComponent.component(
+                                                    data
+                                                )}
+                                            </td>
+                                        )
+                                    )}
+                            </tr>
+                        ))}
                 </tbody>
             </Table>
         </div>

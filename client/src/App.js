@@ -15,7 +15,6 @@ import UserRegistration from "./pages/userRegistration";
 import UserLogin from "./pages/userLogin";
 import AuthenticationContextProvider from "./contexts/AuthenticationContext";
 import Profile from "./pages/Profile";
-import InventoryPage from "./pages/InventoryPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TestPage from "./test/TestPage";
@@ -50,11 +49,6 @@ const App = () => {
                             exact
                             path="/add/product"
                             component={AddProductPage}
-                        />
-                        <Route
-                            exact
-                            path="/inventory"
-                            component={InventoryPage}
                         />
                         <Route
                             exact

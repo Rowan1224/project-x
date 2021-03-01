@@ -29,6 +29,7 @@ router.post("/ownProducts", productController.getOwnProducts);
 router.post("/getProductDetails", productController.getProductDetails);
 router.post("/getOwnProductDetails", productController.getOwnProductDetails);
 router.post("/addProduct", productController.addProduct);
+router.post("/addtoinventory",productController.addToInventory);
 router.post("/updateProduct", productController.updateProduct);
 router.post("/deleteProduct", productController.deleteProduct);
 
@@ -80,4 +81,9 @@ router.post("/getassignedserviceorders",serviceStatsController.getAssignedServic
 router.post("/getserviceordersdetails",serviceStatsController.getServiceOrderDetails);
 router.post("/completeserviceorder",serviceStatsController.completeServiceOrder);
 router.post("/assignEmployee", serviceStatsController.assignEmployee);
+
+const statChart = require ("../controllers/statchart");
+router.post("/piechart",statChart.pieChart);
+router.post("/linechart",statChart.lineChart);
+router.post("/horizontalbarchart",statChart.horizontalBar);
 module.exports = router;
