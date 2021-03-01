@@ -758,18 +758,41 @@ For 350 some decision was taken:
     }
 
 
-**service Provider Add Product
+**service Provider Add Product List
 
      *Request (POST => /addproduct)
     {
         "service_id": 1,
-        "product_id": 1,
-        "price": 90
     }
 
     *Response 
     {
-        "message": "Successfully Enlisted."
+         "items": [
+        {
+            "product_id": 5,
+            "product_name": "Mojo",
+            "qty": 1,
+            "unit": "litre",
+            "company_name": "skdfj",
+            "vat": 1
+        }
+    ],
+    "message": "success."
+    }
+
+**service Provider Add Product List
+
+     *Request (POST => /addtoinventory)
+    {
+        "service_id": 3,
+        "product_id" : 4,
+        "price" : "100"
+    }
+
+    *Response 
+    {
+        
+        "message": "success."
     }
 
 **service Provider Update Product

@@ -92,12 +92,12 @@ exports.getOwnProductDetails = (req, res, next) => {
                 })
                 .then((ret) => {
                     res.status(200).json({
-                        "product_name": result[0].product_name,
-                        "qty": result[0].qty,
-                        "unit": result[0].unit,
-                        "company_name": result[0].company_name,
-                        "vat":result[0].vat,
-                        "price" : ret[0].price,
+                        product_name: result[0].product_name,
+                        qty: result[0].qty,
+                        unit: result[0].unit,
+                        company_name: result[0].company_name,
+                        vat: result[0].vat,
+                        price: ret[0].price,
                         message: "Success",
                     });
                 })
@@ -116,41 +116,68 @@ exports.getOwnProductDetails = (req, res, next) => {
 
 exports.addProduct = (req, res, next) => {
     const service_id = req.body.service_id;
-    const product_id = req.body.product_id;
+    //const product_id = req.body.product_id;
     //const delivery_limit = req.body.delivery_limit;
-    const price = req.body.price;
+    //const price = req.body.price;
 
-    service_inventory
-        .findAll({
-            where: {
-                product_id: product_id,
-                service_id: service_id,
-            },
-        })
-        .then((element) => {
-            if (element.length > 0) {
-                res.status(409).json({
-                    message: "Already enlisted in products",
-                });
-            } else {
-                service_inventory
-                    .create({
-                        service_id: service_id,
-                        product_id: product_id,
-                        price: price,
-                    })
-                    .then((elem) => {
-                        res.status(200).json({
-                            message: "Successfully Enlisted",
-                        });
-                    })
-                    .catch((err) => {
-                        res.status(504).json({
-                            message: "Failed",
-                        });
+    universal_products
+        .findAll()
+        .then((products) => {
+            let items = products;
+            service_inventory
+                .findAll({
+                    where: { service_id: service_id },
+                })
+                .then((results) => {
+                    //var left = items.filter((item) => (result[0].product_id != item.product_id));
+                    //let left = items.filter((item) => (results.filter((result) => (result.product_id != item.product_id))));
+                    let left = items.filter(
+                        ({ product_id: id1 }) =>
+                            !results.some(({ product_id: id2 }) => id2 === id1)
+                    );
+                    res.status(504).json({
+                        items: left,
+                        message: "success.",
                     });
-            }
+                });
+        })
+        .catch((err) => {
+            res.status(504).json({
+                message: "Failed",
+            });
         });
+
+    // service_inventory
+    //     .findAll({
+    //         where: {
+    //             product_id: product_id,
+    //             service_id: service_id,
+    //         },
+    //     })
+    //     .then((element) => {
+    //         if (element.length > 0) {
+    //             res.status(409).json({
+    //                 message: "Already enlisted in products",
+    //             });
+    //         } else {
+    //             service_inventory
+    //                 .create({
+    //                     service_id: service_id,
+    //                     product_id: product_id,
+    //                     price: price,
+    //                 })
+    //                 .then((elem) => {
+    //                     res.status(200).json({
+    //                         message: "Successfully Enlisted",
+    //                     });
+    //                 })
+    //                 .catch((err) => {
+    //                     res.status(504).json({
+    //                         message: "Failed",
+    //                     });
+    //                 });
+    //         }
+    //     });
 
     // sequelize.query("SELECT * FROM Universal_Product_List INNER JOIN Service_Inventory ON Universal_Product_List.product_id=Service_Inventory.product_id WHERE service_id=?",{replacements: [service_id],type: sequelize.QueryTypes.SELECT})
     // .then(result =>
@@ -190,6 +217,27 @@ exports.addProduct = (req, res, next) => {
     //             "product_id": 2,
     //             "delivery_limit": "",
     //             "price": 25 -->
+};
+
+exports.addToInventory = (req, res, next) => {
+    const service_id = req.body.service_id;
+    const product_id = req.body.product_id;
+    const price = req.body.price;
+
+    service_inventory.create({
+        service_id: service_id,
+        product_id: product_id,
+        price: price,
+    }).then(result =>{
+        res.status(200).json({
+                    message: "Success."
+                });
+    }).catch(err => {
+        console.log(err);
+            res.status(504).json({
+                message: "Failed"
+            });
+    });
 };
 
 exports.updateProduct = (req, res, next) => {

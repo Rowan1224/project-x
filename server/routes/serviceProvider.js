@@ -29,6 +29,7 @@ router.post("/ownProducts", productController.getOwnProducts);
 router.post("/getProductDetails", productController.getProductDetails);
 router.post("/getOwnProductDetails", productController.getOwnProductDetails);
 router.post("/addProduct", productController.addProduct);
+router.post("/addtoinventory",productController.addToInventory);
 router.post("/updateProduct", productController.updateProduct);
 router.post("/deleteProduct", productController.deleteProduct);
 

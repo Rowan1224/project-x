@@ -165,31 +165,41 @@ exports.horizontalBar = (req, res, nxt) => {
         )
         .then((result) => {
             let emplpoyee_income = new Map();
+            let employee_name = new Map();
             result.forEach((element) => {
                 if (element.delivered === 1) {
                     let inc =
-                        emplpoyee_income.get(element.employee_name+' ('+element.phone_number+')') ===
+                        emplpoyee_income.get(element.phone_number) ===
                         undefined
                             ? 0 + parseInt(element.payment)
-                            : emplpoyee_income.get(element.employee_name+' ('+element.phone_number+')') +
+                            : emplpoyee_income.get(element.phone_number) +
                               parseInt(element.payment);
-                    emplpoyee_income.set(element.employee_name+' ('+element.phone_number+')', inc);
+                    emplpoyee_income.set(element.phone_number, inc);
+                    employee_name.set(element.phone_number,element.employee_name);
                 }
             });
+
+
             const mapSort1 = new Map(
                 [...emplpoyee_income.entries()].sort((a, b) => b[1] - a[1])
             );
             console.log(mapSort1);
 
-            let employee_name = [],
-                employee_income = [];
+            let employeename = [],
+                employeeincome = [];
 
-            for (let key of mapSort1.keys()) {
-                employee_name.push(key);
-            }
-            for (let value of mapSort1.values()) {
-                employee_income.push(value);
-            }
+                for (let [key,value] of mapSort1) {
+                        let name = employee_name.get(key);
+                        employeename.push([name,key]);
+                        employeeincome.push(value);
+                    }
+
+            // for (let key of mapSort1.keys()) {
+            //     employee_name.push(key);
+            // }
+            // for (let value of mapSort1.values()) {
+            //     employee_income.push(value);
+            // }
 
             //  let horizontalBarDetails = [];
             // for (let i = 0; i < (employee_name.length || 5) ; i++) {
@@ -200,8 +210,8 @@ exports.horizontalBar = (req, res, nxt) => {
             //     horizontalBarDetails.push(data);
             // }
             let details = [];
-            details.push(employee_name);
-            details.push(employee_income);
+            details.push(employeename);
+            details.push(employeeincome);
             res.status(200).json({
                 //orders : success,
                 details: details,

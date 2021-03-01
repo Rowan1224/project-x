@@ -248,7 +248,7 @@ exports.getServiceStats = (req, res, nxt) => {
             for (let value of employee_name.values()) {
                 employeename.push(value);
             }
-            console.log(employeephone);
+            //console.log(employeephone);
             // console.log(employeeincome);
             // console.log(employeedelivered);
             let employeedetails = [];
