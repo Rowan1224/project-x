@@ -86,7 +86,7 @@ exports.getAssignedServiceOrder = (req, res, next) => {
                         // "house_no" :element.house_no,
                         further_description: element.further_description,
                         payment: element.payment,
-                        employee: element.employee_name,
+                        employee: element.phone_number,
                         time: element.order_time,
                     };
                     output.push(productorder);
@@ -206,29 +206,29 @@ exports.getServiceStats = (req, res, nxt) => {
             let total_income = 0,
                 deliveredOrders = 0;
             let employee_delivered = new Map();
-            let employee_phone = new Map();
+            let employee_name = new Map();
             let emplpoyee_income = new Map();
             result.forEach((element) => {
                 if (element.delivered === 1) {
                     deliveredOrders++;
                     // console.log(element.or)
                     let ord =
-                        employee_delivered.get(element.employee_name) ===
+                        employee_delivered.get(element.phone_number) ===
                         undefined
                             ? 1
-                            : employee_delivered.get(element.employee_name) + 1;
-                    employee_phone.set(
-                        element.employee_name,
-                        element.phone_number
+                            : employee_delivered.get(element.phone_number) + 1;
+                    employee_name.set(
+                        element.phone_number,
+                        element.employee_name
                     );
-                    employee_delivered.set(element.employee_name, ord);
+                    employee_delivered.set(element.phone_number, ord);
                     let inc =
-                        emplpoyee_income.get(element.employee_name) ===
+                        emplpoyee_income.get(element.phone_number) ===
                         undefined
                             ? 0 + parseInt(element.payment)
-                            : emplpoyee_income.get(element.employee_name) +
+                            : emplpoyee_income.get(element.phone_number) +
                               parseInt(element.payment);
-                    emplpoyee_income.set(element.employee_name, inc);
+                    emplpoyee_income.set(element.phone_number, inc);
                     total_income += parseInt(element.payment);
                 }
             });
@@ -237,7 +237,7 @@ exports.getServiceStats = (req, res, nxt) => {
                 employeedelivered = [],
                 employeephone = [];
             for (let key of employee_delivered.keys()) {
-                employeename.push(key);
+                employeephone.push(key);
             }
             for (let value of emplpoyee_income.values()) {
                 employeeincome.push(value);
@@ -245,8 +245,8 @@ exports.getServiceStats = (req, res, nxt) => {
             for (let value of employee_delivered.values()) {
                 employeedelivered.push(value);
             }
-            for (let value of employee_phone.values()) {
-                employeephone.push(value);
+            for (let value of employee_name.values()) {
+                employeename.push(value);
             }
             console.log(employeephone);
             // console.log(employeeincome);
@@ -308,7 +308,7 @@ exports.getServiceOrderHistory = (req, res, nxt) => {
                         further_description: element.further_description,
                         payment: element.payment,
                         time: element.order_time,
-                        employee: element.employee_name,
+                        employee: element.phone_number,
                     };
                     output.push(productorder);
                 });
