@@ -17,6 +17,7 @@ exports.addArea = (req, res, next) => {
     });
 };
 
+
 exports.removeArea = (req, res, next) => {
     const area_id = req.body.area_id;
     const service_id = req.body.service_id;
