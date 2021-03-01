@@ -168,12 +168,12 @@ exports.horizontalBar = (req, res, nxt) => {
             result.forEach((element) => {
                 if (element.delivered === 1) {
                     let inc =
-                        emplpoyee_income.get(element.phone_number) ===
+                        emplpoyee_income.get(element.employee_name+' ('+element.phone_number+')') ===
                         undefined
                             ? 0 + parseInt(element.payment)
-                            : emplpoyee_income.get(element.phone_number) +
+                            : emplpoyee_income.get(element.employee_name+' ('+element.phone_number+')') +
                               parseInt(element.payment);
-                    emplpoyee_income.set(element.phone_number, inc);
+                    emplpoyee_income.set(element.employee_name+' ('+element.phone_number+')', inc);
                 }
             });
             const mapSort1 = new Map(
