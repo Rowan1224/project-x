@@ -55,7 +55,7 @@ const ThemeContextProvider = (props) => {
       secondary:      "secondary-dark",
       mainColor:      "#feca57",
       dangerTextColor:" text-remove",
-      lineChartbg:    "rgba(254, 201, 87, 0.15)",
+      lineChartbg:    "rgba(254, 201, 87, 0.4)",
     },
   };
 
