@@ -269,9 +269,10 @@ exports.getServiceStats = (req, res, nxt) => {
             for (let i = 0; i < employeename.length; i++) {
                 var employeedata = {
                     name: employeename[i],
+                    phone: employeephone[i],
                     income: employeeincome[i],
                     delivered: employeedelivered[i],
-                    phone: employeephone[i]
+                    
                 };
                 employeedetails.push(employeedata);
             }
