@@ -94,7 +94,6 @@
 .show-cart-count {
     background-color: transparent;
     border: none;
-    width: 2.5rem;
     border-bottom: 2px solid #ddd;
     transition: linear all 0.1s;
     text-align: center;
@@ -108,4 +107,15 @@
         border: none;
         border-bottom: 2px solid #333;
     }
+}
+
+
+
+// Experimental
+.transparent__input {
+    flex: 2;
+    border: none;
+    outline: none;
+    background: transparent;
+    // border-bottom: 2px solid $main;
 }

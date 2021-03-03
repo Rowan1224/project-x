@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/generic/layout";
-import Services from "../components/home/service providers/services";
+import Services from "../components/home/service providers/Services/services";
 import LocationContextProvider from "../contexts/LocationContext";
 import CartContextProvider from "../contexts/CartContext";
 

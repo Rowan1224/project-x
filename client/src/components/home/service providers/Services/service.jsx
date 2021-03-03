@@ -1,15 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
-import { ThemeContext } from "../../../contexts/ThemeContext";
-import Title from "../../generic/title";
-import { CartContext } from "../../../contexts/CartContext";
+import { ThemeContext } from "../../../../contexts/ThemeContext";
+import Title from "../../../generic/title";
+import { CartContext } from "../../../../contexts/CartContext";
 import Icon from "@material-ui/core/Icon";
 import { useParams } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import UpdateProductDetails from "./UpdateProductDetails";
-import DeleteModal from "../../generic/DeleteModal";
-import CustomModalAlert from "../../generic/CustomModalAlert";
+import UpdateProductDetails from "../Products/UpdateProductDetails";
+import DeleteModal from "../../../generic/DeleteModal";
+import CustomModalAlert from "../../../generic/CustomModalAlert";
 
 const Service = (props) => {
     const params = useParams();
@@ -216,6 +216,7 @@ const Service = (props) => {
                                             "show-cart-count mx-1" + syntax
                                         }
                                         value={count}
+                                        style={{ maxWidth: "2.5rem" }}
                                         onChange={(e) =>
                                             setCount(e.target.value)
                                         }
@@ -250,7 +251,7 @@ const Service = (props) => {
                             />
 
                             <DeleteModal
-                                deleteText={true}
+                                deleteText={"Delete"}
                                 updateFlag={props.updateFlag}
                                 handleAction={() =>
                                     handleDeleteItem(

@@ -91,13 +91,14 @@ const LoginForm = (props) => {
                 <div className="d-flex justify-content-between mb-4 mx-0">
                     <div className="w-50 p-0">
                         <img
-                            src="/img/profilpic.jpg"
+                            src="/img/profile_pic.png"
                             onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src = "/img/Default.png";
                             }}
                             alt="profile"
-                            className={"rounded w-100" + border}
+                            className={"rounded-circle w-100" + border}
+                            // className={"rounded w-100" + border}
                         />
                     </div>
 

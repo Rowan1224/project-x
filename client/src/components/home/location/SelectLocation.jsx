@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
-import DropDown from "./dropDown";
+import LocationDropDown from "./LocationDropDown";
 import { LocationContext } from "../../../contexts/LocationContext";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 
-const LocationDropDown = () => {
+const SelectLocation = () => {
     const { locationsfs, changeLocation } = useContext(LocationContext);
 
     const json = sessionStorage.getItem("location");
@@ -48,7 +48,7 @@ const LocationDropDown = () => {
             </div>
             <div className="row mt-5">
                 <div className="col-sm-12 col-md-6">
-                    <DropDown
+                    <LocationDropDown
                         size="lg"
                         status=""
                         customClass="mb-2 w-100"
@@ -58,7 +58,7 @@ const LocationDropDown = () => {
                     />
                 </div>
                 <div className="col-sm-12 col-md-6">
-                    <DropDown
+                    <LocationDropDown
                         size="lg"
                         status={!district}
                         customClass="mb-2 w-100"
@@ -80,4 +80,4 @@ const LocationDropDown = () => {
     );
 };
 
-export default LocationDropDown;
+export default SelectLocation;

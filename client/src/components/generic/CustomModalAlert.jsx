@@ -8,8 +8,8 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 const CustomModalAlert = (props) => {
     const timeoutTime = 1000;
     const history = useHistory();
+    const [show] = useState(true);
     const { setStatus, redirect, updateFlag } = props;
-    const [show, setShow] = useState(true);
 
     const { isAnimated } = useContext(SettingsContext);
 
@@ -22,7 +22,7 @@ const CustomModalAlert = (props) => {
 
     const handleClose = useCallback(() => {
         setStatus(undefined);
-        setShow(false);
+        // setShow(false); gives this error -> "Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function."
         redirect && history.push(redirect);
         updateFlag && updateFlag();
     }, [setStatus, history, redirect, updateFlag]);

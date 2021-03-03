@@ -135,7 +135,7 @@ exports.addProduct = (req, res, next) => {
                         ({ product_id: id1 }) =>
                             !results.some(({ product_id: id2 }) => id2 === id1)
                     );
-                    res.status(504).json({
+                    res.status(200).json({
                         items: left,
                         message: "success.",
                     });

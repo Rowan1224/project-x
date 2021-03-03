@@ -1,23 +1,17 @@
 import React, { useContext, useRef, useState } from "react";
 
-import { Link } from "react-router-dom";
-import { ThemeContext } from "../../../contexts/ThemeContext";
+import { ThemeContext } from "../../../../contexts/ThemeContext";
 import { Button } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import CustomAlert from "../../generic/CustomAlert";
-import CustomModalAlert from "../../generic/CustomModalAlert";
-// import { AuthenticationContext } from "../../../contexts/AuthenticationContext";
+import CustomAlert from "../../../generic/CustomAlert";
+import CustomModalAlert from "../../../generic/CustomModalAlert";
 
 const AddEmployee = (props) => {
     const form = useRef(null);
     const [status, setStatus] = useState(undefined);
     const [variant, setVariant] = useState("danger");
-    // const { handleAuthentication } = useContext(AuthenticationContext);
-
-    // const [isServiceProvider, setIsServiceProvider] = useState(false);
-    // const [showVerificationArea, setShowVerificationArea] = useState(false);
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -53,6 +47,7 @@ const AddEmployee = (props) => {
                 if (response.ok) {
                     setVariant("success");
                     setStatus(data.message);
+                    props.updateFlag();
                 } else setStatus(data.message);
             } catch (error) {
                 setStatus(error);
@@ -75,7 +70,6 @@ const AddEmployee = (props) => {
                                 status={status}
                                 variant={variant}
                                 setStatus={setStatus}
-                                redirect="/employee/list"
                             />
                         ) : (
                             <CustomAlert status={status} variant={variant} />
@@ -117,36 +111,13 @@ const AddEmployee = (props) => {
                         />
                     </div>
 
-                    <div className="row">
-                        <div className="col-md-6">
-                            <Button
-                                as={Link}
-                                to="/employee/list"
-                                variant={"outline-" + type}
-                                className="w-100 mb-2 mb-md-0"
-                            >
-                                <FontAwesomeIcon
-                                    className="mr-2"
-                                    icon={["fas", "users"]}
-                                />
-                                Show Employee List
-                            </Button>
-                        </div>
-
-                        <div className="col-md-6">
-                            <Button
-                                type="submit"
-                                variant={type}
-                                className="w-100"
-                            >
-                                <FontAwesomeIcon
-                                    className="mr-2"
-                                    icon={["fas", "user-plus"]}
-                                />
-                                Add Employee
-                            </Button>
-                        </div>
-                    </div>
+                    <Button type="submit" variant={type} className="w-100">
+                        <FontAwesomeIcon
+                            className="mr-2"
+                            icon={["fas", "user-plus"]}
+                        />
+                        Add Employee
+                    </Button>
                 </form>
             </div>
         </div>

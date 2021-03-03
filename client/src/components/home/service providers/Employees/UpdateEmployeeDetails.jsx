@@ -1,11 +1,11 @@
 import React, { useContext, useRef, useState } from "react";
-import CustomModalAlert from "../../generic/CustomModalAlert";
-import CustomAlert from "../../generic/CustomAlert";
-import CustomModal from "../../generic/CustomModal";
+import CustomModalAlert from "../../../generic/CustomModalAlert";
+import CustomAlert from "../../../generic/CustomAlert";
+import CustomModal from "../../../generic/CustomModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ThemeContext } from "../../../contexts/ThemeContext";
+import { ThemeContext } from "../../../../contexts/ThemeContext";
 
-const UpdateProductDetails = (props) => {
+const UpdateEmployeeDetails = (props) => {
     const form = useRef(null);
     const [status, setStatus] = useState(undefined);
     const [statusVariant, setStatusVariant] = useState("danger");
@@ -16,7 +16,7 @@ const UpdateProductDetails = (props) => {
     const border = isLightTheme ? theme.light.border : theme.dark.border;
 
     const handleUpdate = () => {
-        const API_URL = "/updateproduct/";
+        const API_URL = "/updateEmployee/";
         const loadData = async () => {
             const formData = new FormData(form.current);
 
@@ -24,9 +24,7 @@ const UpdateProductDetails = (props) => {
             formData.forEach(function (value, key) {
                 object[key] = value;
             });
-
-            object["product_id"] = props.id;
-            object["service_id"] = localStorage.getItem("userID");
+            object["employee_id"] = props.employee.employee_id;
 
             const response = await fetch(API_URL, {
                 method: "POST",
@@ -50,9 +48,10 @@ const UpdateProductDetails = (props) => {
 
     return (
         <CustomModal
+            // size="md"
             actionVariant={type}
             handleAction={handleUpdate}
-            modalTitle="Update Product Details"
+            modalTitle="Update Employee Details"
             actionButtonBody={
                 <>
                     <FontAwesomeIcon
@@ -81,7 +80,7 @@ const UpdateProductDetails = (props) => {
                         ))}
 
                     <div className="form-group">
-                        <label>Product Name</label>
+                        <label>Employee Name</label>
 
                         <div
                             className={
@@ -91,22 +90,23 @@ const UpdateProductDetails = (props) => {
                             <div className="input-group-prepend">
                                 <span className="input-group-text rounded-0">
                                     <FontAwesomeIcon
-                                        className="fa-icon mr-1"
-                                        icon={["fab", "product-hunt"]}
+                                        className="fa-icon"
+                                        icon={["fas", "user"]}
                                     />
                                 </span>
                             </div>
                             <input
-                                disabled
+                                required
+                                autoFocus
                                 type="text"
-                                name="product_name"
-                                placeholder="Product Name"
+                                name="employee_name"
+                                placeholder="Employee Name"
                                 className="form-control rounded-0"
-                                defaultValue={props.product.product_name}
+                                defaultValue={props.employee.employee_name}
                             />
                         </div>
 
-                        <label className="mt-3">Price (Vat Excluded)</label>
+                        <label className="mt-3">Phone Number</label>
 
                         <div
                             className={
@@ -114,37 +114,28 @@ const UpdateProductDetails = (props) => {
                             }
                         >
                             <div className="input-group-prepend">
-                                <span className="input-group-text py-0 rounded-0">
-                                    <span
-                                        className="font-weight-bold mx-1"
-                                        style={{
-                                            fontSize: "1.2rem",
-                                        }}
-                                    >
-                                        ৳{" "}
-                                    </span>
+                                <span className="input-group-text rounded-0">
+                                    <FontAwesomeIcon
+                                        className="fa-icon"
+                                        icon={["fas", "phone"]}
+                                    />
                                 </span>
                             </div>
                             <input
-                                autoFocus
-                                name="price"
-                                type="number"
-                                placeholder="Product price"
-                                defaultValue={props.product.price}
+                                type="text"
+                                name="phone_number"
+                                placeholder="Phone Number"
                                 className="form-control rounded-0"
+                                defaultValue={props.employee.phone_number}
                             />
                         </div>
                     </div>
                 </form>
             }
         >
-            <FontAwesomeIcon
-                className="fa-icon mr-1"
-                icon={["fas", "wrench"]}
-            />
-            Update
+            <FontAwesomeIcon className="fa-icon" icon={["fa", "wrench"]} />
         </CustomModal>
     );
 };
 
-export default UpdateProductDetails;
+export default UpdateEmployeeDetails;

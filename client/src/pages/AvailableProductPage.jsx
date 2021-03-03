@@ -1,11 +1,11 @@
 import React from "react";
 import Layout from "../components/generic/layout";
-import AddEmployee from "../components/home/service providers/AddEmployee";
+import AvailableProducts from "../components/home/service providers/Products/AvailableProducts";
 
 const Home = () => {
     return (
         <Layout>
-            <AddEmployee />
+            <AvailableProducts />
         </Layout>
     );
 };

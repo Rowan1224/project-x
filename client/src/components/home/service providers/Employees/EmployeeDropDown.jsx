@@ -1,14 +1,17 @@
 import React, { useState, useContext } from "react";
 import { Dropdown } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
-import { ThemeContext } from "../../../contexts/ThemeContext";
+import { ThemeContext } from "../../../../contexts/ThemeContext";
 
-const DropDown = (props) => {
+const EmployeeDropDown = (props) => {
     const [title, setTitle] = useState(props.title);
 
-    const handleSelect = (e) => {
-        setTitle(e);
-        props.handleSelect(e);
+    const handleSelect = (e, value) => {
+        setTitle(value);
+        // console.log(e, "Needs name here", value);
+        const tmp = { id: e, name: value };
+        // props.handleSelect(e);
+        props.handleSelect(tmp);
     };
 
     // Themes
@@ -38,13 +41,23 @@ const DropDown = (props) => {
                 {props.values.map((value) => (
                     <Dropdown.Item
                         eventKey={
-                            props.subElement ? value[props.subElement] : value
+                            props.subElementKey
+                                ? value[props.subElementKey]
+                                : value
                         }
                         key={uuidv4()}
-                        onSelect={handleSelect}
+                        onSelect={(e) =>
+                            handleSelect(
+                                e,
+                                props.subElementValue &&
+                                    value[props.subElementValue]
+                            )
+                        }
                         className={"text-wrap" + syntax + dropdown_text}
                     >
-                        {props.subElement ? value[props.subElement] : value}
+                        {props.subElementValue
+                            ? value[props.subElementValue]
+                            : value}
                     </Dropdown.Item>
                 ))}
             </Dropdown.Menu>
@@ -52,4 +65,4 @@ const DropDown = (props) => {
     );
 };
 
-export default DropDown;
+export default EmployeeDropDown;

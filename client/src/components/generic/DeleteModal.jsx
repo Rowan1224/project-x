@@ -23,12 +23,15 @@ const DeleteModal = (props) => {
                         className="fa-icon mr-2"
                         icon={["fas", "trash-alt"]}
                     />
-                    Delete
+                    {props.deleteText ? props.deleteText : "Delete"}
                 </>
             }
         >
-            <FontAwesomeIcon className="fa-icon mr-1" icon={["fas", "trash-alt"]} />
-            {props.deleteText && "Delete"}
+            <FontAwesomeIcon
+                className={props.deleteText ? "fa-icon mr-1" : "fa-icon"}
+                icon={["fas", "trash-alt"]}
+            />
+            {props.deleteText && props.deleteText}
         </CustomModal>
     );
 };

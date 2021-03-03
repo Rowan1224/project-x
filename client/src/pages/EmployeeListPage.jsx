@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/generic/layout";
-import EmployeeList from "../components/home/service providers/EmployeeList";
+import EmployeeList from "../components/home/service providers/Employees/EmployeeList";
 
 const Home = () => {
     return (

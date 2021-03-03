@@ -5,8 +5,8 @@ import { Chart, Line, Bar, Polar } from "react-chartjs-2";
 import "chart.piecelabel.js";
 import "chartjs-plugin-datalabels";
 
-import { ThemeContext } from "../../../contexts/ThemeContext";
-import CustomAlert from "../../generic/CustomAlert";
+import { ThemeContext } from "../../../../contexts/ThemeContext";
+import CustomAlert from "../../../generic/CustomAlert";
 
 const Charts = (props) => {
     // Themes

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import CustomTable from "../../generic/CustomTable";
+import CustomTable from "../../../generic/CustomTable";
 
 const OrderDetails = (props) => {
     const params = useParams();

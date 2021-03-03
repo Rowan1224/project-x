@@ -1,31 +1,31 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
-import "./assets/styles/styles.scss";
-
-import Home from "./pages/home";
-import ServiceProviders from "./pages/serviceProviders";
-import ShoppingCart from "./pages/shoppingCart";
-
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import UserRegistration from "./pages/userRegistration";
-import UserLogin from "./pages/userLogin";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import "./assets/styles/styles.scss";
+
+import SettingsContextProvider from "./contexts/SettingsContext";
 import AuthenticationContextProvider from "./contexts/AuthenticationContext";
+
+import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import TestPage from "./test/TestPage";
+import UserLogin from "./pages/UserLogin";
+import OrderPage from "./pages/OrderPage";
+import AreasPage from "./pages/AreasPage";
+import HistoryPage from "./pages/HistoryPage";
+import ShoppingCart from "./pages/ShoppingCart";
 import CheckoutPage from "./pages/CheckoutPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import TestPage from "./test/TestPage";
-import OrderPage from "./pages/OrderPage";
-import OrderDetailsPage from "./pages/OrderDetailsPage";
-import AddProductPage from "./pages/AddProductPage";
-import AddEmployeePage from "./pages/AddEmployeePage";
-import EmployeeListPage from "./pages/EmployeeListPage";
 import StatisticsPage from "./pages/StatisticsPage";
-import HistoryPage from "./pages/HistoryPage";
-import SettingsContextProvider from "./contexts/SettingsContext";
+import ServiceProviders from "./pages/ServiceProviders";
+import UserRegistration from "./pages/UserRegistration";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
+import EmployeeListPage from "./pages/EmployeeListPage";
+import AvailableProductPage from "./pages/AvailableProductPage";
 
 library.add(far, fas, fab);
 
@@ -47,17 +47,13 @@ const App = () => {
                         />
                         <Route
                             exact
-                            path="/add/product"
-                            component={AddProductPage}
+                            path="/available/product"
+                            component={AvailableProductPage}
                         />
+                        <Route exact path="/areas" component={AreasPage} />
                         <Route
                             exact
-                            path="/add/employee"
-                            component={AddEmployeePage}
-                        />
-                        <Route
-                            exact
-                            path="/employee/list"
+                            path="/employee"
                             component={EmployeeListPage}
                         />
                         <Route
