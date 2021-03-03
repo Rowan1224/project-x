@@ -20,8 +20,9 @@ import NotFoundPage from "./pages/NotFoundPage";
 import TestPage from "./test/TestPage";
 import OrderPage from "./pages/OrderPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
-import AddProductPage from "./pages/AddProductPage";
+import AvailableProductPage from "./pages/AvailableProductPage";
 import AddEmployeePage from "./pages/AddEmployeePage";
+import AreasPage from "./pages/AreasPage";
 import EmployeeListPage from "./pages/EmployeeListPage";
 import StatisticsPage from "./pages/StatisticsPage";
 import HistoryPage from "./pages/HistoryPage";
@@ -47,9 +48,10 @@ const App = () => {
                         />
                         <Route
                             exact
-                            path="/add/product"
-                            component={AddProductPage}
+                            path="/available/product"
+                            component={AvailableProductPage}
                         />
+                        <Route exact path="/areas" component={AreasPage} />
                         <Route
                             exact
                             path="/add/employee"
