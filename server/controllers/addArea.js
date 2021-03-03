@@ -2,40 +2,32 @@ const ServiceArea = require("../../server/models/Service_Area");
 const sequelize = require("../../server/util/database");
 const Sequelize = require("sequelize");
 const Area_Details = require("../models/Area_Details");
+const Service_Area = require("../../server/models/Service_Area");
 
 const serviceArea = ServiceArea(sequelize, Sequelize);
 const area_details = Area_Details(sequelize, Sequelize);
 
-
 exports.availableArea = (req, res, nxt) => {
     const service_id = req.body.service_id;
+    const area = req.body.area;
 
-    area_details.findAll()
-        .then((areas) => {
-            serviceArea
-                .findAll({
-                    where: { service_id: service_id },
-                })
-                .then((result) => {
-                    let left = areas.filter(
-                        ({ area_id: id1 }) =>
-                            !result.some(({ area_id: id2 }) => id2 === id1)
-                    );
-
-                    res.status(200).json({
-                        Areas: left,
-                        message: "Successfully fetched available area",
-                    });
-                })
-                .catch((err) => {
-                    res.status(504).json({
-                        message: "Failed to fetch available area",
-                    });
-                });
+    sequelize
+        .query(
+            "SELECT * FROM Area_Details WHERE  Area_Details.area_id NOT IN (SELECT area_id FROM Service_Area WHERE service_id=?) && area_name LIKE ?",
+            {
+                replacements: [[service_id], [`%${area}%`]],
+                type: sequelize.QueryTypes.SELECT,
+            }
+        )
+        .then((result) => {
+            res.status(200).json({
+                Areas: result,
+                message: "Successfully fetched available area",
+            });
         })
         .catch((err) => {
             res.status(504).json({
-                message: "Failed to fetch universal area",
+                message: "Failed to fetch available area",
             });
         });
 };
@@ -78,12 +70,13 @@ exports.removeArea = (req, res, next) => {
 
 exports.showArea = (req, res, nxt) => {
     const service_id = req.body.service_id;
+    var area = req.body.area;
 
     sequelize
         .query(
-            "SELECT * FROM Service_Area INNER JOIN Area_Details ON Service_Area.area_id=Area_Details.area_id WHERE service_id=?",
+            "SELECT * FROM Service_Area INNER JOIN Area_Details ON Area_Details.area_id=Service_Area.area_id  WHERE service_id=? && area_name LIKE ? ",
             {
-                replacements: [service_id],
+                replacements: [[service_id], [`%${area}%`]],
                 type: sequelize.QueryTypes.SELECT,
             }
         )
@@ -91,16 +84,17 @@ exports.showArea = (req, res, nxt) => {
             let areas = [];
             result.forEach((element) => {
                 var data = {
-                    area_id : element.area_id,
+                    area_id: element.area_id,
                     area_name: element.area_name,
                     thana: element.thana,
                     upazilla: element.upazilla,
                     district: element.district,
-                    lati : element.lati,
-                    longi : element.longi
+                    lati: element.lati,
+                    longi: element.longi,
                 };
                 areas.push(data);
             });
+
             res.status(200).json({
                 Areas: areas,
                 message: "Successfully showed the area",
