@@ -1,25 +1,16 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import Title from "../../generic/title";
 import emoji from "react-easy-emoji";
 
-import CustomModalAlert from "../../generic/CustomModalAlert";
-import { ThemeContext } from "../../../contexts/ThemeContext";
 import Infobar from "../../generic/infobar";
 import AddProduct from "./AddProduct";
+import CustomCard from "../../generic/CustomCard";
 
 const AvailableProducts = (props) => {
     const [flag, setFlag] = useState(true);
-    const [statusVariant] = useState("danger");
     const [status, setStatus] = useState(undefined);
     const [availableProducts, setAvailableProducts] = useState([]);
-
-    // Themes
-    const { isLightTheme, theme } = useContext(ThemeContext);
-    const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
-    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
-    // const type = isLightTheme ? theme.light.type : theme.dark.type;
 
     useEffect(() => {
         const API_URL = "/availableProduct/";
@@ -55,58 +46,42 @@ const AvailableProducts = (props) => {
 
     return (
         <>
-            <Infobar>Available Products</Infobar>
-            {availableProducts && availableProducts.length > 0 ? (
-                <div className="row mt-4">
-                    {availableProducts.map((availableProduct) => (
-                        <div
-                            key={availableProduct.product_id}
-                            className="col-lg-3 col-md-4 col-sm-6 mb-4 text-center"
-                        >
-                            <Card className={"shadow" + ui + border}>
-                                {status && (
-                                    <CustomModalAlert
-                                        status={status}
-                                        setStatus={setStatus}
-                                        variant={statusVariant}
-                                    />
-                                )}
+            <div className="mb-4">
+                <Infobar>Available Products</Infobar>
+            </div>
 
-                                <Card.Body className={syntax}>
-                                    <Card.Title>
-                                        {availableProduct.product_name}
-                                    </Card.Title>
+            <CustomCard
+                status={status}
+                setStatus={setStatus}
+                values={availableProducts}
+                cardBodyData={(availableProduct) => (
+                    <>
+                        <Card.Title>{availableProduct.product_name}</Card.Title>
 
-                                    <div>
-                                        <Title>Vat: </Title>{" "}
-                                        {availableProduct.vat}%
-                                        <br />
-                                        <Title>Quantity: </Title>{" "}
-                                        {availableProduct.qty}{" "}
-                                        {availableProduct.unit}
-                                        <br />
-                                        <Title>Company: </Title>{" "}
-                                        {availableProduct.company_name}
-                                    </div>
-
-                                    <AddProduct
-                                        updateFlag={updateFlag}
-                                        availableProduct={availableProduct}
-                                        product_name={
-                                            availableProduct.product_name
-                                        }
-                                    />
-                                </Card.Body>
-                            </Card>
+                        <div>
+                            <Title>Vat: </Title> {availableProduct.vat}%
+                            <br />
+                            <Title>Quantity: </Title> {availableProduct.qty}{" "}
+                            {availableProduct.unit}
+                            <br />
+                            <Title>Company: </Title>{" "}
+                            {availableProduct.company_name}
                         </div>
-                    ))}
-                </div>
-            ) : (
-                <Infobar>
-                    No new products to show to add to your inventory{" "}
-                    {emoji("☹")}
-                </Infobar>
-            )}
+
+                        <AddProduct
+                            updateFlag={updateFlag}
+                            availableProduct={availableProduct}
+                            product_name={availableProduct.product_name}
+                        />
+                    </>
+                )}
+                noValueInfo={
+                    <>
+                        No new products to show to add to your inventory{" "}
+                        {emoji("☹")}
+                    </>
+                }
+            />
         </>
     );
 };

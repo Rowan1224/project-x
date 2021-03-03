@@ -108,3 +108,14 @@
         border-bottom: 2px solid #333;
     }
 }
+
+
+
+// Experimental
+.transparent__input {
+    flex: 2;
+    border: none;
+    outline: none;
+    background: transparent;
+    // border-bottom: 2px solid $main;
+}

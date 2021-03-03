@@ -60,7 +60,7 @@ const RemoveArea = (props) => {
             )}
 
             <DeleteModal
-                deleteText={"Remove"}
+                deleteText={"Remove Area"}
                 handleAction={handleRemoveArea}
                 modalBody={
                     <>
