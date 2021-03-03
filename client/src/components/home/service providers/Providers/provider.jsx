@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import { ThemeContext } from "../../../contexts/ThemeContext";
-import Title from "../../generic/title";
+import { ThemeContext } from "../../../../contexts/ThemeContext";
+import Title from "../../../generic/title";
 
 const Provider = (props) => {
     const [show, setShow] = useState(true);

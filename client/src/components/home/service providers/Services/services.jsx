@@ -3,8 +3,8 @@ import { Image } from "react-bootstrap";
 import Service from "./service";
 import { v4 as uuidv4 } from "uuid";
 import emoji from "react-easy-emoji";
-import Infobar from "../../generic/infobar";
-import { ThemeContext } from "../../../contexts/ThemeContext";
+import Infobar from "../../../generic/infobar";
+import { ThemeContext } from "../../../../contexts/ThemeContext";
 import { useParams } from "react-router-dom";
 
 const Services = () => {

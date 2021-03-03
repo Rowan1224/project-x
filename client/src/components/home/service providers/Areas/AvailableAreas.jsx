@@ -15,6 +15,7 @@ const AvailableAreas = (props) => {
 
         const loadData = async () => {
             const bodyData = {
+                area: props.searchData,
                 service_id: localStorage.getItem("userID"),
             };
 
@@ -38,7 +39,7 @@ const AvailableAreas = (props) => {
         };
 
         loadData();
-    }, []);
+    }, [props.searchData]);
 
     return (
         <CustomCard

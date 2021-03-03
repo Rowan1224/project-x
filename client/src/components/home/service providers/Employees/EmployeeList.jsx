@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import emoji from "react-easy-emoji";
-import Infobar from "../../generic/infobar";
+import Infobar from "../../../generic/infobar";
 import React, { useState, useEffect } from "react";
-import DeleteModal from "../../generic/DeleteModal";
-import CustomTable from "../../generic/CustomTable";
+import DeleteModal from "../../../generic/DeleteModal";
+import CustomTable from "../../../generic/CustomTable";
 import UpdateEmployeeDetails from "./UpdateEmployeeDetails";
-import { ThemeContext } from "../../../contexts/ThemeContext";
-import CustomModalAlert from "../../generic/CustomModalAlert";
+import { ThemeContext } from "../../../../contexts/ThemeContext";
+import CustomModalAlert from "../../../generic/CustomModalAlert";
+import AddEmployee from "./AddEmployee";
 
 const EmployeeList = (props) => {
     const [flag, setFlag] = useState(true);
@@ -86,6 +87,10 @@ const EmployeeList = (props) => {
 
     return (
         <>
+            <div className="mb-4">
+                <AddEmployee updateFlag={updateFlag} />
+            </div>
+
             {employes ? (
                 <>
                     {status && (

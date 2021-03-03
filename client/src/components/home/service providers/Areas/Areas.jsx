@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import AvailableAreas from "./AvailableAreas";
@@ -7,6 +7,8 @@ import { ThemeContext } from "../../../../contexts/ThemeContext";
 import { Button } from "react-bootstrap";
 
 const Areas = (props) => {
+    const [searchData, setSearchData] = useState("");
+
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const type = isLightTheme ? theme.light.type : theme.dark.type;
@@ -19,7 +21,7 @@ const Areas = (props) => {
         : theme.dark.mainColor;
 
     const handleChange = (e) => {
-        console.log(e.target.value);
+        setSearchData(e.target.value);
     };
 
     return (
@@ -48,12 +50,12 @@ const Areas = (props) => {
 
             <h4>Your Areas</h4>
             <div className="my-4">
-                <ProvidedAreas />
+                <ProvidedAreas searchData={searchData} />
             </div>
 
             <h4>Available Areas</h4>
             <div className="my-4">
-                <AvailableAreas />
+                <AvailableAreas searchData={searchData} />
             </div>
         </div>
     );

@@ -1,9 +1,9 @@
 import React, { useContext, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import CustomModal from "../../generic/CustomModal";
-import CustomModalAlert from "../../generic/CustomModalAlert";
-import { ThemeContext } from "../../../contexts/ThemeContext";
+import CustomModal from "../../../generic/CustomModal";
+import CustomModalAlert from "../../../generic/CustomModalAlert";
+import { ThemeContext } from "../../../../contexts/ThemeContext";
 
 const AddProduct = (props) => {
     const form = useRef(null);

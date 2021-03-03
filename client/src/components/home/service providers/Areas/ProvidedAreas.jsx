@@ -15,6 +15,7 @@ const ProvidedAreas = (props) => {
 
         const loadData = async () => {
             const bodyData = {
+                area: props.searchData,
                 service_id: localStorage.getItem("userID"),
             };
 
@@ -38,7 +39,7 @@ const ProvidedAreas = (props) => {
         };
 
         loadData();
-    }, []);
+    }, [props.searchData]);
 
     return (
         <CustomCard
@@ -67,7 +68,10 @@ const ProvidedAreas = (props) => {
                 </>
             )}
             noValueInfo={
-                <>Currently you don't provide your service to any area {emoji("☹")}</>
+                <>
+                    Currently you don't provide your service to any area{" "}
+                    {emoji("☹")}
+                </>
             }
         />
     );

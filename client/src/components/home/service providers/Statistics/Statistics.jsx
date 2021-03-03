@@ -3,13 +3,13 @@ import "moment-duration-format";
 import { withRouter } from "react-router-dom";
 import React, { useContext, useRef, useState, useEffect } from "react";
 
-import { ThemeContext } from "../../../contexts/ThemeContext";
+import { ThemeContext } from "../../../../contexts/ThemeContext";
 import { Button, Row, Col } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import CustomAlert from "../../generic/CustomAlert";
-import CustomTable from "../../generic/CustomTable";
+import CustomAlert from "../../../generic/CustomAlert";
+import CustomTable from "../../../generic/CustomTable";
 import Charts from "./Charts";
 
 const Statistics = (props) => {

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
-import Title from "../../generic/title";
+import Title from "../../../generic/title";
 import emoji from "react-easy-emoji";
 
-import Infobar from "../../generic/infobar";
+import Infobar from "../../../generic/infobar";
 import AddProduct from "./AddProduct";
-import CustomCard from "../../generic/CustomCard";
+import CustomCard from "../../../generic/CustomCard";
 
 const AvailableProducts = (props) => {
     const [flag, setFlag] = useState(true);

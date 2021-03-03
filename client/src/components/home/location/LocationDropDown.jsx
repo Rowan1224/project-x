@@ -3,15 +3,12 @@ import { Dropdown } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 
-const EmployeeDropDown = (props) => {
+const LocationDropDown = (props) => {
     const [title, setTitle] = useState(props.title);
 
-    const handleSelect = (e, value) => {
-        setTitle(value);
-        // console.log(e, "Needs name here", value);
-        const tmp = { id: e, name: value };
-        // props.handleSelect(e);
-        props.handleSelect(tmp);
+    const handleSelect = (e) => {
+        setTitle(e);
+        props.handleSelect(e);
     };
 
     // Themes
@@ -41,23 +38,13 @@ const EmployeeDropDown = (props) => {
                 {props.values.map((value) => (
                     <Dropdown.Item
                         eventKey={
-                            props.subElementKey
-                                ? value[props.subElementKey]
-                                : value
+                            props.subElement ? value[props.subElement] : value
                         }
                         key={uuidv4()}
-                        onSelect={(e) =>
-                            handleSelect(
-                                e,
-                                props.subElementValue &&
-                                    value[props.subElementValue]
-                            )
-                        }
+                        onSelect={handleSelect}
                         className={"text-wrap" + syntax + dropdown_text}
                     >
-                        {props.subElementValue
-                            ? value[props.subElementValue]
-                            : value}
+                        {props.subElement ? value[props.subElement] : value}
                     </Dropdown.Item>
                 ))}
             </Dropdown.Menu>
@@ -65,4 +52,4 @@ const EmployeeDropDown = (props) => {
     );
 };
 
-export default EmployeeDropDown;
+export default LocationDropDown;
