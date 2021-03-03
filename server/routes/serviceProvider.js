@@ -11,9 +11,9 @@ const router = express.Router();
 
 // Area Related Routes
 router.post("/addArea", addAreaController.addArea);
-router.post("/removearea",addAreaController.removeArea);
-router.post("/availablearea",addAreaController.availableArea);
-router.post("/showarea",addAreaController.showArea);
+router.post("/removearea", addAreaController.removeArea);
+router.post("/availablearea", addAreaController.availableArea);
+router.post("/showarea", addAreaController.showArea);
 
 // Employee Related Routes
 router.post("/addEmployee", employeeController.addEmployee);
@@ -22,16 +22,16 @@ router.post("/updateEmployee", employeeController.updateEmployee);
 router.post("/deleteEmployee", employeeController.deleteEmployee);
 
 // Profile Related Routes
-router.post('/getProfile', profileController.getProfileData);
-router.patch('/updateProfile', profileController.updateProfile);
+router.post("/getProfile", profileController.getProfileData);
+router.patch("/updateProfile", profileController.updateProfile);
 
 // Product Related Routes
 router.get("/allProducts", productController.getUniversalProducts);
 router.post("/ownProducts", productController.getOwnProducts);
 router.post("/getProductDetails", productController.getProductDetails);
 router.post("/getOwnProductDetails", productController.getOwnProductDetails);
-router.post("/addProduct", productController.addProduct);
-router.post("/addtoinventory",productController.addToInventory);
+router.post("/availableProduct", productController.addProduct);
+router.post("/addtoinventory", productController.addToInventory);
 router.post("/updateProduct", productController.updateProduct);
 router.post("/deleteProduct", productController.deleteProduct);
 
@@ -69,23 +69,44 @@ router.get("/servicelogout", serviceLoginController.servicelogout);
 const customerProfileController = require("../controllers/customerProfile");
 
 router.post("/customerprofile", customerProfileController.getCustomerProfile);
-router.patch("/customerupdateprofile",customerProfileController.updateCustomerProfile);
+router.patch(
+    "/customerupdateprofile",
+    customerProfileController.updateCustomerProfile
+);
 
 const customerOrderController = require("../controllers/customerOrders");
-router.post("/createcustomerorder",customerOrderController.createCustomerOrderDetails);
-router.post("/getcustomerorderhistory",customerOrderController.getCustomerOrderHistory);
+router.post(
+    "/createcustomerorder",
+    customerOrderController.createCustomerOrderDetails
+);
+router.post(
+    "/getcustomerorderhistory",
+    customerOrderController.getCustomerOrderHistory
+);
 
 const serviceStatsController = require("../controllers/servicestats");
-router.post("/getservicestats",serviceStatsController.getServiceStats);
-router.post("/getserviceorderhistory",serviceStatsController.getServiceOrderHistory);
-router.post("/getserviceorders",serviceStatsController.getServiceOrder);
-router.post("/getassignedserviceorders",serviceStatsController.getAssignedServiceOrder);
-router.post("/getserviceordersdetails",serviceStatsController.getServiceOrderDetails);
-router.post("/completeserviceorder",serviceStatsController.completeServiceOrder);
+router.post("/getservicestats", serviceStatsController.getServiceStats);
+router.post(
+    "/getserviceorderhistory",
+    serviceStatsController.getServiceOrderHistory
+);
+router.post("/getserviceorders", serviceStatsController.getServiceOrder);
+router.post(
+    "/getassignedserviceorders",
+    serviceStatsController.getAssignedServiceOrder
+);
+router.post(
+    "/getserviceordersdetails",
+    serviceStatsController.getServiceOrderDetails
+);
+router.post(
+    "/completeserviceorder",
+    serviceStatsController.completeServiceOrder
+);
 router.post("/assignEmployee", serviceStatsController.assignEmployee);
 
-const statChart = require ("../controllers/statchart");
-router.post("/piechart",statChart.pieChart);
-router.post("/linechart",statChart.lineChart);
-router.post("/horizontalbarchart",statChart.horizontalBar);
+const statChart = require("../controllers/statchart");
+router.post("/piechart", statChart.pieChart);
+router.post("/linechart", statChart.lineChart);
+router.post("/horizontalbarchart", statChart.horizontalBar);
 module.exports = router;

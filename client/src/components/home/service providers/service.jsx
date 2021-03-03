@@ -216,6 +216,7 @@ const Service = (props) => {
                                             "show-cart-count mx-1" + syntax
                                         }
                                         value={count}
+                                        style={{ maxWidth: "2.5rem" }}
                                         onChange={(e) =>
                                             setCount(e.target.value)
                                         }

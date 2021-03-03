@@ -1,34 +1,30 @@
 import React, { useContext, useRef, useState } from "react";
-
-import { Link } from "react-router-dom";
-import { ThemeContext } from "../../../contexts/ThemeContext";
-import { Button } from "react-bootstrap";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import CustomAlert from "../../generic/CustomAlert";
-// import { AuthenticationContext } from "../../../contexts/AuthenticationContext";
+import CustomModal from "../../generic/CustomModal";
+import CustomModalAlert from "../../generic/CustomModalAlert";
+import { ThemeContext } from "../../../contexts/ThemeContext";
 
 const AddProduct = (props) => {
     const form = useRef(null);
-    const [status, setStatus] = useState(undefined);
-    const [variant, setVariant] = useState("danger");
-    // const { handleAuthentication } = useContext(AuthenticationContext);
+    const { availableProduct } = props;
 
-    // const [isServiceProvider, setIsServiceProvider] = useState(false);
-    // const [showVerificationArea, setShowVerificationArea] = useState(false);
+    const [status, setStatus] = useState(undefined);
+    const [statusVariant, setStatusVariant] = useState("danger");
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
-    const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
-    const type = isLightTheme ? theme.light.type : theme.dark.type;
-    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const border = isLightTheme ? theme.light.border : theme.dark.border;
+    const type = isLightTheme ? theme.light.type : theme.dark.type;
+    const btnTypeClass = isLightTheme
+        ? theme.light.btnTypeClass
+        : theme.dark.btnTypeClass;
+    const custom_text = isLightTheme
+        ? theme.light.custom_text
+        : theme.dark.custom_text;
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        const API_URL = "/addProduct/";
+    const handleAddProduct = () => {
+        const API_URL = "/addtoinventory/";
 
         const loadData = async () => {
             const formData = new FormData(form.current);
@@ -50,8 +46,8 @@ const AddProduct = (props) => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    setVariant("success");
                     setStatus(data.message);
+                    setStatusVariant("success");
                 } else setStatus(data.message);
             } catch (error) {
                 setStatus(error);
@@ -62,86 +58,72 @@ const AddProduct = (props) => {
     };
 
     return (
-        <div
-            className={"card mx-auto" + ui + syntax + border}
-            style={{ maxWidth: "35rem" }}
-        >
-            <div className="card-body col">
-                <form ref={form} onSubmit={handleSubmit}>
-                    {status && (
-                        <CustomAlert variant={variant} status={status} />
-                    )}
+        <>
+            {status && (
+                <CustomModalAlert
+                    status={status}
+                    setStatus={setStatus}
+                    variant={statusVariant}
+                    updateFlag={props.updateFlag}
+                />
+            )}
+            <form ref={form} onSubmit={(e) => e.preventDefault()}>
+                <input
+                    type="hidden"
+                    name="product_id"
+                    value={availableProduct.product_id}
+                />
 
-                    <div className={"form-group input-group rounded" + border}>
-                        <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
-                                <FontAwesomeIcon
-                                    icon={["fab", "product-hunt"]}
-                                />
-                            </span>
-                        </div>
-                        <input
-                            required
-                            type="text"
-                            name="product_name"
-                            placeholder="Product name"
-                            className="form-control rounded-0"
-                        />
+                <div
+                    className={"mt-2 mb-3 input-group mx-auto rounded" + border}
+                    style={{ maxWidth: "10rem" }}
+                >
+                    <div className="input-group-prepend">
+                        <span className="input-group-text rounded-0">
+                            <span className="font-weight-bold">৳</span>
+                        </span>
                     </div>
+                    <input
+                        required
+                        type="text"
+                        name="price"
+                        placeholder="Price..."
+                        className="form-control rounded-0"
+                    />
+                </div>
 
-                    <div className={"form-group input-group rounded" + border}>
-                        <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
-                                <FontAwesomeIcon
-                                    className="mx-1"
-                                    icon={["fas", "dollar-sign"]}
-                                />
-                            </span>
-                        </div>
-                        <input
-                            required
-                            name="price"
-                            type="number"
-                            placeholder="Price"
-                            className="form-control rounded-0"
-                        />
-                    </div>
-
-                    <div className="row">
-                        <div className="col-md-6">
-                            <Button
-                                as={Link}
-                                variant={"outline-" + type}
-                                className="w-100 mb-2 mb-md-0"
-                                to={`/service/provider/${localStorage.getItem(
-                                    "userID"
-                                )}`}
-                            >
-                                <FontAwesomeIcon
-                                    className="mr-2"
-                                    icon={["fas", "boxes"]}
-                                />
-                                Show my inventory
-                            </Button>
-                        </div>
-
-                        <div className="col-md-6">
-                            <Button
-                                type="submit"
-                                variant={type}
-                                className="w-100"
-                            >
-                                <FontAwesomeIcon
-                                    className="mr-2"
-                                    icon={["fas", "plus"]}
-                                />
-                                Add Product
-                            </Button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+                <CustomModal
+                    actionVariant={type}
+                    modalTitle="Add Product"
+                    handleAction={handleAddProduct}
+                    modalBody={
+                        <>
+                            Do you really want to add Product:{" "}
+                            <span className={custom_text}>
+                                {props.product_name}
+                            </span>{" "}
+                            into your inventory?
+                        </>
+                    }
+                    modalButtonClass={"btn btn-sm" + btnTypeClass}
+                    actionButtonBody={
+                        <>
+                            <FontAwesomeIcon
+                                className="fa-icon mr-2"
+                                icon={["fas", "plus"]}
+                            />
+                            Add
+                        </>
+                    }
+                >
+                    <FontAwesomeIcon
+                        className="fa-icon mr-2"
+                        icon={["fas", "warehouse"]}
+                    />
+                    Add to Inventory
+                </CustomModal>
+            </form>
+        </>
     );
 };
 

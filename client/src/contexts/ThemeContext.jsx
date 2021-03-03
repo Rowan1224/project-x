@@ -38,6 +38,7 @@ const ThemeContextProvider = (props) => {
       secondary:      "secondary",
       mainColor:      "#2980b9",
       dangerTextColor:" text-danger",
+      btnTypeClass:   " btn-main",
       lineChartbg:    "rgba(41, 127, 185, 0.15)",
     },
     dark: {
@@ -55,6 +56,7 @@ const ThemeContextProvider = (props) => {
       secondary:      "secondary-dark",
       mainColor:      "#feca57",
       dangerTextColor:" text-remove",
+      btnTypeClass:   " btn-main-dark",
       lineChartbg:    "rgba(254, 201, 87, 0.4)",
     },
   };
