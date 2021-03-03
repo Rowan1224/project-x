@@ -1,18 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
-import Title from "../../generic/title";
+import Title from "../../../generic/title";
 import emoji from "react-easy-emoji";
 
-import CustomModalAlert from "../../generic/CustomModalAlert";
-import { ThemeContext } from "../../../contexts/ThemeContext";
-import Infobar from "../../generic/infobar";
-import AddProduct from "./AddProduct";
+import CustomModalAlert from "../../../generic/CustomModalAlert";
+import { ThemeContext } from "../../../../contexts/ThemeContext";
+import Infobar from "../../../generic/infobar";
+import RemoveArea from "./RemoveArea";
 
-const AvailableProducts = (props) => {
-    const [flag, setFlag] = useState(true);
+const ProvidedAreas = (props) => {
     const [statusVariant] = useState("danger");
     const [status, setStatus] = useState(undefined);
-    const [availableProducts, setAvailableProducts] = useState([]);
+    const [providedAreas, setProvidedAreas] = useState([]);
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -22,7 +21,7 @@ const AvailableProducts = (props) => {
     // const type = isLightTheme ? theme.light.type : theme.dark.type;
 
     useEffect(() => {
-        const API_URL = "/availableProduct/";
+        const API_URL = "/showarea/";
 
         const loadData = async () => {
             const bodyData = {
@@ -42,25 +41,22 @@ const AvailableProducts = (props) => {
 
                 if (!response.ok) setStatus(data.message);
 
-                setAvailableProducts(data.items);
+                setProvidedAreas(data.Areas);
             } catch (error) {
                 setStatus(error);
             }
         };
 
         loadData();
-    }, [flag]);
-
-    const updateFlag = () => setFlag(!flag);
+    }, []);
 
     return (
         <>
-            <Infobar>Available Products</Infobar>
-            {availableProducts && availableProducts.length > 0 ? (
-                <div className="row mt-4">
-                    {availableProducts.map((availableProduct) => (
+            {providedAreas && providedAreas.length > 0 ? (
+                <div className="row">
+                    {providedAreas.map((providedArea) => (
                         <div
-                            key={availableProduct.product_id}
+                            key={providedArea.area_id}
                             className="col-lg-3 col-md-4 col-sm-6 mb-4 text-center"
                         >
                             <Card className={"shadow" + ui + border}>
@@ -74,28 +70,29 @@ const AvailableProducts = (props) => {
 
                                 <Card.Body className={syntax}>
                                     <Card.Title>
-                                        {availableProduct.product_name}
+                                        {providedArea.area_name}
                                     </Card.Title>
 
                                     <div>
-                                        <Title>Vat: </Title>{" "}
-                                        {availableProduct.vat}%
+                                        <Title>Thana: </Title>{" "}
+                                        {providedArea.thana}
                                         <br />
-                                        <Title>Quantity: </Title>{" "}
-                                        {availableProduct.qty}{" "}
-                                        {availableProduct.unit}
+                                        <Title>Upazilla: </Title>{" "}
+                                        {providedArea.upazilla}
                                         <br />
-                                        <Title>Company: </Title>{" "}
-                                        {availableProduct.company_name}
+                                        <Title>District: </Title>{" "}
+                                        {providedArea.district}
+                                        <br />
+                                        <Title>Longitude: </Title>{" "}
+                                        {providedArea.longi}
+                                        <br />
+                                        <Title>Latitude: </Title>{" "}
+                                        {providedArea.lati}
                                     </div>
 
-                                    <AddProduct
-                                        updateFlag={updateFlag}
-                                        availableProduct={availableProduct}
-                                        product_name={
-                                            availableProduct.product_name
-                                        }
-                                    />
+                                    <div className="mt-2">
+                                        <RemoveArea area={providedArea} />
+                                    </div>
                                 </Card.Body>
                             </Card>
                         </div>
@@ -103,12 +100,11 @@ const AvailableProducts = (props) => {
                 </div>
             ) : (
                 <Infobar>
-                    No new products to show to add to your inventory{" "}
-                    {emoji("☹")}
+                    No new areas to show to add to your area {emoji("☹")}
                 </Infobar>
             )}
         </>
     );
 };
 
-export default AvailableProducts;
+export default ProvidedAreas;

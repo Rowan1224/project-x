@@ -251,7 +251,7 @@ const Service = (props) => {
                             />
 
                             <DeleteModal
-                                deleteText={true}
+                                deleteText={"Delete"}
                                 updateFlag={props.updateFlag}
                                 handleAction={() =>
                                     handleDeleteItem(

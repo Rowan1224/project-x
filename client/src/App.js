@@ -22,6 +22,7 @@ import OrderPage from "./pages/OrderPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
 import AvailableProductPage from "./pages/AvailableProductPage";
 import AddEmployeePage from "./pages/AddEmployeePage";
+import AreasPage from "./pages/AreasPage";
 import EmployeeListPage from "./pages/EmployeeListPage";
 import StatisticsPage from "./pages/StatisticsPage";
 import HistoryPage from "./pages/HistoryPage";
@@ -50,6 +51,7 @@ const App = () => {
                             path="/available/product"
                             component={AvailableProductPage}
                         />
+                        <Route exact path="/areas" component={AreasPage} />
                         <Route
                             exact
                             path="/add/employee"
