@@ -1071,3 +1071,66 @@ For 350 some decision was taken:
         ],
         "message": "Success"
     }
+
+** Service Provider Available Area
+
+    *Request(POST => /availablearea)
+    {
+        "service_id": 1
+
+    }
+    
+    *Response
+    {
+    "Areas": [
+        {
+            "area_id": 1,
+            "area_name": "Zindabazar",
+            "thana": "Sylhet Sadar",
+            "upazilla": "Sylhet",
+            "district": "Sylhet",
+            "lati": 10.1,
+            "longi": 12.2
+        },
+        {
+            "area_id": 2,
+            "area_name": "Amberkhana",
+            "thana": "Sylhet Sadar",
+            "upazilla": "Sylhet",
+            "district": "Sylhet",
+            "lati": 10.2,
+            "longi": 12.3
+        }
+    ],
+    "message": "Successfully fetched available area"
+    }
+
+
+** Service Provider's Area
+
+ *Request (POST => /showarea)
+    {
+            "service_id": 1
+
+    }
+
+    *Response
+    {
+        "Areas": [
+            {
+                "area_id": 3,
+                "area_name": "Akhalia",
+                "thana": "Sylhet Sadar",
+                "upazilla": "Sylhet",
+                "district": "Sylhet"
+            },
+            {
+                "area_id": 4,
+                "area_name": "Tilagorh",
+                "thana": "Sylhet Sadar",
+                "upazilla": "Sylhet",
+                "district": "Sylhet"
+            }
+        ],
+        "message": "Successfully showed the area"
+    }
