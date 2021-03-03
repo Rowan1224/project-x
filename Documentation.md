@@ -1116,21 +1116,25 @@ For 350 some decision was taken:
 
     *Response
     {
-        "Areas": [
-            {
-                "area_id": 3,
-                "area_name": "Akhalia",
-                "thana": "Sylhet Sadar",
-                "upazilla": "Sylhet",
-                "district": "Sylhet"
-            },
-            {
-                "area_id": 4,
-                "area_name": "Tilagorh",
-                "thana": "Sylhet Sadar",
-                "upazilla": "Sylhet",
-                "district": "Sylhet"
-            }
-        ],
-        "message": "Successfully showed the area"
-    }
+    "Areas": [
+        {
+            "area_id": 3,
+            "area_name": "Akhalia",
+            "thana": "Sylhet Sadar",
+            "upazilla": "Sylhet",
+            "district": "Sylhet",
+            "lati": 11,
+            "longi": 13.3
+        },
+        {
+            "area_id": 4,
+            "area_name": "Tilagorh",
+            "thana": "Sylhet Sadar",
+            "upazilla": "Sylhet",
+            "district": "Sylhet",
+            "lati": 15,
+            "longi": 13.3
+        }
+    ],
+    "message": "Successfully showed the area"
+}

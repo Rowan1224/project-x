@@ -96,6 +96,8 @@ exports.showArea = (req, res, nxt) => {
                     thana: element.thana,
                     upazilla: element.upazilla,
                     district: element.district,
+                    lati : element.lati,
+                    longi : element.longi
                 };
                 areas.push(data);
             });
