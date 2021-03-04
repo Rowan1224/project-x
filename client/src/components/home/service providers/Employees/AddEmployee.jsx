@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 
 import { ThemeContext } from "../../../../contexts/ThemeContext";
-import { Button } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -58,69 +58,117 @@ const AddEmployee = (props) => {
     };
 
     return (
-        <div
-            className={"card mx-auto" + ui + syntax + border}
-            style={{ maxWidth: "35rem" }}
-        >
-            <div className="card-body col">
-                <form ref={form} onSubmit={handleSubmit}>
-                    {status &&
-                        (variant === "success" ? (
-                            <CustomModalAlert
-                                status={status}
-                                variant={variant}
-                                setStatus={setStatus}
-                            />
-                        ) : (
-                            <CustomAlert status={status} variant={variant} />
-                        ))}
+        <>
+            {status &&
+                (variant === "success" ? (
+                    <CustomModalAlert
+                        status={status}
+                        variant={variant}
+                        setStatus={setStatus}
+                    />
+                ) : (
+                    <CustomAlert status={status} variant={variant} />
+                ))}
+            <Row>
+                <Col className="mb-4">
+                    <div className={"card" + ui + syntax + border}>
+                        <div className="card-body">
+                            <form ref={form} onSubmit={handleSubmit}>
+                                <Row className="d-flex align-items-center">
+                                    <Col lg={4}>
+                                        <Row className="mb-lg-0 mb-3">
+                                            <Col className="my-auto">
+                                                <FontAwesomeIcon
+                                                    className="fa-icon mr-2"
+                                                    icon={["fas", "user-plus"]}
+                                                />
+                                                Name:
+                                            </Col>
+                                            <Col
+                                                md={7}
+                                                sm={12}
+                                                className="my-auto"
+                                            >
+                                                <div
+                                                    className={
+                                                        "input-group rounded" +
+                                                        border
+                                                    }
+                                                >
+                                                    <input
+                                                        required
+                                                        type="text"
+                                                        id="employee_name"
+                                                        name="employee_name"
+                                                        placeholder="Employee name"
+                                                        className="form-control text-center rounded-0"
+                                                    />
+                                                    <div className="invalid-feedback">
+                                                        Please select a valid
+                                                        name
+                                                    </div>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </Col>
 
-                    <div className={"form-group input-group rounded" + border}>
-                        <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
-                                <FontAwesomeIcon
-                                    className="fa-icon"
-                                    icon={["fas", "user-plus"]}
-                                />
-                            </span>
+                                    <Col lg={5}>
+                                        <Row className="mb-lg-0 mb-3">
+                                            <Col className="my-auto">
+                                                <FontAwesomeIcon
+                                                    className="fa-icon mr-2"
+                                                    icon={["fas", "phone"]}
+                                                />
+                                                Phone Number:
+                                            </Col>
+                                            <Col
+                                                md={7}
+                                                sm={12}
+                                                className="my-auto"
+                                            >
+                                                <div
+                                                    className={
+                                                        "input-group rounded" +
+                                                        border
+                                                    }
+                                                >
+                                                    <input
+                                                        required
+                                                        type="number"
+                                                        id="phone_number"
+                                                        name="phone_number"
+                                                        placeholder="Phone Number"
+                                                        className="form-control text-center rounded-0"
+                                                    />
+                                                    <div className="invalid-feedback">
+                                                        Please provide a valid
+                                                        phone number
+                                                    </div>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+
+                                    <Col lg={3}>
+                                        <Button
+                                            type="submit"
+                                            variant={type}
+                                            className="w-100"
+                                        >
+                                            <FontAwesomeIcon
+                                                className="mr-2"
+                                                icon={["fas", "user-plus"]}
+                                            />
+                                            Add Employee
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </form>
                         </div>
-                        <input
-                            required
-                            type="text"
-                            name="employee_name"
-                            placeholder="Employee name"
-                            className="form-control rounded-0"
-                        />
                     </div>
-
-                    <div className={"form-group input-group rounded" + border}>
-                        <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
-                                <FontAwesomeIcon
-                                    className="fa-icon mr-1"
-                                    icon={["fas", "phone"]}
-                                />
-                            </span>
-                        </div>
-                        <input
-                            required
-                            type="number"
-                            name="phone_number"
-                            placeholder="Phone Number"
-                            className="form-control rounded-0"
-                        />
-                    </div>
-
-                    <Button type="submit" variant={type} className="w-100">
-                        <FontAwesomeIcon
-                            className="mr-2"
-                            icon={["fas", "user-plus"]}
-                        />
-                        Add Employee
-                    </Button>
-                </form>
-            </div>
-        </div>
+                </Col>
+            </Row>
+        </>
     );
 };
 

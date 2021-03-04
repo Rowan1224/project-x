@@ -8,11 +8,13 @@ import UpdateEmployeeDetails from "./UpdateEmployeeDetails";
 import { ThemeContext } from "../../../../contexts/ThemeContext";
 import CustomModalAlert from "../../../generic/CustomModalAlert";
 import AddEmployee from "./AddEmployee";
+import SearchBar from "../../../generic/SearchBar";
 
 const EmployeeList = (props) => {
     const [flag, setFlag] = useState(true);
-    const [employes, setEmployes] = useState([]);
+    const [employees, setEmployees] = useState([]);
     const [status, setStatus] = useState(undefined);
+    const [searchData, setSearchData] = useState("");
     const [statusVariant, setStatusVariant] = useState("danger");
 
     // Themes
@@ -29,7 +31,8 @@ const EmployeeList = (props) => {
         const API_URL = "/getEmployee/";
 
         const loadData = async () => {
-            const serviceID = {
+            const bodyData = {
+                search_data: searchData,
                 service_id: localStorage.getItem("userID"),
             };
 
@@ -39,14 +42,14 @@ const EmployeeList = (props) => {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(serviceID),
+                body: JSON.stringify(bodyData),
             });
 
             const data = await response.json();
-            setEmployes(data.employee);
+            setEmployees(data.employee);
         };
         loadData();
-    }, [flag]);
+    }, [flag, searchData]);
 
     const handleDelete = (id) => {
         const API_URL = "/deleteEmployee/";
@@ -74,6 +77,8 @@ const EmployeeList = (props) => {
 
     const updateFlag = () => setFlag(!flag);
 
+    const handleChange = (e) => setSearchData(e.target.value);
+
     const tableData = {
         ths: [
             { className: "", value: "Index" },
@@ -87,11 +92,14 @@ const EmployeeList = (props) => {
 
     return (
         <>
-            <div className="mb-4">
-                <AddEmployee updateFlag={updateFlag} />
-            </div>
+            <SearchBar
+                handleChange={handleChange}
+                placeholder="Search employees details...."
+            />
 
-            {employes ? (
+            <AddEmployee updateFlag={updateFlag} />
+
+            {employees ? (
                 <>
                     {status && (
                         <CustomModalAlert
@@ -103,7 +111,7 @@ const EmployeeList = (props) => {
 
                     <CustomTable
                         index={true}
-                        datas={employes}
+                        datas={employees}
                         ths={tableData.ths}
                         allowedEntry={tableData.allowedEntry}
                         ActionComponents={[

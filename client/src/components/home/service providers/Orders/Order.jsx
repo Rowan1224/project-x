@@ -16,6 +16,7 @@ import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 import CustomAlert from "../../../generic/CustomAlert";
 import CustomTable from "../../../generic/CustomTable";
+import SearchBar from "../../../generic/SearchBar";
 
 const Order = (props) => {
     const [value, setValue] = useState(0);
@@ -23,6 +24,7 @@ const Order = (props) => {
     const [orders, setOrders] = useState([]);
     const [employes, setEmployes] = useState([]);
     const [status, setStatus] = useState(undefined);
+    const [searchData, setSearchData] = useState("");
     const [tabs] = useState(["Not Assigned", "Assigned"]);
     const [assignedOrders, setAssignedOrders] = useState([]);
     const [selectedEmployeeID, setSelectedEmployeeID] = useState({}); // {27: 17, 28: 2, 32: 28.........}
@@ -46,7 +48,8 @@ const Order = (props) => {
         let API_URL = "/getserviceorders/";
 
         const loadData = async () => {
-            let userID = {
+            let bodyData = {
+                search_data: searchData,
                 userid: localStorage.getItem("userID"),
             };
 
@@ -56,7 +59,7 @@ const Order = (props) => {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(userID),
+                body: JSON.stringify(bodyData),
             });
 
             let data = await response.json();
@@ -67,7 +70,8 @@ const Order = (props) => {
             // Get employee's list
             API_URL = "/getEmployee/";
 
-            const serviceID = {
+            bodyData = {
+                search_data: searchData,
                 service_id: localStorage.getItem("userID"),
             };
 
@@ -77,7 +81,7 @@ const Order = (props) => {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(serviceID),
+                body: JSON.stringify(bodyData),
             });
 
             data = await response.json();
@@ -88,7 +92,8 @@ const Order = (props) => {
             // Get assigned employee
             API_URL = "/getassignedserviceorders/";
 
-            userID = {
+            bodyData = {
+                search_data: searchData,
                 userid: localStorage.getItem("userID"),
             };
 
@@ -98,7 +103,7 @@ const Order = (props) => {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(userID),
+                body: JSON.stringify(bodyData),
             });
 
             data = await response.json();
@@ -107,7 +112,7 @@ const Order = (props) => {
             else setAssignedOrders(data.details);
         };
         loadData();
-    }, [flag]);
+    }, [flag, searchData]);
 
     const handleOrderComplete = (order_id) => {
         const API_URL = "/completeserviceorder/";
@@ -205,6 +210,8 @@ const Order = (props) => {
         setValue(newValue);
     };
 
+    const handleSearchChange = (e) => setSearchData(e.target.value);
+
     const tableData = {
         ths: [
             { className: "", value: "Order ID" },
@@ -235,6 +242,11 @@ const Order = (props) => {
 
     return (
         <>
+            <SearchBar
+                handleChange={handleSearchChange}
+                placeholder="Search orders...."
+            />
+
             <AppBar position="static" className={"rounded" + ui}>
                 <Tabs
                     value={value}

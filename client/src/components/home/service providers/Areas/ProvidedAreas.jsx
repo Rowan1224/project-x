@@ -15,7 +15,7 @@ const ProvidedAreas = (props) => {
 
         const loadData = async () => {
             const bodyData = {
-                area: props.searchData,
+                search_data: props.searchData,
                 service_id: localStorage.getItem("userID"),
             };
 

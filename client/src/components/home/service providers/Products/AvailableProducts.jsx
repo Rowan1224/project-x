@@ -6,10 +6,12 @@ import emoji from "react-easy-emoji";
 import Infobar from "../../../generic/infobar";
 import AddProduct from "./AddProduct";
 import CustomCard from "../../../generic/CustomCard";
+import SearchBar from "../../../generic/SearchBar";
 
 const AvailableProducts = (props) => {
     const [flag, setFlag] = useState(true);
     const [status, setStatus] = useState(undefined);
+    const [searchData, setSearchData] = useState("");
     const [availableProducts, setAvailableProducts] = useState([]);
 
     useEffect(() => {
@@ -17,6 +19,7 @@ const AvailableProducts = (props) => {
 
         const loadData = async () => {
             const bodyData = {
+                search_data: searchData,
                 service_id: localStorage.getItem("userID"),
             };
 
@@ -40,12 +43,19 @@ const AvailableProducts = (props) => {
         };
 
         loadData();
-    }, [flag]);
+    }, [flag, searchData]);
 
     const updateFlag = () => setFlag(!flag);
 
+    const handleChange = (e) => setSearchData(e.target.value);
+
     return (
         <>
+            <SearchBar
+                handleChange={handleChange}
+                placeholder="Search products...."
+            />
+
             <div className="mb-4">
                 <Infobar>Available Products</Infobar>
             </div>

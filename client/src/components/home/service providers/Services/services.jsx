@@ -1,21 +1,23 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Image } from "react-bootstrap";
+// import { Image } from "react-bootstrap";
 import Service from "./service";
 import { v4 as uuidv4 } from "uuid";
 import emoji from "react-easy-emoji";
 import Infobar from "../../../generic/infobar";
 import { ThemeContext } from "../../../../contexts/ThemeContext";
 import { useParams } from "react-router-dom";
+// import SearchBar from "../../../generic/SearchBar";
 
 const Services = () => {
-    const [services, setServices] = useState([]);
     const [flag, setFlag] = useState(true);
     const [sName, setSName] = useState("");
+    const [services, setServices] = useState([]);
+    // const [searchData, setSearchData] = useState("");
     const params = useParams();
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const custom_text = isLightTheme
         ? theme.light.custom_text
@@ -26,8 +28,9 @@ const Services = () => {
         const API_URL = "/ownProducts/";
 
         const loadData = async () => {
-            const servideID = {
+            const bodyData = {
                 service_id: params.id,
+                // search_data: searchData,
             };
 
             const response = await fetch(API_URL, {
@@ -36,7 +39,7 @@ const Services = () => {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(servideID),
+                body: JSON.stringify(bodyData),
             });
 
             const data = await response.json();
@@ -74,10 +77,14 @@ const Services = () => {
 
     const updateFlag = () => setFlag(!flag);
 
+    // const handleChange = (e) => {
+    //     setSearchData(e.target.value);
+    // };
+
     return (
         <div>
             <div className={"text-center" + syntax}>
-                <div className={"inner rounded mb-4" + border}>
+                {/* <div className={"inner rounded mb-4" + border}>
                     <Image
                         className="w-100 profile-pic"
                         alt="profile picture"
@@ -89,7 +96,12 @@ const Services = () => {
                             e.target.src = "/img/profile_pic_default.png";
                         }}
                     />
-                </div>
+                </div> */}
+
+                {/* <SearchBar
+                    handleChange={handleChange}
+                    placeholder="Search products...."
+                /> */}
 
                 <Infobar>
                     {sName ? sName + " " : "Company name"}

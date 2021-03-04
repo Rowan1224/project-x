@@ -170,7 +170,7 @@ const Statistics = (props) => {
                                                         "hourglass-end",
                                                     ]}
                                                 />
-                                                Start Date:
+                                                End Date:
                                             </Col>
                                             <Col
                                                 md={7}
