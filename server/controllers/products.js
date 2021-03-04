@@ -119,27 +119,23 @@ exports.addProduct = (req, res, next) => {
     //const product_id = req.body.product_id;
     //const delivery_limit = req.body.delivery_limit;
     //const price = req.body.price;
+    const name = req.body.search_data;
+    sequelize
+        .query(
+            "SELECT * FROM Universal_Product_List WHERE  Universal_Product_List.product_id NOT IN (SELECT product_id FROM Service_Inventory WHERE service_id=?) && product_name LIKE ?",
+            {
+                replacements: [[service_id], [`%${name}%`]],
+                type: sequelize.QueryTypes.SELECT,
+            }
+        )
+        .then((results) => {
+            //var left = items.filter((item) => (result[0].product_id != item.product_id));
+            //let left = items.filter((item) => (results.filter((result) => (result.product_id != item.product_id))));
 
-    universal_products
-        .findAll()
-        .then((products) => {
-            let items = products;
-            service_inventory
-                .findAll({
-                    where: { service_id: service_id },
-                })
-                .then((results) => {
-                    //var left = items.filter((item) => (result[0].product_id != item.product_id));
-                    //let left = items.filter((item) => (results.filter((result) => (result.product_id != item.product_id))));
-                    let left = items.filter(
-                        ({ product_id: id1 }) =>
-                            !results.some(({ product_id: id2 }) => id2 === id1)
-                    );
-                    res.status(200).json({
-                        items: left,
-                        message: "success.",
-                    });
-                });
+            res.status(200).json({
+                items: results,
+                message: "success.",
+            });
         })
         .catch((err) => {
             res.status(504).json({
@@ -224,20 +220,23 @@ exports.addToInventory = (req, res, next) => {
     const product_id = req.body.product_id;
     const price = req.body.price;
 
-    service_inventory.create({
-        service_id: service_id,
-        product_id: product_id,
-        price: price,
-    }).then(result =>{
-        res.status(200).json({
-                    message: "Success."
-                });
-    }).catch(err => {
-        console.log(err);
-            res.status(504).json({
-                message: "Failed"
+    service_inventory
+        .create({
+            service_id: service_id,
+            product_id: product_id,
+            price: price,
+        })
+        .then((result) => {
+            res.status(200).json({
+                message: "Success.",
             });
-    });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(504).json({
+                message: "Failed",
+            });
+        });
 };
 
 exports.updateProduct = (req, res, next) => {

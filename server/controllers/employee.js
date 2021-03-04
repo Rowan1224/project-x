@@ -5,19 +5,14 @@ const employee = Employee(sequelize, Sequelize);
 
 exports.getEmployee = (req, res, next) => {
     const service_id = req.body.service_id;
+    const employee = req.body.search_data;
 
-    employee
-        .findAll({
-            attributes: [
-                "employee_id",
-                "service_id",
-                "employee_name",
-                "phone_number",
-            ],
-            where: {
-                service_id: service_id,
-            },
-        })
+    sequelize.query("SELECT * FROM Employee WHERE service_id=? && employee_name LIKE ?",
+        {
+            replacements: [[service_id], [`%${employee}%`]],
+            type: sequelize.QueryTypes.SELECT,
+        }
+    )
         .then((emp) => {
             res.status(200).json({
                 employee: emp,
