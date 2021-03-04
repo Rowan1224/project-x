@@ -1,4 +1,3 @@
-
 const moment = require("moment");
 const Sequelize = require("sequelize");
 const sequelize = require("../../server/util/database");
@@ -35,11 +34,10 @@ exports.pieChart = (req, res, nxt) => {
             let product_name = [],
                 product_ordered = [];
 
-            for (let [key,value] of hotproducts) {
-                product_name.push(key+': '+value);
+            for (let [key, value] of hotproducts) {
+                product_name.push(key + ": " + value);
                 product_ordered.push(value);
             }
-
 
             // let products = [];
 
@@ -90,9 +88,9 @@ exports.lineChart = (req, res, nxt) => {
             result.forEach((element) => {
                 if (element.delivered === 1) {
                     var time = element.order_time;
-                    time = moment(time).format('YYYY-MM-DD');
+                    time = moment(time).format("YYYY-MM-DD");
                     console.log(time);
-                   // console.log(time.toString());
+                    // console.log(time.toString());
                     //time = time.toString();
                     //let time = element.order_time.getDate()+'-'+element.order_time.getMonth()+'-'+element.order_time.getFullYear();
                     let ord =
@@ -108,24 +106,27 @@ exports.lineChart = (req, res, nxt) => {
             );
             console.log(mapSort1);
             let date = [],
-                orders_date = [],pairs=[],finalpairs= [];
-            
+                orders_date = [],
+                pairs = [],
+                finalpairs = [];
 
-            
             // //console.log(demo);
-            for (let [key,value] of mapSort1) {
-                pairs.push({key,value});
+            for (let [key, value] of mapSort1) {
+                pairs.push({ key, value });
             }
-            if(pairs.length>5)
-                pairs.slice(0,5);
-             const sortedArray  = pairs.sort((a,b) => moment(a.key).format('YYYYMMDD') - moment(b.key).format('YYYYMMDD'));
-             //console.log(sortedArray);
-             for (let [key,value] of sortedArray.entries()) {
+            if (pairs.length > 5) pairs.slice(0, 5);
+            const sortedArray = pairs.sort(
+                (a, b) =>
+                    moment(a.key).format("YYYYMMDD") -
+                    moment(b.key).format("YYYYMMDD")
+            );
+            //console.log(sortedArray);
+            for (let [key, value] of sortedArray.entries()) {
                 // console.log(value);
-                date.push(moment(value.key).format('MMM DD, YY'));
+                date.push(moment(value.key).format("MMM DD, YY"));
                 orders_date.push(value.value);
             }
-        
+
             // console.log(employeeincome);
             // console.log(employeedelivered);
             //  let linechartdetails = [];
@@ -169,16 +170,17 @@ exports.horizontalBar = (req, res, nxt) => {
             result.forEach((element) => {
                 if (element.delivered === 1) {
                     let inc =
-                        emplpoyee_income.get(element.phone_number) ===
-                        undefined
+                        emplpoyee_income.get(element.phone_number) === undefined
                             ? 0 + parseInt(element.payment)
                             : emplpoyee_income.get(element.phone_number) +
                               parseInt(element.payment);
                     emplpoyee_income.set(element.phone_number, inc);
-                    employee_name.set(element.phone_number,element.employee_name);
+                    employee_name.set(
+                        element.phone_number,
+                        element.employee_name
+                    );
                 }
             });
-
 
             const mapSort1 = new Map(
                 [...emplpoyee_income.entries()].sort((a, b) => b[1] - a[1])
@@ -187,12 +189,14 @@ exports.horizontalBar = (req, res, nxt) => {
 
             let employeename = [],
                 employeeincome = [];
-
-                for (let [key,value] of mapSort1) {
-                        let name = employee_name.get(key);
-                        employeename.push([name,key]);
-                        employeeincome.push(value);
-                    }
+            let ck = 0;
+            for (let [key, value] of mapSort1) {
+                if (ck === 5) break;
+                let name = employee_name.get(key);
+                employeename.push([name, key]);
+                employeeincome.push(value);
+                ck++;
+            }
 
             // for (let key of mapSort1.keys()) {
             //     employee_name.push(key);

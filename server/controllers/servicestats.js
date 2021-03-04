@@ -5,6 +5,7 @@ const orders = Orders(sequelize, Sequelize);
 const Order_Details = require("../../server/models/Order_details");
 const orderDetails = Order_Details(sequelize, Sequelize);
 const Employee = require("../../server/models/Employee");
+const { addEmployee } = require("./employee");
 const employee = Employee(sequelize, Sequelize);
 
 exports.getServiceOrder = (req, res, next) => {
@@ -179,7 +180,7 @@ exports.getServiceOrderDetails = (req, res, next) => {
 
 exports.assignEmployee = (req, res, next) => {
     const order_id = req.body.order_id;
-    const employee_id = req.body.employee_id;
+    const employee_id = req.body.employee_id;addEmployee
 
     orders
         .findByPk(order_id)
