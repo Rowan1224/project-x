@@ -81,13 +81,23 @@
 
 // DropDown
 .dropdown-text:hover {
-    background-color: $hover;
     color: $main !important;
+    background-color: $hover !important;
 }
 
 .dropdown-text-dark:hover {
-    background-color: $hover-dark;
     color: $main-dark !important;
+    background-color: $hover-dark !important;
+}
+
+.dropdown-text:visited {
+    background-color: $main;
+}
+
+.dropdown-text-dark:visited {
+    // background-color: $main-dark;
+    // color: #000;
+    background-color: #855d00;
 }
 
 // Shopping Cart
@@ -109,9 +119,6 @@
     }
 }
 
-
-
-// Experimental
 .transparent__input {
     flex: 2;
     border: none;

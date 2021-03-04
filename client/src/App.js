@@ -47,7 +47,7 @@ const App = () => {
                         />
                         <Route
                             exact
-                            path="/available/product"
+                            path="/add/product"
                             component={AvailableProductPage}
                         />
                         <Route exact path="/areas" component={AreasPage} />
