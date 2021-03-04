@@ -9,13 +9,13 @@ const area_details = Area_Details(sequelize, Sequelize);
 
 exports.availableArea = (req, res, nxt) => {
     const service_id = req.body.service_id;
-    const area = req.body.area;
+    const area = req.body.search_data;
 
     sequelize
         .query(
-            "SELECT * FROM Area_Details WHERE  Area_Details.area_id NOT IN (SELECT area_id FROM Service_Area WHERE service_id=?) && area_name LIKE ?",
+            "SELECT * FROM Area_Details WHERE  Area_Details.area_id NOT IN (SELECT area_id FROM Service_Area WHERE service_id=?) && (area_name LIKE ? OR thana LIKE ? OR district LIKE ? OR upazilla LIKE ?) ",
             {
-                replacements: [[service_id], [`%${area}%`]],
+                replacements: [[service_id], [`%${area}%`],[`%${area}%`],[`%${area}%`],[`%${area}%`]],
                 type: sequelize.QueryTypes.SELECT,
             }
         )
@@ -70,13 +70,13 @@ exports.removeArea = (req, res, next) => {
 
 exports.showArea = (req, res, nxt) => {
     const service_id = req.body.service_id;
-    var area = req.body.area;
+    var area = req.body.search_data;
 
     sequelize
         .query(
-            "SELECT * FROM Service_Area INNER JOIN Area_Details ON Area_Details.area_id=Service_Area.area_id  WHERE service_id=? && area_name LIKE ? ",
+            "SELECT * FROM Service_Area INNER JOIN Area_Details ON Area_Details.area_id=Service_Area.area_id  WHERE service_id=? &&(area_name LIKE ? OR thana LIKE ? OR district LIKE ? OR upazilla LIKE ?) ",
             {
-                replacements: [[service_id], [`%${area}%`]],
+                replacements: [[service_id], [`%${area}%`],[`%${area}%`],[`%${area}%`],[`%${area}%`]],
                 type: sequelize.QueryTypes.SELECT,
             }
         )

@@ -122,9 +122,9 @@ exports.addProduct = (req, res, next) => {
     const name = req.body.search_data;
     sequelize
         .query(
-            "SELECT * FROM Universal_Product_List WHERE  Universal_Product_List.product_id NOT IN (SELECT product_id FROM Service_Inventory WHERE service_id=?) && product_name LIKE ?",
+            "SELECT * FROM Universal_Product_List WHERE  Universal_Product_List.product_id NOT IN (SELECT product_id FROM Service_Inventory WHERE service_id=?) && (product_name LIKE ? OR company_name LIKE ?)",
             {
-                replacements: [[service_id], [`%${name}%`]],
+                replacements: [[service_id], [`%${name}%`],[`%${name}%`]],
                 type: sequelize.QueryTypes.SELECT,
             }
         )

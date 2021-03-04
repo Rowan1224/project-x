@@ -7,9 +7,9 @@ exports.getEmployee = (req, res, next) => {
     const service_id = req.body.service_id;
     const employee = req.body.search_data;
 
-    sequelize.query("SELECT * FROM Employee WHERE service_id=? && employee_name LIKE ?",
+    sequelize.query("SELECT * FROM Employee WHERE service_id=? && (employee_name LIKE ? OR phone_number LIKE ?)",
         {
-            replacements: [[service_id], [`%${employee}%`]],
+            replacements: [[service_id], [`%${employee}%`],[`%${employee}%`]],
             type: sequelize.QueryTypes.SELECT,
         }
     )
