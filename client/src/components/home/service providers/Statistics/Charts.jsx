@@ -225,6 +225,14 @@ const Charts = (props) => {
                 legend: {
                     display: false,
                 },
+                layout: {
+                    padding: {
+                        left: 0,
+                        right: 0,
+                        top: 20,
+                        bottom: 0,
+                    },
+                },
                 scales: {
                     xAxes: [
                         {
@@ -260,6 +268,10 @@ const Charts = (props) => {
                     // data: [22, 33, 55, 12, 86, 23, 14],
                     data: barChartData[1],
                     fill: false,
+                    datalabels: {
+                        align: "end",
+                        anchor: "end",
+                    },
                     backgroundColor: [
                         "rgba(255, 99, 132, 0.4)",
                         "rgba(75, 192, 192, 0.4)",
