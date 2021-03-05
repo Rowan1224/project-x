@@ -16,12 +16,12 @@ exports.getEmployee = (req, res, next) => {
         .then((emp) => {
             res.status(200).json({
                 employee: emp,
-                message: "Success",
+                message: "Success fetched all Employees.",
             });
         })
         .catch({
             employee: "NaN",
-            message: "Failed",
+            message: "Failed to fetch the Employees",
         });
 };
 
@@ -50,11 +50,11 @@ exports.addEmployee = (req, res, next) => {
                     })
                     .then((result) => {
                         res.status(200).json({
-                            message: "Successfully added.",
+                            message: "Successfully added the Employee.",
                         });
                     })
                     .catch((err) => {
-                        res.status(504).json({ message: "Failed to add." });
+                        res.status(504).json({ message: "Failed to add the Employee." });
                     });
             }
         });
@@ -91,11 +91,11 @@ exports.updateEmployee = (req, res, next) => {
                     })
                     .then((result) => {
                         res.status(200).json({
-                            message: "Success.Update Completed",
+                            message: "Success.Employee Profile Update Completed",
                         });
                     })
                     .catch((err) => {
-                        res.status(504).json({ message: "Failed to Update." });
+                        res.status(504).json({ message: "Failed to Update Employee profile." });
                     });
             }
         });
@@ -110,9 +110,9 @@ exports.deleteEmployee = (req, res, next) => {
             return emp.destroy();
         })
         .then((result) => {
-            res.status(200).json({ message: "Success" });
+            res.status(200).json({ message: "Successfully deleted the employee." });
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed" });
+            res.status(504).json({ message: "Failed to delete the employee." });
         });
 };

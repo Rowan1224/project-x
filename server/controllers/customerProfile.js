@@ -12,10 +12,12 @@ exports.getCustomerProfile = (req, res, next) => {
         res.status(200).json({
             userid : serv.customer_id,
             username: serv.customer_name,
-            userphone : serv.customer_phone
+            userphone : serv.customer_phone,
+
+            message: "Succesfully fetched customer Profile."
         });
     }).catch((err) => {
-        res.status(504).json({message: "Failed"});
+        res.status(504).json({message: "Failed to fetch customer Profile."});
     });
 };
 
@@ -30,8 +32,8 @@ exports.updateCustomerProfile = (req, res, next) => {
         serv.customer_phone = new_customer_phone?new_customer_phone: serv.customer_phone;
         return serv.save();
     }).then((sucess) => {
-        res.status(200).json({message: "Success"});
+        res.status(200).json({message: "Successfully updated the customer profile."});
     }).catch((err) => {
-        res.status(504).json({message: "Failed"});
+        res.status(504).json({message: "Failed to update customer profile."});
     });
 };

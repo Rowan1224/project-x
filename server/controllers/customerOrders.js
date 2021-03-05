@@ -42,9 +42,10 @@ exports.createCustomerOrderDetails = (req, res, next) => {
                 .bulkCreate(details, {
                     returning: true,
                 })
-                .then((result) => {
+                .then((reso) => {
                     res.status(200).json({
-                        message: "Success",
+                        order_id: result.order_id,
+                        message: "Success.Order is created.",
                     });
                 })
                 .catch((err) => {
@@ -75,7 +76,7 @@ exports.getCustomerOrderHistory = (req, res, nxt) => {
                     [`%${search}%`],
                     [`%${search}%`],
                     [`%${search}%`],
-                    [`%${search}%`]
+                    [`%${search}%`],
                 ],
                 type: sequelize.QueryTypes.SELECT,
             }
@@ -110,11 +111,15 @@ exports.getCustomerOrderHistory = (req, res, nxt) => {
 
                 res.status(200).json({
                     details: output,
-                    message: "Success.",
+                    message: "Success.History is shown here.",
                 });
             }
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed" });
+            res.status(504).json({ message: "Failed to get the history." });
         });
 };
+
+// exports.getConfirmedOrder = (req, res, nxt) => {
+//     const order_id =req.body.
+// };

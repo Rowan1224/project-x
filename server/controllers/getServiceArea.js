@@ -8,7 +8,7 @@ exports.getServiceArea = (req,res,next) =>
     
 serviceArea.findAll().then(areas =>
     {
-        res.status(200).json({areas:areas, message:"Success"});
+        res.status(200).json({areas:areas, message:"Successfully fetched the service area."});
     }).catch(err =>{
         res.status(504).json({message: "Failed"});
       console.log(err);

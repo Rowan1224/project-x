@@ -198,21 +198,6 @@ exports.horizontalBar = (req, res, nxt) => {
                 ck++;
             }
 
-            // for (let key of mapSort1.keys()) {
-            //     employee_name.push(key);
-            // }
-            // for (let value of mapSort1.values()) {
-            //     employee_income.push(value);
-            // }
-
-            //  let horizontalBarDetails = [];
-            // for (let i = 0; i < (employee_name.length || 5) ; i++) {
-            //     var data = {
-            //         "name" : employee_name[i],
-            //         "income": employee_income[i],
-            //     };
-            //     horizontalBarDetails.push(data);
-            // }
             let details = [];
             details.push(employeename);
             details.push(employeeincome);
