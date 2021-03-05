@@ -83,7 +83,7 @@ router.post(
     "/getcustomerorderhistory",
     customerOrderController.getCustomerOrderHistory
 );
-
+router.post("/order/success",customerOrderController.getConfirmedOrder);
 const serviceStatsController = require("../controllers/servicestats");
 router.post("/getservicestats", serviceStatsController.getServiceStats);
 router.post(

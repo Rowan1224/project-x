@@ -120,6 +120,41 @@ exports.getCustomerOrderHistory = (req, res, nxt) => {
         });
 };
 
-// exports.getConfirmedOrder = (req, res, nxt) => {
-//     const order_id =req.body.
-// };
+exports.getConfirmedOrder = (req, res, nxt) => {
+    const order_id = req.body.order_id;
+
+    sequelize
+        .query(
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id INNER JOIN Service_Credential ON Orders.service_id=Service_Credential.service_id WHERE order_id=?",
+            {
+                replacements: [order_id],
+                type: sequelize.QueryTypes.SELECT,
+            }
+        )
+        .then((element) => {
+            let address =
+                        element[0].house_no +
+                        ", " +
+                        element[0].road_no +
+                        ", " +
+                        element[0].area_name +
+                        ", " +
+                        element[0].district;
+            let ord = 
+            {
+                "total" :element[0].payment,
+                "time" :element[0].order_time,
+                "phone_number" :element[0].customer_phone,
+                "provider_name" : element[0].company_name,
+                "address" :address
+            }
+            console.log(ord);
+            res.status(200).json({
+                details: ord,
+                message: "Successfully got the order.",
+            });
+        })
+        .catch((err) => {
+            res.status(504).json({ message: "Failed to get the order." });
+        });
+};
