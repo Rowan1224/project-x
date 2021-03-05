@@ -61,9 +61,13 @@ exports.getServiceOrder = (req, res, next) => {
 
                 res.status(200).json({
                     details: output,
-                    message: "Success.",
+                    message: "Successfully fetched non-assigned orders.",
                 });
             }
+        }).catch((err) => {
+            res.status(504).json({
+                message: "Failed to fetch non-assigned orders.",
+            });
         });
 };
 
@@ -125,9 +129,13 @@ exports.getAssignedServiceOrder = (req, res, next) => {
 
                 res.status(200).json({
                     details: output,
-                    message: "Success.",
+                    message: "Successfully fetched assigned orders.",
                 });
             }
+        }).catch((err) => {
+            res.status(504).json({
+                message: "Failed to fetch assigned orders.",
+            });
         });
 };
 
@@ -172,9 +180,13 @@ exports.getServiceOrderDetails = (req, res, next) => {
 
                 res.status(200).json({
                     details: output,
-                    message: "Success.",
+                    message: "Successfully fetched the order details.",
                 });
             }
+        }).catch((err) => {
+            res.status(504).json({
+                message: "Failed to fetch the order details.",
+            });
         });
 };
 
@@ -195,7 +207,7 @@ exports.assignEmployee = (req, res, next) => {
         })
         .catch((err) => {
             res.status(504).json({
-                message: "Failed.",
+                message: "Failed to assign employee.",
             });
         });
 };
@@ -211,10 +223,10 @@ exports.completeServiceOrder = (req, res, nxt) => {
             return serv.save();
         })
         .then((sucess) => {
-            res.status(200).json({ message: "Success" });
+            res.status(200).json({ message: "Successfully completed the order." });
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed" });
+            res.status(504).json({ message: "Failed to complete the order." });
         });
 };
 
@@ -297,11 +309,11 @@ exports.getServiceStats = (req, res, nxt) => {
                 delivered: deliveredOrders,
                 income: total_income,
                 employee: employeedetails,
-                message: "Success",
+                message: "Successfully fetched service-stat",
             });
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed" });
+            res.status(504).json({ message: "Failed to fetch service-stat." });
         });
 };
 
@@ -365,11 +377,11 @@ exports.getServiceOrderHistory = (req, res, nxt) => {
 
                 res.status(200).json({
                     details: output,
-                    message: "Success.",
+                    message: "Successfully fetched service provider's order history.",
                 });
             }
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed" });
+            res.status(504).json({ message: "Failed to fetch service provider's order history." });
         });
 };

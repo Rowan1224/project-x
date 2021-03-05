@@ -33,10 +33,13 @@ exports.pieChart = (req, res, nxt) => {
 
             let product_name = [],
                 product_ordered = [];
-
+            let ck=0;
             for (let [key, value] of hotproducts) {
+                if(ck===5)
+                    break;
                 product_name.push(key + ": " + value);
                 product_ordered.push(value);
+                ck++;
             }
 
             // let products = [];
@@ -60,13 +63,13 @@ exports.pieChart = (req, res, nxt) => {
             res.status(200).json({
                 //orders : success,
                 details: details,
-                message: "Successful",
+                message: "Successfully fetched the chart",
             });
 
             console.log(hotproducts);
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed" });
+            res.status(504).json({ message: "Failed to fetch the chart" });
         });
 };
 
@@ -143,11 +146,11 @@ exports.lineChart = (req, res, nxt) => {
             res.status(200).json({
                 //orders : success,
                 details: details,
-                message: "Successful",
+                message: "Successfully fetched the chart.",
             });
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed" });
+            res.status(504).json({ message: "Failed to fetch the chart." });
         });
 };
 
@@ -204,10 +207,10 @@ exports.horizontalBar = (req, res, nxt) => {
             res.status(200).json({
                 //orders : success,
                 details: details,
-                message: "Successful",
+                message: "Successfully fetched the chart.",
             });
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed" });
+            res.status(504).json({ message: "Failed to fetch the chart." });
         });
 };
