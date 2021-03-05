@@ -1,6 +1,7 @@
 import React from "react";
+
+import Order from "../components/orders/Order";
 import Layout from "../components/generic/layout";
-import Order from "../components/home/service providers/Orders/Order";
 
 const OrderPage = () => {
     return (

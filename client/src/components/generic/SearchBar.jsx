@@ -34,10 +34,10 @@ const SearchBar = (props) => {
 
             <Button variant={type}>
                 <FontAwesomeIcon
-                    className="fa-icon mr-2"
+                    className="fa-icon mr-sm-2"
                     icon={["fas", "search"]}
                 />
-                Search
+                <span className="d-none d-sm-inline">Search</span>
             </Button>
         </div>
     );

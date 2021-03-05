@@ -1,9 +1,10 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+
 import Layout from "../components/generic/layout";
+import Providers from "../components/providers/providers";
 import LocationContextProvider from "../contexts/LocationContext";
-import SelectLocation from "../components/home/location/SelectLocation";
-import Providers from "../components/home/service providers/Providers/providers";
+import SelectLocation from "../components/location/SelectLocation";
 
 const Home = () => {
     const history = useHistory();

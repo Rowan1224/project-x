@@ -1,6 +1,7 @@
 import React from "react";
+
+import Areas from "../components/areas/Areas";
 import Layout from "../components/generic/layout";
-import Areas from "../components/home/service providers/Areas/Areas";
 
 const Home = () => {
     return (

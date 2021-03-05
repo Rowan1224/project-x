@@ -1,6 +1,7 @@
 import React from "react";
+
 import Layout from "../components/generic/layout";
-import Statistics from "../components/home/service providers/Statistics/Statistics";
+import Statistics from "../components/statistics/Statistics";
 
 const StatisticsPage = () => {
     return (

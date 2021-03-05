@@ -25,6 +25,7 @@ import ServiceProviders from "./pages/ServiceProviders";
 import UserRegistration from "./pages/UserRegistration";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
 import EmployeeListPage from "./pages/EmployeeListPage";
+import OrderSuccessPage from "./pages/OrderSuccessPage";
 import AvailableProductPage from "./pages/AvailableProductPage";
 
 library.add(far, fas, fab);
@@ -40,6 +41,11 @@ const App = () => {
                             component={ServiceProviders}
                         />
                         <Route exact path="/orders" component={OrderPage} />
+                        <Route
+                            exact
+                            path="/order/success/:order_id"
+                            component={OrderSuccessPage}
+                        />
                         <Route
                             exact
                             path="/order/details/:order_id"

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Navbar, Nav, Dropdown } from "react-bootstrap";
 import {
     History,
-    TrendingUp,
+    Equalizer,
     ShoppingCart,
     AccountCircle,
     ArrowDropDown,
@@ -49,6 +49,7 @@ const MainNav = (props) => {
         paddingLeft: 15,
         paddingRight: 15,
         cursor: "pointer",
+        // fontWeight: "600",
         borderLeft: "1px solid" + borderLeft,
     };
 
@@ -78,8 +79,8 @@ const MainNav = (props) => {
             <Navbar.Brand
                 as={NavLink}
                 className={custom_text}
-                style={{ fontFamily: "MuseoModerno" }}
                 to={isServiceProvider ? "/orders" : "/"}
+                style={{ fontFamily: "MuseoModerno", fontSize: "1.4rem" }}
             >
                 ProjectX
             </Navbar.Brand>
@@ -89,34 +90,38 @@ const MainNav = (props) => {
                     <Nav.Link
                         as={NavLink}
                         style={navLinkStyle}
-                        className={custom_text}
+                        className={"font-weight-bold" + custom_text}
                         to={isAuthenticated ? "/profile" : "/login"}
                     >
                         <AccountCircle className="mb-1" />
                         <span className="ml-2">
-                            {localStorage.getItem("username")}
+                            {localStorage.getItem("username")
+                                ? localStorage.getItem("username")
+                                : "Login"}
                         </span>
-                    </Nav.Link>
-
-                    <Nav.Link style={navLinkStyle}>
-                        <ToggleTheme />
                     </Nav.Link>
 
                     <Nav.Link
                         as={NavLink}
                         to={"/history"}
                         style={navLinkStyle}
-                        className={custom_text}
+                        className={"font-weight-bold" + custom_text}
                     >
                         <History className="mb-1" />
                         <span className="ml-2">History</span>
                     </Nav.Link>
 
+                    <Nav.Link style={navLinkStyle}>
+                        <ToggleTheme />
+                    </Nav.Link>
+
                     {isServiceProvider ? (
                         <Dropdown alignRight={true}>
                             <Dropdown.Toggle as={CustomToggle}>
-                                <TrendingUp className="mb-1" />
-                                <span className="ml-2">Dashboard</span>
+                                <Equalizer className="mb-1" />
+                                <span className="font-weight-bold ml-2">
+                                    Dashboard
+                                </span>
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu
@@ -127,7 +132,6 @@ const MainNav = (props) => {
                                     as={NavLink}
                                     to="/orders"
                                     variant={type}
-                                    // style={{ backgroundColor: "white" }}
                                     className={
                                         "text-wrap" + syntax + dropdown_text
                                     }

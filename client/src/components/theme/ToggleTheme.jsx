@@ -12,7 +12,7 @@ const ToggleTheme = () => {
         : theme.dark.custom_text;
 
     return (
-        <div onClick={toggleTheme} className={custom_text}>
+        <div onClick={toggleTheme} className={"font-weight-bold" + custom_text}>
             {isLightTheme ? (
                 <>
                     <WbSunny className="mb-1" />
