@@ -5,15 +5,30 @@ const orders = Orders(sequelize, Sequelize);
 const Order_Details = require("../../server/models/Order_details");
 const orderDetails = Order_Details(sequelize, Sequelize);
 const Employee = require("../../server/models/Employee");
+const { addEmployee } = require("./employee");
 const employee = Employee(sequelize, Sequelize);
 
 exports.getServiceOrder = (req, res, next) => {
     //  const order_id = req.body.orderid;
     const service_id = req.body.userid;
+    const search = req.body.search_data;
     sequelize
         .query(
-            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id WHERE service_id=? && delivered=false && Orders.employee_id IS NULL ORDER BY order_time DESC",
-            { replacements: [service_id], type: sequelize.QueryTypes.SELECT }
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id WHERE service_id=? && delivered=false && Orders.employee_id IS NULL && (customer_name LIKE ? OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR payment LIKE ? )ORDER BY order_time DESC",
+            {
+                replacements: [
+                    [service_id],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                ],
+                type: sequelize.QueryTypes.SELECT,
+            }
         )
         .then((result) => {
             var output = [];
@@ -46,19 +61,39 @@ exports.getServiceOrder = (req, res, next) => {
 
                 res.status(200).json({
                     details: output,
-                    message: "Success.",
+                    message: "Successfully fetched non-assigned orders.",
                 });
             }
+        }).catch((err) => {
+            res.status(504).json({
+                message: "Failed to fetch non-assigned orders.",
+            });
         });
 };
 
 exports.getAssignedServiceOrder = (req, res, next) => {
     //  const order_id = req.body.orderid;
     const service_id = req.body.userid;
+    const search = req.body.search_data;
     sequelize
         .query(
-            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  INNER JOIN Employee ON Orders.employee_id=Employee.employee_id  WHERE Orders.service_id=? && delivered=false && Orders.employee_id IS NOT NULL ORDER BY order_time DESC",
-            { replacements: [service_id], type: sequelize.QueryTypes.SELECT }
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  INNER JOIN Employee ON Orders.employee_id=Employee.employee_id  WHERE Orders.service_id=? && delivered=false && Orders.employee_id IS NOT NULL && (customer_name LIKE ? OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR employee_name LIKE ? OR phone_number LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC",
+            {
+                replacements: [
+                    [service_id],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                ],
+                type: sequelize.QueryTypes.SELECT,
+            }
         )
         .then((result) => {
             var output = [];
@@ -94,9 +129,13 @@ exports.getAssignedServiceOrder = (req, res, next) => {
 
                 res.status(200).json({
                     details: output,
-                    message: "Success.",
+                    message: "Successfully fetched assigned orders.",
                 });
             }
+        }).catch((err) => {
+            res.status(504).json({
+                message: "Failed to fetch assigned orders.",
+            });
         });
 };
 
@@ -141,15 +180,19 @@ exports.getServiceOrderDetails = (req, res, next) => {
 
                 res.status(200).json({
                     details: output,
-                    message: "Success.",
+                    message: "Successfully fetched the order details.",
                 });
             }
+        }).catch((err) => {
+            res.status(504).json({
+                message: "Failed to fetch the order details.",
+            });
         });
 };
 
 exports.assignEmployee = (req, res, next) => {
     const order_id = req.body.order_id;
-    const employee_id = req.body.employee_id;
+    const employee_id = req.body.employee_id;addEmployee
 
     orders
         .findByPk(order_id)
@@ -164,7 +207,7 @@ exports.assignEmployee = (req, res, next) => {
         })
         .catch((err) => {
             res.status(504).json({
-                message: "Failed.",
+                message: "Failed to assign employee.",
             });
         });
 };
@@ -180,10 +223,10 @@ exports.completeServiceOrder = (req, res, nxt) => {
             return serv.save();
         })
         .then((sucess) => {
-            res.status(200).json({ message: "Success" });
+            res.status(200).json({ message: "Successfully completed the order." });
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed" });
+            res.status(504).json({ message: "Failed to complete the order." });
         });
 };
 
@@ -223,8 +266,7 @@ exports.getServiceStats = (req, res, nxt) => {
                     );
                     employee_delivered.set(element.phone_number, ord);
                     let inc =
-                        emplpoyee_income.get(element.phone_number) ===
-                        undefined
+                        emplpoyee_income.get(element.phone_number) === undefined
                             ? 0 + parseInt(element.payment)
                             : emplpoyee_income.get(element.phone_number) +
                               parseInt(element.payment);
@@ -267,21 +309,37 @@ exports.getServiceStats = (req, res, nxt) => {
                 delivered: deliveredOrders,
                 income: total_income,
                 employee: employeedetails,
-                message: "Success",
+                message: "Successfully fetched service-stat",
             });
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed" });
+            res.status(504).json({ message: "Failed to fetch service-stat." });
         });
 };
 
 exports.getServiceOrderHistory = (req, res, nxt) => {
     const service_id = req.body.userid;
+    const search = req.body.search_data;
 
     sequelize
         .query(
-            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  INNER JOIN Employee ON Orders.employee_id=Employee.employee_id  WHERE Orders.service_id=? && delivered=true ORDER BY order_time DESC",
-            { replacements: [service_id], type: sequelize.QueryTypes.SELECT }
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  INNER JOIN Employee ON Orders.employee_id=Employee.employee_id  WHERE Orders.service_id=? && delivered=true &&(customer_name LIKE ? OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR employee_name LIKE ? OR phone_number LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC",
+            {
+                replacements: [
+                    [service_id],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                ],
+                type: sequelize.QueryTypes.SELECT,
+            }
         )
         .then((result) => {
             var output = [];
@@ -308,18 +366,22 @@ exports.getServiceOrderHistory = (req, res, nxt) => {
                         further_description: element.further_description,
                         payment: element.payment,
                         time: element.order_time,
-                        employee: element.phone_number,
+                        employee:
+                            element.employee_name +
+                            " (" +
+                            element.phone_number +
+                            ")",
                     };
                     output.push(productorder);
                 });
 
                 res.status(200).json({
                     details: output,
-                    message: "Success.",
+                    message: "Successfully fetched service provider's order history.",
                 });
             }
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed" });
+            res.status(504).json({ message: "Failed to fetch service provider's order history." });
         });
 };

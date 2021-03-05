@@ -6,12 +6,15 @@ import emoji from "react-easy-emoji";
 import Infobar from "../generic/infobar";
 import Moment from "moment";
 import CustomTable from "../generic/CustomTable";
+import SearchBar from "../generic/SearchBar";
 
 const History = (props) => {
     const [isServiceProvider] = useState(
         localStorage.getItem("isServiceProvider") === "true"
     );
+
     const [histories, setHistories] = useState([]);
+    const [searchData, setSearchData] = useState("");
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -24,7 +27,8 @@ const History = (props) => {
             : "/getcustomerorderhistory";
 
         const loadData = async () => {
-            const userID = {
+            const bodyData = {
+                search_data: searchData,
                 userid: localStorage.getItem("userID"),
             };
 
@@ -34,14 +38,16 @@ const History = (props) => {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(userID),
+                body: JSON.stringify(bodyData),
             });
 
             const data = await response.json();
             setHistories(data.details);
         };
         loadData();
-    }, [isServiceProvider]);
+    }, [isServiceProvider, searchData]);
+
+    const handleChange = (e) => setSearchData(e.target.value);
 
     const tableData = {
         ths: isServiceProvider
@@ -79,6 +85,11 @@ const History = (props) => {
 
     return (
         <>
+            <SearchBar
+                handleChange={handleChange}
+                placeholder="Search histories...."
+            />
+
             {histories ? (
                 <CustomTable
                     ths={tableData.ths}

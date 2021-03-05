@@ -1,8 +1,9 @@
 import React from "react";
+
 import Layout from "../components/generic/layout";
-import Services from "../components/home/service providers/Services/services";
-import LocationContextProvider from "../contexts/LocationContext";
+import Services from "../components/services/services";
 import CartContextProvider from "../contexts/CartContext";
+import LocationContextProvider from "../contexts/LocationContext";
 
 const ServiceProviders = () => {
     return (

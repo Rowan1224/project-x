@@ -23,16 +23,8 @@ exports.serviceregister = (req,res) =>
     const trade_license = req.body.trade_license;
 	const address = req.body.address;
 	
-	console.log(service_name);
-	console.log(description);
-	console.log(service_type);
-	console.log(delivery_charge);
-	console.log(company_name);
-	console.log(phone_1);
-	console.log(nid);
-	console.log(trade_license);
-	console.log(address);
-
+	const regex= /^01[13-9]\d{8}$/;
+	if(regex.test(phone_1)){
 	service.findAll({ where: { phone_1 : phone_1 } 
 	}).then(result =>{
 		if(result.length===0)
@@ -54,7 +46,7 @@ exports.serviceregister = (req,res) =>
 				});
 			}).catch(err => {
 				res.status(504).json({
-					message: "Failed"
+					message: "Failed to register the service provider."
 				});
 			});
 		}
@@ -66,9 +58,16 @@ exports.serviceregister = (req,res) =>
 		}
 	}).catch(err => {
         res.status(504).json({
-            message: "Failed"
+            message: "Failed to register."
         });
     });
+	}
+	else
+	{
+		res.status(504).json({
+            message: "Enter a valid Number."
+        });
+	}
 	
 };
 
@@ -79,7 +78,7 @@ exports.servicelogin= (req,res) =>
 	otp = parseInt(otp);
 	var xd=otp;
 	otp=hash(otp);
-	const regex= /^(?:\+?88)?01[13-9]\d{8}$/;
+	const regex= /^01[13-9]\d{8}$/;
 	if(regex.test(service_phone))
 	{
 		service.findAll({ where: { phone_1: service_phone } 

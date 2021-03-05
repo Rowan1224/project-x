@@ -1,6 +1,7 @@
 import React from "react";
+
 import Layout from "../components/generic/layout";
-import OrderDetails from "../components/home/service providers/Orders/OrderDetails";
+import OrderDetails from "../components/orders/OrderDetails";
 
 const OrderPage = () => {
     return (

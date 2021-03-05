@@ -3,7 +3,7 @@ import { Alert } from "react-bootstrap";
 
 const CustomAlert = (props) => {
     return (
-        <div className="text-center">
+        <div className={props.noCenter ? "" : "text-center"}>
             <Alert
                 variant={props.variant ? props.variant : "danger"}
                 className={

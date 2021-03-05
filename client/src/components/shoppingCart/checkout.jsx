@@ -14,10 +14,11 @@ import CustomAlert from "../generic/CustomAlert";
 const Checkout = (props) => {
     const form = useRef(null);
     const { items, discount, totalPrice } = useContext(CartContext);
+
+    const [statusVariant] = useState("danger");
     const [addressess, setAddressess] = useState([]);
     const [newAddress, setNewAddress] = useState({});
     const [status, setStatus] = useState(undefined);
-    const [statusVariant, setStatusVariant] = useState("danger");
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -26,10 +27,8 @@ const Checkout = (props) => {
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const link = isLightTheme ? theme.light.link : theme.dark.link;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const success = isLightTheme ? theme.light.success : theme.dark.success;
     const border = isLightTheme ? theme.light.border : theme.dark.border;
-
-    
+    const success = isLightTheme ? theme.light.success : theme.dark.success;
 
     useEffect(() => {
         const loadData = async () => {
@@ -137,10 +136,11 @@ const Checkout = (props) => {
 
                     if (!response.ok) setStatus(data.message);
                     else {
-                        setStatusVariant("success");
-                        setStatus(
-                            "We have recieved your order successfully 😄"
-                        );
+                        // setStatusVariant("success");
+                        // setStatus(
+                        //     "We have recieved your order successfully 😄"
+                        // );
+                        handleCleanUP(data.order_id);
                     }
                 }
             } catch (error) {
@@ -151,10 +151,10 @@ const Checkout = (props) => {
         loadData();
     };
 
-    const handleCleanUP = () => {
+    const handleCleanUP = (order_id) => {
         sessionStorage.setItem("items", "[]");
         sessionStorage.setItem("service_id", "");
-        props.history.push("/");
+        props.history.push(`/order/success/${order_id}`);
     };
 
     return (
@@ -186,7 +186,10 @@ const Checkout = (props) => {
                                                     }}
                                                 >
                                                     Item count: {item.count},
-                                                    Per Item Price: Tk
+                                                    Per Item Price:{" "}
+                                                    <span className="font-weight-bold">
+                                                        ৳{" "}
+                                                    </span>
                                                     {item.price}
                                                 </small>
                                             </td>
@@ -506,8 +509,9 @@ const Checkout = (props) => {
                             </Button>
 
                             <Button
+                                to="/"
+                                as={Link}
                                 variant={type}
-                                onClick={handleCleanUP}
                                 disabled={
                                     items.length &&
                                     !(statusVariant === "success")

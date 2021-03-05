@@ -10,11 +10,14 @@ const NotFound = (props) => {
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const type = isLightTheme ? theme.light.type : theme.dark.type;
+    const border = isLightTheme ? theme.light.border : theme.dark.border;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
 
     return (
         <div
-            className="d-flex justify-content-center mx-auto"
+            className={
+                "d-flex justify-content-center rounded shadow mx-auto" + border
+            }
             style={{ maxWidth: "55rem" }}
         >
             <div className="notfound pb-4 pb-md-5">
@@ -25,12 +28,12 @@ const NotFound = (props) => {
                     Oops! This Page Could Not Be Found
                 </h2>
                 <p className={syntax}>
-                    Sorry but the page you are looking for does not exist, have
-                    been removed. name changed or is temporarily unavailable
+                    Sorry, but the page you are looking for does not exist, have
+                    been removed, name changed or is temporarily unavailable
                 </p>
                 <Button variant={type} className="mt-3" as={Link} to="/">
                     <FontAwesomeIcon className="mr-2" icon={["fas", "home"]} />
-                    Go To Homepage
+                    Homepage
                 </Button>
                 <Button
                     variant={type}

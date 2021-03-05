@@ -34,9 +34,10 @@ const Counter = (props) => {
             </Icon>
             <input
                 type="number"
-                className={"show-cart-count mx-1" + syntax}
                 value={count}
+                style={{ maxWidth: "2.5rem" }}
                 onChange={(e) => setCount(e.target.value)}
+                className={"show-cart-count mx-1" + syntax}
                 onBlur={(e) => postCountUpdate(props.id, e.target.value)}
                 onKeyDown={(e) =>
                     ["e", "E", "+", "-", "."].includes(e.key) &&
