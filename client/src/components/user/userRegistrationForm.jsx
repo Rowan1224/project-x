@@ -314,6 +314,10 @@ const RegistrationForm = (props) => {
 
                     <div className="form-group">
                         <Button variant={type} type="submit" className="w-100">
+                            <FontAwesomeIcon
+                                className="mr-2"
+                                icon={["fas", "user-plus"]}
+                            />
                             Create Account
                         </Button>
                     </div>

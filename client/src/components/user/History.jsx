@@ -85,6 +85,8 @@ const History = (props) => {
 
     return (
         <>
+            <Infobar>Order History</Infobar>
+
             <SearchBar
                 handleChange={handleChange}
                 placeholder="Search histories...."

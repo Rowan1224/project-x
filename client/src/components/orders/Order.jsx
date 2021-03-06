@@ -248,7 +248,7 @@ const Order = (props) => {
 
     return (
         <>
-            <h4 className="mb-4">Your Orders...</h4>
+            <Infobar>Your Orders</Infobar>
 
             <SearchBar
                 handleChange={handleSearchChange}

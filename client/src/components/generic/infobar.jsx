@@ -11,9 +11,9 @@ const Infobar = (props) => {
     const text_color = props.text ? " " + props.text : syntax;
 
     return (
-        <div className="text-center">
+        <div className="text-center mb-4">
             <h4
-                className={"rounded p-3 shadow" + border + ui + text_color}
+                className={"rounded p-3" + border + ui + text_color}
             >
                 {props.children}
             </h4>

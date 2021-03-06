@@ -3,7 +3,7 @@ import React from "react";
 import Layout from "../components/generic/layout";
 import EmployeeList from "../components/employees/EmployeeList";
 
-const Home = () => {
+const EmployeeListPage = () => {
     return (
         <Layout>
             <EmployeeList />
@@ -11,4 +11,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default EmployeeListPage;

@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CustomAlert from "../generic/CustomAlert";
 import CustomTable from "../generic/CustomTable";
 import Charts from "./Charts";
+import Infobar from "../generic/infobar";
 
 const Statistics = (props) => {
     const form = useRef(null);
@@ -147,7 +148,7 @@ const Statistics = (props) => {
 
     return (
         <>
-            <div className={"card mb-4" + ui + syntax + border}>
+            {/* <div className={"card mb-4" + ui + syntax + border}>
                 <div className="card-body">
                     <h4 className={"text-center m-0" + custom_text}>
                         Statistics of last{" "}
@@ -160,7 +161,18 @@ const Statistics = (props) => {
                             .format("Y [year] M [month] w [week] d [days]")}
                     </h4>
                 </div>
-            </div>
+            </div> */}
+
+            <Infobar>
+                Statistics of last{" "}
+                <span className={custom_text}>
+                    {moment
+                        .duration(
+                            moment(date.end_date).diff(moment(date.start_date))
+                        )
+                        .format("Y [year] M [month] w [week] d [days]")}
+                </span>
+            </Infobar>
 
             {status && <CustomAlert status={status} />}
 

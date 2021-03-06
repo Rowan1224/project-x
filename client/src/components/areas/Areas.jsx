@@ -4,6 +4,7 @@ import ProvidedAreas from "./ProvidedAreas";
 import SearchBar from "../generic/SearchBar";
 import AvailableAreas from "./AvailableAreas";
 import { ThemeContext } from "../../contexts/ThemeContext";
+import Infobar from "../generic/infobar";
 
 const Areas = (props) => {
     const [searchData, setSearchData] = useState("");
@@ -15,18 +16,21 @@ const Areas = (props) => {
     const handleChange = (e) => setSearchData(e.target.value);
 
     return (
-        <div className={syntax}>
+        <div className={"text-center" + syntax}>
+            <Infobar>Add your service area</Infobar>
             <SearchBar
                 handleChange={handleChange}
                 placeholder="Search areas...."
             />
 
-            <h4>Your Areas</h4>
+            <Infobar>Your Areas</Infobar>
+            {/* <h4 className="pb-4">Your Areas</h4> */}
             <div className="my-4">
                 <ProvidedAreas searchData={searchData} />
             </div>
 
-            <h4>Available Areas</h4>
+            <Infobar>Available Areas</Infobar>
+            {/* <h4 className="pb-4">Available Areas</h4> */}
             <div className="my-4">
                 <AvailableAreas searchData={searchData} />
             </div>

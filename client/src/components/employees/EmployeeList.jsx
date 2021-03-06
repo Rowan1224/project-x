@@ -94,6 +94,8 @@ const EmployeeList = (props) => {
 
     return (
         <>
+            <Infobar>Employees Details</Infobar>
+
             <SearchBar
                 handleChange={handleChange}
                 placeholder="Search employees details...."

@@ -51,6 +51,8 @@ const AvailableProducts = (props) => {
 
     return (
         <>
+            <Infobar>Add to your inventory</Infobar>
+
             <SearchBar
                 handleChange={handleChange}
                 placeholder="Search products...."

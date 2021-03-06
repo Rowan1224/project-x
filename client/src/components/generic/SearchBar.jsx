@@ -20,7 +20,7 @@ const SearchBar = (props) => {
     };
 
     return (
-        <div className="d-flex mb-5">
+        <div className="d-flex my-5">
             <input
                 autoFocus
                 type="text"
