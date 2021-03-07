@@ -1,14 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import emoji from "react-easy-emoji";
 
 import Title from "../generic/title";
 import RemoveArea from "./RemoveArea";
 import CustomCard from "../generic/CustomCard";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
-const ProvidedAreas = (props) => {
+const ServiceAreas = (props) => {
     const [status, setStatus] = useState(undefined);
-    const [providedAreas, setProvidedAreas] = useState([]);
+    const [serviceAreas, setServiceAreas] = useState([]);
+
+    // Themes
+    const { isLightTheme, theme } = useContext(ThemeContext);
+    const link = isLightTheme ? theme.light.link : theme.dark.link;
+    const custom_text = isLightTheme
+        ? theme.light.custom_text
+        : theme.dark.custom_text;
 
     useEffect(() => {
         const API_URL = "/showarea/";
@@ -32,7 +40,7 @@ const ProvidedAreas = (props) => {
 
                 if (!response.ok) setStatus(data.message);
 
-                setProvidedAreas(data.Areas);
+                setServiceAreas(data.Areas);
             } catch (error) {
                 setStatus(error);
             }
@@ -45,25 +53,31 @@ const ProvidedAreas = (props) => {
         <CustomCard
             status={status}
             setStatus={setStatus}
-            values={providedAreas}
-            cardBodyData={(providedArea) => (
+            values={serviceAreas}
+            cardBodyData={(serviceArea) => (
                 <>
-                    <Card.Title>{providedArea.area_name}</Card.Title>
+                    <Card.Title>{serviceArea.area_name}</Card.Title>
 
                     <div>
-                        <Title>Thana: </Title> {providedArea.thana}
+                        <Title>Thana: </Title> {serviceArea.thana}
                         <br />
-                        <Title>Upazilla: </Title> {providedArea.upazilla}
+                        <Title>Upazilla: </Title> {serviceArea.upazilla}
                         <br />
-                        <Title>District: </Title> {providedArea.district}
-                        <br />
-                        <Title>Longitude: </Title> {providedArea.longi}
-                        <br />
-                        <Title>Latitude: </Title> {providedArea.lati}
+                        <Title>District: </Title> {serviceArea.district}
+                        <div className={"py-2" + link}>
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                className={custom_text}
+                                href={`http://www.google.com/maps/place/${serviceArea.lati},${serviceArea.longi}`}
+                            >
+                                Open in Google Map
+                            </a>
+                        </div>
                     </div>
 
                     <div className="mt-2">
-                        <RemoveArea area={providedArea} />
+                        <RemoveArea area={serviceArea} />
                     </div>
                 </>
             )}
@@ -77,4 +91,4 @@ const ProvidedAreas = (props) => {
     );
 };
 
-export default ProvidedAreas;
+export default ServiceAreas;

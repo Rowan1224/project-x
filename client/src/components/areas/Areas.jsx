@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import ProvidedAreas from "./ProvidedAreas";
+import ProvidedAreas from "./ServiceAreas";
 import SearchBar from "../generic/SearchBar";
 import AvailableAreas from "./AvailableAreas";
 import { ThemeContext } from "../../contexts/ThemeContext";
@@ -23,7 +23,7 @@ const Areas = (props) => {
                 placeholder="Search areas...."
             />
 
-            <Infobar>Your Areas</Infobar>
+            <Infobar>Your Service Areas</Infobar>
             {/* <h4 className="pb-4">Your Areas</h4> */}
             <div className="my-4">
                 <ProvidedAreas searchData={searchData} />
