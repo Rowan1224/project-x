@@ -80,10 +80,15 @@ router.post(
     customerOrderController.createCustomerOrderDetails
 );
 router.post(
-    "/getcustomerorderhistory",
+    "/orders/history/delivered",
     customerOrderController.getCustomerOrderHistory
 );
 router.post("/order/success",customerOrderController.getConfirmedOrder);
+router.post("/order/cancel",customerOrderController.cancelCustomerOrder);
+router.post("/orders/history/cancelled",customerOrderController.getCustomerCancelledOrderHistory);
+router.post("/orders/history/active",customerOrderController.getCustomerActiveOrderHistory);
+
+
 const serviceStatsController = require("../controllers/servicestats");
 router.post("/getservicestats", serviceStatsController.getServiceStats);
 router.post(

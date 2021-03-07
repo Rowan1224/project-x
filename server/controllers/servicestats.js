@@ -385,3 +385,45 @@ exports.getServiceOrderHistory = (req, res, nxt) => {
             res.status(504).json({ message: "Failed to fetch service provider's order history." });
         });
 };
+
+
+
+exports.cancelCustomerOrder = (req, res, nxt) => {
+    const customer_id = req.body.userid;
+    const order_id = req.body.order_id;
+
+    orders.findAll({
+        where :{
+            customer_id : customer_id,
+            order_id : order_id,
+        }
+    }).then(result =>{
+        if(result.length===0)
+        {
+            res.status(200).json({ message: "No Order found for the customer whith the order id." });
+        }
+        else
+        {
+            if(result[0].employee_id===null)
+            {
+                orders.findByPk(order_id).then(serv =>{
+                    serv.delivered=3;
+
+                    return serv.save();
+                }).then((sucess) => {
+                    res.status(200).json({message: "Successfully cancelled the Order."});
+                }).catch((err) => {
+                    res.status(504).json({message: "Failed to cancel the Order."});
+                });
+            }
+            else
+            {
+                res.status(200).json({ message: "Sorry.You can't cancel the order anymore." });
+            }
+        }
+
+    }).catch((err) => {
+        res.status(504).json({message: "Failed to get the Order."});
+    });
+};
+
