@@ -64,7 +64,8 @@ exports.getServiceOrder = (req, res, next) => {
                     message: "Successfully fetched non-assigned orders.",
                 });
             }
-        }).catch((err) => {
+        })
+        .catch((err) => {
             res.status(504).json({
                 message: "Failed to fetch non-assigned orders.",
             });
@@ -132,7 +133,8 @@ exports.getAssignedServiceOrder = (req, res, next) => {
                     message: "Successfully fetched assigned orders.",
                 });
             }
-        }).catch((err) => {
+        })
+        .catch((err) => {
             res.status(504).json({
                 message: "Failed to fetch assigned orders.",
             });
@@ -183,7 +185,8 @@ exports.getServiceOrderDetails = (req, res, next) => {
                     message: "Successfully fetched the order details.",
                 });
             }
-        }).catch((err) => {
+        })
+        .catch((err) => {
             res.status(504).json({
                 message: "Failed to fetch the order details.",
             });
@@ -192,7 +195,8 @@ exports.getServiceOrderDetails = (req, res, next) => {
 
 exports.assignEmployee = (req, res, next) => {
     const order_id = req.body.order_id;
-    const employee_id = req.body.employee_id;addEmployee
+    const employee_id = req.body.employee_id;
+    addEmployee;
 
     orders
         .findByPk(order_id)
@@ -223,7 +227,9 @@ exports.completeServiceOrder = (req, res, nxt) => {
             return serv.save();
         })
         .then((sucess) => {
-            res.status(200).json({ message: "Successfully completed the order." });
+            res.status(200).json({
+                message: "Successfully completed the order.",
+            });
         })
         .catch((err) => {
             res.status(504).json({ message: "Failed to complete the order." });
@@ -323,7 +329,7 @@ exports.getServiceOrderHistory = (req, res, nxt) => {
 
     sequelize
         .query(
-            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  INNER JOIN Employee ON Orders.employee_id=Employee.employee_id  WHERE Orders.service_id=? && delivered=true &&(customer_name LIKE ? OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR employee_name LIKE ? OR phone_number LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC",
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  INNER JOIN Employee ON Orders.employee_id=Employee.employee_id  WHERE Orders.service_id=? && delivered=1 &&(customer_name LIKE ? OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR employee_name LIKE ? OR phone_number LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC",
             {
                 replacements: [
                     [service_id],
@@ -377,53 +383,132 @@ exports.getServiceOrderHistory = (req, res, nxt) => {
 
                 res.status(200).json({
                     details: output,
-                    message: "Successfully fetched service provider's order history.",
+                    message:
+                        "Successfully fetched service provider's delivered order history.",
                 });
             }
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed to fetch service provider's order history." });
+            res.status(504).json({
+                message: "Failed to fetch service provider's order history.",
+            });
+        });
+};
+
+exports.cancelServiceProviderOrder = (req, res, nxt) => {
+    const service_id = req.body.userid;
+    const order_id = req.body.order_id;
+
+    orders
+        .findAll({
+            where: {
+                service_id: service_id,
+                order_id: order_id,
+            },
+        })
+        .then((result) => {
+            if (result.length === 0) {
+                res.status(200).json({
+                    message:
+                        "No Order found for the service provider with the order id.",
+                });
+            } else {
+                orders
+                    .findByPk(order_id)
+                    .then((serv) => {
+                        serv.delivered = 3;
+
+                        return serv.save();
+                    })
+                    .then((sucess) => {
+                        res.status(200).json({
+                            message: "Successfully cancelled the Order.",
+                        });
+                    })
+                    .catch((err) => {
+                        res.status(504).json({
+                            message: "Failed to cancel the Order.",
+                        });
+                    });
+            }
+        })
+        .catch((err) => {
+            res.status(504).json({ message: "Failed to get the Order." });
         });
 };
 
 
+exports.getServiceCancelledOrderHistory = (req, res, nxt) => {
+    const service_id = req.body.userid;
+    const search = req.body.search_data;
 
-exports.cancelCustomerOrder = (req, res, nxt) => {
-    const customer_id = req.body.userid;
-    const order_id = req.body.order_id;
-
-    orders.findAll({
-        where :{
-            customer_id : customer_id,
-            order_id : order_id,
-        }
-    }).then(result =>{
-        if(result.length===0)
-        {
-            res.status(200).json({ message: "No Order found for the customer whith the order id." });
-        }
-        else
-        {
-            if(result[0].employee_id===null)
+    sequelize
+        .query(
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE Orders.service_id=? && delivered=3 &&(customer_name LIKE ? OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR  payment LIKE ? ) ORDER BY order_time DESC",
             {
-                orders.findByPk(order_id).then(serv =>{
-                    serv.delivered=3;
+                replacements: [
+                    [service_id],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                ],
+                type: sequelize.QueryTypes.SELECT,
+            }
+        )
+        .then((result) => {
+            var output = [];
+            if (result.length === 0) {
+                res.status(200).json({
+                    // details: details,
+                    message: "No Orders.",
+                });
+            } else {
+                result.forEach((element) => {
+                    let reason;
+                    if(element.employee_id===0)
+                    {
+                        reason ="Cancelled by Customer."
+                    }
+                    else
+                        reason = "Cancelled by Service Provider."
+                    var address =
+                        element.house_no +
+                        "," +
+                        element.road_no +
+                        "," +
+                        element.area_name +
+                        "," +
+                        element.district;
+                    var productorder = {
+                        order_id: element.order_id,
+                        customer_name: element.customer_name,
+                        customer_phone: element.customer_phone,
+                        address: address,
+                        further_description: element.further_description,
+                        payment: element.payment,
+                        time: element.order_time,
+                        reason : reason
+                    };
+                    output.push(productorder);
+                });
 
-                    return serv.save();
-                }).then((sucess) => {
-                    res.status(200).json({message: "Successfully cancelled the Order."});
-                }).catch((err) => {
-                    res.status(504).json({message: "Failed to cancel the Order."});
+                res.status(200).json({
+                    details: output,
+                    message:
+                        "Successfully fetched service provider's order cancelled history.",
                 });
             }
-            else
-            {
-                res.status(200).json({ message: "Sorry.You can't cancel the order anymore." });
-            }
-        }
-
-    }).catch((err) => {
-        res.status(504).json({message: "Failed to get the Order."});
-    });
+        })
+        .catch((err) => {
+            res.status(504).json({
+                message: "Failed to fetch service provider's order history.",
+            });
+        });
 };
-

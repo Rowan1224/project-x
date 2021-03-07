@@ -109,6 +109,8 @@ router.post(
     serviceStatsController.completeServiceOrder
 );
 router.post("/assignEmployee", serviceStatsController.assignEmployee);
+router.post("/cancel/service/order",serviceStatsController.cancelServiceProviderOrder);
+router.post("/getservicecancelledorderhistory",serviceStatsController.getServiceCancelledOrderHistory);
 
 const statChart = require("../controllers/statchart");
 router.post("/piechart", statChart.pieChart);

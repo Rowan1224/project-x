@@ -178,6 +178,7 @@ exports.cancelCustomerOrder = (req, res, nxt) => {
             {
                 orders.findByPk(order_id).then(serv =>{
                     serv.delivered=3;
+                    serv.employee_id=0;
 
                     return serv.save();
                 }).then((sucess) => {
@@ -226,6 +227,13 @@ exports.getCustomerCancelledOrderHistory = (req, res, nxt) => {
                 });
             } else {
                 result.forEach((element) => {
+                    let reason;
+                    if(element.employee_id===0)
+                    {
+                        reason ="Cancelled by Customer."
+                    }
+                    else
+                        reason = "Cancelled by Service Provider."
                     var address =
                         element.house_no +
                         "," +
@@ -241,6 +249,7 @@ exports.getCustomerCancelledOrderHistory = (req, res, nxt) => {
                         further_description: element.further_description,
                         payment: element.payment,
                         time: element.order_time,
+                        reason : reason
                     };
                     output.push(productorder);
                 });

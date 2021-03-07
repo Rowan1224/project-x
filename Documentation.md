@@ -1182,6 +1182,7 @@ For 350 some decision was taken:
             "further_description": "call to 01765431234",
             "payment": 71,
             "time": "2021-03-05T17:35:00.000Z"
+            "reason": "Cancelled by Service Provider."
         }
     ],
     "message": "Success.Cancelled orders history is shown here."
@@ -1201,3 +1202,50 @@ For 350 some decision was taken:
         "message": Successfully cancelled the Order.
     }
 
+
+**Service Provider Cancel Order
+
+    *Request(POST => /cancel/service/order)
+    {
+        "userid": 1,
+        "order_id" :"24"
+    }
+    *Response
+    {
+        "message": Successfully cancelled the Order.
+    }
+
+** Service Provider Cancel Order History
+
+*Request (POST => /getservicecancelledorderhistory)
+    {
+            "userid": 1,
+            "search_data" :""
+    }   
+
+*Response 
+{
+    "details": [
+        {
+            "order_id": 24,
+            "customer_name": "samay",
+            "customer_phone": "01534771222",
+            "address": "13,54/A,Zindabazar,Sylhet",
+            "further_description": "call to 012345678",
+            "payment": 50,
+            "time": "2021-03-07T13:10:00.000Z",
+            "reason": "Cancelled by Service Provider."
+        },
+        {
+            "order_id": 22,
+            "customer_name": "samay",
+            "customer_phone": "01534771222",
+            "address": "23-D,54/A,Zindabazar,Sylhet",
+            "further_description": "call to 01765431234",
+            "payment": 71,
+            "time": "2021-03-05T17:35:00.000Z",
+            "reason": "Cancelled by Service Provider."
+        }
+    ],
+    "message": "Successfully fetched service provider's order cancelled history."
+}
