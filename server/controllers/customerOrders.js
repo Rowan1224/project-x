@@ -66,10 +66,12 @@ exports.getCustomerOrderHistory = (req, res, nxt) => {
     const search = req.body.search_data;
     sequelize
         .query(
-            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE Orders.customer_id=? && delivered=1 && (customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC ",
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE Orders.customer_id=? && delivered=1 && (customer_phone LIKE ? OR time LIKE ? OR order_id LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC ",
             {
                 replacements: [
                     [customer_id],
+                    [`%${search}%`],
+                    [`%${search}%`],
                     [`%${search}%`],
                     [`%${search}%`],
                     [`%${search}%`],
@@ -116,7 +118,9 @@ exports.getCustomerOrderHistory = (req, res, nxt) => {
             }
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed to get the delivered orders history." });
+            res.status(504).json({
+                message: "Failed to get the delivered orders history.",
+            });
         });
 };
 
@@ -162,40 +166,49 @@ exports.cancelCustomerOrder = (req, res, nxt) => {
     const customer_id = req.body.userid;
     const order_id = req.body.order_id;
 
-    orders.findAll({
-        where :{
-            customer_id : customer_id,
-            order_id : order_id,
-        }
-    }).then(result =>{
-        if(result.length===0)
-        {
-            res.status(200).json({ message: "No Order found for the customer whith the order id." });
-        }
-        else
-        {
-            if(result[0].employee_id===null)
-            {
-                orders.findByPk(order_id).then(serv =>{
-                    serv.delivered=3;
-                    serv.employee_id=0;
-
-                    return serv.save();
-                }).then((sucess) => {
-                    res.status(200).json({message: "Successfully cancelled the Order."});
-                }).catch((err) => {
-                    res.status(504).json({message: "Failed to cancel the Order."});
+    orders
+        .findAll({
+            where: {
+                customer_id: customer_id,
+                order_id: order_id,
+            },
+        })
+        .then((result) => {
+            if (result.length === 0) {
+                res.status(200).json({
+                    message:
+                        "No Order found for the customer whith the order id.",
                 });
-            }
-            else
-            {
-                res.status(504).json({ message: "Sorry.You can't cancel the order anymore." });
-            }
-        }
+            } else {
+                if (result[0].employee_id === null) {
+                    orders
+                        .findByPk(order_id)
+                        .then((serv) => {
+                            serv.delivered = 3;
+                            serv.employee_id = 0;
 
-    }).catch((err) => {
-        res.status(504).json({message: "Failed to get the Order."});
-    });
+                            return serv.save();
+                        })
+                        .then((sucess) => {
+                            res.status(200).json({
+                                message: "Successfully cancelled the Order.",
+                            });
+                        })
+                        .catch((err) => {
+                            res.status(504).json({
+                                message: "Failed to cancel the Order.",
+                            });
+                        });
+                } else {
+                    res.status(504).json({
+                        message: "Sorry.You can't cancel the order anymore.",
+                    });
+                }
+            }
+        })
+        .catch((err) => {
+            res.status(504).json({ message: "Failed to get the Order." });
+        });
 };
 
 exports.getCustomerCancelledOrderHistory = (req, res, nxt) => {
@@ -203,10 +216,13 @@ exports.getCustomerCancelledOrderHistory = (req, res, nxt) => {
     const search = req.body.search_data;
     sequelize
         .query(
-            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE Orders.customer_id=? && delivered=3 && (customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC ",
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE Orders.customer_id=? && delivered=3 && (customer_phone LIKE ? OR time LIKE ? OR order_id LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR payment LIKE ? OR reason LIKE ? ) ORDER BY order_time DESC ",
             {
                 replacements: [
                     [customer_id],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
                     [`%${search}%`],
                     [`%${search}%`],
                     [`%${search}%`],
@@ -228,12 +244,9 @@ exports.getCustomerCancelledOrderHistory = (req, res, nxt) => {
             } else {
                 result.forEach((element) => {
                     let reason;
-                    if(element.employee_id===0)
-                    {
-                        reason ="Cancelled by Customer."
-                    }
-                    else
-                        reason = "Cancelled by Service Provider."
+                    if (element.employee_id === 0) {
+                        reason = "Cancelled by Customer.";
+                    } else reason = "Cancelled by Service Provider.";
                     var address =
                         element.house_no +
                         "," +
@@ -249,7 +262,7 @@ exports.getCustomerCancelledOrderHistory = (req, res, nxt) => {
                         further_description: element.further_description,
                         payment: element.payment,
                         time: element.order_time,
-                        reason : reason
+                        reason: reason,
                     };
                     output.push(productorder);
                 });
@@ -261,7 +274,9 @@ exports.getCustomerCancelledOrderHistory = (req, res, nxt) => {
             }
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed to get the cancelled orders history." });
+            res.status(504).json({
+                message: "Failed to get the cancelled orders history.",
+            });
         });
 };
 
@@ -270,10 +285,12 @@ exports.getCustomerActiveOrderHistory = (req, res, nxt) => {
     const search = req.body.search_data;
     sequelize
         .query(
-            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE Orders.customer_id=? && delivered=0 && (customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC ",
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE Orders.customer_id=? && delivered=0 && (customer_phone LIKE ? OR time LIKE ? OR order_id LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC ",
             {
                 replacements: [
                     [customer_id],
+                    [`%${search}%`],
+                    [`%${search}%`],
                     [`%${search}%`],
                     [`%${search}%`],
                     [`%${search}%`],
@@ -320,6 +337,8 @@ exports.getCustomerActiveOrderHistory = (req, res, nxt) => {
             }
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed to get the active orders history." });
+            res.status(504).json({
+                message: "Failed to get the active orders history.",
+            });
         });
 };
