@@ -28,22 +28,35 @@ const Footer = () => {
         <footer style={{ backgroundColor: bg }} className={"pt-5" + syntax}>
             <div className="container p-4">
                 <div className="row">
-                    <div className="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <div className="col-md-8 mb-4 mb-md-0">
                         <h5>About</h5>
                         <hr style={bottomBorder} className="mb-3 mt-n1" />
 
                         <p className="text-justify">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing
-                            elit. Iste atque ea quis molestias. Fugiat pariatur
-                            maxime quis culpa corporis vitae repudiandae aliquam
-                            voluptatem veniam, est atque cumque eum delectus
-                            sint! Iste atque ea quis molestias. Fugiat pariatur
-                            maxime quis culpa corporis vitae veniam, est atque
-                            cumque eum delectus sint!
+                            Project X is founded with a vision to provide every
+                            customer with a choice; The choice of buying
+                            organic, authentic and cost effective products with
+                            minimum friction. Project X is founded in 2020 by
+                            students at{" "}
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                className={custom_text}
+                                href="https://www.sust.edu/"
+                            >
+                                SUST
+                            </a>
+                            . The local market place will be only finger-tips
+                            away for any customer in possession of a
+                            smartphone/computer and an internet connection. They
+                            will be able to purchase everything; from a
+                            safety-pin to car from our website. For service
+                            providers they can supervise their business at a
+                            glace from the website.
                         </p>
                     </div>
 
-                    <div className="col-lg-3 col-6 mb-4 mb-md-0 text-lg-right">
+                    {/* <div className="col-lg-3 col-6 mb-4 mb-md-0 text-lg-right">
                         <h5>Quick Links</h5>
                         <hr style={bottomBorder} className="mb-3 mt-n1" />
 
@@ -69,9 +82,9 @@ const Footer = () => {
                                 </a>
                             </p>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className="col-lg-3 col-6 mb-4 mb-md-0 text-right">
+                    <div className="col-md-4 mb-4 mb-md-0 text-right">
                         <h5>Contacts</h5>
                         <hr style={bottomBorder} className="mb-3 mt-n1" />
 
@@ -81,28 +94,28 @@ const Footer = () => {
                                     className="mr-2"
                                     icon={["fas", "phone"]}
                                 />
-                                + 01 234 567 88
+                                01886298142
                             </p>
                             <p>
                                 <FontAwesomeIcon
                                     className="mr-2"
                                     icon={["fas", "fax"]}
                                 />
-                                + 01 234 567 89
+                                01534771222
                             </p>
                             <p>
                                 <FontAwesomeIcon
                                     className="mr-2"
                                     icon={["fas", "envelope"]}
                                 />
-                                info@example.com
+                                project_x@gmail.com
                             </p>
                             <p>
                                 <FontAwesomeIcon
                                     className="mr-2"
                                     icon={["fas", "home"]}
                                 />
-                                New York, NY 10012, US
+                                Akhalia, Varsity gate, Sylhet
                             </p>
                         </div>
                     </div>
