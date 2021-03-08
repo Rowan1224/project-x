@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Title from "../generic/title";
 import { ThemeContext } from "../../contexts/ThemeContext";
@@ -51,12 +52,11 @@ const Provider = (props) => {
     }, [props.Service, provider.userid]);
 
     return (
-        <div className="col-12 mb-3">
+        <div className="col-lg-6 mb-3">
             <Card className={"p-3 shadow" + ui + border}>
-                <div className="row">
-                    <div className="col-md-3 col-sm-12 my-auto">
-                        <Card.Img
-                            variant="top"
+                <div>
+                    <div className="d-block">
+                        <img
                             src={`https://picsum.photos/id/${Math.floor(
                                 Math.random() * 1000
                             )}/800`}
@@ -65,42 +65,38 @@ const Provider = (props) => {
                                 e.target.src = "/img/Default.png";
                             }}
                             alt="provider's"
-                            className={"profile-pic rounded shadow" + border}
+                            className={
+                                "mb-1 mr-3 float-left profile-pic" + border
+                            }
                         />
                     </div>
 
-                    <Card.Body
-                        className={
-                            "col-md-9 col-sm-12 d-flex flex-column" + syntax
-                        }
+                    <div className={syntax}>
+                        <Title>Company: </Title> {provider.company_name}
+                        <br />
+                        <Title>Address: </Title> {provider.address}
+                        <br />
+                        <Title>Service type: </Title> {provider.service_type}
+                        <br />
+                        <Title>Phone number: </Title> {provider.phone_1},{" "}
+                        {provider.phone_2}
+                        <br />
+                        <Title>Description: </Title> {provider.description}
+                    </div>
+
+                    <Button
+                        variant={type}
+                        disabled={!show}
+                        as={show && Link}
+                        className="w-100 mt-3"
+                        to={"/service/provider/" + props.Service.service_id}
                     >
-                        <Card.Title className="text-center mr-md-6">
-                            {provider.service_name}
-                        </Card.Title>
-                        <Card.Text className="mt-auto">
-                            <Title>Company: </Title> {provider.company_name}
-                            <br />
-                            <Title>Address: </Title> {provider.address}
-                            <br />
-                            <Title>Service type: </Title>{" "}
-                            {provider.service_type}
-                            <br />
-                            <Title>Phone number: </Title> {provider.phone_1},{" "}
-                            {provider.phone_2}
-                            <br />
-                            <Title>Description: </Title> {provider.description}
-                            <br />
-                        </Card.Text>
-                        <Button
-                            variant={type}
-                            disabled={!show}
-                            as={show && Link}
-                            className="mt-auto"
-                            to={"/service/provider/" + props.Service.service_id}
-                        >
-                            Show their services
-                        </Button>
-                    </Card.Body>
+                        <FontAwesomeIcon
+                            className="fa-icon mr-2"
+                            icon={["fas", "shopping-basket"]}
+                        />
+                        Show their services
+                    </Button>
                 </div>
             </Card>
         </div>

@@ -51,7 +51,7 @@ const Cart = () => {
                         // id="cart-table"
                         className={"shadow rounded mb-3" + border}
                     >
-                        <Table responsive="sm" striped variant={variant}>
+                        <Table responsive="sm" className="mb-0" striped variant={variant}>
                             <thead>
                                 <tr>
                                     <th

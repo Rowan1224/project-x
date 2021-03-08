@@ -19,12 +19,13 @@ const History = (props) => {
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const link = isLightTheme ? theme.light.link : theme.dark.link;
+    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
 
     // componentDidMount
     useEffect(() => {
         const API_URL = isServiceProvider
             ? "/getserviceorderhistory/"
-            : "/getcustomerorderhistory";
+            : "/getcustomerorderhistory/";
 
         const loadData = async () => {
             const bodyData = {
@@ -85,7 +86,7 @@ const History = (props) => {
 
     return (
         <>
-            <Infobar>Order History</Infobar>
+            <h4 className={"mb-5 text-center" + syntax}>Order History</h4>
 
             <SearchBar
                 handleChange={handleChange}

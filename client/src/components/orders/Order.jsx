@@ -35,6 +35,7 @@ const Order = (props) => {
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const link = isLightTheme ? theme.light.link : theme.dark.link;
+    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const success = isLightTheme ? theme.light.success : theme.dark.success;
     const mainColor = isLightTheme
         ? theme.light.mainColor
@@ -248,7 +249,7 @@ const Order = (props) => {
 
     return (
         <>
-            <Infobar>Your Orders</Infobar>
+            <h4 className={"mb-5 text-center" + syntax}>Your Orders</h4>
 
             <SearchBar
                 handleChange={handleSearchChange}
