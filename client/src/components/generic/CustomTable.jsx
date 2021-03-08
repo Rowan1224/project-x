@@ -78,7 +78,7 @@ const CustomTable = (props) => {
                                                       : "text-center align-middle"
                                               }
                                           >
-                                              {data[key]}
+                                              {data[key] ? data[key] : "-----"}
                                           </td>
                                       ))
                                     : Object.keys(data).map((key, i) => (

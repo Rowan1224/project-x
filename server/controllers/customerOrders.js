@@ -189,7 +189,7 @@ exports.cancelCustomerOrder = (req, res, nxt) => {
             }
             else
             {
-                res.status(200).json({ message: "Sorry.You can't cancel the order anymore." });
+                res.status(504).json({ message: "Sorry.You can't cancel the order anymore." });
             }
         }
 

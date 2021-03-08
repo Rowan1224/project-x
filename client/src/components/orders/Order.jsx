@@ -16,6 +16,7 @@ import SearchBar from "../generic/SearchBar";
 import CustomTable from "../generic/CustomTable";
 import EmployeeDropDown from "../employees/EmployeeDropDown";
 import CustomModalAlert from "../generic/CustomModalAlert";
+import DeleteModal from "../generic/DeleteModal";
 
 const Order = (props) => {
     const [value, setValue] = useState(0);
@@ -37,6 +38,9 @@ const Order = (props) => {
     const link = isLightTheme ? theme.light.link : theme.dark.link;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const success = isLightTheme ? theme.light.success : theme.dark.success;
+    const dangerTextColor = isLightTheme
+        ? theme.light.dangerTextColor
+        : theme.dark.dangerTextColor;
     const mainColor = isLightTheme
         ? theme.light.mainColor
         : theme.dark.mainColor;
@@ -141,7 +145,10 @@ const Order = (props) => {
                 setFlag(!flag);
                 setStatus(data.message);
                 setStatusVariant("success");
-            } else setStatus(data.message);
+            } else {
+                setStatusVariant("danger");
+                setStatus(data.message);
+            }
         };
         loadData();
     };
@@ -173,7 +180,10 @@ const Order = (props) => {
                 setFlag(!flag);
                 setStatus(data.message);
                 setStatusVariant("success");
-            } else setStatus(data.message);
+            } else {
+                setStatusVariant("danger");
+                setStatus(data.message);
+            }
         };
         loadData();
     };
@@ -182,6 +192,36 @@ const Order = (props) => {
         setSelectedEmployeeID({ ...selectedEmployeeID, [id]: e.id });
         setSelectedEmployeeName({ ...selectedEmployeeName, [id]: e.name });
     };
+
+    const handleCancel = async (order_id) => {
+        const API_URL = "/cancel/service/order/";
+
+        const bodyData = {
+            order_id: order_id,
+            userid: localStorage.getItem("userID"),
+        };
+
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(bodyData),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            setStatusVariant("success");
+            setStatus(data.message);
+        } else {
+            setStatusVariant("danger");
+            setStatus(data.message);
+        }
+    };
+
+    const handleSearchChange = (e) => setSearchData(e.target.value);
 
     // Tab related settings.....
     const TabPanel = (props) => {
@@ -217,8 +257,6 @@ const Order = (props) => {
         setValue(newValue);
     };
 
-    const handleSearchChange = (e) => setSearchData(e.target.value);
-
     const tableData = {
         ths: [
             { className: "", value: "Order ID" },
@@ -237,6 +275,7 @@ const Order = (props) => {
                 // value: index === 0 ? "Select Employee" : "Employee",
             },
             { className: "", value: "Action" },
+            { className: "", value: "Cancel" },
         ],
         tdsClassName: ["", "", "text-break", ""],
         allowedEntry: [
@@ -397,6 +436,34 @@ const Order = (props) => {
                                                 />
                                             )}
                                         </Button>
+                                    ),
+                                    className: "",
+                                },
+                                {
+                                    component: (order) => (
+                                        <DeleteModal
+                                            // deleteText="Cancel"
+                                            deleteTitle="Cancel Order"
+                                            updateFlag={() => setFlag(!flag)}
+                                            handleAction={() =>
+                                                handleCancel(order.order_id)
+                                            }
+                                            deleteIcon="ban"
+                                            modalBody={
+                                                <>
+                                                    Do you really want to cancel
+                                                    this order?{" "}
+                                                    <span
+                                                        className={
+                                                            dangerTextColor
+                                                        }
+                                                    >
+                                                        Caution: This action
+                                                        cannot be undone
+                                                    </span>
+                                                </>
+                                            }
+                                        />
                                     ),
                                     className: "",
                                 },
