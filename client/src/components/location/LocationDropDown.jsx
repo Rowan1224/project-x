@@ -37,14 +37,12 @@ const LocationDropDown = (props) => {
             <Dropdown.Menu className={"text-center w-100 shadow" + ui + border}>
                 {props.values.map((value) => (
                     <Dropdown.Item
-                        eventKey={
-                            props.subElement ? value[props.subElement] : value
-                        }
                         key={uuidv4()}
+                        eventKey={value}
                         onSelect={handleSelect}
                         className={"text-wrap" + syntax + dropdown_text}
                     >
-                        {props.subElement ? value[props.subElement] : value}
+                        {value}
                     </Dropdown.Item>
                 ))}
             </Dropdown.Menu>

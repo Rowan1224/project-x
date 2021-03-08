@@ -293,6 +293,7 @@ const Order = (props) => {
             <SearchBar
                 handleChange={handleSearchChange}
                 placeholder="Search orders...."
+                searchBy={<>Search by anything {emoji("🤪")}</>}
             />
 
             <AppBar position="static" className={"rounded" + ui}>
