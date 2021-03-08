@@ -29,7 +29,6 @@ router.patch("/updateProfile", profileController.updateProfile);
 router.get("/allProducts", productController.getUniversalProducts);
 router.post("/ownProducts", productController.getOwnProducts);
 router.post("/getProductDetails", productController.getProductDetails);
-router.post("/getOwnProductDetails", productController.getOwnProductDetails);
 router.post("/availableProduct", productController.addProduct);
 router.post("/addtoinventory", productController.addToInventory);
 router.post("/updateProduct", productController.updateProduct);
