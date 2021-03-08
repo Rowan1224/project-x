@@ -14,7 +14,7 @@ exports.getServiceOrder = (req, res, next) => {
     const search = req.body.search_data;
     sequelize
         .query(
-            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id WHERE service_id=? && delivered=false && Orders.employee_id IS NULL && (customer_name LIKE ? OR order_id LIKE ? OR time LIKE ?  OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR payment LIKE ? )ORDER BY order_time DESC",
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id WHERE service_id=? && delivered=false && Orders.employee_id IS NULL && (customer_name LIKE ? OR order_id LIKE ? OR ordered_time LIKE ?  OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR payment LIKE ? )ORDER BY order_time DESC",
             {
                 replacements: [
                     [service_id],
@@ -80,7 +80,7 @@ exports.getAssignedServiceOrder = (req, res, next) => {
     const search = req.body.search_data;
     sequelize
         .query(
-            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  INNER JOIN Employee ON Orders.employee_id=Employee.employee_id  WHERE Orders.service_id=? && delivered=false && Orders.employee_id IS NOT NULL && (customer_name LIKE ? OR order_id LIKE ? OR time LIKE ?  OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR employee_name LIKE ? OR phone_number LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC",
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  INNER JOIN Employee ON Orders.employee_id=Employee.employee_id  WHERE Orders.service_id=? && delivered=false && Orders.employee_id IS NOT NULL && (customer_name LIKE ? OR order_id LIKE ? OR ordered_time LIKE ?  OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR employee_name LIKE ? OR phone_number LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC",
             {
                 replacements: [
                     [service_id],
@@ -333,7 +333,7 @@ exports.getServiceOrderHistory = (req, res, nxt) => {
 
     sequelize
         .query(
-            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  INNER JOIN Employee ON Orders.employee_id=Employee.employee_id  WHERE Orders.service_id=? && delivered=1 &&(customer_name LIKE ? OR order_id LIKE ? OR time LIKE ?  OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR employee_name LIKE ? OR phone_number LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC",
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  INNER JOIN Employee ON Orders.employee_id=Employee.employee_id  WHERE Orders.service_id=? && delivered=1 &&(customer_name LIKE ? OR order_id LIKE ? OR ordered_time LIKE ?  OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR employee_name LIKE ? OR phone_number LIKE ? OR payment LIKE ? ) ORDER BY order_time DESC",
             {
                 replacements: [
                     [service_id],
@@ -450,7 +450,7 @@ exports.getServiceCancelledOrderHistory = (req, res, nxt) => {
 
     sequelize
         .query(
-            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE Orders.service_id=? && delivered=3 &&(customer_name LIKE ? OR order_id LIKE ? OR time LIKE ? OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR  payment LIKE ? OR reason LIKE ? ) ORDER BY order_time DESC",
+            "SELECT *  FROM  Orders INNER JOIN Customer_Credential ON Orders.customer_id=Customer_Credential.customer_id INNER JOIN Customer_Address ON Orders.customer_address_id=Customer_Address.customer_add_id INNER JOIN Area_Details ON Customer_Address.area_id= Area_Details.area_id  WHERE Orders.service_id=? && delivered=3 &&(customer_name LIKE ? OR order_id LIKE ? OR ordered_time LIKE ? OR customer_phone LIKE ? OR house_no LIKE ? OR road_no LIKE ? OR area_name LIKE ? OR district LIKE ? OR further_description LIKE ? OR  payment LIKE ? OR reason LIKE ? ) ORDER BY order_time DESC",
             {
                 replacements: [
                     [service_id],
