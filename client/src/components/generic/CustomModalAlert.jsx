@@ -1,14 +1,16 @@
 import { useHistory } from "react-router-dom";
 import { Alert, Modal, Spinner } from "react-bootstrap";
-import { ThemeContext } from "../../contexts/ThemeContext";
-import { SettingsContext } from "../../contexts/SettingsContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useContext, useEffect, useCallback } from "react";
 
+import { ThemeContext } from "../../contexts/ThemeContext";
+import { SettingsContext } from "../../contexts/SettingsContext";
+
 const CustomModalAlert = (props) => {
-    const timeoutTime = 1000;
+    const timeoutTime = 1500;
     const history = useHistory();
     const [show] = useState(true);
+
     const { setStatus, redirect, updateFlag } = props;
 
     const { isAnimated } = useContext(SettingsContext);
@@ -22,7 +24,7 @@ const CustomModalAlert = (props) => {
 
     const handleClose = useCallback(() => {
         setStatus(undefined);
-        // setShow(false); gives this error -> "Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function."
+        // setShow(false); gives this error -> "Can't perform a React state update on an unmounted component."
         redirect && history.push(redirect);
         updateFlag && updateFlag();
     }, [setStatus, history, redirect, updateFlag]);

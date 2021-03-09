@@ -31,6 +31,22 @@ import AvailableProductPage from "./pages/AvailableProductPage";
 library.add(far, fas, fab);
 
 const App = () => {
+    // Console Developer Info
+    console.log(
+        `        %cProjectX`,
+        `color: #2980b9; font-weight: bold; font-family: helvetica; font-size: 2rem`
+    );
+    console.log(`
+            Developed By: 
+
+        Shahriar Elahi Dhruvo
+        SWE, SUST
+        Mutasim Billah Toha
+        SWE, SUST
+        Jobayer Hossain Rowan
+        CSE, SUST
+    `);
+
     return (
         <Router>
             <SettingsContextProvider>

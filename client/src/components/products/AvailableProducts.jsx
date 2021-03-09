@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import emoji from "react-easy-emoji";
 
 import Title from "../generic/title";
 import AddProduct from "./AddProduct";
-import Infobar from "../generic/infobar";
 import SearchBar from "../generic/SearchBar";
 import CustomCard from "../generic/CustomCard";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const AvailableProducts = (props) => {
     const [flag, setFlag] = useState(true);
     const [status, setStatus] = useState(undefined);
     const [searchData, setSearchData] = useState("");
     const [availableProducts, setAvailableProducts] = useState([]);
+
+    // Themes
+    const { isLightTheme, theme } = useContext(ThemeContext);
+    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
 
     useEffect(() => {
         const API_URL = "/availableProduct/";
@@ -51,14 +55,17 @@ const AvailableProducts = (props) => {
 
     return (
         <>
+            <h4 className={"mb-5 text-center" + syntax}>
+                Add to your Inventory
+            </h4>
+
             <SearchBar
                 handleChange={handleChange}
                 placeholder="Search products...."
+                searchBy="Search products by product name or company name"
             />
 
-            <div className="mb-4">
-                <Infobar>Available Products</Infobar>
-            </div>
+            <h4 className={"mb-5 text-center" + syntax}>Available Products</h4>
 
             <CustomCard
                 status={status}

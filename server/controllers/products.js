@@ -23,20 +23,16 @@ exports.getUniversalProducts = (req, res, next) => {
 
 exports.getOwnProducts = (req, res, next) => {
     const service_id = req.body.service_id;
+    const search = req.body.search_data;
 
-    service_inventory
-        .findAll({
-            attributes: [
-                "inventory_id",
-                "service_id",
-                "product_id",
-                "delivery_limit",
-                "price",
-            ],
-            where: {
-                service_id: service_id,
-            },
-        })
+    sequelize
+    .query(
+        "SELECT * FROM Service_Inventory INNER JOIN Universal_Product_List ON Service_Inventory.product_id=Universal_Product_List.product_id WHERE service_id=? && (product_name LIKE ? OR company_name LIKE ? OR price LIKE ?)",
+        {
+            replacements: [[service_id],[`%${search}%`],[`%${search}%`],[`%${search}%`]],
+            type: sequelize.QueryTypes.SELECT,
+        }
+    )    
         .then((products) => {
             res.status(200).json({
                 products: products,
@@ -72,47 +68,47 @@ exports.getProductDetails = (req, res, next) => {
         });
 };
 
-exports.getOwnProductDetails = (req, res, next) => {
-    const service_id = req.body.service_id;
-    const product_id = req.body.product_id;
+// exports.getOwnProductDetails = (req, res, next) => {
+//     const service_id = req.body.service_id;
+//     const product_id = req.body.product_id;
 
-    universal_products
-        .findAll({
-            where: {
-                product_id: product_id,
-            },
-        })
-        .then((result) => {
-            service_inventory
-                .findAll({
-                    where: {
-                        product_id: product_id,
-                        service_id: service_id,
-                    },
-                })
-                .then((ret) => {
-                    res.status(200).json({
-                        product_name: result[0].product_name,
-                        qty: result[0].qty,
-                        unit: result[0].unit,
-                        company_name: result[0].company_name,
-                        vat: result[0].vat,
-                        price: ret[0].price,
-                        message: "Success",
-                    });
-                })
-                .catch((err) => {
-                    res.status(504).json({
-                        message: "Failed",
-                    });
-                });
-        })
-        .catch((err) => {
-            res.status(504).json({
-                message: "Failed",
-            });
-        });
-};
+//     universal_products
+//         .findAll({
+//             where: {
+//                 product_id: product_id,
+//             },
+//         })
+//         .then((result) => {
+//             service_inventory
+//                 .findAll({
+//                     where: {
+//                         product_id: product_id,
+//                         service_id: service_id,
+//                     },
+//                 })
+//                 .then((ret) => {
+//                     res.status(200).json({
+//                         product_name: result[0].product_name,
+//                         qty: result[0].qty,
+//                         unit: result[0].unit,
+//                         company_name: result[0].company_name,
+//                         vat: result[0].vat,
+//                         price: ret[0].price,
+//                         message: "Success",
+//                     });
+//                 })
+//                 .catch((err) => {
+//                     res.status(504).json({
+//                         message: "Failed",
+//                     });
+//                 });
+//         })
+//         .catch((err) => {
+//             res.status(504).json({
+//                 message: "Failed",
+//             });
+//         });
+// };
 
 exports.addProduct = (req, res, next) => {
     const service_id = req.body.service_id;

@@ -147,20 +147,16 @@ const Statistics = (props) => {
 
     return (
         <>
-            <div className={"card mb-4" + ui + syntax + border}>
-                <div className="card-body">
-                    <h4 className={"text-center m-0" + custom_text}>
-                        Statistics of last{" "}
-                        {moment
-                            .duration(
-                                moment(date.end_date).diff(
-                                    moment(date.start_date)
-                                )
-                            )
-                            .format("Y [year] M [month] w [week] d [days]")}
-                    </h4>
-                </div>
-            </div>
+            <h4 className={"mb-5 text-center" + syntax}>
+                Statistics of last{" "}
+                <span className={custom_text}>
+                    {moment
+                        .duration(
+                            moment(date.end_date).diff(moment(date.start_date))
+                        )
+                        .format("Y [year] M [month] w [week] d [days]")}
+                </span>
+            </h4>
 
             {status && <CustomAlert status={status} />}
 

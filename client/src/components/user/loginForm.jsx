@@ -183,9 +183,23 @@ const LoginForm = (props) => {
 
                     <div className="form-group">
                         <Button type="submit" variant={type} className="w-100">
-                            {showVerificationArea
-                                ? "Login"
-                                : "Send Verification Code"}
+                            {showVerificationArea ? (
+                                <>
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "sign-in-alt"]}
+                                    />
+                                    Login
+                                </>
+                            ) : (
+                                <>
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "code"]}
+                                    />
+                                    Send Verification Code
+                                </>
+                            )}
                         </Button>
                     </div>
                 </form>

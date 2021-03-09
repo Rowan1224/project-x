@@ -21,6 +21,7 @@ const EmployeeList = (props) => {
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
+    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const dangerTextColor = isLightTheme
         ? theme.light.dangerTextColor
         : theme.dark.dangerTextColor;
@@ -94,9 +95,12 @@ const EmployeeList = (props) => {
 
     return (
         <>
+            <h4 className={"mb-5 text-center" + syntax}>Employees Details</h4>
+
             <SearchBar
                 handleChange={handleChange}
                 placeholder="Search employees details...."
+                searchBy={<>Search by anything {emoji("😄")}</>}
             />
 
             <AddEmployee updateFlag={updateFlag} />

@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import Icon from "@material-ui/core/Icon";
-import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { CartContext } from "../../contexts/CartContext";
@@ -13,14 +12,12 @@ import DeleteModal from "../generic/DeleteModal";
 import CustomModalAlert from "../generic/CustomModalAlert";
 
 const Service = (props) => {
-    const params = useParams();
     const [show, setShow] = useState(false);
     const [count, setCount] = useState(1);
     const [isServiceProvider] = useState(
         localStorage.getItem("isServiceProvider") === "true"
     );
     const [status, setStatus] = useState(undefined);
-    const [productDetails, setProductDetails] = useState({});
     const [statusVariant, setStatusVariant] = useState("danger");
 
     const { items, addItem, postCountUpdate } = useContext(CartContext);
@@ -58,31 +55,6 @@ const Service = (props) => {
     }, [props.serviceInfo.product_id]);
 
     useEffect(() => {
-        const API_URL = "/getOwnProductDetails/";
-
-        const loadData = async () => {
-            const bodyData = {
-                service_id: params.id,
-                product_id: props.serviceInfo.product_id,
-            };
-
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(bodyData),
-            });
-
-            const data = await response.json();
-
-            setProductDetails(data);
-        };
-        loadData();
-    }, [props.serviceInfo.product_id, params.id]);
-
-    useEffect(() => {
         if (show) postCountUpdate(props.serviceInfo.product_id, count);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,7 +62,7 @@ const Service = (props) => {
 
     const price = Math.floor(
         props.serviceInfo.price +
-            (props.serviceInfo.price * productDetails.vat) / 100
+            (props.serviceInfo.price * props.serviceInfo.vat) / 100
     );
 
     const handleShow = () => {
@@ -110,9 +82,9 @@ const Service = (props) => {
         if (!results) {
             const product = {
                 id: props.serviceInfo.product_id,
-                productName: productDetails.product_name,
-                qty: productDetails.qty,
-                unit: productDetails.unit,
+                productName: props.serviceInfo.product_name,
+                qty: props.serviceInfo.qty,
+                unit: props.serviceInfo.unit,
                 count,
                 price,
             };
@@ -174,13 +146,14 @@ const Service = (props) => {
                         alt="card image"
                     />
                 </div>
+
                 <Card.Body className={syntax}>
-                    <Card.Title>{productDetails.product_name}</Card.Title>
+                    <Card.Title>{props.serviceInfo.product_name}</Card.Title>
                     <h5 className={currency_text}>
                         <span className="font-weight-bold">৳ </span>
 
                         {isServiceProvider
-                            ? productDetails.price
+                            ? props.serviceInfo.price
                             : count * price}
                     </h5>
 
@@ -191,12 +164,13 @@ const Service = (props) => {
                     )}
 
                     <div>
-                        <Title>Vat: </Title> {productDetails.vat}%
+                        <Title>Vat: </Title> {props.serviceInfo.vat}%
                         <br />
-                        <Title>Quantity: </Title> {count * productDetails.qty}{" "}
-                        {productDetails.unit}
+                        <Title>Quantity: </Title>{" "}
+                        {count * props.serviceInfo.qty} {props.serviceInfo.unit}
                         <br />
-                        <Title>Company: </Title> {productDetails.company_name}
+                        <Title>Company: </Title>{" "}
+                        {props.serviceInfo.company_name}
                         {!isServiceProvider && (
                             <>
                                 <br />
@@ -245,7 +219,7 @@ const Service = (props) => {
                     {isServiceProvider ? (
                         <div className="d-flex justify-content-around mt-3">
                             <UpdateProductDetails
-                                product={productDetails}
+                                product={props.serviceInfo}
                                 updateFlag={props.updateFlag}
                                 id={props.serviceInfo.product_id}
                                 service_id={localStorage.getItem("userID")}
@@ -263,7 +237,7 @@ const Service = (props) => {
                                     <>
                                         Do you really want to delete Product:{" "}
                                         <span className={custom_text}>
-                                            {productDetails.product_name}
+                                            {props.serviceInfo.product_name}
                                         </span>{" "}
                                         from your inventory?
                                         <br />

@@ -332,24 +332,24 @@ const Charts = (props) => {
                         "rgba(247, 70, 74, 1)",
                         "rgba(70, 191, 189, 1)",
                         "rgba(253, 180, 92, 1)",
-                        "rgba(148, 159, 177, 1)",
-                        "rgba(77, 83, 96, 1)",
+                        "rgba(54, 162, 235, 1)",
+                        "rgba(255, 99, 132, 1)",
                         "rgba(172, 100, 173, 1)",
                     ],
                     backgroundColor: [
                         "rgba(247, 70, 74, 0.4)",
                         "rgba(70, 191, 189, 0.4)",
                         "rgba(253, 180, 92, 0.4)",
-                        "rgba(148, 159, 177, 0.4)",
-                        "rgba(77, 83, 96, 0.4)",
+                        "rgba(54, 162, 235, 0.4)",
+                        "rgba(255, 99, 132, 0.4)",
                         "rgba(172, 100, 173, 0.4)",
                     ],
                     hoverBackgroundColor: [
                         "#FF5A5E",
                         "#5AD3D1",
                         "#FFC870",
-                        "#A8B3C5",
-                        "#616774",
+                        "rgba(54, 162, 235, 0.8)",
+                        "rgba(255, 99, 132, 0.8)",
                         "#DA92DB",
                     ],
                     borderWidth: 3,
@@ -369,7 +369,7 @@ const Charts = (props) => {
 
                 <Col lg={6} className="mb-4">
                     <div className={"card h-100" + ui + syntax + border}>
-                        {Object.keys(lineChartData).length > 0 ? (
+                        {lineChartData[0] && lineChartData[0].length > 0 ? (
                             <div className="card-body">
                                 {lineChartData[0] && (
                                     <div className="text-center mb-3">
@@ -387,7 +387,7 @@ const Charts = (props) => {
                                 />
                             </div>
                         ) : (
-                            <div className="card-body mx-auto d-flex align-items-center">
+                            <div className="card-body mx-auto mt-2 d-flex align-items-center">
                                 <h5>
                                     Not enough data to show a chart!{" "}
                                     {emoji("🙁")}
@@ -399,7 +399,7 @@ const Charts = (props) => {
 
                 <Col lg={6} className="mb-4">
                     <div className={"card h-100" + ui + syntax + border}>
-                        {Object.keys(polarChartData).length > 0 ? (
+                        {polarChartData[0] && polarChartData[0].length > 0 ? (
                             <div className="card-body">
                                 {polarChartData[0] && (
                                     <div className="text-center mb-3">
@@ -421,7 +421,7 @@ const Charts = (props) => {
                                 />
                             </div>
                         ) : (
-                            <div className="card-body mx-auto d-flex align-items-center">
+                            <div className="card-body mx-auto mt-2 d-flex align-items-center">
                                 <h5>
                                     Not enough data to show a chart!{" "}
                                     {emoji("🙁")}
@@ -433,7 +433,7 @@ const Charts = (props) => {
 
                 <Col lg={6} className="mb-4">
                     <div className={"card h-100" + ui + syntax + border}>
-                        {Object.keys(barChartData).length > 0 ? (
+                        {barChartData[0] && barChartData[0].length > 0 ? (
                             <div className="card-body">
                                 {barChartData[0] && (
                                     <div className="text-center mb-3">
@@ -451,7 +451,7 @@ const Charts = (props) => {
                                 />
                             </div>
                         ) : (
-                            <div className="card-body mx-auto d-flex align-items-center">
+                            <div className="card-body mx-auto mt-2 d-flex align-items-center">
                                 <h5>
                                     Not enough data to show a chart!{" "}
                                     {emoji("🙁")}

@@ -29,7 +29,6 @@ router.patch("/updateProfile", profileController.updateProfile);
 router.get("/allProducts", productController.getUniversalProducts);
 router.post("/ownProducts", productController.getOwnProducts);
 router.post("/getProductDetails", productController.getProductDetails);
-router.post("/getOwnProductDetails", productController.getOwnProductDetails);
 router.post("/availableProduct", productController.addProduct);
 router.post("/addtoinventory", productController.addToInventory);
 router.post("/updateProduct", productController.updateProduct);
@@ -79,11 +78,17 @@ router.post(
     "/createcustomerorder",
     customerOrderController.createCustomerOrderDetails
 );
+router.post("/customer/orderdetails",customerOrderController.getCustomerOrderDetails);
 router.post(
-    "/getcustomerorderhistory",
+    "/orders/history/delivered",
     customerOrderController.getCustomerOrderHistory
 );
 router.post("/order/success",customerOrderController.getConfirmedOrder);
+router.post("/order/cancel",customerOrderController.cancelCustomerOrder);
+router.post("/orders/history/cancelled",customerOrderController.getCustomerCancelledOrderHistory);
+router.post("/orders/history/active",customerOrderController.getCustomerActiveOrderHistory);
+
+
 const serviceStatsController = require("../controllers/servicestats");
 router.post("/getservicestats", serviceStatsController.getServiceStats);
 router.post(
@@ -96,7 +101,7 @@ router.post(
     serviceStatsController.getAssignedServiceOrder
 );
 router.post(
-    "/getserviceordersdetails",
+    "/service/orderdetails",
     serviceStatsController.getServiceOrderDetails
 );
 router.post(
@@ -104,6 +109,8 @@ router.post(
     serviceStatsController.completeServiceOrder
 );
 router.post("/assignEmployee", serviceStatsController.assignEmployee);
+router.post("/cancel/service/order",serviceStatsController.cancelServiceProviderOrder);
+router.post("/getservicecancelledorderhistory",serviceStatsController.getServiceCancelledOrderHistory);
 
 const statChart = require("../controllers/statchart");
 router.post("/piechart", statChart.pieChart);

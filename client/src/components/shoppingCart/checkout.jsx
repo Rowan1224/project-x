@@ -409,7 +409,9 @@ const Checkout = (props) => {
                                     id="area_id"
                                     name="area_id"
                                     placeholder="1209"
-                                    defaultValue={newAddress.area_id}
+                                    defaultValue={sessionStorage.getItem(
+                                        "areaID"
+                                    )}
                                     className={
                                         "form-control text-center" + border
                                     }

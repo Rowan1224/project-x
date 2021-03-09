@@ -71,6 +71,7 @@ const AddEmployee = (props) => {
                 ) : (
                     <CustomAlert status={status} variant={variant} />
                 ))}
+
             <Row>
                 <Col className="mb-4">
                     <div className={"card" + ui + syntax + border}>
@@ -87,7 +88,7 @@ const AddEmployee = (props) => {
                                                 Name:
                                             </Col>
                                             <Col
-                                                md={7}
+                                                md={8}
                                                 sm={12}
                                                 className="my-auto"
                                             >

@@ -3,14 +3,6 @@ import React, { createContext, useState, useEffect } from "react";
 export const LocationContext = createContext();
 
 const LocationContextProvider = (props) => {
-    // Dummy datas
-    // const dummyLocation = {
-    //     Dhaka: ['Gulshan', 'Banani', 'Dhanmondi', 'Mirpur'],
-    //     Sylhet: ['Amberkhana', 'Madina Market', 'Shahjalal University of Science and Technology', 'Bagbari'],
-    //     Chittagong: ['College Road', 'Potenga', 'Coxs Bazar'],
-    //     Rajshahi: ['Rajshahi University', 'RUET', 'Noyabajar'],
-    // };
-
     // locationsfs ==> locations from server
     const [locationsfs, setLocationsfs] = useState({});
     const [areaIDs, setAreaIDs] = useState({});
@@ -65,6 +57,7 @@ const LocationContextProvider = (props) => {
 
     const changeLocation = (district, area) => {
         const id = areaIDs[area];
+        sessionStorage.setItem("areaID", id);
         setLocation({ ...location, id, district, area });
     };
 

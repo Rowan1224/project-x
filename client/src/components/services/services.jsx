@@ -7,22 +7,22 @@ import { useParams } from "react-router-dom";
 
 import Infobar from "../generic/infobar";
 import { ThemeContext } from "../../contexts/ThemeContext";
-// import SearchBar from "../generic/SearchBar";
+import SearchBar from "../generic/SearchBar";
 
 const Services = () => {
+    const params = useParams();
     const [flag, setFlag] = useState(true);
     const [sName, setSName] = useState("");
     const [services, setServices] = useState([]);
-    // const [searchData, setSearchData] = useState("");
-    const params = useParams();
+    const [searchData, setSearchData] = useState("");
+    const [isServiceProvider] = useState(
+        localStorage.getItem("isServiceProvider") === "true"
+    );
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     // const border = isLightTheme ? theme.light.border : theme.dark.border;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const custom_text = isLightTheme
-        ? theme.light.custom_text
-        : theme.dark.custom_text;
 
     // componentDidMount
     useEffect(() => {
@@ -31,7 +31,7 @@ const Services = () => {
         const loadData = async () => {
             const bodyData = {
                 service_id: params.id,
-                // search_data: searchData,
+                search_data: searchData,
             };
 
             const response = await fetch(API_URL, {
@@ -48,39 +48,37 @@ const Services = () => {
             setServices(data.products);
         };
         loadData();
-    }, [params, flag]);
+    }, [params, flag, searchData]);
 
     useEffect(() => {
-        if (services.length > 0) {
-            const API_URL = "/getProfile/";
+        // if (services.length > 0) {
+        const API_URL = "/getProfile/";
 
-            const loadData = async () => {
-                const servideID = {
-                    userid: services[0].service_id,
-                };
-
-                const response = await fetch(API_URL, {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(servideID),
-                });
-
-                const data = await response.json();
-
-                setSName(data.service_name);
+        const loadData = async () => {
+            const servideID = {
+                userid: localStorage.getItem("userID"),
             };
-            loadData();
-        }
+
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(servideID),
+            });
+
+            const data = await response.json();
+
+            setSName(data.company_name);
+        };
+        loadData();
+        // }
     }, [services]);
 
     const updateFlag = () => setFlag(!flag);
 
-    // const handleChange = (e) => {
-    //     setSearchData(e.target.value);
-    // };
+    const handleChange = (e) => setSearchData(e.target.value);
 
     return (
         <div>
@@ -99,16 +97,20 @@ const Services = () => {
                     />
                 </div> */}
 
-                {/* <SearchBar
+                <h4 className={"mb-5" + syntax}>
+                    {isServiceProvider ? "Your Inventory" : "Our Services"}
+                </h4>
+
+                <SearchBar
                     handleChange={handleChange}
                     placeholder="Search products...."
-                /> */}
+                    searchBy="Search products by product name, company name or price"
+                />
 
                 <Infobar>
                     {sName ? sName + " " : "Company name"}
                     {/* {emoji("🤪")} */}
                 </Infobar>
-                <h4 className={"my-4" + custom_text}>Our Services ...</h4>
             </div>
 
             {services && services.length > 0 ? (
@@ -123,10 +125,7 @@ const Services = () => {
                     ))}
                 </div>
             ) : (
-                <Infobar>
-                    Sorry, we are not providing any services in this area at
-                    this moment {emoji("☹")}
-                </Infobar>
+                <Infobar>No services {emoji("☹")}</Infobar>
             )}
         </div>
     );

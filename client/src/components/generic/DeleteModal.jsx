@@ -12,7 +12,7 @@ const DeleteModal = (props) => {
 
     return (
         <CustomModal
-            modalTitle="Delete"
+            modalTitle={props.deleteTitle ? props.deleteTitle : "Delete"}
             actionVariant="danger"
             handleAction={handleAction}
             modalBody={props.modalBody}
@@ -29,7 +29,10 @@ const DeleteModal = (props) => {
         >
             <FontAwesomeIcon
                 className={props.deleteText ? "fa-icon mr-1" : "fa-icon"}
-                icon={["fas", "trash-alt"]}
+                icon={[
+                    "fas",
+                    props.deleteIcon ? props.deleteIcon : "trash-alt",
+                ]}
             />
             {props.deleteText && props.deleteText}
         </CustomModal>

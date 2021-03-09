@@ -68,6 +68,7 @@ const AddProduct = (props) => {
                     updateFlag={props.updateFlag}
                 />
             )}
+            
             <form ref={form} onSubmit={(e) => e.preventDefault()}>
                 <input
                     type="hidden"

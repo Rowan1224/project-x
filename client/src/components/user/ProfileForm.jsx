@@ -145,9 +145,9 @@ const ProfileForm = () => {
                         <Col md={8} sm={12}>
                             <div className={"input-group rounded" + border}>
                                 <input
+                                    readOnly
                                     type="number"
                                     name="userphone"
-                                    readOnly={!canEdit}
                                     defaultValue={user.userphone}
                                     className="form-control text-center rounded-0"
                                 />
