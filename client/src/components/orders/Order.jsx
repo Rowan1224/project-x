@@ -293,7 +293,7 @@ const Order = (props) => {
             <SearchBar
                 handleChange={handleSearchChange}
                 placeholder="Search orders...."
-                searchBy={<>Search by anything exept time and cancelled by</>}
+                searchBy={<>Search by anything except time and cancelled by</>}
             />
 
             <AppBar position="static" className={"rounded" + ui}>
