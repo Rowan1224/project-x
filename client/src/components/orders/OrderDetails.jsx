@@ -1,12 +1,18 @@
 import { useParams } from "react-router-dom";
 import React, { useState, useContext, useEffect } from "react";
 
-import CustomTable from "../generic/CustomTable";
 import { ThemeContext } from "../../contexts/ThemeContext";
+
+import CustomTable from "../generic/CustomTable";
+import CustomAlert from "../generic/CustomAlert";
 
 const OrderDetails = (props) => {
     const params = useParams();
+    const [status, setStatus] = useState(undefined);
     const [orderDetailsState, setOrderDetailsState] = useState([]);
+    const [isServiceProvider] = useState(
+        localStorage.getItem("isServiceProvider") === "true"
+    );
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -14,11 +20,14 @@ const OrderDetails = (props) => {
 
     // componentDidMount
     useEffect(() => {
-        const API_URL = "/getserviceordersdetails/";
+        const API_URL = isServiceProvider
+            ? "/service/orderDetails/"
+            : "/customer/orderDetails/";
 
         const loadData = async () => {
             const orderID = {
                 order_id: params.order_id,
+                userid: localStorage.getItem("userID"),
             };
 
             const response = await fetch(API_URL, {
@@ -31,10 +40,15 @@ const OrderDetails = (props) => {
             });
 
             const data = await response.json();
-            setOrderDetailsState(data.details);
+
+            if (!response.ok) setStatus(data.message);
+            else {
+                setStatus(undefined);
+                setOrderDetailsState(data.details);
+            }
         };
         loadData();
-    }, [params.order_id]);
+    }, [params.order_id, isServiceProvider]);
 
     const tableData = {
         ths: [
@@ -48,23 +62,33 @@ const OrderDetails = (props) => {
 
     return (
         <>
-            <h4 className={"mb-5 text-center" + syntax}>Order Details</h4>
-            <CustomTable
-                ths={tableData.ths}
-                datas={orderDetailsState}
-                allowedEntry={tableData.allowedEntry}
-                ActionComponents={[
-                    {
-                        component: (order) => (
-                            <>
-                                <span className="font-weight-bold">৳ </span>
-                                {order.product_price_per_unit}
-                            </>
-                        ),
-                        className: "",
-                    },
-                ]}
-            />
+            {status ? (
+                <CustomAlert status={status} />
+            ) : (
+                <>
+                    <h4 className={"mb-5 text-center" + syntax}>
+                        Order Details
+                    </h4>
+                    <CustomTable
+                        ths={tableData.ths}
+                        datas={orderDetailsState}
+                        allowedEntry={tableData.allowedEntry}
+                        ActionComponents={[
+                            {
+                                component: (order) => (
+                                    <>
+                                        <span className="font-weight-bold">
+                                            ৳{" "}
+                                        </span>
+                                        {order.product_price_per_unit}
+                                    </>
+                                ),
+                                className: "",
+                            },
+                        ]}
+                    />
+                </>
+            )}
         </>
     );
 };

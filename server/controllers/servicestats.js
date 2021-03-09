@@ -147,19 +147,22 @@ exports.getAssignedServiceOrder = (req, res, next) => {
 
 exports.getServiceOrderDetails = (req, res, next) => {
     const order_id = req.body.order_id;
-    const service_id =req.body.userid;
+    const service_id = req.body.userid;
 
     sequelize
         .query(
             "SELECT Order_details.qty,Order_details.price,Universal_Product_List.product_name,Universal_Product_List.qty AS size,Universal_Product_List.unit FROM Order_details INNER JOIN Universal_Product_List ON Order_details.product_id= Universal_Product_List.product_id INNER JOIN Orders ON Orders.order_id = Order_details.order_id WHERE Order_details.order_id=? && service_id =?",
-            { replacements: [[order_id],[service_id]], type: sequelize.QueryTypes.SELECT }
+            {
+                replacements: [[order_id], [service_id]],
+                type: sequelize.QueryTypes.SELECT,
+            }
         )
         .then((result) => {
             var output = [];
             if (result.length === 0) {
-                res.status(200).json({
+                res.status(504).json({
                     // details: details,
-                    message: "No Orders.",
+                    message: "Access denied or order details not found",
                 });
             } else {
                 result.forEach((element) => {
@@ -444,7 +447,6 @@ exports.cancelServiceProviderOrder = (req, res, nxt) => {
         });
 };
 
-
 exports.getServiceCancelledOrderHistory = (req, res, nxt) => {
     const service_id = req.body.userid;
     const search = req.body.search_data;
@@ -481,12 +483,9 @@ exports.getServiceCancelledOrderHistory = (req, res, nxt) => {
             } else {
                 result.forEach((element) => {
                     let reason;
-                    if(element.employee_id===0)
-                    {
-                        reason ="Cancelled by Customer."
-                    }
-                    else
-                        reason = "Cancelled by Service Provider."
+                    if (element.employee_id === 0) {
+                        reason = "Cancelled by Customer.";
+                    } else reason = "Cancelled by Service Provider.";
                     var address =
                         element.house_no +
                         ", " +
@@ -503,7 +502,7 @@ exports.getServiceCancelledOrderHistory = (req, res, nxt) => {
                         further_description: element.further_description,
                         payment: element.payment,
                         time: element.order_time,
-                        reason : reason
+                        reason: reason,
                     };
                     output.push(productorder);
                 });

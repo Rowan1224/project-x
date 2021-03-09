@@ -343,23 +343,24 @@ exports.getCustomerActiveOrderHistory = (req, res, nxt) => {
         });
 };
 
-
-
 exports.getCustomerOrderDetails = (req, res, next) => {
     const order_id = req.body.order_id;
-    const customer_id =req.body.userid;
+    const customer_id = req.body.userid;
 
     sequelize
         .query(
             "SELECT Order_details.qty,Order_details.price,Universal_Product_List.product_name,Universal_Product_List.qty AS size,Universal_Product_List.unit FROM Order_details INNER JOIN Universal_Product_List ON Order_details.product_id= Universal_Product_List.product_id INNER JOIN Orders ON Orders.order_id = Order_details.order_id WHERE Order_details.order_id=? && customer_id =?",
-            { replacements: [[order_id],[customer_id]], type: sequelize.QueryTypes.SELECT }
+            {
+                replacements: [[order_id], [customer_id]],
+                type: sequelize.QueryTypes.SELECT,
+            }
         )
         .then((result) => {
             var output = [];
             if (result.length === 0) {
-                res.status(200).json({
+                res.status(504).json({
                     // details: details,
-                    message: "No Orders.",
+                    message: "Access denied or order details not found",
                 });
             } else {
                 result.forEach((element) => {
