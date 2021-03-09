@@ -147,11 +147,12 @@ exports.getAssignedServiceOrder = (req, res, next) => {
 
 exports.getServiceOrderDetails = (req, res, next) => {
     const order_id = req.body.order_id;
+    const service_id =req.body.userid;
 
     sequelize
         .query(
-            "SELECT Order_details.qty,Order_details.price,Universal_Product_List.product_name,Universal_Product_List.qty AS size,Universal_Product_List.unit FROM Order_details INNER JOIN Universal_Product_List ON Order_details.product_id= Universal_Product_List.product_id WHERE order_id=?",
-            { replacements: [order_id], type: sequelize.QueryTypes.SELECT }
+            "SELECT Order_details.qty,Order_details.price,Universal_Product_List.product_name,Universal_Product_List.qty AS size,Universal_Product_List.unit FROM Order_details INNER JOIN Universal_Product_List ON Order_details.product_id= Universal_Product_List.product_id INNER JOIN Orders ON Orders.order_id = Order_details.order_id WHERE Order_details.order_id=? && service_id =?",
+            { replacements: [[order_id],[service_id]], type: sequelize.QueryTypes.SELECT }
         )
         .then((result) => {
             var output = [];

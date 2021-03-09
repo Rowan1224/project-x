@@ -78,6 +78,7 @@ router.post(
     "/createcustomerorder",
     customerOrderController.createCustomerOrderDetails
 );
+router.post("/customer/orderdetails",customerOrderController.getCustomerOrderDetails);
 router.post(
     "/orders/history/delivered",
     customerOrderController.getCustomerOrderHistory
@@ -100,7 +101,7 @@ router.post(
     serviceStatsController.getAssignedServiceOrder
 );
 router.post(
-    "/getserviceordersdetails",
+    "/service/orderdetails",
     serviceStatsController.getServiceOrderDetails
 );
 router.post(

@@ -342,3 +342,58 @@ exports.getCustomerActiveOrderHistory = (req, res, nxt) => {
             });
         });
 };
+
+
+
+exports.getCustomerOrderDetails = (req, res, next) => {
+    const order_id = req.body.order_id;
+    const customer_id =req.body.userid;
+
+    sequelize
+        .query(
+            "SELECT Order_details.qty,Order_details.price,Universal_Product_List.product_name,Universal_Product_List.qty AS size,Universal_Product_List.unit FROM Order_details INNER JOIN Universal_Product_List ON Order_details.product_id= Universal_Product_List.product_id INNER JOIN Orders ON Orders.order_id = Order_details.order_id WHERE Order_details.order_id=? && customer_id =?",
+            { replacements: [[order_id],[customer_id]], type: sequelize.QueryTypes.SELECT }
+        )
+        .then((result) => {
+            var output = [];
+            if (result.length === 0) {
+                res.status(200).json({
+                    // details: details,
+                    message: "No Orders.",
+                });
+            } else {
+                result.forEach((element) => {
+                    var producdetails = element.size + " " + element.unit;
+                    var prod = "";
+                    for (let i = 0; i < element.qty.length; i++) {
+                        if (element.qty[i] === " ") break;
+                        prod += element.qty[i];
+                    }
+                    // console.log(prod);
+                    //  prod = parseInt(prod)
+                    var product_quantity =
+                        parseInt(prod) / parseInt(element.size);
+                    //console.log(product_quantity);
+
+                    // var address = element.house_no+','+element.road_no+','+element.area_name+','+element.district;
+                    var productorder = {
+                        product_name: element.product_name,
+                        quantity: product_quantity,
+                        product_price_per_unit: element.price,
+                        product_size: producdetails,
+                    };
+                    output.push(productorder);
+                });
+
+                res.status(200).json({
+                    details: output,
+                    message: "Successfully fetched the order details.",
+                });
+            }
+        })
+        .catch((err) => {
+            res.status(504).json({
+                message: "Failed to fetch the order details.",
+            });
+        });
+};
