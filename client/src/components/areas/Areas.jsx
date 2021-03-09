@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
+import emoji from "react-easy-emoji";
+
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 import ProvidedAreas from "./ServiceAreas";
 import SearchBar from "../generic/SearchBar";
 import AvailableAreas from "./AvailableAreas";
-import { ThemeContext } from "../../contexts/ThemeContext";
 
 const Areas = (props) => {
     const [searchData, setSearchData] = useState("");
@@ -23,6 +25,7 @@ const Areas = (props) => {
             <SearchBar
                 handleChange={handleChange}
                 placeholder="Search areas...."
+                searchBy={<>Search areas by anything {emoji("😄")}</>}
             />
 
             <h4 className={"mb-5 text-center" + syntax}>Your Service Areas</h4>

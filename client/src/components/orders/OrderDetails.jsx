@@ -1,11 +1,16 @@
 import { useParams } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import CustomTable from "../generic/CustomTable";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const OrderDetails = (props) => {
     const params = useParams();
     const [orderDetailsState, setOrderDetailsState] = useState([]);
+
+    // Themes
+    const { isLightTheme, theme } = useContext(ThemeContext);
+    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
 
     // componentDidMount
     useEffect(() => {
@@ -35,23 +40,32 @@ const OrderDetails = (props) => {
         ths: [
             { className: "", value: "Product Name" },
             { className: "", value: "Quantity" },
-            { className: "", value: "Price (per unit)" },
             { className: "", value: "Product Size" },
+            { className: "", value: "Price (per unit)" },
         ],
-        allowedEntry: [
-            "product_name",
-            "quantity",
-            "product_price_per_unit",
-            "product_size",
-        ],
+        allowedEntry: ["product_name", "quantity", "product_size"],
     };
 
     return (
-        <CustomTable
-            ths={tableData.ths}
-            datas={orderDetailsState}
-            allowedEntry={tableData.allowedEntry}
-        />
+        <>
+            <h4 className={"mb-5 text-center" + syntax}>Order Details</h4>
+            <CustomTable
+                ths={tableData.ths}
+                datas={orderDetailsState}
+                allowedEntry={tableData.allowedEntry}
+                ActionComponents={[
+                    {
+                        component: (order) => (
+                            <>
+                                <span className="font-weight-bold">৳ </span>
+                                {order.product_price_per_unit}
+                            </>
+                        ),
+                        className: "",
+                    },
+                ]}
+            />
+        </>
     );
 };
 

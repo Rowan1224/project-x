@@ -369,7 +369,7 @@ const Charts = (props) => {
 
                 <Col lg={6} className="mb-4">
                     <div className={"card h-100" + ui + syntax + border}>
-                        {Object.keys(lineChartData).length > 0 ? (
+                        {lineChartData[0] && lineChartData[0].length > 0 ? (
                             <div className="card-body">
                                 {lineChartData[0] && (
                                     <div className="text-center mb-3">
@@ -387,7 +387,7 @@ const Charts = (props) => {
                                 />
                             </div>
                         ) : (
-                            <div className="card-body mx-auto d-flex align-items-center">
+                            <div className="card-body mx-auto mt-2 d-flex align-items-center">
                                 <h5>
                                     Not enough data to show a chart!{" "}
                                     {emoji("🙁")}
@@ -399,7 +399,7 @@ const Charts = (props) => {
 
                 <Col lg={6} className="mb-4">
                     <div className={"card h-100" + ui + syntax + border}>
-                        {Object.keys(polarChartData).length > 0 ? (
+                        {polarChartData[0] && polarChartData[0].length > 0 ? (
                             <div className="card-body">
                                 {polarChartData[0] && (
                                     <div className="text-center mb-3">
@@ -421,7 +421,7 @@ const Charts = (props) => {
                                 />
                             </div>
                         ) : (
-                            <div className="card-body mx-auto d-flex align-items-center">
+                            <div className="card-body mx-auto mt-2 d-flex align-items-center">
                                 <h5>
                                     Not enough data to show a chart!{" "}
                                     {emoji("🙁")}
@@ -433,7 +433,7 @@ const Charts = (props) => {
 
                 <Col lg={6} className="mb-4">
                     <div className={"card h-100" + ui + syntax + border}>
-                        {Object.keys(barChartData).length > 0 ? (
+                        {barChartData[0] && barChartData[0].length > 0 ? (
                             <div className="card-body">
                                 {barChartData[0] && (
                                     <div className="text-center mb-3">
@@ -451,7 +451,7 @@ const Charts = (props) => {
                                 />
                             </div>
                         ) : (
-                            <div className="card-body mx-auto d-flex align-items-center">
+                            <div className="card-body mx-auto mt-2 d-flex align-items-center">
                                 <h5>
                                     Not enough data to show a chart!{" "}
                                     {emoji("🙁")}

@@ -267,7 +267,7 @@ const History = (props) => {
             <SearchBar
                 handleChange={handleChange}
                 placeholder="Search histories...."
-                searchBy={<>Search by anything {emoji("🤪")}</>}
+                searchBy={<>Search by anything exept time and cancelled by</>}
             />
 
             <AppBar position="static" className={"rounded" + ui}>

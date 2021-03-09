@@ -100,6 +100,7 @@ const EmployeeList = (props) => {
             <SearchBar
                 handleChange={handleChange}
                 placeholder="Search employees details...."
+                searchBy={<>Search by anything {emoji("😄")}</>}
             />
 
             <AddEmployee updateFlag={updateFlag} />

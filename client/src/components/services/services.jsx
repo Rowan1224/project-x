@@ -51,29 +51,29 @@ const Services = () => {
     }, [params, flag, searchData]);
 
     useEffect(() => {
-        if (services.length > 0) {
-            const API_URL = "/getProfile/";
+        // if (services.length > 0) {
+        const API_URL = "/getProfile/";
 
-            const loadData = async () => {
-                const servideID = {
-                    userid: services[0].service_id,
-                };
-
-                const response = await fetch(API_URL, {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(servideID),
-                });
-
-                const data = await response.json();
-
-                setSName(data.username);
+        const loadData = async () => {
+            const servideID = {
+                userid: localStorage.getItem("userID"),
             };
-            loadData();
-        }
+
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(servideID),
+            });
+
+            const data = await response.json();
+
+            setSName(data.company_name);
+        };
+        loadData();
+        // }
     }, [services]);
 
     const updateFlag = () => setFlag(!flag);

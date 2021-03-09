@@ -32,12 +32,12 @@ const Footer = () => {
                         <h5>About</h5>
                         <hr style={bottomBorder} className="mb-3 mt-n1" />
 
-                        <p className="text-justify">
+                        <p className={"text-justify" + link}>
                             Project X is founded with a vision to provide every
                             customer with a choice; The choice of buying
                             organic, authentic and cost effective products with
                             minimum friction. Project X is founded in 2020 by
-                            students at{" "}
+                            a few students at{" "}
                             <a
                                 target="_blank"
                                 rel="noreferrer"
@@ -99,7 +99,7 @@ const Footer = () => {
                             <p>
                                 <FontAwesomeIcon
                                     className="mr-2"
-                                    icon={["fas", "fax"]}
+                                    icon={["fas", "phone"]}
                                 />
                                 01534771222
                             </p>

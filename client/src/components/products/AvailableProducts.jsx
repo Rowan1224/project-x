@@ -56,12 +56,13 @@ const AvailableProducts = (props) => {
     return (
         <>
             <h4 className={"mb-5 text-center" + syntax}>
-                Add to your inventory
+                Add to your Inventory
             </h4>
 
             <SearchBar
                 handleChange={handleChange}
                 placeholder="Search products...."
+                searchBy="Search products by product name or company name"
             />
 
             <h4 className={"mb-5 text-center" + syntax}>Available Products</h4>
