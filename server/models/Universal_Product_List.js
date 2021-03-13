@@ -27,6 +27,14 @@ module.exports = function(sequelize, DataTypes) {
     vat: {
       type: DataTypes.FLOAT(),
       allowNull: true
+    },
+    categories: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    base_price: {
+      type: DataTypes.FLOAT(53),
+      allowNull: true
     }
   }, {
     tableName: 'Universal_Product_List',

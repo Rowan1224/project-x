@@ -16,10 +16,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(20),
       allowNull: true
     },
-    upazilla: {
-      type: DataTypes.STRING(20),
-      allowNull: true
-    },
     district: {
       type: DataTypes.STRING(20),
       allowNull: true
