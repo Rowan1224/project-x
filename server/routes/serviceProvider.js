@@ -40,7 +40,7 @@ router.post("/createOrder", ordersController.createOrder);
 //Rowan
 const getServiceAreaController = require("../controllers/getServiceArea");
 router.get("/getServiceArea", getServiceAreaController.getServiceArea);
-router.post("/getDistrict", getServiceAreaController.getDistrict);
+router.get("/getDistrict", getServiceAreaController.getDistrict);
 router.post("/getThana", getServiceAreaController.getThana);
 router.post("/getArea", getServiceAreaController.getArea);
 router.get("/getServiceName/:areaId", getServiceAreaController.getServiceName);
