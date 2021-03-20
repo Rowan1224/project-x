@@ -44,6 +44,7 @@ router.get("/getDistrict", getServiceAreaController.getDistrict);
 router.post("/getThana", getServiceAreaController.getThana);
 router.post("/getArea", getServiceAreaController.getArea);
 router.get("/getServiceName/:areaId", getServiceAreaController.getServiceName);
+router.post("/getAreaId", getServiceAreaController.getAreaId);
 router.post("/createOrderDetails", customerordersController.createOrderDetails);
 router.post("/getOrderDetails", customerordersController.getOrderDetails);
 router.post(

@@ -102,6 +102,31 @@ exports.getArea = (req, res, next) => {
         });
 };
 
+
+exports.getAreaId = (req,res,nxt) =>
+{
+    const district = req.body.district;
+    const thana = req.body.thana;
+    const area = req.body.area;
+
+    serviceArea.findAll({
+        where : {
+            distriCt : district,
+            thana : thana,
+            area_name : area
+        }
+    }).then(response=>
+        {
+            res.status(200).json({
+                id : response[0].area_id,
+                message: "Successfully fetched the service area.",
+            });
+
+        }).catch((err) => {
+            res.status(504).json({ message: "Failed" });
+            console.log(err);
+        });
+}
 exports.getServiceName = (req, res, next) => {
     const areaId = req.params.areaId;
 
