@@ -3,43 +3,15 @@ import React, { createContext, useState, useEffect } from "react";
 export const LocationContext = createContext();
 
 const LocationContextProvider = (props) => {
-    // locationsfs ==> locations from server
-    const [locationsfs, setLocationsfs] = useState({});
-    const [areaIDs, setAreaIDs] = useState({});
     const [location, setLocation] = useState({
         id: -1,
-        district: "",
         area: "",
+        thana: "",
+        district: "",
     });
 
-    // componentDidMount
+    // componentDidUpdate
     useEffect(() => {
-        const API_URL = "/getServiceArea/";
-
-        const loadData = async () => {
-            const apiData = {};
-            const response = await fetch(API_URL);
-            const data = await response.json();
-            const areaIDs = {};
-
-            let chk;
-
-            data.areas.map((area) => {
-                chk = area.district in apiData;
-
-                areaIDs[area.area_name] = area.area_id;
-
-                if (chk) return apiData[area.district].push(area.area_name);
-                return (
-                    (apiData[area.district] = []),
-                    apiData[area.district].push(area.area_name)
-                );
-            });
-            setLocationsfs(apiData);
-            setAreaIDs(areaIDs);
-        };
-        loadData();
-
         const json = sessionStorage.getItem("location");
         const localLocation = JSON.parse(json);
 
@@ -55,16 +27,42 @@ const LocationContextProvider = (props) => {
             sessionStorage.setItem("location", JSON.stringify(location));
     }, [location]);
 
-    const changeLocation = (district, area) => {
-        const id = areaIDs[area];
-        sessionStorage.setItem("areaID", id);
-        setLocation({ ...location, id, district, area });
+    const changeLocation = (selectedLocation) => {
+        const loadData = async () => {
+            const API_URL = "/getAreaID/";
+
+            const bodyData = {
+                ...selectedLocation,
+            };
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(bodyData),
+                });
+
+                const data = await response.json();
+
+                // if (!response.ok) setStatus(data.message);
+
+                sessionStorage.setItem("areaID", data.id);
+                setLocation({ ...selectedLocation, id: data.id });
+            } catch (error) {
+                // setStatus(error);
+            }
+        };
+
+        loadData();
+
+        // Updating sessionStorage
+        sessionStorage.setItem("location", JSON.stringify(selectedLocation));
     };
 
     return (
-        <LocationContext.Provider
-            value={{ locationsfs, location, changeLocation }}
-        >
+        <LocationContext.Provider value={{ location, changeLocation }}>
             {props.children}
         </LocationContext.Provider>
     );

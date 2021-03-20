@@ -1,22 +1,22 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import emoji from "react-easy-emoji";
 
 import AddArea from "./AddArea";
 import Title from "../generic/title";
 import CustomCard from "../generic/CustomCard";
-import { ThemeContext } from "../../contexts/ThemeContext";
+// import { ThemeContext } from "../../contexts/ThemeContext";
 
 const AvailableAreas = (props) => {
     const [status, setStatus] = useState(undefined);
     const [availableAreas, setAvailableAreas] = useState([]);
 
     // Themes
-    const { isLightTheme, theme } = useContext(ThemeContext);
-    const link = isLightTheme ? theme.light.link : theme.dark.link;
-    const custom_text = isLightTheme
-        ? theme.light.custom_text
-        : theme.dark.custom_text;
+    // const { isLightTheme, theme } = useContext(ThemeContext);
+    // const link = isLightTheme ? theme.light.link : theme.dark.link;
+    // const custom_text = isLightTheme
+    //     ? theme.light.custom_text
+    //     : theme.dark.custom_text;
 
     useEffect(() => {
         const API_URL = "/availablearea/";
@@ -61,10 +61,8 @@ const AvailableAreas = (props) => {
                     <div>
                         <Title>Thana: </Title> {availableArea.thana}
                         <br />
-                        <Title>Upazilla: </Title> {availableArea.upazilla}
-                        <br />
                         <Title>District: </Title> {availableArea.district}
-                        <div className={"py-2" + link}>
+                        {/* <div className={"py-2" + link}>
                             <a
                                 target="_blank"
                                 rel="noreferrer"
@@ -73,10 +71,11 @@ const AvailableAreas = (props) => {
                             >
                                 Open in Google Map
                             </a>
-                        </div>
+                        </div> */}
                     </div>
 
-                    <div className="mt-2">
+                    {/* <div className="mt-2"> */}
+                    <div className="mt-3">
                         <AddArea area={availableArea} />
                     </div>
                 </>

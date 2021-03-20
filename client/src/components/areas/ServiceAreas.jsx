@@ -1,22 +1,22 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import emoji from "react-easy-emoji";
 
 import Title from "../generic/title";
 import RemoveArea from "./RemoveArea";
 import CustomCard from "../generic/CustomCard";
-import { ThemeContext } from "../../contexts/ThemeContext";
+// import { ThemeContext } from "../../contexts/ThemeContext";
 
 const ServiceAreas = (props) => {
     const [status, setStatus] = useState(undefined);
     const [serviceAreas, setServiceAreas] = useState([]);
 
     // Themes
-    const { isLightTheme, theme } = useContext(ThemeContext);
-    const link = isLightTheme ? theme.light.link : theme.dark.link;
-    const custom_text = isLightTheme
-        ? theme.light.custom_text
-        : theme.dark.custom_text;
+    // const { isLightTheme, theme } = useContext(ThemeContext);
+    // const link = isLightTheme ? theme.light.link : theme.dark.link;
+    // const custom_text = isLightTheme
+    //     ? theme.light.custom_text
+    //     : theme.dark.custom_text;
 
     useEffect(() => {
         const API_URL = "/showarea/";
@@ -61,10 +61,8 @@ const ServiceAreas = (props) => {
                     <div>
                         <Title>Thana: </Title> {serviceArea.thana}
                         <br />
-                        <Title>Upazilla: </Title> {serviceArea.upazilla}
-                        <br />
                         <Title>District: </Title> {serviceArea.district}
-                        <div className={"py-2" + link}>
+                        {/* <div className={"py-2" + link}>
                             <a
                                 target="_blank"
                                 rel="noreferrer"
@@ -73,10 +71,11 @@ const ServiceAreas = (props) => {
                             >
                                 Open in Google Map
                             </a>
-                        </div>
+                        </div> */}
                     </div>
 
-                    <div className="mt-2">
+                    {/* <div className="mt-2"> */}
+                    <div className="mt-3">
                         <RemoveArea area={serviceArea} />
                     </div>
                 </>

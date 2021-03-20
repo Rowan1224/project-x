@@ -81,6 +81,11 @@
 }
 
 // DropDown
+.dropdown-menu {
+    max-height: 15rem;
+    overflow-y: scroll;
+}
+
 .dropdown-text:hover {
     color: $main !important;
     background-color: $hover !important;

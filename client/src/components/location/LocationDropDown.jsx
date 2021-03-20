@@ -1,15 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Dropdown } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
+
 import { ThemeContext } from "../../contexts/ThemeContext";
 
 const LocationDropDown = (props) => {
-    const [title, setTitle] = useState(props.title);
-
-    const handleSelect = (e) => {
-        setTitle(e);
-        props.handleSelect(e);
-    };
+    const handleSelect = (e) => props.handleSelect(e);
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -31,20 +27,21 @@ const LocationDropDown = (props) => {
                     props.customClass && props.customClass + " text-wrap"
                 }
             >
-                {title}
+                {props.title}
             </Dropdown.Toggle>
 
             <Dropdown.Menu className={"text-center w-100 shadow" + ui + border}>
-                {props.values.map((value) => (
-                    <Dropdown.Item
-                        key={uuidv4()}
-                        eventKey={value}
-                        onSelect={handleSelect}
-                        className={"text-wrap" + syntax + dropdown_text}
-                    >
-                        {value}
-                    </Dropdown.Item>
-                ))}
+                {props.values &&
+                    props.values.map((value) => (
+                        <Dropdown.Item
+                            key={uuidv4()}
+                            eventKey={value}
+                            onSelect={handleSelect}
+                            className={"text-wrap" + syntax + dropdown_text}
+                        >
+                            {value}
+                        </Dropdown.Item>
+                    ))}
             </Dropdown.Menu>
         </Dropdown>
     );
