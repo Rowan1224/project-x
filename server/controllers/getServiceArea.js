@@ -6,6 +6,22 @@ const serviceArea = ServiceArea(sequelize, Sequelize);
 exports.getServiceArea = (req, res, next) => {
     serviceArea
         .findAll()
+        .then((areas) => {   
+            res.status(200).json({
+                areas : areas,
+                message: "Success.",
+            });
+        })
+        .catch((err) => {
+            res.status(504).json({ message: "Failed" });
+            console.log(err);
+        });
+};
+
+
+exports.getDistrict = (req, res, next) => {
+    serviceArea
+        .findAll()
         .then((areas) => {
             let than = new Set();
             
