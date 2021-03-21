@@ -30,18 +30,21 @@ fs.readFile("../json/area.json", "utf8", (err, jsonString) => {
 });
 
 exports.availableArea = (req, res, nxt) => {
+    const location = req.body.location;
     const service_id = req.body.service_id;
     const area = req.body.search_data;
 
     sequelize
         .query(
-            "SELECT * FROM Area_Details WHERE  Area_Details.area_id NOT IN (SELECT area_id FROM Service_Area WHERE service_id=?) && (area_name LIKE ? OR thana LIKE ? OR district LIKE ?) ",
+            "SELECT * FROM Area_Details WHERE  Area_Details.area_id NOT IN (SELECT area_id FROM Service_Area WHERE service_id=? && district=? && thana=?) && (area_name LIKE ?) ",
             {
                 replacements: [
                     [service_id],
+                    [location.district],
+                    [location.thana],
                     [`%${area}%`],
-                    [`%${area}%`],
-                    [`%${area}%`],
+                    // [`%${area}%`],
+                    // [`%${area}%`],
                 ],
                 type: sequelize.QueryTypes.SELECT,
             }
