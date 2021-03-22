@@ -87,11 +87,16 @@ const AddArea = (props) => {
                     </>
                 }
             >
-                <FontAwesomeIcon
+                {/* <FontAwesomeIcon
                     className="fa-icon mr-2"
                     icon={["fas", "warehouse"]}
                 />
-                Add to Service Area
+                Add to Service Area */}
+                <FontAwesomeIcon
+                    className="fa-icon mr-2"
+                    icon={["fas", "plus-circle"]}
+                />
+                Add
             </CustomModal>
         </>
     );

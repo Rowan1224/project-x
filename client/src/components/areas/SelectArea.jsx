@@ -1,13 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 
-// import { ThemeContext } from "../../contexts/ThemeContext";
 import { LocationContext } from "../../contexts/LocationContext";
 
 import CustomAlert from "../generic/CustomAlert";
-import LocationDropDown from "./LocationDropDown";
+import LocationDropDown from "../location/LocationDropDown";
 
-const SelectLocation = () => {
-    const [areas, setAreas] = useState([]);
+const SelectArea = () => {
     const [thanas, setThanas] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [selectedLocation, setSelectedLocation] = useState(
@@ -22,10 +20,6 @@ const SelectLocation = () => {
     const [status, setStatus] = useState(undefined);
 
     const { changeLocation } = useContext(LocationContext);
-
-    // // Themes
-    // const { isLightTheme, theme } = useContext(ThemeContext);
-    // const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
 
     // ComponentDidMount
     useEffect(() => {
@@ -57,28 +51,6 @@ const SelectLocation = () => {
                     if (!response.ok) setStatus(data.message);
 
                     setThanas(data.details);
-
-                    // Getting Areas
-                    API_URL = "/getArea/";
-
-                    bodyData = {
-                        thana: localLocation.thana,
-                        district: localLocation.district,
-                    };
-
-                    response = await fetch(API_URL, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(bodyData),
-                    });
-
-                    data = await response.json();
-
-                    if (!response.ok) setStatus(data.message);
-
-                    setAreas(data.details);
                 } catch (error) {
                     setStatus(error);
                 }
@@ -145,41 +117,8 @@ const SelectLocation = () => {
     };
 
     const handleThanaSelect = (e) => {
-        setSelectedLocation({ ...selectedLocation, area: "", thana: e });
-
-        const loadData = async () => {
-            const API_URL = "/getArea/";
-
-            const bodyData = {
-                thana: e,
-                district: selectedLocation.district,
-            };
-
-            try {
-                const response = await fetch(API_URL, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(bodyData),
-                });
-
-                const data = await response.json();
-
-                if (!response.ok) setStatus(data.message);
-
-                setAreas(data.details);
-            } catch (error) {
-                setStatus(error);
-            }
-        };
-
-        loadData();
-    };
-
-    const handleAreaSelect = (e) => {
-        setSelectedLocation({ ...selectedLocation, area: e });
-        changeLocation({ ...selectedLocation, area: e });
+        setSelectedLocation({ ...selectedLocation, thana: e });
+        changeLocation({ ...selectedLocation, thana: e });
     };
 
     return (
@@ -187,7 +126,7 @@ const SelectLocation = () => {
             {status && <CustomAlert status={status} />}
 
             <div className="row">
-                <div className="col-sm-12 col-lg-4">
+                <div className="col-sm-12 col-md-6">
                     <LocationDropDown
                         size="lg"
                         status=""
@@ -202,7 +141,7 @@ const SelectLocation = () => {
                     />
                 </div>
 
-                <div className="col-sm-12 col-lg-4">
+                <div className="col-sm-12 col-md-6">
                     <LocationDropDown
                         size="lg"
                         customClass="mb-2 w-100"
@@ -216,24 +155,9 @@ const SelectLocation = () => {
                         }
                     />
                 </div>
-
-                <div className="col-sm-12 col-lg-4">
-                    <LocationDropDown
-                        size="lg"
-                        customClass="mb-2 w-100"
-                        values={areas ? areas : []}
-                        status={!selectedLocation.thana}
-                        handleSelect={handleAreaSelect}
-                        title={
-                            selectedLocation && selectedLocation.area !== ""
-                                ? selectedLocation.area
-                                : "Area"
-                        }
-                    />
-                </div>
             </div>
         </div>
     );
 };
 
-export default SelectLocation;
+export default SelectArea;

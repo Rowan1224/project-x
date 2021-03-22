@@ -10,9 +10,9 @@ import "./assets/styles/styles.scss";
 import SettingsContextProvider from "./contexts/SettingsContext";
 import AuthenticationContextProvider from "./contexts/AuthenticationContext";
 
-import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import TestPage from "./test/TestPage";
+import HomePage from "./pages/HomePage";
 import UserLogin from "./pages/UserLogin";
 import OrderPage from "./pages/OrderPage";
 import AreasPage from "./pages/AreasPage";
@@ -43,7 +43,7 @@ const App = () => {
         SWE, SUST
         Mutasim Billah Toha
         SWE, SUST
-        Jobayer Hossain Rowan
+        Zobaer Hossain Rowan
         CSE, SUST
     `);
 
@@ -98,7 +98,7 @@ const App = () => {
                         <Route exact path="/profile" component={Profile} />
                         <Route exact path="/history" component={HistoryPage} />
                         <Route exact path="/test" component={TestPage} />
-                        <Route exact path="/" component={Home} />
+                        <Route exact path="/" component={HomePage} />
                         <Route component={NotFoundPage} />
                     </Switch>
                 </AuthenticationContextProvider>
