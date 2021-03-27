@@ -115,12 +115,13 @@ exports.addProduct = (req, res, next) => {
     //const product_id = req.body.product_id;
     //const delivery_limit = req.body.delivery_limit;
     //const price = req.body.price;
+    const category = req.body.category;
     const name = req.body.search_data;
     sequelize
         .query(
-            "SELECT * FROM Universal_Product_List WHERE  Universal_Product_List.product_id NOT IN (SELECT product_id FROM Service_Inventory WHERE service_id=?) && (product_name LIKE ? OR company_name LIKE ?)",
+            "SELECT * FROM Universal_Product_List WHERE  Universal_Product_List.product_id NOT IN (SELECT product_id FROM Service_Inventory WHERE service_id=?) && (product_name LIKE ? OR company_name LIKE ?) && categories = ? ",
             {
-                replacements: [[service_id], [`%${name}%`],[`%${name}%`]],
+                replacements: [[service_id], [`%${name}%`],[`%${name}%`],[category]],
                 type: sequelize.QueryTypes.SELECT,
             }
         )
@@ -345,3 +346,31 @@ exports.deleteProduct = (req, res, next) => {
     //     });
     // });
 };
+
+
+exports.categoryProduct = (req,res,nxt) =>
+{
+    universal_products.findAll({
+    }).then(products=>
+        {
+            let prod_cat = new Set();
+            
+            products.forEach(element => {
+                prod_cat.add(element.categories);
+            });
+            let category = [];
+            prod_cat.forEach(element => {
+                category.push(element);
+            });
+            category.sort();
+            res.status(200).json({
+                details : category,
+                message: "Successfully fetched category.",
+            });
+
+        }) .catch((err) => {
+            res.status(504).json({
+                message: "Failed To fetch category.",
+            });
+        });
+}

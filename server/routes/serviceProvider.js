@@ -33,6 +33,7 @@ router.post("/availableProduct", productController.addProduct);
 router.post("/addtoinventory", productController.addToInventory);
 router.post("/updateProduct", productController.updateProduct);
 router.post("/deleteProduct", productController.deleteProduct);
+router.get("/product/category",productController.categoryProduct);
 
 // Order Related APIs
 router.post("/createOrder", ordersController.createOrder);
