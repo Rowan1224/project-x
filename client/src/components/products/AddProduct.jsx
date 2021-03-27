@@ -15,7 +15,8 @@ const AddProduct = (props) => {
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
+    const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const btnTypeClass = isLightTheme
         ? theme.light.btnTypeClass
@@ -68,7 +69,7 @@ const AddProduct = (props) => {
                     updateFlag={props.updateFlag}
                 />
             )}
-            
+
             <form ref={form} onSubmit={(e) => e.preventDefault()}>
                 <input
                     type="hidden"
@@ -77,21 +78,22 @@ const AddProduct = (props) => {
                 />
 
                 <div
-                    className={"mt-2 mb-3 input-group mx-auto rounded" + border}
+                    className="mt-2 mb-3 input-group mx-auto"
                     style={{ maxWidth: "10rem" }}
                 >
-                    <div className="input-group-prepend">
-                        <span className="input-group-text rounded-0">
-                            <span className="font-weight-bold">৳</span>
-                        </span>
-                    </div>
                     <input
                         required
-                        type="text"
+                        autoFocus
                         name="price"
-                        placeholder="Price..."
-                        className="form-control rounded-0"
+                        type="number"
+                        placeholder="Your Price..."
+                        style={{ maxWidth: "7.18rem" }}
+                        defaultValue={props.base_price}
+                        className={"show-cart-count ml-1" + syntax}
                     />
+                    <span className="font-weight-bold show-cart-count">
+                        BDT
+                    </span>
                 </div>
 
                 <CustomModal

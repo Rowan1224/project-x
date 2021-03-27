@@ -7,12 +7,16 @@ import AddProduct from "./AddProduct";
 import SearchBar from "../generic/SearchBar";
 import CustomCard from "../generic/CustomCard";
 import { ThemeContext } from "../../contexts/ThemeContext";
+import SelectCategory from "./SelectCategory";
+import { ProductContext } from "../../contexts/ProductContext";
 
 const AvailableProducts = (props) => {
     const [flag, setFlag] = useState(true);
     const [status, setStatus] = useState(undefined);
     const [searchData, setSearchData] = useState("");
     const [availableProducts, setAvailableProducts] = useState([]);
+
+    const { category } = useContext(ProductContext);
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -23,6 +27,7 @@ const AvailableProducts = (props) => {
 
         const loadData = async () => {
             const bodyData = {
+                category: category,
                 search_data: searchData,
                 service_id: localStorage.getItem("userID"),
             };
@@ -47,7 +52,7 @@ const AvailableProducts = (props) => {
         };
 
         loadData();
-    }, [flag, searchData]);
+    }, [flag, searchData, category]);
 
     const updateFlag = () => setFlag(!flag);
 
@@ -65,6 +70,10 @@ const AvailableProducts = (props) => {
                 searchBy="Search products by product name or company name"
             />
 
+            <div className="mb-4">
+                <SelectCategory />
+            </div>
+
             <h4 className={"mb-5 text-center" + syntax}>Available Products</h4>
 
             <CustomCard
@@ -78,6 +87,10 @@ const AvailableProducts = (props) => {
                         <div>
                             <Title>Vat: </Title> {availableProduct.vat}%
                             <br />
+                            {/* <Title>Base Price: </Title>{" "}
+                            <span className="font-weight-bold">৳ </span>
+                            {availableProduct.base_price} BDT
+                            <br /> */}
                             <Title>Quantity: </Title> {availableProduct.qty}{" "}
                             {availableProduct.unit}
                             <br />
@@ -88,6 +101,7 @@ const AvailableProducts = (props) => {
                         <AddProduct
                             updateFlag={updateFlag}
                             availableProduct={availableProduct}
+                            base_price={availableProduct.base_price}
                             product_name={availableProduct.product_name}
                         />
                     </>
