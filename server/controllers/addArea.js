@@ -19,7 +19,7 @@ fs.readFile("../json/area.json", "utf8", (err, jsonString) => {
     console.log("File data:", JSON.parse(jsonString)[0].area);
     let data = JSON.parse(jsonString);
     data.forEach((element) => {
-        if (element.district === "DHAKA") {
+        if (element.district === "SYLHET") {
             area_details.create({
                 area_name: element.area,
                 district: element.district,

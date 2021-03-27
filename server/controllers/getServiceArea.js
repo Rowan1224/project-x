@@ -32,6 +32,7 @@ exports.getDistrict = (req, res, next) => {
             than.forEach(element => {
                 district.push(element);
             });
+            district.sort();
             res.status(200).json({
                 details : district,
                 message: "Successfully fetched the service area.",
