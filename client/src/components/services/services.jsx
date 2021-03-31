@@ -103,6 +103,11 @@ const Services = () => {
         // }
     }, [services]);
 
+    // componentDidMount
+    useEffect(() => {
+        setActivePage(1);
+    }, [searchData]);
+
     const updateFlag = () => setFlag(!flag);
 
     const handleChange = (e) => setSearchData(e.target.value);

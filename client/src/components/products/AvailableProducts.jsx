@@ -81,6 +81,11 @@ const AvailableProducts = (props) => {
         loadData();
     }, [flag, searchData, category, activePage]);
 
+    // componentDidMount
+    useEffect(() => {
+        setActivePage(1);
+    }, [searchData]);
+
     const updateFlag = () => setFlag(!flag);
 
     const handleChange = (e) => setSearchData(e.target.value);
