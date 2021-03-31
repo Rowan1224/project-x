@@ -24,16 +24,20 @@ exports.getUniversalProducts = (req, res, next) => {
 exports.getOwnProducts = (req, res, next) => {
     const service_id = req.body.service_id;
     const search = req.body.search_data;
-
+    const page = req.body.page_number;
+    const off = (page - 1) * 15;
+    const limit = 15;
     sequelize
         .query(
-            "SELECT * FROM Service_Inventory INNER JOIN Universal_Product_List ON Service_Inventory.product_id=Universal_Product_List.product_id WHERE service_id=? && (product_name LIKE ? OR company_name LIKE ? OR price LIKE ?)",
+            "SELECT * FROM Service_Inventory INNER JOIN Universal_Product_List ON Service_Inventory.product_id=Universal_Product_List.product_id WHERE service_id=? && (product_name LIKE ? OR company_name LIKE ? OR price LIKE ?) LIMIT ? , ?",
             {
                 replacements: [
                     [service_id],
                     [`%${search}%`],
                     [`%${search}%`],
                     [`%${search}%`],
+                    [off],
+                    [limit],
                 ],
                 type: sequelize.QueryTypes.SELECT,
             }
@@ -50,6 +54,38 @@ exports.getOwnProducts = (req, res, next) => {
             });
         });
 };
+
+exports.inventoryPage = (req, res, next) => {
+    const service_id = req.body.service_id;
+    const search = req.body.search_data;
+    sequelize
+        .query(
+            "SELECT * FROM Service_Inventory INNER JOIN Universal_Product_List ON Service_Inventory.product_id=Universal_Product_List.product_id WHERE service_id=? && (product_name LIKE ? OR company_name LIKE ? OR price LIKE ?)",
+            {
+                replacements: [
+                    [service_id],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                ],
+                type: sequelize.QueryTypes.SELECT,
+            }
+        )
+        .then((products) => {
+            res.status(200).json({
+                details: Math.ceil(products.length/15),
+                message: "Success",
+            });
+        })
+        .catch((err) => {
+            res.status(504).json({
+                message: "Failed",
+            });
+        });
+};
+
+
+
 
 exports.getProductDetails = (req, res, next) => {
     const product_id = req.body.product_id;

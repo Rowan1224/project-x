@@ -35,6 +35,8 @@ router.post("/updateProduct", productController.updateProduct);
 router.post("/deleteProduct", productController.deleteProduct);
 router.get("/product/category",productController.categoryProduct);
 router.post("/category/page",productController.categoryPage);
+router.post("/inventory/page",productController.inventoryPage);
+
 
 // Order Related APIs
 router.post("/createOrder", ordersController.createOrder);
