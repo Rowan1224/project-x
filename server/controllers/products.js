@@ -26,13 +26,18 @@ exports.getOwnProducts = (req, res, next) => {
     const search = req.body.search_data;
 
     sequelize
-    .query(
-        "SELECT * FROM Service_Inventory INNER JOIN Universal_Product_List ON Service_Inventory.product_id=Universal_Product_List.product_id WHERE service_id=? && (product_name LIKE ? OR company_name LIKE ? OR price LIKE ?)",
-        {
-            replacements: [[service_id],[`%${search}%`],[`%${search}%`],[`%${search}%`]],
-            type: sequelize.QueryTypes.SELECT,
-        }
-    )    
+        .query(
+            "SELECT * FROM Service_Inventory INNER JOIN Universal_Product_List ON Service_Inventory.product_id=Universal_Product_List.product_id WHERE service_id=? && (product_name LIKE ? OR company_name LIKE ? OR price LIKE ?)",
+            {
+                replacements: [
+                    [service_id],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                ],
+                type: sequelize.QueryTypes.SELECT,
+            }
+        )
         .then((products) => {
             res.status(200).json({
                 products: products,
@@ -117,11 +122,21 @@ exports.addProduct = (req, res, next) => {
     //const price = req.body.price;
     const category = req.body.category;
     const name = req.body.search_data;
+    const page = req.body.page_number;
+    const off = (page - 1) * 15;
+    const limit = 15;
     sequelize
         .query(
-            "SELECT * FROM Universal_Product_List WHERE  Universal_Product_List.product_id NOT IN (SELECT product_id FROM Service_Inventory WHERE service_id=?) && (product_name LIKE ? OR company_name LIKE ?) && categories = ? ",
+            "SELECT * FROM Universal_Product_List WHERE  Universal_Product_List.product_id NOT IN (SELECT product_id FROM Service_Inventory WHERE service_id=?) && (product_name LIKE ? OR company_name LIKE ?) && categories = ? LIMIT ? , ?  ",
             {
-                replacements: [[service_id], [`%${name}%`],[`%${name}%`],[category]],
+                replacements: [
+                    [service_id],
+                    [`%${name}%`],
+                    [`%${name}%`],
+                    [category],
+                    [off],
+                    [limit],
+                ],
                 type: sequelize.QueryTypes.SELECT,
             }
         )
@@ -347,30 +362,52 @@ exports.deleteProduct = (req, res, next) => {
     // });
 };
 
-
-exports.categoryProduct = (req,res,nxt) =>
-{
-    universal_products.findAll({
-    }).then(products=>
-        {
+exports.categoryProduct = (req, res, nxt) => {
+    universal_products
+        .findAll({})
+        .then((products) => {
             let prod_cat = new Set();
-            
-            products.forEach(element => {
+
+            products.forEach((element) => {
                 prod_cat.add(element.categories);
             });
             let category = [];
-            prod_cat.forEach(element => {
+            prod_cat.forEach((element) => {
                 category.push(element);
             });
             category.sort();
             res.status(200).json({
-                details : category,
+                details: category,
                 message: "Successfully fetched category.",
             });
-
-        }) .catch((err) => {
+        })
+        .catch((err) => {
             res.status(504).json({
                 message: "Failed To fetch category.",
             });
         });
-}
+};
+
+exports.categoryPage = (req, res, nxt) => {
+    const service_id = req.body.service_id;
+    const category = req.body.category;
+    sequelize
+        .query(
+            "SELECT * FROM Universal_Product_List WHERE  Universal_Product_List.product_id NOT IN (SELECT product_id FROM Service_Inventory WHERE service_id=?) &&  categories = ?   ",
+            {
+                replacements: [[service_id], [category]],
+                type: sequelize.QueryTypes.SELECT,
+            }
+        )
+        .then((result) => {
+            res.status(200).json({
+                details: Math.ceil(result.length / 15),
+                message: "Successfully fetched number of product .",
+            });
+        })
+        .catch((err) => {
+            res.status(504).json({
+                message: "Failed To fetch number of product.",
+            });
+        });
+};

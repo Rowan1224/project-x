@@ -2,6 +2,7 @@ const path = require("path");
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 8080;
+const paginate = require('express-paginate');
 const sequelize = require('./server/util/database');
 // toha
 var session = require('express-session');
@@ -14,7 +15,7 @@ var keys = ['keyboard cat'];
 //
 const serviceProviderRoutes = require('./server/routes/serviceProvider');
 const bodyParser = require('body-parser');
-
+app.use(paginate.middleware(10, 50));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json({limit:'1mb'}))
