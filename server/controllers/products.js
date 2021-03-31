@@ -391,11 +391,17 @@ exports.categoryProduct = (req, res, nxt) => {
 exports.categoryPage = (req, res, nxt) => {
     const service_id = req.body.service_id;
     const category = req.body.category;
+    const search = req.body.search_data;
     sequelize
         .query(
-            "SELECT * FROM Universal_Product_List WHERE  Universal_Product_List.product_id NOT IN (SELECT product_id FROM Service_Inventory WHERE service_id=?) &&  categories = ?   ",
+            "SELECT * FROM Universal_Product_List WHERE  Universal_Product_List.product_id NOT IN (SELECT product_id FROM Service_Inventory WHERE service_id=?) && (product_name LIKE ? OR company_name LIKE ?) &&  categories = ?   ",
             {
-                replacements: [[service_id], [category]],
+                replacements: [
+                    [service_id],
+                    [`%${search}%`],
+                    [`%${search}%`],
+                    [category],
+                ],
                 type: sequelize.QueryTypes.SELECT,
             }
         )
