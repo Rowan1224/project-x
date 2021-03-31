@@ -83,7 +83,6 @@ const AddProduct = (props) => {
                 >
                     <input
                         required
-                        autoFocus
                         name="price"
                         type="number"
                         placeholder="Your Price..."

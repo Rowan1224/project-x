@@ -9,10 +9,13 @@ import CustomCard from "../generic/CustomCard";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import SelectCategory from "./SelectCategory";
 import { ProductContext } from "../../contexts/ProductContext";
+import CustomPagination from "../generic/CustomPagination";
 
 const AvailableProducts = (props) => {
     const [flag, setFlag] = useState(true);
+    const [totalPage, setTotalPage] = useState(0);
     const [status, setStatus] = useState(undefined);
+    const [activePage, setActivePage] = useState(1);
     const [searchData, setSearchData] = useState("");
     const [availableProducts, setAvailableProducts] = useState([]);
 
@@ -23,17 +26,18 @@ const AvailableProducts = (props) => {
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
 
     useEffect(() => {
-        const API_URL = "/availableProduct/";
+        let API_URL = "/availableProduct/";
 
         const loadData = async () => {
-            const bodyData = {
+            let bodyData = {
                 category: category,
                 search_data: searchData,
+                page_number: activePage,
                 service_id: localStorage.getItem("userID"),
             };
 
             try {
-                const response = await fetch(API_URL, {
+                let response = await fetch(API_URL, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -41,22 +45,47 @@ const AvailableProducts = (props) => {
                     body: JSON.stringify(bodyData),
                 });
 
-                const data = await response.json();
+                let data = await response.json();
 
                 if (!response.ok) setStatus(data.message);
 
                 setAvailableProducts(data.items);
+
+                // Get total page count
+                API_URL = "/category/page/";
+
+                bodyData = {
+                    category: category,
+                    search_data: searchData,
+                    service_id: localStorage.getItem("userID"),
+                };
+
+                response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(bodyData),
+                });
+
+                data = await response.json();
+
+                if (!response.ok) setStatus(data.message);
+
+                setTotalPage(data.details);
             } catch (error) {
                 setStatus(error);
             }
         };
 
         loadData();
-    }, [flag, searchData, category]);
+    }, [flag, searchData, category, activePage]);
 
     const updateFlag = () => setFlag(!flag);
 
     const handleChange = (e) => setSearchData(e.target.value);
+
+    const handlePageClick = (e) => setActivePage(e);
 
     return (
         <>
@@ -112,6 +141,12 @@ const AvailableProducts = (props) => {
                         {emoji("☹")}
                     </>
                 }
+            />
+
+            <CustomPagination
+                totalPage={totalPage}
+                activePage={activePage}
+                handlePageClick={handlePageClick}
             />
         </>
     );

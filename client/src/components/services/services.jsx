@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import Infobar from "../generic/infobar";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import SearchBar from "../generic/SearchBar";
+import CustomPagination from "../generic/CustomPagination";
 
 const Services = () => {
     const params = useParams();
@@ -15,6 +16,10 @@ const Services = () => {
     const [sName, setSName] = useState("");
     const [services, setServices] = useState([]);
     const [searchData, setSearchData] = useState("");
+
+    const [totalPage, setTotalPage] = useState(0);
+    const [activePage, setActivePage] = useState(1);
+
     const [isServiceProvider] = useState(
         localStorage.getItem("isServiceProvider") === "true"
     );
@@ -26,15 +31,16 @@ const Services = () => {
 
     // componentDidMount
     useEffect(() => {
-        const API_URL = "/ownProducts/";
+        let API_URL = "/ownProducts/";
 
         const loadData = async () => {
-            const bodyData = {
+            let bodyData = {
                 service_id: params.id,
+                page_number: activePage,
                 search_data: searchData,
             };
 
-            const response = await fetch(API_URL, {
+            let response = await fetch(API_URL, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
@@ -43,12 +49,33 @@ const Services = () => {
                 body: JSON.stringify(bodyData),
             });
 
-            const data = await response.json();
+            let data = await response.json();
 
             setServices(data.products);
+
+            // Gey total page
+            API_URL = "/inventory/page/";
+
+            bodyData = {
+                service_id: params.id,
+                search_data: searchData,
+            };
+
+            response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(bodyData),
+            });
+
+            data = await response.json();
+
+            setTotalPage(data.details);
         };
         loadData();
-    }, [params, flag, searchData]);
+    }, [params, flag, searchData, activePage]);
 
     useEffect(() => {
         // if (services.length > 0) {
@@ -79,6 +106,8 @@ const Services = () => {
     const updateFlag = () => setFlag(!flag);
 
     const handleChange = (e) => setSearchData(e.target.value);
+
+    const handlePageClick = (e) => setActivePage(e);
 
     return (
         <div>
@@ -114,16 +143,24 @@ const Services = () => {
             </div>
 
             {services && services.length > 0 ? (
-                <div className="row">
-                    {services.map((service) => (
-                        // Here gives unmounted error 🙁
-                        <Service
-                            key={uuidv4()}
-                            serviceInfo={service}
-                            updateFlag={updateFlag}
-                        />
-                    ))}
-                </div>
+                <>
+                    <div className="row">
+                        {services.map((service) => (
+                            // Here gives unmounted error 🙁
+                            <Service
+                                key={uuidv4()}
+                                serviceInfo={service}
+                                updateFlag={updateFlag}
+                            />
+                        ))}
+                    </div>
+
+                    <CustomPagination
+                        totalPage={totalPage}
+                        activePage={activePage}
+                        handlePageClick={handlePageClick}
+                    />
+                </>
             ) : (
                 <Infobar>No services {emoji("☹")}</Infobar>
             )}
