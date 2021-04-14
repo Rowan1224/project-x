@@ -57,9 +57,9 @@ app.use(serviceProviderRoutes);
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'build', 'index.html'))
   });
-app.get('/*', (req, res) => {
-	return res.redirect('/');
-  });
+// app.get('/*', (req, res) => {
+// 	return res.redirect('/');
+//   });
   
 
 
