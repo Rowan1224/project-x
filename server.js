@@ -27,7 +27,7 @@ app.use(session({
 
 app.use(cookieParser());
 //
-app.use(express.static(path.join(__dirname, "/client/build")));
+//app.use(express.static(path.join(__dirname, "/client/build")));
 // console.log that your server is up and running
 
 sequelize.sync({ force: false }).then(result =>{
@@ -52,9 +52,11 @@ app.get("/db_connection", (req, res) => {
 
 // Service Provider Side APIs
 
+app.use(express.static(path.join(__dirname, "/client/build")));
+
 app.use(serviceProviderRoutes);
 
 
 app.get('/*', (req, res) => {
-  res.status(404).json({Name: "Page Not Found", Message: "Try a valid url!!!"});
+  return res.redirect('/');
 });

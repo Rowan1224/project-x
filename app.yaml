@@ -3,7 +3,7 @@ runtime: nodejs10
 env_variables:
    DB_USER: root
    DB_NAME: project_x
-   DB_PASS: 1123
+   DB_PASS: xxdaynJmfH0ppc6w
    DB_CONNECTION: /cloudsql/project-x-280014:asia-south1:project-x-db-ins
    
 
