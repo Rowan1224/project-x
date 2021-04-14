@@ -54,8 +54,18 @@ app.get("/db_connection", (req, res) => {
 // Service Provider Side APIs
 
 app.use(serviceProviderRoutes);
-
-
+app.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname, 'build', 'index.html'))
+  });
 app.get('/*', (req, res) => {
-  res.status(404).json({Name: "Page Not Found", Message: "Try a valid url!!!"});
-});
+	return res.redirect('/');
+  });
+  
+
+
+
+
+
+// app.get('/*', (req, res) => {
+//   res.status(404).json({Name: "Page Not Found", Message: "Try a valid url!!!"});
+// });

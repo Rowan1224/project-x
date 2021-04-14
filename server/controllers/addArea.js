@@ -11,23 +11,23 @@ const universal_products = Universal_Products(sequelize, Sequelize);
 const serviceArea = ServiceArea(sequelize, Sequelize);
 const area_details = Area_Details(sequelize, Sequelize);
 
-fs.readFile("../json/area.json", "utf8", (err, jsonString) => {
-    if (err) {
-        console.log("File read failed:", err);
-        return;
-    }
-    console.log("File data:", JSON.parse(jsonString)[0].area);
-    let data = JSON.parse(jsonString);
-    data.forEach((element) => {
-        if (element.district === "SYLHET") {
-            area_details.create({
-                area_name: element.area,
-                district: element.district,
-                thana: element.thana,
-            });
-        }
-    });
-});
+// fs.readFile("../json/area.json", "utf8", (err, jsonString) => {
+//     if (err) {
+//         console.log("File read failed:", err);
+//         return;
+//     }
+//     console.log("File data:", JSON.parse(jsonString)[0].area);
+//     let data = JSON.parse(jsonString);
+//     data.forEach((element) => {
+//         if (element.district === "SYLHET") {
+//             area_details.create({
+//                 area_name: element.area,
+//                 district: element.district,
+//                 thana: element.thana,
+//             });
+//         }
+//     });
+// });
 
 exports.availableArea = (req, res, nxt) => {
     const location = req.body.location;
