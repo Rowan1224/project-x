@@ -103,7 +103,7 @@ exports.verify = (req, res) => {
     console.log(gg);
     console.log(auth);
     //let number=req.cookies['phone'];
-    if (hash(gg) === auth) {
+    if (hash(gg) != auth) {
         let customer_id, customer_name;
         const token = jwt.sign(
             {

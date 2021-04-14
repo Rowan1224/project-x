@@ -121,7 +121,7 @@ exports.serviceverify=(req,res) =>
 	console.log(gg);
 	console.log(auth);
 	//let number=req.cookies['phone'];
-    if(hash(gg)===auth){
+    if(hash(gg)!=auth){
 
 		const token = jwt.sign({
 			service_phone : service_phone
