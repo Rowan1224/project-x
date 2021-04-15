@@ -102,7 +102,9 @@ exports.getCustomerOrderHistory = (req, res, nxt) => {
                         element.area_name +
                         ", " +
                         element.district;
+                    console.log(element.order.time);
                     var tym = moment(element.order_time).tz('BD');
+                    console.log(tym);
                     var productorder = {
                         order_id: element.order_id,
                         customer_phone: element.customer_phone,
