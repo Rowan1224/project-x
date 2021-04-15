@@ -16,7 +16,6 @@ const universal_products = Universal_Products(sequelize, Sequelize);
 const Service_Inventory = require("../models//Service_Inventory");
 const service_inventory = Service_Inventory(sequelize, Sequelize);
 
-
 exports.createCustomerOrderDetails = (req, res, next) => {
     const customer_id = req.body.userid;
     const service_id = req.body.service_id;
@@ -102,16 +101,14 @@ exports.getCustomerOrderHistory = (req, res, nxt) => {
                         element.area_name +
                         ", " +
                         element.district;
-                    console.log(element.order.time);
-                    var tym = moment(element.order_time).tz('BD');
-                    console.log(tym);
+                    var tym = moment(element.order_time).tz('Asia/Dhaka');
                     var productorder = {
                         order_id: element.order_id,
                         customer_phone: element.customer_phone,
                         address: address,
                         further_description: element.further_description,
                         payment: element.payment,
-                        time:tym,
+                        time: tym,
                     };
                     output.push(productorder);
                 });
@@ -149,7 +146,7 @@ exports.getConfirmedOrder = (req, res, nxt) => {
                 element[0].area_name +
                 ", " +
                 element[0].district;
-             var tym = moment(element[0].order_time).tz('BD');
+            var tym = moment(element[0].order_time).tz('Asia/Dhaka');
             let ord = {
                 total: element[0].payment,
                 time: tym,
@@ -261,7 +258,7 @@ exports.getCustomerCancelledOrderHistory = (req, res, nxt) => {
                         element.area_name +
                         ", " +
                         element.district;
-                    var tym = moment(element.order_time).tz('BD');
+                    var tym = moment(element.order_time).tz('Asia/Dhaka');
                     var productorder = {
                         order_id: element.order_id,
                         customer_phone: element.customer_phone,
@@ -326,7 +323,7 @@ exports.getCustomerActiveOrderHistory = (req, res, nxt) => {
                         element.area_name +
                         ", " +
                         element.district;
-                    var tym = moment(element.order_time).tz('BD');
+                    var tym = moment(element.order_time).tz('Asia/Dhaka');
                     var productorder = {
                         order_id: element.order_id,
                         customer_phone: element.customer_phone,
