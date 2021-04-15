@@ -4,16 +4,18 @@ const Orders = require("../../server/models/Orders");
 const orders = Orders(sequelize, Sequelize);
 const Order_Details = require("../../server/models/Order_details");
 const orderDetails = Order_Details(sequelize, Sequelize);
-
+var moment = require('moment-timezone');
 const CustomerAddress = require("../../server/models/Customer_Address");
 const customeraddress = CustomerAddress(sequelize, Sequelize);
 const Customer = require("../../server/models/Customer_Credential");
 const customer = Customer(sequelize, Sequelize);
 
+
 const Universal_Products = require("../models/Universal_Product_List");
 const universal_products = Universal_Products(sequelize, Sequelize);
 const Service_Inventory = require("../models//Service_Inventory");
 const service_inventory = Service_Inventory(sequelize, Sequelize);
+
 
 exports.createCustomerOrderDetails = (req, res, next) => {
     const customer_id = req.body.userid;
@@ -100,13 +102,14 @@ exports.getCustomerOrderHistory = (req, res, nxt) => {
                         element.area_name +
                         ", " +
                         element.district;
+                    var tym = moment(element.order_time).tz('BD');
                     var productorder = {
                         order_id: element.order_id,
                         customer_phone: element.customer_phone,
                         address: address,
                         further_description: element.further_description,
                         payment: element.payment,
-                        time: element.order_time,
+                        time:tym,
                     };
                     output.push(productorder);
                 });
@@ -144,9 +147,10 @@ exports.getConfirmedOrder = (req, res, nxt) => {
                 element[0].area_name +
                 ", " +
                 element[0].district;
+             var tym = moment(element[0].order_time).tz('BD');
             let ord = {
                 total: element[0].payment,
-                time: element[0].order_time,
+                time: tym,
                 phone_number: element[0].customer_phone,
                 provider_name: element[0].company_name,
                 address: address,
@@ -255,13 +259,14 @@ exports.getCustomerCancelledOrderHistory = (req, res, nxt) => {
                         element.area_name +
                         ", " +
                         element.district;
+                    var tym = moment(element.order_time).tz('BD');
                     var productorder = {
                         order_id: element.order_id,
                         customer_phone: element.customer_phone,
                         address: address,
                         further_description: element.further_description,
                         payment: element.payment,
-                        time: element.order_time,
+                        time: tym,
                         reason: reason,
                     };
                     output.push(productorder);
@@ -319,13 +324,14 @@ exports.getCustomerActiveOrderHistory = (req, res, nxt) => {
                         element.area_name +
                         ", " +
                         element.district;
+                    var tym = moment(element.order_time).tz('BD');
                     var productorder = {
                         order_id: element.order_id,
                         customer_phone: element.customer_phone,
                         address: address,
                         further_description: element.further_description,
                         payment: element.payment,
-                        time: element.order_time,
+                        time: tym,
                     };
                     output.push(productorder);
                 });
