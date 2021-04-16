@@ -83,6 +83,7 @@ const MainNav = (props) => {
                 style={{ fontFamily: "MuseoModerno", fontSize: "1.4rem" }}
             >
                 ProjectX
+                <sup>&alpha;</sup>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="main-nav" />
             <Navbar.Collapse id="main-nav">

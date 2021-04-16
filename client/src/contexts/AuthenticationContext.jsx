@@ -1,8 +1,11 @@
 import React, { createContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 export const AuthenticationContext = createContext();
 
 const AuthenticationContextProvider = (props) => {
+    const history = useHistory();
+
     const [isAuthenticated, setIsAuthenticated] = useState("");
 
     useEffect(() => {
@@ -32,7 +35,8 @@ const AuthenticationContextProvider = (props) => {
             localStorage.setItem("username", "");
             localStorage.setItem("isServiceProvider","");
             localStorage.setItem("phone_number", "");
-            window.location.replace("/login");
+            // window.location.replace("/login");
+            history.push("/login")
         }
     };
 
