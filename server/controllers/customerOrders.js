@@ -19,17 +19,20 @@ const service_inventory = Service_Inventory(sequelize, Sequelize);
 exports.createCustomerOrderDetails = (req, res, next) => {
     const customer_id = req.body.userid;
     const service_id = req.body.service_id;
-    const order_time = req.body.order_time;
+    var order_time = req.body.order_time;
     const customer_address_id = req.body.customer_address_id;
     const payment = req.body.payment;
     const details = req.body.details;
     const delivered = false;
-
+    console.log(order_time);
+    var serve_time = moment(order_time);
+    var input_time = serve_time.tz("Asia/Dhaka");
+    console.log(input_time.format());
     orders
         .create({
             customer_id: customer_id,
             service_id: service_id,
-            order_time: order_time,
+            order_time: input_time,
             customer_address_id: customer_address_id,
             payment: payment,
             delivered: delivered,
@@ -101,14 +104,14 @@ exports.getCustomerOrderHistory = (req, res, nxt) => {
                         element.area_name +
                         ", " +
                         element.district;
-                    var tym = moment(element.order_time).tz('Asia/Dhaka');
+                    
                     var productorder = {
                         order_id: element.order_id,
                         customer_phone: element.customer_phone,
                         address: address,
                         further_description: element.further_description,
                         payment: element.payment,
-                        time: tym,
+                        time: element.order_time,
                     };
                     output.push(productorder);
                 });
@@ -146,10 +149,10 @@ exports.getConfirmedOrder = (req, res, nxt) => {
                 element[0].area_name +
                 ", " +
                 element[0].district;
-            var tym = moment(element[0].order_time).tz('Asia/Dhaka');
+           // var tym = moment(element[0].order_time).tz('Asia/Dhaka');
             let ord = {
                 total: element[0].payment,
-                time: tym,
+                time: element[0].order_time,
                 phone_number: element[0].customer_phone,
                 provider_name: element[0].company_name,
                 address: address,
@@ -258,14 +261,14 @@ exports.getCustomerCancelledOrderHistory = (req, res, nxt) => {
                         element.area_name +
                         ", " +
                         element.district;
-                    var tym = moment(element.order_time).tz('Asia/Dhaka');
+                    //var tym = moment(element.order_time).tz('Asia/Dhaka');
                     var productorder = {
                         order_id: element.order_id,
                         customer_phone: element.customer_phone,
                         address: address,
                         further_description: element.further_description,
                         payment: element.payment,
-                        time: tym,
+                        time: element.order_time,
                         reason: reason,
                     };
                     output.push(productorder);
@@ -323,14 +326,14 @@ exports.getCustomerActiveOrderHistory = (req, res, nxt) => {
                         element.area_name +
                         ", " +
                         element.district;
-                    var tym = moment(element.order_time).tz('Asia/Dhaka');
+                    //var tym = moment(element.order_time).tz('Asia/Dhaka');
                     var productorder = {
                         order_id: element.order_id,
                         customer_phone: element.customer_phone,
                         address: address,
                         further_description: element.further_description,
                         payment: element.payment,
-                        time: tym,
+                        time: element.order_time,
                     };
                     output.push(productorder);
                 });
