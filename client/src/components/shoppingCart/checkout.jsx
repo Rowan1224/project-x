@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import { Button, Table } from "react-bootstrap";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
+import moment from 'moment-timezone';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CartContext } from "../../contexts/CartContext";
@@ -107,7 +108,10 @@ const Checkout = (props) => {
                         })
                     );
 
-                    const today = new Date();
+
+                    var currentTime = new Date();
+                    const convertTime = moment(currentTime).tz("Asia/Dhaka").format("YYYY-MM-DD HH:mm:ss");
+                    const today = new Date(convertTime);
                     const date =
                         today.getFullYear() +
                         "-" +
@@ -115,7 +119,7 @@ const Checkout = (props) => {
                         "-" +
                         today.getDate();
                     const time = today.getHours() + ":" + today.getMinutes();
-
+                    
                     object = {};
                     object["userid"] = localStorage.getItem("userID");
                     object["service_id"] = sessionStorage.getItem("service_id");
