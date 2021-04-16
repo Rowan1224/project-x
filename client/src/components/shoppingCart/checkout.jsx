@@ -111,7 +111,8 @@ const Checkout = (props) => {
 
                     var currentTime = new Date();
                     const convertTime = moment(currentTime).tz("Asia/Dhaka").format("YYYY-MM-DD HH:mm:ss");
-                    const today = new Date(convertTime);
+                    const today = new Date(convertTime); 
+                    // nothing here
                     const date =
                         today.getFullYear() +
                         "-" +
