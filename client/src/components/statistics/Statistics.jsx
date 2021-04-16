@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "moment-timezone";
 import "moment-duration-format";
 import emoji from "react-easy-emoji";
 import { withRouter } from "react-router-dom";
@@ -17,15 +17,18 @@ const Statistics = (props) => {
     const form = useRef(null);
     const [status, setStatus] = useState(undefined);
     const [statistics, setStatistics] = useState({});
+    var currentTime = new Date();
+    const convertTime = moment(currentTime).tz("America/Danmarkshavn").format("YYYY-MM-DD HH:mm:ss");
+    const today = new Date(convertTime);
     const [date, setDate] = useState({
         start_date: localStorage.getItem("start_date")
             ? localStorage.getItem("start_date")
-            : moment(new Date().toLocaleDateString("en-CA"))
+            : moment(today)
                   .subtract(1, "year")
                   .format("YYYY-MM-DD"),
         end_date: localStorage.getItem("end_date")
             ? localStorage.getItem("end_date")
-            : new Date().toLocaleDateString("en-CA"),
+            : today.toLocaleDateString("en-CA"),
     });
 
     // Themes
@@ -93,7 +96,6 @@ const Statistics = (props) => {
 
             object["service_id"] = localStorage.getItem("userID");
             object["end_date"] = moment(object["end_date"])
-                .add(1, "days")
                 .format("YYYY-MM-DD");
 
             // Check date validity
