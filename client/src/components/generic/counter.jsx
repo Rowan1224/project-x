@@ -25,12 +25,12 @@ const Counter = (props) => {
             <Icon
                 style={{
                     fontSize: "1.125rem",
-                    color: "#0275d8",
+                    color: "#d9534f",
                 }}
-                onClick={() => handleAddOne(props.id)}
+                onClick={() => handleMinusOne(props.id)}
                 className="mt-1"
             >
-                add_circle
+                remove_circle
             </Icon>
             <input
                 type="number"
@@ -47,12 +47,12 @@ const Counter = (props) => {
             <Icon
                 style={{
                     fontSize: "1.125rem",
-                    color: "#d9534f",
+                    color: "#0275d8",
                 }}
-                onClick={() => handleMinusOne(props.id)}
+                onClick={() => handleAddOne(props.id)}
                 className="mt-1"
             >
-                remove_circle
+                add_circle
             </Icon>
         </div>
     );

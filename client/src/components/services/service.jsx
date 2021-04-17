@@ -178,12 +178,12 @@ const Service = (props) => {
                                     <Icon
                                         style={{
                                             fontSize: "1.125rem",
-                                            color: "#0275d8",
+                                            color: "#d9534f",
                                         }}
-                                        onClick={addOne}
+                                        onClick={minusOne}
                                         className="mt-1"
                                     >
-                                        add_circle
+                                        remove_circle
                                     </Icon>
                                     <input
                                         type="number"
@@ -204,12 +204,12 @@ const Service = (props) => {
                                     <Icon
                                         style={{
                                             fontSize: "1.125rem",
-                                            color: "#d9534f",
+                                            color: "#0275d8",
                                         }}
-                                        onClick={minusOne}
+                                        onClick={addOne}
                                         className="mt-1"
                                     >
-                                        remove_circle
+                                        add_circle
                                     </Icon>
                                 </div>
                             </>

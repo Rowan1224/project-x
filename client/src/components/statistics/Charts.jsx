@@ -6,6 +6,8 @@ import "chart.piecelabel.js";
 import "chartjs-plugin-datalabels";
 
 import { ThemeContext } from "../../contexts/ThemeContext";
+
+import Title from "../generic/title";
 import CustomAlert from "../generic/CustomAlert";
 
 const Charts = (props) => {
@@ -374,7 +376,8 @@ const Charts = (props) => {
                                 {lineChartData[0] && (
                                     <div className="text-center mb-3">
                                         {emoji("🔥")} Top{" "}
-                                        {lineChartData[0].length} most ordered
+                                        <Title>{lineChartData[0].length}</Title>{" "}
+                                        most ordered
                                         {Object.keys(lineChartData).length > 1
                                             ? " days "
                                             : " day "}
@@ -404,7 +407,10 @@ const Charts = (props) => {
                                 {polarChartData[0] && (
                                     <div className="text-center mb-3">
                                         {emoji("🔥")} Top{" "}
-                                        {polarChartData[0].length} sold
+                                        <Title>
+                                            {polarChartData[0].length}
+                                        </Title>{" "}
+                                        sold
                                         {Object.keys(lineChartData).length > 1
                                             ? " products "
                                             : " product "}
@@ -438,7 +444,7 @@ const Charts = (props) => {
                                 {barChartData[0] && (
                                     <div className="text-center mb-3">
                                         {emoji("🔥")} Top{" "}
-                                        {barChartData[0].length}
+                                        <Title>{barChartData[0].length}</Title>
                                         {Object.keys(lineChartData).length > 1
                                             ? " employees "
                                             : " employee "}{" "}

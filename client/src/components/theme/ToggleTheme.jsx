@@ -15,13 +15,13 @@ const ToggleTheme = () => {
         <div onClick={toggleTheme} className={"font-weight-bold" + custom_text}>
             {isLightTheme ? (
                 <>
-                    <WbSunny className="mb-1" />
-                    <span className="ml-2">Light Mode</span>
+                    <NightsStay className="mb-1" />
+                    <span className="ml-2">Dark Mode</span>
                 </>
             ) : (
                 <>
-                    <NightsStay className="mb-1" />
-                    <span className="ml-2">Dark Mode</span>
+                    <WbSunny className="mb-1" />
+                    <span className="ml-2">Light Mode</span>
                 </>
             )}
         </div>

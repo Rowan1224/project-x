@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import { Button, Table } from "react-bootstrap";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
-import moment from 'moment-timezone';
+import moment from "moment-timezone";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CartContext } from "../../contexts/CartContext";
@@ -108,10 +108,11 @@ const Checkout = (props) => {
                         })
                     );
 
-
                     var currentTime = new Date();
-                    const convertTime = moment(currentTime).tz("America/Danmarkshavn").format("YYYY-MM-DD HH:mm:ss");
-                    const today = new Date(convertTime); 
+                    const convertTime = moment(currentTime)
+                        .tz("America/Danmarkshavn")
+                        .format("YYYY-MM-DD HH:mm:ss");
+                    const today = new Date(convertTime);
                     // nothing here
                     const date =
                         today.getFullYear() +
@@ -120,7 +121,7 @@ const Checkout = (props) => {
                         "-" +
                         today.getDate();
                     const time = today.getHours() + ":" + today.getMinutes();
-                    
+
                     object = {};
                     object["userid"] = localStorage.getItem("userID");
                     object["service_id"] = sessionStorage.getItem("service_id");
@@ -500,36 +501,42 @@ const Checkout = (props) => {
                             />
                         )}
 
-                        <div className="d-flex justify-content-between">
-                            <Button
-                                type="submit"
-                                variant={type}
-                                disabled={
-                                    !items.length || statusVariant === "success"
-                                }
-                            >
-                                <FontAwesomeIcon
-                                    className="mr-2"
-                                    icon={["fas", "check-circle"]}
-                                />
-                                Confirm Purchase
-                            </Button>
-
-                            <Button
-                                to="/"
-                                as={Link}
-                                variant={type}
-                                disabled={
-                                    items.length &&
-                                    !(statusVariant === "success")
-                                }
-                            >
-                                <FontAwesomeIcon
-                                    className="mr-2"
-                                    icon={["fas", "home"]}
-                                />
-                                Back To Home Page
-                            </Button>
+                        <div className="row mt-3">
+                            <div className="col-sm-12 mb-2 col-md-6">
+                                <Button
+                                    type="submit"
+                                    variant={type}
+                                    className="w-100"
+                                    disabled={
+                                        !items.length ||
+                                        statusVariant === "success"
+                                    }
+                                >
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "check-circle"]}
+                                    />
+                                    Confirm Purchase
+                                </Button>
+                            </div>
+                            <div className="col-sm-12 col-md-6 mb-2 text-right">
+                                <Button
+                                    to="/"
+                                    as={Link}
+                                    variant={type}
+                                    className="w-100"
+                                    disabled={
+                                        items.length &&
+                                        !(statusVariant === "success")
+                                    }
+                                >
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "home"]}
+                                    />
+                                    Back To Home Page
+                                </Button>
+                            </div>
                         </div>
                     </form>
                 </div>

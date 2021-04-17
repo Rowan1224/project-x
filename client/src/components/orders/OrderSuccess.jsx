@@ -62,7 +62,9 @@ const OrderSuccess = () => {
                             We have recieved your order successfully 😄
                             <div className="text-left mt-3">
                                 <div className="d-flex justify-content-between">
-                                    Net Total:
+                                    <b>
+                                        <em>Net Total:</em>
+                                    </b>
                                     <div>
                                         <span className="font-weight-bold">
                                             ৳{" "}
@@ -72,7 +74,9 @@ const OrderSuccess = () => {
                                 </div>
 
                                 <div className="d-flex justify-content-between">
-                                    Ordered Time:
+                                    <b>
+                                        <em>Ordered Time:</em>
+                                    </b>
                                     <div>
                                         {moment(orderDetails.time).format(
                                             "MMM DD, YY hh:mm a"
@@ -81,17 +85,23 @@ const OrderSuccess = () => {
                                 </div>
 
                                 <div className="d-flex justify-content-between">
-                                    Ordered Number:
+                                    <b>
+                                        <em>Ordered Number:</em>
+                                    </b>
                                     <div>{orderDetails.phone_number}</div>
                                 </div>
 
                                 <div className="d-flex justify-content-between">
-                                    Service Provider:
+                                    <b>
+                                        <em>Service Provider:</em>
+                                    </b>
                                     <div>{orderDetails.provider_name}</div>
                                 </div>
 
                                 <div className="d-flex justify-content-between">
-                                    Delivery Address:
+                                    <b>
+                                        <em>Delivery Address:</em>
+                                    </b>
                                     <div>{orderDetails.address}</div>
                                 </div>
                             </div>

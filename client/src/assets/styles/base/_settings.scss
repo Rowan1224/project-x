@@ -10,12 +10,12 @@
 
 // Colors
 $main: #2980b9;
-// $main: #0135a8; // Inverted color of $main-dark
 $main-dark: #feca57;
 $secondary-dark: #ec9474;
 $facebook: #405d9d;
 $twitter: #00acee;
 $success-dark: #8cfac7;
+$success-light: #0d8b53;
 $hover: #ecf0f1;
 $hover-dark: #cecece1f;
 $remove: #eb858e;
@@ -29,6 +29,7 @@ $theme-colors: map-merge(
         "facebook": $facebook,
         "main-dark": $main-dark,
         "success-dark": $success-dark,
+        "success-light": $success-light,
         "secondary-dark": $secondary-dark,
     ),
     $theme-colors

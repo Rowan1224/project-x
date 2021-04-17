@@ -24,7 +24,6 @@ const SearchBar = (props) => {
         <div className="my-5">
             <div className="d-flex">
                 <input
-                    autoFocus
                     type="text"
                     onChange={handleChange}
                     placeholder={props.placeholder}

@@ -8,7 +8,10 @@ const Layout = (props) => {
     return (
         <ThemeContextProvider>
             <MainNav />
-            <Main>{props.children}</Main>
+            <Main>
+                {window.scrollTo(0, 0)}
+                {props.children}
+            </Main>
             <Footer />
         </ThemeContextProvider>
     );

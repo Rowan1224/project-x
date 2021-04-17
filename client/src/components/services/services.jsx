@@ -83,7 +83,7 @@ const Services = () => {
 
         const loadData = async () => {
             const servideID = {
-                userid: localStorage.getItem("userID"),
+                userid: params.id,
             };
 
             const response = await fetch(API_URL, {
@@ -101,7 +101,7 @@ const Services = () => {
         };
         loadData();
         // }
-    }, [services]);
+    }, [services, params.id]);
 
     // componentDidMount
     useEffect(() => {
@@ -141,10 +141,12 @@ const Services = () => {
                     searchBy="Search products by product name, company name or price"
                 />
 
-                <Infobar>
-                    {sName ? sName + " " : "Company name"}
-                    {/* {emoji("🤪")} */}
-                </Infobar>
+                {sName && (
+                    <Infobar>
+                        {sName}
+                        {/* {emoji("🤪")} */}
+                    </Infobar>
+                )}
             </div>
 
             {services && services.length > 0 ? (

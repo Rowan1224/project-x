@@ -304,9 +304,35 @@ const Order = (props) => {
                     onChange={handleChange}
                     TabIndicatorProps={{ style: { background: mainColor } }}
                 >
-                    {tabs.map((tab) => (
+                    {tabs.map((tab, index) => (
                         <Tab
-                            label={tab}
+                            label={
+                                index === 0 ? (
+                                    <div>
+                                        {tab}{" "}
+                                        <span
+                                            className={
+                                                "badge badge-pill badge-" + type
+                                            }
+                                        >
+                                            {orders ? orders.length : 0}
+                                        </span>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        {tab}{" "}
+                                        <span
+                                            className={
+                                                "badge badge-pill badge-" + type
+                                            }
+                                        >
+                                            {assignedOrders
+                                                ? assignedOrders.length
+                                                : 0}
+                                        </span>
+                                    </div>
+                                )
+                            }
                             key={uuidv4()}
                             {...a11yProps(uuidv4())}
                             style={{ textTransform: "none" }}

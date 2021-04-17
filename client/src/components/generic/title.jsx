@@ -11,7 +11,7 @@ const Title = (props) => {
     return (
         <span
             className={custom_text}
-            style={{ fontWeight: "600" }}
+            style={{ fontWeight: "600", fontSize: "1.08rem" }}
         >
             {props.children}
         </span>
