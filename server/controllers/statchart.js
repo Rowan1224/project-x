@@ -195,8 +195,8 @@ exports.horizontalBar = (req, res, nxt) => {
             let ck = 0;
             for (let [key, value] of mapSort1) {
                 if (ck === 5) break;
-                let name = employee_name.get(key);
-                employeename.push([name, key]);
+                let name = employee_name.get(key) + ` ${key}`;
+                employeename.push(name.split(" "));
                 employeeincome.push(value);
                 ck++;
             }
