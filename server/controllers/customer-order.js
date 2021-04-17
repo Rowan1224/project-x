@@ -62,7 +62,7 @@ exports.createCustomerAddress = (req, res, next) => {
                     customer_id: customer_id,
                     road_no: road_no,
                     house_no: house_no,
-                    area_id: area_id,
+                    area_id : area_id,
                     further_description: further_description,
                 },
             })
@@ -108,9 +108,16 @@ exports.createCustomerAddress = (req, res, next) => {
 
 exports.getCustomerAddress = (req, res, next) => {
     const customerId = req.body.customerId;
-
-    customer
-        .findAll({ where: { customer_id: customerId } })
+    sequelize
+    .query(
+        "SELECT * FROM Customer_Address INNER JOIN Area_Details ON Customer_Address.area_id=Area_Details.area_id WHERE customer_id = ?",
+        {
+            replacements: [
+                [customerId],
+            ],
+            type: sequelize.QueryTypes.SELECT,
+        }
+    )
         .then((address) => {
             res.status(200).json({
                 address: address,
