@@ -38,6 +38,18 @@
     color: $main-dark;
 }
 
+.paginationActiveLinkClass {
+    color: white !important;
+    border: 1px solid gray !important;
+    background-color: $main !important;
+}
+
+.paginationActiveLinkClass-dark {
+    color: black !important;
+    border: 1px solid white !important;
+    background-color: $main-dark !important;
+}
+
 .profile-pic {
     max-width: 12rem;
     border-radius: 0.45rem;
@@ -83,7 +95,7 @@
 // DropDown
 .dropdown-menu {
     max-height: 15rem;
-    overflow-y: scroll;
+    // overflow-y: scroll;
 }
 
 .dropdown-text:hover {

@@ -5,6 +5,7 @@ import React, { useState, useEffect, useContext } from "react";
 import AddArea from "./AddArea";
 // import Title from "../generic/title";
 // import CustomCard from "../generic/CustomCard";
+import Infobar from "../generic/infobar";
 import CustomTable from "../generic/CustomTable";
 import SelectArea from "./SelectArea";
 import CustomAlert from "../generic/CustomAlert";
@@ -106,19 +107,25 @@ const AvailableAreas = (props) => {
                 <SelectArea />
             </div>
 
-            <CustomTable
-                ths={tableData.ths}
-                datas={availableAreas}
-                allowedEntry={tableData.allowedEntry}
-                ActionComponents={[
-                    {
-                        component: (availableArea) => (
-                            <AddArea area={availableArea} />
-                        ),
-                        className: "",
-                    },
-                ]}
-            />
+            {availableAreas.length ? (
+                <CustomTable
+                    ths={tableData.ths}
+                    datas={availableAreas}
+                    allowedEntry={tableData.allowedEntry}
+                    ActionComponents={[
+                        {
+                            component: (availableArea) => (
+                                <AddArea area={availableArea} />
+                            ),
+                            className: "",
+                        },
+                    ]}
+                />
+            ) : (
+                <Infobar>
+                    You have already added all the areas of this category 😁
+                </Infobar>
+            )}
         </>
     );
 };

@@ -127,7 +127,7 @@ const MainNav = (props) => {
 
                             <Dropdown.Menu
                                 className={ui + border}
-                                style={{ width: "14rem" }}
+                                style={{ width: "15rem" }}
                             >
                                 <Dropdown.Item
                                     as={NavLink}

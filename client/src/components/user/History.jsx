@@ -29,14 +29,15 @@ const History = (props) => {
     const [cancelledHistories, setCancelledHistories] = useState([]);
     const [tabs] = useState(
         isServiceProvider
-            ? ["Cancelled Orders", "Delivered Orders"]
-            : ["Active Orders", "Cancelled Orders", "Delivered Orders"]
+            ? ["Delivered Orders", "Cancelled Orders"]
+            : ["Active Orders", "Delivered Orders", "Cancelled Orders"]
     );
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
     const link = isLightTheme ? theme.light.link : theme.dark.link;
+    const type = isLightTheme ? theme.light.type : theme.dark.type;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const dangerTextColor = isLightTheme
         ? theme.light.dangerTextColor
@@ -280,7 +281,48 @@ const History = (props) => {
                 >
                     {tabs.map((tab) => (
                         <Tab
-                            label={tab}
+                            label={
+                                tab === "Active Orders" ? (
+                                    <div>
+                                        {tab}{" "}
+                                        <span
+                                            className={
+                                                "badge badge-pill badge-" + type
+                                            }
+                                        >
+                                            {activeHistories
+                                                ? activeHistories.length
+                                                : 0}
+                                        </span>
+                                    </div>
+                                ) : tab === "Delivered Orders" ? (
+                                    <div>
+                                        {tab}{" "}
+                                        <span
+                                            className={
+                                                "badge badge-pill badge-" + type
+                                            }
+                                        >
+                                            {deliveredHistories
+                                                ? deliveredHistories.length
+                                                : 0}
+                                        </span>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        {tab}{" "}
+                                        <span
+                                            className={
+                                                "badge badge-pill badge-" + type
+                                            }
+                                        >
+                                            {cancelledHistories
+                                                ? cancelledHistories.length
+                                                : 0}
+                                        </span>
+                                    </div>
+                                )
+                            }
                             key={uuidv4()}
                             {...a11yProps(uuidv4())}
                             style={{ textTransform: "none" }}

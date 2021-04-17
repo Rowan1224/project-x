@@ -304,10 +304,10 @@ const Order = (props) => {
                     onChange={handleChange}
                     TabIndicatorProps={{ style: { background: mainColor } }}
                 >
-                    {tabs.map((tab, index) => (
+                    {tabs.map((tab) => (
                         <Tab
                             label={
-                                index === 0 ? (
+                                tab === "Not Assigned" ? (
                                     <div>
                                         {tab}{" "}
                                         <span
