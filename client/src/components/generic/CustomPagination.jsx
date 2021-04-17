@@ -7,7 +7,6 @@ const CustomPagination = (props) => {
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
     const custom_text = isLightTheme
         ? theme.light.custom_text
         : theme.dark.custom_text;
