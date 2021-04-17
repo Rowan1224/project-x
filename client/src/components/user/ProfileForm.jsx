@@ -73,7 +73,7 @@ const ProfileForm = () => {
                 object[key] = value;
             });
             object["userid"] = localStorage.getItem("userID");
-
+            console.log(object);    
             try {
                 const response = await fetch(API_URL, {
                     method: "PATCH",
@@ -89,10 +89,13 @@ const ProfileForm = () => {
                 else {
                     setVariant("success");
                     setStatus("Profile updated successfully");
+                    localStorage.setItem("username",object.username);
+                    window.location.reload();
                 }
             } catch (error) {
                 setStatus(error);
             }
+             
         };
 
         loadData();
