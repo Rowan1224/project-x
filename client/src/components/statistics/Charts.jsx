@@ -90,6 +90,7 @@ const Charts = (props) => {
 
                 data = await response.json();
                 // console.log(data.details);
+                // console.log(data.details[0].map((e) => e[0].split(" ")));
 
                 if (!response.ok) setStatus(data.message);
                 else setBarChartData(data.details);
@@ -125,7 +126,7 @@ const Charts = (props) => {
             labels: lineChartData[0],
             // labels: ["3-1-2021", "3-4-2020", "4-16-2021"],
             options: {
-                responsive: true,
+                // responsive: true,
                 legend: {
                     display: false,
                 },
@@ -223,7 +224,8 @@ const Charts = (props) => {
             // ],
             labels: barChartData[0],
             options: {
-                responsive: true,
+                // responsive: true,
+                maintainAspectRatio: false,
                 legend: {
                     display: false,
                 },
@@ -297,13 +299,14 @@ const Charts = (props) => {
             ],
         },
         dataPolar: {
-            // labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+            // labels: [["Red", "Red Red Red Red Red Red Red Red"], "Green", "Yellow", "Grey", "Dark Grey"],
             labels: polarChartData[0],
             options: {
-                responsive: true,
-                legend: {
-                    position: "right",
-                },
+                // responsive: true,
+                maintainAspectRatio: false,
+                // legend: {
+                //     position: "bottom",
+                // },
                 plugins: {
                     datalabels: {
                         display: false,
@@ -372,7 +375,7 @@ const Charts = (props) => {
                 <Col lg={6} className="mb-4">
                     <div className={"card h-100" + ui + syntax + border}>
                         {lineChartData[0] && lineChartData[0].length > 0 ? (
-                            <div className="card-body">
+                            <div className="p-2 p-md-3">
                                 {lineChartData[0] && (
                                     <div className="text-center mb-3">
                                         {emoji("🔥")} Top{" "}
@@ -401,9 +404,12 @@ const Charts = (props) => {
                 </Col>
 
                 <Col lg={6} className="mb-4">
-                    <div className={"card h-100" + ui + syntax + border}>
+                    <div className={"card" + ui + syntax + border}>
                         {polarChartData[0] && polarChartData[0].length > 0 ? (
-                            <div className="card-body">
+                            <div
+                                className="p-2 p-md-3"
+                                style={{ maxHeight: "55rem" }}
+                            >
                                 {polarChartData[0] && (
                                     <div className="text-center mb-3">
                                         {emoji("🔥")} Top{" "}
@@ -417,10 +423,6 @@ const Charts = (props) => {
                                         {emoji("🔥")}
                                     </div>
                                 )}
-                                {/* <Doughnut
-                                    data={chartsData.dataDoughnut}
-                                    options={chartsData.dataDoughnut.options}
-                                /> */}
                                 <Polar
                                     data={chartsData.dataPolar}
                                     options={chartsData.dataPolar.options}
@@ -438,9 +440,12 @@ const Charts = (props) => {
                 </Col>
 
                 <Col lg={6} className="mb-4">
-                    <div className={"card h-100" + ui + syntax + border}>
+                    <div className={"card" + ui + syntax + border}>
                         {barChartData[0] && barChartData[0].length > 0 ? (
-                            <div className="card-body">
+                            <div
+                                className="p-2 p-md-3"
+                                style={{ maxHeight: "55rem" }}
+                            >
                                 {barChartData[0] && (
                                     <div className="text-center mb-3">
                                         {emoji("🔥")} Top{" "}

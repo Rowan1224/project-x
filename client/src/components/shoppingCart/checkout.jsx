@@ -358,11 +358,13 @@ const Checkout = (props) => {
                                             value={address.customer_add_id}
                                         >
                                             House No: {address.house_no}, Road
-                                            No: {address.road_no},Area : {address.area_name}, Further
+                                            No: {address.road_no}, Area :{" "}
+                                            {address.area_name}, Further
                                             Description:{" "}
                                             {address.further_description
                                                 ? address.further_description
-                                                : "Null"}, 
+                                                : "Null"}
+                                            ,
                                         </option>
                                     ))}
                                 </select>

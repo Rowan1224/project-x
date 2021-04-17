@@ -17,15 +17,17 @@ const Statistics = (props) => {
     const form = useRef(null);
     const [status, setStatus] = useState(undefined);
     const [statistics, setStatistics] = useState({});
-    var currentTime = new Date();
-    const convertTime = moment(currentTime).tz("America/Danmarkshavn").format("YYYY-MM-DD HH:mm:ss");
+
+    const currentTime = moment(new Date()).add(1, "day");
+    const convertTime = moment(currentTime)
+        .tz("America/Danmarkshavn")
+        .format("YYYY-MM-DD HH:mm:ss");
     const today = new Date(convertTime);
+
     const [date, setDate] = useState({
         start_date: localStorage.getItem("start_date")
             ? localStorage.getItem("start_date")
-            : moment(today)
-                  .subtract(1, "year")
-                  .format("YYYY-MM-DD"),
+            : moment(today).subtract(1, "year").format("YYYY-MM-DD"),
         end_date: localStorage.getItem("end_date")
             ? localStorage.getItem("end_date")
             : today.toLocaleDateString("en-CA"),
@@ -95,8 +97,9 @@ const Statistics = (props) => {
             });
 
             object["service_id"] = localStorage.getItem("userID");
-            object["end_date"] = moment(object["end_date"])
-                .format("YYYY-MM-DD");
+            object["end_date"] = moment(object["end_date"]).format(
+                "YYYY-MM-DD"
+            );
 
             // Check date validity
             const start = moment(object["start_date"]);
@@ -347,7 +350,7 @@ const Statistics = (props) => {
                                         <span className="font-weight-bold mr-2">
                                             ৳
                                         </span>
-                                        Total Income:
+                                        Total Income (BDT):
                                     </Col>
                                     <Col md={6} sm={12}>
                                         <div
