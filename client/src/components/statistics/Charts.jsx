@@ -404,11 +404,14 @@ const Charts = (props) => {
                 </Col>
 
                 <Col lg={6} className="mb-4">
-                    <div className={"card" + ui + syntax + border}>
+                    <div
+                        className={"card" + ui + syntax + border}
+                        style={{ height: "55vh" }}
+                    >
                         {polarChartData[0] && polarChartData[0].length > 0 ? (
                             <div
-                                className="p-2 p-md-3"
-                                style={{ maxHeight: "55rem" }}
+                                className="card-body"
+                                style={{ maxHeight: "50vh" }}
                             >
                                 {polarChartData[0] && (
                                     <div className="text-center mb-3">
@@ -440,11 +443,14 @@ const Charts = (props) => {
                 </Col>
 
                 <Col lg={6} className="mb-4">
-                    <div className={"card" + ui + syntax + border}>
+                    <div
+                        className={"card" + ui + syntax + border}
+                        style={{ height: "55vh" }}
+                    >
                         {barChartData[0] && barChartData[0].length > 0 ? (
                             <div
-                                className="p-2 p-md-3"
-                                style={{ maxHeight: "55rem" }}
+                                className="card-body"
+                                style={{ maxHeight: "50vh" }}
                             >
                                 {barChartData[0] && (
                                     <div className="text-center mb-3">
