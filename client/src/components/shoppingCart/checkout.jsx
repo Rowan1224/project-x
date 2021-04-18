@@ -14,7 +14,7 @@ import CustomAlert from "../generic/CustomAlert";
 
 const Checkout = (props) => {
     const form = useRef(null);
-    const { items, discount, totalPrice } = useContext(CartContext);
+    const { items, discount, totalPrice, clearItems } = useContext(CartContext);
 
     const [statusVariant] = useState("danger");
     const [addressess, setAddressess] = useState([]);
@@ -158,7 +158,7 @@ const Checkout = (props) => {
     };
 
     const handleCleanUP = (order_id) => {
-        sessionStorage.setItem("items", "[]");
+        clearItems();
         sessionStorage.setItem("service_id", "");
         props.history.push(`/order/success/${order_id}`);
     };

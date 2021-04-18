@@ -1,14 +1,14 @@
 import React from 'react';
-import CartContextProvider from '../contexts/CartContext';
+// import CartContextProvider from '../contexts/CartContext';
 import Cart from '../components/shoppingCart/cart';
 import Layout from '../components/generic/layout';
 
 const ShoppingCart = () => {
     return (
         <Layout>
-            <CartContextProvider>
+            {/* <CartContextProvider> */}
                 <Cart />
-            </CartContextProvider>
+            {/* </CartContextProvider> */}
         </Layout>
     );
 }

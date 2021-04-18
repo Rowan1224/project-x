@@ -1,14 +1,14 @@
 import React from "react";
-import CartContextProvider from "../contexts/CartContext";
+// import CartContextProvider from "../contexts/CartContext";
 import Layout from "../components/generic/layout";
 import Checkout from "../components/shoppingCart/checkout";
 
 const CheckoutPage = () => {
     return (
         <Layout>
-            <CartContextProvider>
+            {/* <CartContextProvider> */}
                 <Checkout />
-            </CartContextProvider>
+            {/* </CartContextProvider> */}
         </Layout>
     );
 };

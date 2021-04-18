@@ -406,7 +406,7 @@ const Charts = (props) => {
                 <Col lg={6} className="mb-4">
                     <div
                         className={"card" + ui + syntax + border}
-                        style={{ height: "55vh" }}
+                        style={{ height: "56vh" }}
                     >
                         {polarChartData[0] && polarChartData[0].length > 0 ? (
                             <div
@@ -445,7 +445,7 @@ const Charts = (props) => {
                 <Col lg={6} className="mb-4">
                     <div
                         className={"card" + ui + syntax + border}
-                        style={{ height: "55vh" }}
+                        style={{ height: "56vh" }}
                     >
                         {barChartData[0] && barChartData[0].length > 0 ? (
                             <div

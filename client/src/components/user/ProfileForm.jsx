@@ -76,6 +76,9 @@ const ProfileForm = () => {
                 object[key] = value;
             });
             object["userid"] = localStorage.getItem("userID");
+            object["username"] =
+                object["username"].charAt(0).toUpperCase() +
+                object["username"].slice(1);
 
             try {
                 const response = await fetch(API_URL, {
@@ -95,7 +98,6 @@ const ProfileForm = () => {
                     localStorage.setItem("username", object.username);
                     updateFlag();
                     updateUniversalFlag();
-                    // window.location.reload();
                 }
             } catch (error) {
                 setStatus(error);

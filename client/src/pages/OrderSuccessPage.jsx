@@ -2,14 +2,14 @@ import React from "react";
 
 import Layout from "../components/generic/layout";
 import OrderSuccess from "../components/orders/OrderSuccess";
-import CartContextProvider from "../contexts/CartContext";
+// import CartContextProvider from "../contexts/CartContext";
 
 const OrderSuccessPage = () => {
     return (
         <Layout>
-            <CartContextProvider>
+            {/* <CartContextProvider> */}
                 <OrderSuccess />
-            </CartContextProvider>
+            {/* </CartContextProvider> */}
         </Layout>
     );
 };

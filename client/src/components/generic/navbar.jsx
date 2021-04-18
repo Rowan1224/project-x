@@ -10,13 +10,16 @@ import {
 import { NavLink } from "react-router-dom";
 import { useWindowScroll } from "beautiful-react-hooks";
 
-import ToggleTheme from "../theme/ToggleTheme";
+import { CartContext } from "../../contexts/CartContext";
 import { ThemeContext } from "../../contexts/ThemeContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SettingsContext } from "../../contexts/SettingsContext";
+
+import ToggleTheme from "../theme/ToggleTheme";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const MainNav = (props) => {
     const [username, setUsername] = useState("");
+    const [cartCount, setCartCount] = useState(0);
     const [isShadow, setIsShadow] = useState(window.scrollY > 20);
     const [isAuthenticated] = useState(localStorage.getItem("isAuthenticated"));
     const [isServiceProvider] = useState(
@@ -27,6 +30,7 @@ const MainNav = (props) => {
         setIsShadow(window.scrollY > 20);
     });
 
+    const { items } = useContext(CartContext);
     const { universalFlag } = useContext(SettingsContext);
 
     // Themes
@@ -72,7 +76,8 @@ const MainNav = (props) => {
 
     useEffect(() => {
         setUsername(localStorage.getItem("username"));
-    }, [universalFlag]);
+        setCartCount(items.length);
+    }, [universalFlag, items]);
 
     return (
         <Navbar
@@ -91,7 +96,9 @@ const MainNav = (props) => {
                 ProjectX
                 <sup>&alpha;</sup>
             </Navbar.Brand>
+
             <Navbar.Toggle aria-controls="main-nav" />
+
             <Navbar.Collapse id="main-nav">
                 <Nav className="ml-auto">
                     <Nav.Link
@@ -234,7 +241,7 @@ const MainNav = (props) => {
                             className={custom_text}
                         >
                             <ShoppingCart className="mb-1" />
-                            <span className="ml-2">Cart</span>
+                            <span className="ml-2">Cart: {cartCount}</span>
                         </Nav.Link>
                     )}
                 </Nav>

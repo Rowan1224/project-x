@@ -1,4 +1,6 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+
+import { SettingsContext } from "./SettingsContext";
 
 export const CartContext = createContext();
 
@@ -7,6 +9,8 @@ const CartContextProvider = (props) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [subTotalPrice, setSubTotalPrice] = useState(0);
     const discount = 8;
+
+    const { updateUniversalFlag } = useContext(SettingsContext);
 
     // componentDidMount
     useEffect(() => {
@@ -35,6 +39,7 @@ const CartContextProvider = (props) => {
 
     const addItem = (item) => {
         setItems([...items, item]);
+        updateUniversalFlag();
     };
 
     const handleAddOne = (id) => {
@@ -74,6 +79,12 @@ const CartContextProvider = (props) => {
     const handleRemove = (id) => {
         setItems(items.filter((item) => item.id !== id));
         items.length === 1 && sessionStorage.setItem("service_id", "");
+        updateUniversalFlag();
+    };
+
+    const clearItems = () => {
+        setItems([]);
+        sessionStorage.setItem("items", "[]");
     };
 
     return (
@@ -82,6 +93,7 @@ const CartContextProvider = (props) => {
                 items,
                 addItem,
                 discount,
+                clearItems,
                 totalPrice,
                 handleRemove,
                 handleAddOne,

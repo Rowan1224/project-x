@@ -2,16 +2,16 @@ import React from "react";
 
 import Layout from "../components/generic/layout";
 import Services from "../components/services/services";
-import CartContextProvider from "../contexts/CartContext";
+// import CartContextProvider from "../contexts/CartContext";
 import LocationContextProvider from "../contexts/LocationContext";
 
 const ServiceProviders = () => {
     return (
         <Layout>
             <LocationContextProvider>
-                <CartContextProvider>
+                {/* <CartContextProvider> */}
                     <Services />
-                </CartContextProvider>
+                {/* </CartContextProvider> */}
             </LocationContextProvider>
         </Layout>
     );

@@ -42,10 +42,9 @@ const RegistrationForm = (props) => {
                 object[key] = value;
             });
 
-            // for (var pair of formData.entries()) {
-            //     console.log(pair[0] + " - " + pair[1]);
-            // }
-            // console.log(JSON.stringify(object));
+            object["username"] =
+                object["username"].charAt(0).toUpperCase() +
+                object["username"].slice(1);
 
             try {
                 const response = await fetch(API_URL, {
