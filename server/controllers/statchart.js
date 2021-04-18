@@ -66,7 +66,7 @@ exports.pieChart = (req, res, nxt) => {
                 message: "Successfully fetched the chart",
             });
 
-            console.log(hotproducts);
+           // console.log(hotproducts);
         })
         .catch((err) => {
             res.status(504).json({ message: "Failed to fetch the chart" });
@@ -92,7 +92,7 @@ exports.lineChart = (req, res, nxt) => {
                 if (element.delivered === 1) {
                     var time = element.order_time;
                     time = moment(time).format("YYYY-MM-DD");
-                    console.log(time);
+                    //console.log(time);
                     // console.log(time.toString());
                     //time = time.toString();
                     //let time = element.order_time.getDate()+'-'+element.order_time.getMonth()+'-'+element.order_time.getFullYear();
@@ -107,7 +107,7 @@ exports.lineChart = (req, res, nxt) => {
             const mapSort1 = new Map(
                 [...delivered_date.entries()].sort((a, b) => b[1] - a[1])
             );
-            console.log(mapSort1);
+            //console.log(mapSort1);
             let date = [],
                 orders_date = [],
                 pairs = [],
@@ -188,14 +188,14 @@ exports.horizontalBar = (req, res, nxt) => {
             const mapSort1 = new Map(
                 [...emplpoyee_income.entries()].sort((a, b) => b[1] - a[1])
             );
-            console.log(mapSort1);
+           // console.log(mapSort1);
 
             let employeename = [],
                 employeeincome = [];
             let ck = 0;
             for (let [key, value] of mapSort1) {
                 if (ck === 5) break;
-                let name = employee_name.get(key) + ` ${key}`;
+                let name = employee_name.get(key);
                 employeename.push(name.split(" "));
                 employeeincome.push(value);
                 ck++;

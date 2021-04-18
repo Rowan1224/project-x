@@ -506,6 +506,24 @@ const Checkout = (props) => {
                         <div className="row mt-3">
                             <div className="col-sm-12 mb-2 col-md-6">
                                 <Button
+                                    to="/"
+                                    as={Link}
+                                    variant={"outline-" + type}
+                                    className="w-100"
+                                    disabled={
+                                        items.length &&
+                                        !(statusVariant === "success")
+                                    }
+                                >
+                                    <FontAwesomeIcon
+                                        className="mr-2"
+                                        icon={["fas", "home"]}
+                                    />
+                                    Back To Home Page
+                                </Button>
+                            </div>
+                            <div className="col-sm-12 col-md-6 mb-2 text-right">
+                                <Button
                                     type="submit"
                                     variant={type}
                                     className="w-100"
@@ -519,24 +537,6 @@ const Checkout = (props) => {
                                         icon={["fas", "check-circle"]}
                                     />
                                     Confirm Purchase
-                                </Button>
-                            </div>
-                            <div className="col-sm-12 col-md-6 mb-2 text-right">
-                                <Button
-                                    to="/"
-                                    as={Link}
-                                    variant={type}
-                                    className="w-100"
-                                    disabled={
-                                        items.length &&
-                                        !(statusVariant === "success")
-                                    }
-                                >
-                                    <FontAwesomeIcon
-                                        className="mr-2"
-                                        icon={["fas", "home"]}
-                                    />
-                                    Back To Home Page
                                 </Button>
                             </div>
                         </div>

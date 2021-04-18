@@ -261,7 +261,6 @@ const Order = (props) => {
         ths: [
             { className: "", value: "Order ID" },
             { className: "", value: "Customer Name" },
-            { className: "", value: "Customer Phone" },
             { className: "", value: "Address" },
             {
                 className: "",
@@ -280,7 +279,6 @@ const Order = (props) => {
         tdsClassName: ["", "", "text-break", ""],
         allowedEntry: [
             "customer_name",
-            "customer_phone",
             "address",
             "further_description",
         ],

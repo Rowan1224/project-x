@@ -24,10 +24,10 @@ exports.createCustomerOrderDetails = (req, res, next) => {
     const payment = req.body.payment;
     const details = req.body.details;
     const delivered = false;
-    console.log(order_time);
+    //console.log(order_time);
     var serve_time = moment(order_time);
     var input_time = serve_time.tz("Asia/Dhaka");
-    console.log(input_time.format());
+    //console.log(input_time.format());
     orders
         .create({
             customer_id: customer_id,
@@ -157,7 +157,7 @@ exports.getConfirmedOrder = (req, res, nxt) => {
                 provider_name: element[0].company_name,
                 address: address,
             };
-            console.log(ord);
+            //console.log(ord);
             res.status(200).json({
                 details: ord,
                 message: "Successfully got the order.",

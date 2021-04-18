@@ -6,6 +6,7 @@ const Order_Details = require("../../server/models/Order_details");
 const orderDetails = Order_Details(sequelize, Sequelize);
 const Employee = require("../../server/models/Employee");
 const { addEmployee } = require("./employee");
+const e = require("express");
 const employee = Employee(sequelize, Sequelize);
 
 exports.getServiceOrder = (req, res, next) => {
@@ -51,8 +52,9 @@ exports.getServiceOrder = (req, res, next) => {
                         element.district;
                     var productorder = {
                         order_id: element.order_id,
-                        customer_name: element.customer_name,
-                        customer_phone: element.customer_phone,
+                        customer_name: element.customer_name + " (" +
+                        element.customer_phone +
+                        ")",
                         address: address,
                         further_description: element.further_description,
                         payment: element.payment,
@@ -119,14 +121,16 @@ exports.getAssignedServiceOrder = (req, res, next) => {
                         element.district;
                     var productorder = {
                         order_id: element.order_id,
-                        customer_name: element.customer_name,
-                        customer_phone: element.customer_phone,
+                        customer_name: element.customer_name + " (" +
+                        element.customer_phone +
+                        ")",
                         address: address,
-                        // "road_no" : element.road_no,
-                        // "house_no" :element.house_no,
                         further_description: element.further_description,
                         payment: element.payment,
-                        employee: element.phone_number,
+                        employee: element.employee_name +
+                        " (" +
+                        element.phone_number +
+                        ")",
                         time: element.order_time,
                     };
                     output.push(productorder);
@@ -317,6 +321,10 @@ exports.getServiceStats = (req, res, nxt) => {
                 };
                 employeedetails.push(employeedata);
             }
+
+            employeedetails.sort((a, b) =>b.income - a.income);
+            //employeedetails.sort((a, b) => a.income > b.income ? - 1 : Number(a.income < b.income))
+            //console.log(employeedetails);
             res.status(200).json({
                 //orders : success,
                 total_orders: total_orders,
@@ -327,7 +335,7 @@ exports.getServiceStats = (req, res, nxt) => {
             });
         })
         .catch((err) => {
-            res.status(504).json({ message: "Failed to fetch service-stat." });
+            res.status(504).json({ message: "Failed to fetch service-stat" });
         });
 };
 
@@ -376,8 +384,10 @@ exports.getServiceOrderHistory = (req, res, nxt) => {
                         element.district;
                     var productorder = {
                         order_id: element.order_id,
-                        customer_name: element.customer_name,
-                        customer_phone: element.customer_phone,
+                        customer_name: element.customer_name +
+                        " (" +
+                        element.customer_phone +
+                        ")",
                         address: address,
                         further_description: element.further_description,
                         payment: element.payment,
@@ -496,8 +506,10 @@ exports.getServiceCancelledOrderHistory = (req, res, nxt) => {
                         element.district;
                     var productorder = {
                         order_id: element.order_id,
-                        customer_name: element.customer_name,
-                        customer_phone: element.customer_phone,
+                        customer_name: element.customer_name +
+                        " (" +
+                        element.customer_phone +
+                        ")",
                         address: address,
                         further_description: element.further_description,
                         payment: element.payment,

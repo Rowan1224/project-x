@@ -199,7 +199,6 @@ const History = (props) => {
             ? [
                   { className: "", value: "Order ID" },
                   { className: "", value: "Customer Name" },
-                  { className: "", value: "Phone" },
                   { className: "", value: "Address" },
                   { className: "", value: "Further Description" },
                   { className: "", value: "Payment" },
@@ -219,7 +218,6 @@ const History = (props) => {
             ? [
                   { className: "", value: "Order ID" },
                   { className: "", value: "Customer Name" },
-                  { className: "", value: "Phone" },
                   { className: "", value: "Address" },
                   { className: "", value: "Further Description" },
                   { className: "", value: "Employee" },
@@ -245,7 +243,6 @@ const History = (props) => {
         cancelledAllowedEntry: isServiceProvider
             ? [
                   "customer_name",
-                  "customer_phone",
                   "address",
                   "further_description",
               ]
@@ -253,7 +250,6 @@ const History = (props) => {
         deliveredAllowedEntry: isServiceProvider
             ? [
                   "customer_name",
-                  "customer_phone",
                   "address",
                   "further_description",
                   "employee",
