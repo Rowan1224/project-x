@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Navbar, Nav, Dropdown } from "react-bootstrap";
 import {
     History,
@@ -13,10 +13,10 @@ import { useWindowScroll } from "beautiful-react-hooks";
 import ToggleTheme from "../theme/ToggleTheme";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { SettingsContext } from "../../contexts/SettingsContext";
+import { SettingsContext } from "../../contexts/SettingsContext";
 
 const MainNav = (props) => {
-    // const { isAnimated } = useContext(SettingsContext);
+    const [username, setUsername] = useState("");
     const [isShadow, setIsShadow] = useState(window.scrollY > 20);
     const [isAuthenticated] = useState(localStorage.getItem("isAuthenticated"));
     const [isServiceProvider] = useState(
@@ -26,6 +26,8 @@ const MainNav = (props) => {
     useWindowScroll((event) => {
         setIsShadow(window.scrollY > 20);
     });
+
+    const { universalFlag } = useContext(SettingsContext);
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -68,6 +70,10 @@ const MainNav = (props) => {
         </div>
     ));
 
+    useEffect(() => {
+        setUsername(localStorage.getItem("username"));
+    }, [universalFlag]);
+
     return (
         <Navbar
             expand="lg"
@@ -96,9 +102,7 @@ const MainNav = (props) => {
                     >
                         <AccountCircle className="mb-1" />
                         <span className="ml-2">
-                            {localStorage.getItem("username")
-                                ? localStorage.getItem("username")
-                                : "Login"}
+                            {username ? username : "Login"}
                         </span>
                     </Nav.Link>
 

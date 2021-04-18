@@ -20,10 +20,6 @@ const Cart = () => {
         subTotalPrice,
     } = useContext(CartContext);
 
-    // const id = sessionStorage.getItem("service_id");
-    // console.log(id); 
-    // const linkk = "/service/provider/" + `${id}`;
-    //console.log(linkk);
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const variant = isLightTheme ? "light" : "dark";

@@ -5,9 +5,11 @@ import CustomAlert from "../generic/CustomAlert";
 import { AuthenticationContext } from "../../contexts/AuthenticationContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ThemeContext } from "../../contexts/ThemeContext";
+import { SettingsContext } from "../../contexts/SettingsContext";
 
 const ProfileForm = () => {
     const [user, setUser] = useState({});
+    const [flag, setFlag] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
     const [status, setStatus] = useState(undefined);
     const [variant, setVariant] = useState("danger");
@@ -18,6 +20,7 @@ const ProfileForm = () => {
     const form = useRef(null);
 
     const { handleLogOut } = useContext(AuthenticationContext);
+    const { updateUniversalFlag } = useContext(SettingsContext);
 
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
@@ -52,7 +55,7 @@ const ProfileForm = () => {
         };
 
         loadData();
-    }, [isServiceProvider]);
+    }, [isServiceProvider, flag]);
 
     const handleEdit = () => {
         setStatus("");
@@ -64,7 +67,7 @@ const ProfileForm = () => {
 
         const API_URL = isServiceProvider
             ? "/updateProfile/"
-            : "/customerupdateprofile/";
+            : "/customerUpdateProfile/";
 
         const loadData = async () => {
             const formData = new FormData(form.current);
@@ -73,7 +76,7 @@ const ProfileForm = () => {
                 object[key] = value;
             });
             object["userid"] = localStorage.getItem("userID");
-            console.log(object);    
+
             try {
                 const response = await fetch(API_URL, {
                     method: "PATCH",
@@ -89,18 +92,21 @@ const ProfileForm = () => {
                 else {
                     setVariant("success");
                     setStatus("Profile updated successfully");
-                    localStorage.setItem("username",object.username);
-                    window.location.reload();
+                    localStorage.setItem("username", object.username);
+                    updateFlag();
+                    updateUniversalFlag();
+                    // window.location.reload();
                 }
             } catch (error) {
                 setStatus(error);
             }
-             
         };
 
         loadData();
         setCanEdit(!canEdit);
     };
+
+    const updateFlag = () => setFlag(!flag);
 
     return (
         <div
