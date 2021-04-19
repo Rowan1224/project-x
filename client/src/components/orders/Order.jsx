@@ -260,7 +260,7 @@ const Order = (props) => {
     const tableData = {
         ths: [
             { className: "", value: "Order ID" },
-            { className: "", value: "Customer Name" },
+            { className: "", value: "Customer Details" },
             { className: "", value: "Address" },
             {
                 className: "",

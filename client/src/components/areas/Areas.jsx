@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 
 import { ThemeContext } from "../../contexts/ThemeContext";
 
-import ProvidedAreas from "./ServiceAreas";
+import ServiceAreas from "./ServiceAreas";
 import SearchBar from "../generic/SearchBar";
 import AvailableAreas from "./AvailableAreas";
 import LocationContextProvider from "../../contexts/LocationContext";
@@ -35,7 +35,7 @@ const Areas = (props) => {
                 </h4>
 
                 <div className="mb-4">
-                    <ProvidedAreas searchData={searchData} />
+                    <ServiceAreas searchData={searchData} />
                 </div>
 
                 <h4 className={"mt-5 text-center" + syntax}>Available Areas</h4>

@@ -198,7 +198,7 @@ const History = (props) => {
         cancelledThs: isServiceProvider
             ? [
                   { className: "", value: "Order ID" },
-                  { className: "", value: "Customer Name" },
+                  { className: "", value: "Customer Details" },
                   { className: "", value: "Address" },
                   { className: "", value: "Further Description" },
                   { className: "", value: "Payment" },
@@ -217,7 +217,7 @@ const History = (props) => {
         deliveredThs: isServiceProvider
             ? [
                   { className: "", value: "Order ID" },
-                  { className: "", value: "Customer Name" },
+                  { className: "", value: "Customer Details" },
                   { className: "", value: "Address" },
                   { className: "", value: "Further Description" },
                   { className: "", value: "Employee" },

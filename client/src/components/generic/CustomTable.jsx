@@ -12,7 +12,13 @@ const CustomTable = (props) => {
 
     return (
         <div className={"shadow rounded" + border}>
-            <Table striped responsive="sm" className="mb-0" variant={variant}>
+            <Table
+                hover
+                striped
+                responsive="sm"
+                variant={variant}
+                className="mb-0 rounded"
+            >
                 <thead>
                     <tr>
                         {props.ths.map((th) => (

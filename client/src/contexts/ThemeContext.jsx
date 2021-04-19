@@ -36,7 +36,8 @@ const ThemeContextProvider = (props) => {
       currency_text:  " text-success-light",
       success:        "success-light",
       secondary:      "secondary",
-      mainColor:      "#2980b9",
+      // mainColor:      "#2980b9",
+      mainColor:      "#5e60ce",
       mainBG:         " bg-main-bg",
       dangerTextColor:" text-danger",
       btnTypeClass:   " btn-main",
@@ -59,7 +60,8 @@ const ThemeContextProvider = (props) => {
       mainBG:         " bg-main-bg-dark",
       dangerTextColor:" text-remove",
       btnTypeClass:   " btn-main-dark",
-      lineChartbg:    "rgba(254, 201, 87, 0.4)",
+      // lineChartbg:    "rgba(254, 201, 87, 0.2)",
+      lineChartbg:    "rgba(239, 108, 0, 0.15)",
     },
   };
 
