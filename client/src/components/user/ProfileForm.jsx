@@ -27,7 +27,7 @@ const ProfileForm = () => {
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
 
     useEffect(() => {
         const loadData = async () => {
@@ -112,7 +112,8 @@ const ProfileForm = () => {
 
     return (
         <div
-            className={"card mx-auto" + ui + syntax + border}
+            // className={"card mx-auto" + ui + syntax + border}
+            className={"card mx-auto" + ui + syntax}
             style={{ maxWidth: "38rem" }}
         >
             <article className="card-body">
@@ -133,13 +134,14 @@ const ProfileForm = () => {
                             Username:
                         </Col>
                         <Col md={8} sm={12}>
-                            <div className={"input-group rounded" + border}>
+                            {/* <div className={"input-group rounded" + border}> */}
+                            <div className={"input-group rounded"}>
                                 <input
                                     type="text"
                                     name="username"
                                     readOnly={!canEdit}
                                     defaultValue={user.username}
-                                    className="form-control text-center rounded-0"
+                                    className="form-control text-center"
                                 />
                             </div>
                         </Col>
@@ -154,13 +156,14 @@ const ProfileForm = () => {
                             Phone:
                         </Col>
                         <Col md={8} sm={12}>
-                            <div className={"input-group rounded" + border}>
+                            {/* <div className={"input-group rounded" + border}> */}
+                            <div className={"input-group rounded"}>
                                 <input
                                     readOnly
                                     type="number"
                                     name="userphone"
                                     defaultValue={user.userphone}
-                                    className="form-control text-center rounded-0"
+                                    className="form-control text-center"
                                 />
                             </div>
                         </Col>
@@ -178,8 +181,11 @@ const ProfileForm = () => {
                                 </Col>
                                 <Col md={8} sm={12}>
                                     <div
+                                        // className={
+                                        //     "input-group rounded" + border
+                                        // }
                                         className={
-                                            "input-group rounded" + border
+                                            "input-group rounded"
                                         }
                                     >
                                         <input
@@ -187,7 +193,7 @@ const ProfileForm = () => {
                                             name="company_name"
                                             readOnly={!canEdit}
                                             defaultValue={user.company_name}
-                                            className="form-control text-center rounded-0"
+                                            className="form-control text-center"
                                         />
                                     </div>
                                 </Col>
@@ -203,8 +209,11 @@ const ProfileForm = () => {
                                 </Col>
                                 <Col md={8} sm={12}>
                                     <div
+                                        // className={
+                                        //     "input-group rounded" + border
+                                        // }
                                         className={
-                                            "input-group rounded" + border
+                                            "input-group rounded"
                                         }
                                     >
                                         <input
@@ -212,7 +221,7 @@ const ProfileForm = () => {
                                             readOnly={!canEdit}
                                             name="delivery_charge"
                                             defaultValue={user.delivery_charge}
-                                            className="form-control text-center rounded-0"
+                                            className="form-control text-center"
                                         />
                                     </div>
                                 </Col>
@@ -228,8 +237,11 @@ const ProfileForm = () => {
                                 </Col>
                                 <Col md={8} sm={12}>
                                     <div
+                                        // className={
+                                        //     "input-group rounded" + border
+                                        // }
                                         className={
-                                            "input-group rounded" + border
+                                            "input-group rounded"
                                         }
                                     >
                                         <input
@@ -237,7 +249,7 @@ const ProfileForm = () => {
                                             name="description"
                                             readOnly={!canEdit}
                                             defaultValue={user.description}
-                                            className="form-control text-center rounded-0"
+                                            className="form-control text-center"
                                         />
                                     </div>
                                 </Col>
@@ -253,8 +265,11 @@ const ProfileForm = () => {
                                 </Col>
                                 <Col md={8} sm={12}>
                                     <div
+                                        // className={
+                                        //     "input-group rounded" + border
+                                        // }
                                         className={
-                                            "input-group rounded" + border
+                                            "input-group rounded"
                                         }
                                     >
                                         <input
@@ -262,7 +277,7 @@ const ProfileForm = () => {
                                             type="text"
                                             readOnly={!canEdit}
                                             defaultValue={user.nid}
-                                            className="form-control text-center rounded-0"
+                                            className="form-control text-center"
                                         />
                                     </div>
                                 </Col>
@@ -278,8 +293,11 @@ const ProfileForm = () => {
                                 </Col>
                                 <Col md={8} sm={12}>
                                     <div
+                                        // className={
+                                        //     "input-group rounded" + border
+                                        // }
                                         className={
-                                            "input-group rounded" + border
+                                            "input-group rounded"
                                         }
                                     >
                                         <input
@@ -287,7 +305,7 @@ const ProfileForm = () => {
                                             name="service_type"
                                             readOnly={!canEdit}
                                             defaultValue={user.service_type}
-                                            className="form-control text-center rounded-0"
+                                            className="form-control text-center"
                                         />
                                     </div>
                                 </Col>
@@ -303,8 +321,11 @@ const ProfileForm = () => {
                                 </Col>
                                 <Col md={8} sm={12}>
                                     <div
+                                        // className={
+                                        //     "input-group rounded" + border
+                                        // }
                                         className={
-                                            "input-group rounded" + border
+                                            "input-group rounded"
                                         }
                                     >
                                         <input
@@ -312,7 +333,7 @@ const ProfileForm = () => {
                                             name="trade_license"
                                             readOnly={!canEdit}
                                             defaultValue={user.trade_license}
-                                            className="form-control text-center rounded-0"
+                                            className="form-control text-center"
                                         />
                                     </div>
                                 </Col>
@@ -328,8 +349,11 @@ const ProfileForm = () => {
                                 </Col>
                                 <Col md={8} sm={12}>
                                     <div
+                                        // className={
+                                        //     "input-group rounded" + border
+                                        // }
                                         className={
-                                            "input-group rounded" + border
+                                            "input-group rounded"
                                         }
                                     >
                                         <input
@@ -337,7 +361,7 @@ const ProfileForm = () => {
                                             name="address"
                                             readOnly={!canEdit}
                                             defaultValue={user.address}
-                                            className="form-control text-center rounded-0"
+                                            className="form-control text-center"
                                         />
                                     </div>
                                 </Col>

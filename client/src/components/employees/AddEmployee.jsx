@@ -108,7 +108,7 @@ const AddEmployee = (props) => {
                                                         id="employee_name"
                                                         name="employee_name"
                                                         placeholder="Employee name"
-                                                        className="form-control text-center rounded-0"
+                                                        className="form-control text-center"
                                                     />
                                                     <div className="invalid-feedback">
                                                         Please select a valid
@@ -148,7 +148,7 @@ const AddEmployee = (props) => {
                                                         id="phone_number"
                                                         name="phone_number"
                                                         placeholder="Phone Number"
-                                                        className="form-control text-center rounded-0"
+                                                        className="form-control text-center"
                                                     />
                                                     <div className="invalid-feedback">
                                                         Please provide a valid

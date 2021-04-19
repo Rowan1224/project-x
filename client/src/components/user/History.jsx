@@ -241,19 +241,10 @@ const History = (props) => {
             "further_description",
         ],
         cancelledAllowedEntry: isServiceProvider
-            ? [
-                  "customer_name",
-                  "address",
-                  "further_description",
-              ]
+            ? ["customer_name", "address", "further_description"]
             : ["customer_phone", "address", "further_description"],
         deliveredAllowedEntry: isServiceProvider
-            ? [
-                  "customer_name",
-                  "address",
-                  "further_description",
-                  "employee",
-              ]
+            ? ["customer_name", "address", "further_description", "employee"]
             : ["customer_phone", "address", "further_description"],
     };
 
@@ -267,7 +258,11 @@ const History = (props) => {
                 searchBy={<>Search by anything except time and cancelled by</>}
             />
 
-            <AppBar position="static" className={"rounded" + ui}>
+            <AppBar
+                elevation={0}
+                position="static"
+                className={"rounded muted_border" + ui}
+            >
                 <Tabs
                     value={value}
                     variant="fullWidth"

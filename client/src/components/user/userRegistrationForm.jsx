@@ -21,7 +21,7 @@ const RegistrationForm = (props) => {
     const link = isLightTheme ? theme.light.link : theme.dark.link;
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
 
     const handleSelect = (e) => {
         e.target.value === "2"
@@ -69,7 +69,8 @@ const RegistrationForm = (props) => {
 
     return (
         <div
-            className={"card shadow mx-auto" + ui + syntax + border}
+            // className={"card shadow mx-auto" + ui + syntax + border}
+            className={"card mx-auto" + ui + syntax}
             style={{ maxWidth: "30rem" }}
         >
             <article
@@ -84,9 +85,10 @@ const RegistrationForm = (props) => {
                 <form ref={form} onSubmit={handleSubmit}>
                     {status && <CustomAlert status={status} />}
 
-                    <div className={"form-group input-group rounded" + border}>
+                    {/* <div className={"form-group input-group rounded" + border}> */}
+                    <div className={"form-group input-group rounded"}>
                         <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
+                            <span className="input-group-text">
                                 <FontAwesomeIcon icon={["fas", "user"]} />
                             </span>
                         </div>
@@ -96,13 +98,14 @@ const RegistrationForm = (props) => {
                             }
                             type="text"
                             placeholder="Username"
-                            className="form-control rounded-0"
+                            className="form-control"
                         />
                     </div>
 
-                    <div className={"form-group input-group rounded" + border}>
+                    {/* <div className={"form-group input-group rounded" + border}> */}
+                    <div className={"form-group input-group rounded"}>
                         <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
+                            <span className="input-group-text">
                                 <FontAwesomeIcon icon={["fas", "phone"]} />
                             </span>
                         </div>
@@ -118,21 +121,22 @@ const RegistrationForm = (props) => {
                         <input
                             name="phone"
                             type="number"
-                            className="form-control rounded-0"
+                            className="form-control"
                             placeholder="Phone number"
                         />
                     </div>
 
-                    <div className={"form-group input-group rounded" + border}>
+                    {/* <div className={"form-group input-group rounded" + border}> */}
+                    <div className={"form-group input-group rounded"}>
                         <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
+                            <span className="input-group-text">
                                 <FontAwesomeIcon icon={["fas", "building"]} />
                             </span>
                         </div>
                         <select
                             required
                             onChange={handleSelect}
-                            className="form-control rounded-0"
+                            className="form-control"
                         >
                             <option defaultValue="1">Customer</option>
                             <option value="2">Service Provider</option>
@@ -142,12 +146,13 @@ const RegistrationForm = (props) => {
                     {isServiceProvider && (
                         <>
                             <div
-                                className={
-                                    "form-group input-group rounded" + border
-                                }
+                                // className={
+                                //     "form-group input-group rounded" + border
+                                // }
+                                className={"form-group input-group rounded"}
                             >
                                 <div className="input-group-prepend">
-                                    <span className="input-group-text rounded-0">
+                                    <span className="input-group-text">
                                         <FontAwesomeIcon
                                             icon={["fas", "id-card"]}
                                         />
@@ -156,18 +161,19 @@ const RegistrationForm = (props) => {
                                 <input
                                     name="nid"
                                     type="number"
-                                    className="form-control rounded-0"
+                                    className="form-control"
                                     placeholder="NID number"
                                 />
                             </div>
 
                             <div
-                                className={
-                                    "form-group input-group rounded" + border
-                                }
+                                // className={
+                                //     "form-group input-group rounded" + border
+                                // }
+                                className={"form-group input-group rounded"}
                             >
                                 <div className="input-group-prepend">
-                                    <span className="input-group-text rounded-0">
+                                    <span className="input-group-text">
                                         <FontAwesomeIcon
                                             icon={["fas", "id-card"]}
                                         />
@@ -176,18 +182,19 @@ const RegistrationForm = (props) => {
                                 <input
                                     type="number"
                                     name="trade_license"
-                                    className="form-control rounded-0"
+                                    className="form-control"
                                     placeholder="Trade license number"
                                 />
                             </div>
 
                             <div
-                                className={
-                                    "form-group input-group rounded" + border
-                                }
+                                // className={
+                                //     "form-group input-group rounded" + border
+                                // }
+                                className={"form-group input-group rounded"}
                             >
                                 <div className="input-group-prepend">
-                                    <span className="input-group-text rounded-0">
+                                    <span className="input-group-text">
                                         <FontAwesomeIcon
                                             icon={["fas", "building"]}
                                         />
@@ -196,18 +203,19 @@ const RegistrationForm = (props) => {
                                 <input
                                     type="text"
                                     name="company_name"
-                                    className="form-control rounded-0"
+                                    className="form-control"
                                     placeholder="Company name"
                                 />
                             </div>
 
                             <div
-                                className={
-                                    "form-group input-group rounded" + border
-                                }
+                                // className={
+                                //     "form-group input-group rounded" + border
+                                // }
+                                className={"form-group input-group rounded"}
                             >
                                 <div className="input-group-prepend">
-                                    <span className="input-group-text rounded-0">
+                                    <span className="input-group-text">
                                         <FontAwesomeIcon
                                             icon={["fas", "taxi"]}
                                         />
@@ -216,18 +224,19 @@ const RegistrationForm = (props) => {
                                 <input
                                     type="text"
                                     name="service_type"
-                                    className="form-control rounded-0"
+                                    className="form-control"
                                     placeholder="Service type"
                                 />
                             </div>
 
                             <div
-                                className={
-                                    "form-group input-group rounded" + border
-                                }
+                                // className={
+                                //     "form-group input-group rounded" + border
+                                // }
+                                className={"form-group input-group rounded"}
                             >
                                 <div className="input-group-prepend">
-                                    <span className="input-group-text rounded-0">
+                                    <span className="input-group-text">
                                         <FontAwesomeIcon
                                             icon={["fas", "hand-holding-usd"]}
                                         />
@@ -236,18 +245,19 @@ const RegistrationForm = (props) => {
                                 <input
                                     type="number"
                                     name="delivery_charge"
-                                    className="form-control rounded-0"
+                                    className="form-control"
                                     placeholder="Delivery charge"
                                 />
                             </div>
 
                             <div
-                                className={
-                                    "form-group input-group rounded" + border
-                                }
+                                // className={
+                                //     "form-group input-group rounded" + border
+                                // }
+                                className={"form-group input-group rounded"}
                             >
                                 <div className="input-group-prepend">
-                                    <span className="input-group-text rounded-0">
+                                    <span className="input-group-text">
                                         <FontAwesomeIcon
                                             icon={["fas", "plus"]}
                                         />
@@ -256,7 +266,7 @@ const RegistrationForm = (props) => {
                                 <input
                                     name="description"
                                     type="text"
-                                    className="form-control rounded-0"
+                                    className="form-control"
                                     placeholder="Description"
                                 />
                             </div>
@@ -267,7 +277,7 @@ const RegistrationForm = (props) => {
                                 }
                             >
                                 <div className="input-group-prepend">
-                                    <span className="input-group-text rounded-0">
+                                    <span className="input-group-text">
                                         <FontAwesomeIcon
                                             icon={["fas", "home"]}
                                         />
@@ -277,25 +287,26 @@ const RegistrationForm = (props) => {
                                     name=""
                                     disabled
                                     type="text"
-                                    className="form-control rounded-0"
+                                    className="form-control"
                                     placeholder="House"
                                 />
                                 <input
                                     name=""
                                     disabled
                                     type="text"
-                                    className="form-control rounded-0"
+                                    className="form-control"
                                     placeholder="Road"
                                 />
                             </div> */}
 
                             <div
-                                className={
-                                    "form-group input-group rounded" + border
-                                }
+                                // className={
+                                //     "form-group input-group rounded" + border
+                                // }
+                                className={"form-group input-group rounded"}
                             >
                                 <div className="input-group-prepend">
-                                    <span className="input-group-text rounded-0">
+                                    <span className="input-group-text">
                                         <FontAwesomeIcon
                                             icon={["fas", "location-arrow"]}
                                         />
@@ -304,7 +315,7 @@ const RegistrationForm = (props) => {
                                 <input
                                     type="text"
                                     name="address"
-                                    className="form-control rounded-0"
+                                    className="form-control"
                                     placeholder="Location Description"
                                 />
                             </div>

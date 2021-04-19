@@ -28,7 +28,7 @@ const Checkout = (props) => {
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const link = isLightTheme ? theme.light.link : theme.dark.link;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
     const success = isLightTheme ? theme.light.success : theme.dark.success;
 
     useEffect(() => {
@@ -164,7 +164,8 @@ const Checkout = (props) => {
     };
 
     return (
-        <div className={"card" + ui + syntax + border}>
+        // <div className={"card" + ui + syntax + border}>
+        <div className={"card" + ui + syntax}>
             <div className="card-body row">
                 <div className="col-md-4 order-md-2 mb-4">
                     <h4 className="d-flex justify-content-between align-items-center mb-3">
@@ -176,8 +177,9 @@ const Checkout = (props) => {
 
                     {items.length > 0 ? (
                         <div
-                            className={"rounded mb-3" + border}
-                            style={{ height: "15rem", overflow: "scroll" }}
+                            // className={"rounded mb-3" + border}
+                            className={"rounded mb-3 muted_border"}
+                            style={{ height: "15rem", overflowY: "scroll" }}
                         >
                             <Table responsive="sm" striped variant={variant}>
                                 <tbody>
@@ -217,7 +219,8 @@ const Checkout = (props) => {
                         <Link to="/cart">Back to shopping cart</Link>
                     </div>
 
-                    <div className={"rounded mb-3" + border}>
+                    {/* <div className={"rounded mb-3" + border}> */}
+                    <div className={"rounded mb-3 muted_border"}>
                         <Table responsive="sm" striped variant={variant}>
                             <tbody>
                                 <tr>
@@ -253,7 +256,8 @@ const Checkout = (props) => {
                         </Table>
                     </div>
 
-                    <form className={"card p-2" + ui + border}>
+                    {/* <form className={"card p-2" + ui + border}> */}
+                    <form className={"card p-2" + ui}>
                         <div className="input-group">
                             <input
                                 type="text"
@@ -296,8 +300,11 @@ const Checkout = (props) => {
                                     defaultValue={localStorage.getItem(
                                         "username"
                                     )}
+                                    // className={
+                                    //     "text-center form-control" + border
+                                    // }
                                     className={
-                                        "text-center form-control" + border
+                                        "text-center form-control"
                                     }
                                 />
                             </div>
@@ -313,8 +320,11 @@ const Checkout = (props) => {
                                     readOnly
                                     id="phone"
                                     type="phone"
+                                    // className={
+                                    //     "text-center form-control" + border
+                                    // }
                                     className={
-                                        "text-center form-control" + border
+                                        "text-center form-control"
                                     }
                                     defaultValue={localStorage.getItem(
                                         "phone_number"
@@ -345,8 +355,11 @@ const Checkout = (props) => {
                                     required
                                     id="address"
                                     onChange={handleSelect}
+                                    // className={
+                                    //     "custom-select d-block w-100" + border
+                                    // }
                                     className={
-                                        "custom-select d-block w-100" + border
+                                        "custom-select d-block w-100"
                                     }
                                 >
                                     <option defaultValue="">
@@ -385,8 +398,11 @@ const Checkout = (props) => {
                                     placeholder="8"
                                     defaultValue={newAddress.house_no}
                                     className={
-                                        "form-control text-center" + border
+                                        "form-control text-center"
                                     }
+                                    // className={
+                                    //     "form-control text-center" + border
+                                    // }
                                 />
                                 <div className="invalid-feedback">
                                     Please select a valid house.
@@ -401,8 +417,11 @@ const Checkout = (props) => {
                                     name="road_no"
                                     placeholder="2/B"
                                     defaultValue={newAddress.road_no}
+                                    // className={
+                                    //     "form-control text-center" + border
+                                    // }
                                     className={
-                                        "form-control text-center" + border
+                                        "form-control text-center"
                                     }
                                 />
                                 <div className="invalid-feedback">
@@ -420,8 +439,11 @@ const Checkout = (props) => {
                                     defaultValue={sessionStorage.getItem(
                                         "areaID"
                                     )}
+                                    // className={
+                                    //     "form-control text-center" + border
+                                    // }
                                     className={
-                                        "form-control text-center" + border
+                                        "form-control text-center"
                                     }
                                 />
                                 <div className="invalid-feedback">
@@ -441,7 +463,8 @@ const Checkout = (props) => {
                                 name="further_description"
                                 defaultValue={newAddress.further_description}
                                 placeholder="Sector-17, Uttara, Dhaka, Phone: 012xx-xxx-xxx"
-                                className={"form-control" + border}
+                                // className={"form-control" + border}
+                                className={"form-control"}
                             />
                             <div className="invalid-feedback">
                                 Please enter your shipping further description.

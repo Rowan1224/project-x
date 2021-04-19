@@ -84,7 +84,8 @@ const LoginForm = (props) => {
 
     return (
         <div
-            className={"card mx-auto" + ui + syntax + border}
+            // className={"card mx-auto" + ui + syntax + border}
+            className={"card mx-auto" + ui + syntax}
             style={{ maxWidth: "30rem" }}
         >
             <article className="card-body p-md-5 mx-auto">
@@ -98,7 +99,6 @@ const LoginForm = (props) => {
                             }}
                             alt="profile"
                             className={"rounded-circle w-100" + border}
-                            // className={"rounded w-100" + border}
                         />
                     </div>
 
@@ -119,9 +119,10 @@ const LoginForm = (props) => {
                 <form ref={form} onSubmit={handleSubmit}>
                     {status && <CustomAlert status={status} />}
 
-                    <div className={"form-group input-group rounded" + border}>
+                    {/* <div className={"form-group input-group rounded" + border}> */}
+                    <div className={"form-group input-group rounded"}>
                         <div className="input-group-prepend">
-                            <span className="input-group-text rounded-0">
+                            <span className="input-group-text">
                                 <FontAwesomeIcon icon={["fas", "phone"]} />
                             </span>
                         </div>
@@ -139,18 +140,19 @@ const LoginForm = (props) => {
                             name="phone"
                             type="number"
                             placeholder="Phone number"
-                            className="form-control rounded-0"
+                            className="form-control"
                         />
                     </div>
 
                     {showVerificationArea ? (
                         <div
-                            className={
-                                "form-group input-group rounded" + border
-                            }
+                            // className={
+                            //     "form-group input-group rounded" + border
+                            // }
+                            className={"form-group input-group rounded"}
                         >
                             <div className="input-group-prepend">
-                                <span className="input-group-text rounded-0">
+                                <span className="input-group-text">
                                     <FontAwesomeIcon icon={["fas", "code"]} />
                                 </span>
                             </div>
@@ -159,7 +161,7 @@ const LoginForm = (props) => {
                                 name="code"
                                 type="number"
                                 placeholder="Verification Code"
-                                className="form-control rounded-0"
+                                className="form-control"
                             />
                         </div>
                     ) : (

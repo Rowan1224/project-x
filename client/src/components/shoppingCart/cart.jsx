@@ -26,7 +26,7 @@ const Cart = () => {
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
     const custom_text = isLightTheme
         ? theme.light.custom_text
         : theme.dark.custom_text;
@@ -36,11 +36,16 @@ const Cart = () => {
             {items.length > 0 ? (
                 <div>
                     <section
+                        // className={
+                        //     "jumbotron text-center p-3 mb-3" +
+                        //     ui +
+                        //     syntax +
+                        //     border
+                        // }
                         className={
-                            "jumbotron text-center p-3 mb-3" +
+                            "jumbotron text-center p-3 mb-3 muted_border" +
                             ui +
-                            syntax +
-                            border
+                            syntax
                         }
                     >
                         <h5 className="jumbotron-heading my-auto cart-header">
@@ -49,9 +54,16 @@ const Cart = () => {
                     </section>
                     <div
                         // id="cart-table"
-                        className={"shadow rounded mb-3" + border}
+                        // className={"shadow rounded mb-3" + border}
+                        className={"rounded mb-3 muted_border"}
                     >
-                        <Table responsive="sm" className="mb-0" striped variant={variant}>
+                        <Table
+                            hover
+                            striped
+                            responsive="sm"
+                            className="mb-0"
+                            variant={variant}
+                        >
                             <thead>
                                 <tr>
                                     <th
@@ -110,10 +122,15 @@ const Cart = () => {
                     </div>
 
                     <div
+                        // className={
+                        //     "row text-center rounded mx-auto shadow" +
+                        //     ui +
+                        //     border +
+                        //     custom_text
+                        // }
                         className={
-                            "row text-center rounded mx-auto shadow" +
+                            "row text-center rounded mx-auto muted_border" +
                             ui +
-                            border +
                             custom_text
                         }
                     >

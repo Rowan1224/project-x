@@ -207,7 +207,7 @@ const Statistics = (props) => {
                                                         defaultValue={
                                                             date.start_date
                                                         }
-                                                        className="form-control text-center rounded-0"
+                                                        className="form-control text-center rounded"
                                                     />
                                                     <div className="invalid-feedback">
                                                         Please select a valid
@@ -253,7 +253,7 @@ const Statistics = (props) => {
                                                         defaultValue={
                                                             date.end_date
                                                         }
-                                                        className="form-control text-center rounded-0"
+                                                        className="form-control text-center rounded"
                                                     />
                                                     <div className="invalid-feedback">
                                                         Please provide a valid
@@ -321,7 +321,7 @@ const Statistics = (props) => {
                                                 defaultValue={
                                                     statistics.total_orders
                                                 }
-                                                className="form-control text-center rounded-0"
+                                                className="form-control text-center"
                                             />
                                         </div>
                                     </Col>
@@ -349,7 +349,7 @@ const Statistics = (props) => {
                                                 defaultValue={
                                                     statistics.delivered
                                                 }
-                                                className="form-control text-center rounded-0"
+                                                className="form-control text-center"
                                             />
                                         </div>
                                     </Col>
@@ -374,7 +374,7 @@ const Statistics = (props) => {
                                                 type="number"
                                                 name="income"
                                                 defaultValue={statistics.income}
-                                                className="form-control text-center rounded-0"
+                                                className="form-control text-center"
                                             />
                                         </div>
                                     </Col>

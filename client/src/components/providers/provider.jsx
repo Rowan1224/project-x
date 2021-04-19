@@ -14,7 +14,7 @@ const Provider = (props) => {
     const { isLightTheme, theme } = useContext(ThemeContext);
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
     const type = isLightTheme ? theme.light.type : theme.dark.type;
 
     const [provider, setProvider] = useState({});
@@ -53,7 +53,8 @@ const Provider = (props) => {
 
     return (
         <div className="col-lg-6 mb-3">
-            <Card className={"p-3 shadow" + ui + border}>
+            {/* <Card className={"p-3 shadow" + ui + border}> */}
+            <Card className={"card-body" + ui}>
                 <div>
                     <div className="d-block">
                         <img
@@ -65,9 +66,10 @@ const Provider = (props) => {
                                 e.target.src = "/img/Default.png";
                             }}
                             alt="provider's"
-                            className={
-                                "mb-1 mr-3 float-left profile-pic" + border
-                            }
+                            // className={
+                            //     "mb-1 mr-3 float-left profile-pic" + border
+                            // }
+                            className={"mb-1 mr-3 float-left profile-pic"}
                         />
                     </div>
 
