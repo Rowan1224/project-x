@@ -6,12 +6,12 @@ import { ThemeContext } from "../../contexts/ThemeContext";
 
 const CustomTable = (props) => {
     // Themes
-    const { isLightTheme, theme } = useContext(ThemeContext);
+    const { isLightTheme } = useContext(ThemeContext);
     const variant = isLightTheme ? "light" : "dark";
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
 
     return (
-        <div className={"shadow rounded" + border}>
+        // <div className={"shadow rounded" + border}>
+        <div className={"rounded muted_border"}>
             <Table
                 hover
                 striped

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import emoji from "react-easy-emoji";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ThemeContext } from "../../contexts/ThemeContext";
 
@@ -65,7 +66,23 @@ const ServiceAreas = (props) => {
                 onClick={handleShow}
                 variant={"outline-" + type}
             >
-                {show ? "Hide" : "Show"}
+                {show ? (
+                    <>
+                        <FontAwesomeIcon
+                            className="fa-icon mr-2"
+                            icon={["fas", "eye-slash"]}
+                        />
+                        Hide
+                    </>
+                ) : (
+                    <>
+                        <FontAwesomeIcon
+                            className="fa-icon mr-2"
+                            icon={["fas", "eye"]}
+                        />
+                        Show
+                    </>
+                )}
             </Button>
 
             {show && (

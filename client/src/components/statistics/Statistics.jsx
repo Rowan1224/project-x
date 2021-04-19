@@ -38,7 +38,7 @@ const Statistics = (props) => {
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
     const custom_text = isLightTheme
         ? theme.light.custom_text
         : theme.dark.custom_text;
@@ -167,7 +167,8 @@ const Statistics = (props) => {
 
             <Row>
                 <Col className="mb-4">
-                    <div className={"card" + ui + syntax + border}>
+                    {/* <div className={"card" + ui + syntax + border}> */}
+                    <div className={"card" + ui + syntax}>
                         <div className="card-body">
                             <form ref={form} onSubmit={handleSubmit}>
                                 <Row className="d-flex align-items-center">
@@ -189,9 +190,12 @@ const Statistics = (props) => {
                                                 className="my-auto"
                                             >
                                                 <div
+                                                    // className={
+                                                    //     "input-group rounded" +
+                                                    //     border
+                                                    // }
                                                     className={
-                                                        "input-group rounded" +
-                                                        border
+                                                        "input-group rounded"
                                                     }
                                                 >
                                                     <input
@@ -232,9 +236,12 @@ const Statistics = (props) => {
                                                 className="my-auto"
                                             >
                                                 <div
+                                                    // className={
+                                                    //     "input-group rounded" +
+                                                    //     border
+                                                    // }
                                                     className={
-                                                        "input-group rounded" +
-                                                        border
+                                                        "input-group rounded"
                                                     }
                                                 >
                                                     <input
@@ -283,7 +290,8 @@ const Statistics = (props) => {
             <Charts
                 date={date}
                 extraData={
-                    <div className={"card h-100" + ui + syntax + border}>
+                    // <div className={"card h-100" + ui + syntax + border}>
+                    <div className={"card h-100" + ui + syntax}>
                         <div className="card-body d-flex mx-auto">
                             <div className="my-auto">
                                 <div className="text-center mb-4">
@@ -301,9 +309,10 @@ const Statistics = (props) => {
                                     </Col>
                                     <Col md={6} sm={12}>
                                         <div
-                                            className={
-                                                "input-group rounded" + border
-                                            }
+                                            // className={
+                                            //     "input-group rounded" + border
+                                            // }
+                                            className={"input-group rounded"}
                                         >
                                             <input
                                                 readOnly
@@ -328,9 +337,10 @@ const Statistics = (props) => {
                                     </Col>
                                     <Col md={6} sm={12}>
                                         <div
-                                            className={
-                                                "input-group rounded" + border
-                                            }
+                                            // className={
+                                            //     "input-group rounded" + border
+                                            // }
+                                            className={"input-group rounded"}
                                         >
                                             <input
                                                 readOnly
@@ -354,9 +364,10 @@ const Statistics = (props) => {
                                     </Col>
                                     <Col md={6} sm={12}>
                                         <div
-                                            className={
-                                                "input-group rounded" + border
-                                            }
+                                            // className={
+                                            //     "input-group rounded" + border
+                                            // }
+                                            className={"input-group rounded"}
                                         >
                                             <input
                                                 readOnly

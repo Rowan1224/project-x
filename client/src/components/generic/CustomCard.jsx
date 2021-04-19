@@ -15,7 +15,7 @@ const CustomCard = (props) => {
     const { isLightTheme, theme } = useContext(ThemeContext);
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
 
     return (
         <>
@@ -34,7 +34,8 @@ const CustomCard = (props) => {
                             key={uuidv4()}
                             className="col-lg-3 col-md-4 col-sm-6 mb-4 text-center"
                         >
-                            <Card className={"shadow" + ui + border}>
+                            {/* <Card className={"shadow" + ui + border}> */}
+                            <Card className={ui}>
                                 <Card.Body className={syntax}>
                                     {cardBodyData(value)}
                                 </Card.Body>

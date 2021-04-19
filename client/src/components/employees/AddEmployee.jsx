@@ -17,7 +17,7 @@ const AddEmployee = (props) => {
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
     const type = isLightTheme ? theme.light.type : theme.dark.type;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -74,7 +74,8 @@ const AddEmployee = (props) => {
 
             <Row>
                 <Col className="mb-4">
-                    <div className={"card" + ui + syntax + border}>
+                    {/* <div className={"card" + ui + syntax + border}> */}
+                    <div className={"card" + ui + syntax}>
                         <div className="card-body">
                             <form ref={form} onSubmit={handleSubmit}>
                                 <Row className="d-flex align-items-center">
@@ -93,9 +94,12 @@ const AddEmployee = (props) => {
                                                 className="my-auto"
                                             >
                                                 <div
+                                                    // className={
+                                                    //     "input-group rounded" +
+                                                    //     border
+                                                    // }
                                                     className={
-                                                        "input-group rounded" +
-                                                        border
+                                                        "input-group rounded"
                                                     }
                                                 >
                                                     <input
@@ -130,9 +134,12 @@ const AddEmployee = (props) => {
                                                 className="my-auto"
                                             >
                                                 <div
+                                                    // className={
+                                                    //     "input-group rounded" +
+                                                    //     border
+                                                    // }
                                                     className={
-                                                        "input-group rounded" +
-                                                        border
+                                                        "input-group rounded"
                                                     }
                                                 >
                                                     <input

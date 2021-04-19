@@ -277,11 +277,7 @@ const Order = (props) => {
             { className: "", value: "Cancel" },
         ],
         tdsClassName: ["", "", "text-break", ""],
-        allowedEntry: [
-            "customer_name",
-            "address",
-            "further_description",
-        ],
+        allowedEntry: ["customer_name", "address", "further_description"],
     };
 
     return (
@@ -294,7 +290,7 @@ const Order = (props) => {
                 searchBy={<>Search by anything except time and cancelled by</>}
             />
 
-            <AppBar position="static" className={"rounded" + ui}>
+            <AppBar elevation={0} position="static" className={"rounded muted_border" + ui}>
                 <Tabs
                     value={value}
                     variant="fullWidth"

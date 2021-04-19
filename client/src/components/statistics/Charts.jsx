@@ -14,7 +14,7 @@ const Charts = (props) => {
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const ui = isLightTheme ? theme.light.ui : theme.dark.ui;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
     const syntax = isLightTheme ? theme.light.syntax : theme.dark.syntax;
     const pointBorderColor = isLightTheme ? "#205c85" : "#ffae00";
     const ticksBackdropColor = isLightTheme ? "#f8f9fa" : "#343a40";
@@ -373,7 +373,8 @@ const Charts = (props) => {
                 </Col>
 
                 <Col lg={6} className="mb-4">
-                    <div className={"card h-100" + ui + syntax + border}>
+                    {/* <div className={"card h-100" + ui + syntax + border}> */}
+                    <div className={"card h-100" + ui + syntax}>
                         {lineChartData[0] && lineChartData[0].length > 0 ? (
                             <div className="p-2 p-md-3">
                                 {lineChartData[0] && (
@@ -405,7 +406,8 @@ const Charts = (props) => {
 
                 <Col lg={6} className="mb-4">
                     <div
-                        className={"card" + ui + syntax + border}
+                        // className={"card" + ui + syntax + border}
+                        className={"card" + ui + syntax}
                         style={{ height: "56vh" }}
                     >
                         {polarChartData[0] && polarChartData[0].length > 0 ? (
@@ -444,7 +446,8 @@ const Charts = (props) => {
 
                 <Col lg={6} className="mb-4">
                     <div
-                        className={"card" + ui + syntax + border}
+                        // className={"card" + ui + syntax + border}
+                        className={"card" + ui + syntax}
                         style={{ height: "56vh" }}
                     >
                         {barChartData[0] && barChartData[0].length > 0 ? (
