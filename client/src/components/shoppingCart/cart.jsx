@@ -20,6 +20,19 @@ const Cart = () => {
         subTotalPrice,
     } = useContext(CartContext);
 
+    const linkk = sessionStorage.getItem("service_id")
+        ? `/service/provider/${sessionStorage.getItem("service_id")}`
+        : "/";
+    // var linkk;
+    // if(sessionStorage.getItem("service_id")===null)
+    // {
+    //      linkk = "/";
+    // }
+    // else
+    // {
+    //      linkk = "/service/provider/" +`${sessionStorage.getItem("service_id")}`;
+    // }
+
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const variant = isLightTheme ? "light" : "dark";
@@ -162,9 +175,7 @@ const Cart = () => {
                         variant={"outline-" + type}
                         className="w-100"
                         as={Link}
-                        to={`/service/provider/${sessionStorage.getItem(
-                            "service_id"
-                        )}`}
+                        to={linkk}
                     >
                         <Icon
                             style={{
