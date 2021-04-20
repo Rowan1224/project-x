@@ -121,19 +121,7 @@ const Services = () => {
             <PromotionalCarousel />
 
             <div className={"text-center" + syntax}>
-                {/* <div className={"inner rounded mb-4" + border}>
-                    <Image
-                        className="w-100 profile-pic"
-                        alt="profile picture"
-                        src={`https://picsum.photos/id/${Math.floor(
-                            Math.random() * 1000
-                        )}/800`}
-                        onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = "/img/profile_pic_default.png";
-                        }}
-                    />
-                </div> */}
+                <FloatingCart />
 
                 <h4 className={"mb-5" + syntax}>
                     {isServiceProvider ? "Your Inventory" : "Our Services"}
@@ -152,8 +140,6 @@ const Services = () => {
                     </Infobar>
                 )}
             </div>
-
-            <FloatingCart />
 
             {services && services.length > 0 ? (
                 <>

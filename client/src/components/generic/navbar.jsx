@@ -242,7 +242,7 @@ const MainNav = (props) => {
                             className={custom_text}
                         >
                             <ShoppingCart className="mb-1" />
-                            <span className="ml-2">Cart: {cartCount}</span>
+                            <span className="ml-2">Cart {cartCount}</span>
                         </Nav.Link>
                     )}
                 </Nav>
