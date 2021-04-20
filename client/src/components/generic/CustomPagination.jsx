@@ -20,8 +20,12 @@ const CustomPagination = (props) => {
         <div className="d-flex justify-content-center mt-5">
             <Pagination
                 itemClass="page-item"
+                linkClassFirst="paginationLinkClass"
+                linkClassPrev="paginationLinkClass"
+                linkClassNext="paginationLinkClass"
+                linkClassLast="paginationLinkClass"
                 activeLinkClass={paginationActiveLinkClass}
-                linkClass={"page-link" + custom_text + ui}
+                linkClass={"page-link muted_border" + custom_text + ui}
                 itemsCountPerPage={10}
                 pageRangeDisplayed={5}
                 activePage={props.activePage}

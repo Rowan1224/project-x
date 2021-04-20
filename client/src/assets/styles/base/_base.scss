@@ -38,16 +38,21 @@
     color: $main-dark;
 }
 
+// Pagination
 .paginationActiveLinkClass {
     color: white !important;
-    border: 1px solid gray !important;
+    border: 1px solid rgba(128, 128, 128, 0.3) !important;
     background-color: $main !important;
 }
 
 .paginationActiveLinkClass-dark {
     color: black !important;
-    border: 1px solid white !important;
+    border: 1px solid rgba(128, 128, 128, 0.3) !important;
     background-color: $main-dark !important;
+}
+
+.paginationLinkClass {
+    border: 1px solid rgba(128, 128, 128, 0.3) !important;
 }
 
 .profile-pic {
