@@ -86,12 +86,15 @@ const UpdateProductDetails = (props) => {
                         <label>Product Name</label>
 
                         <div
+                            // className={
+                            //     "form-group input-group rounded" + border
+                            // }
                             className={
-                                "form-group input-group rounded" + border
+                                "form-group input-group rounded"
                             }
                         >
                             <div className="input-group-prepend">
-                                <span className="input-group-text rounded-0">
+                                <span className="input-group-text">
                                     <FontAwesomeIcon
                                         className="fa-icon mr-1"
                                         icon={["fab", "product-hunt"]}
@@ -103,7 +106,7 @@ const UpdateProductDetails = (props) => {
                                 type="text"
                                 name="product_name"
                                 placeholder="Product Name"
-                                className="form-control rounded-0"
+                                className="form-control"
                                 defaultValue={props.product.product_name}
                             />
                         </div>
@@ -111,12 +114,15 @@ const UpdateProductDetails = (props) => {
                         <label className="mt-3">Price (Vat Excluded)</label>
 
                         <div
+                            // className={
+                            //     "form-group input-group rounded" + border
+                            // }
                             className={
-                                "form-group input-group rounded" + border
+                                "form-group input-group rounded"
                             }
                         >
                             <div className="input-group-prepend">
-                                <span className="input-group-text py-0 rounded-0">
+                                <span className="input-group-text py-0">
                                     <span
                                         className="font-weight-bold mx-1"
                                         style={{
@@ -133,7 +139,7 @@ const UpdateProductDetails = (props) => {
                                 type="number"
                                 placeholder="Product price"
                                 defaultValue={props.product.price}
-                                className="form-control rounded-0"
+                                className="form-control"
                             />
                         </div>
                     </div>

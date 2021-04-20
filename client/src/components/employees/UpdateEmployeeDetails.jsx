@@ -85,12 +85,15 @@ const UpdateEmployeeDetails = (props) => {
                         <label>Employee Name</label>
 
                         <div
+                            // className={
+                            //     "form-group input-group rounded" + border
+                            // }
                             className={
-                                "form-group input-group rounded" + border
+                                "form-group input-group rounded"
                             }
                         >
                             <div className="input-group-prepend">
-                                <span className="input-group-text rounded-0">
+                                <span className="input-group-text">
                                     <FontAwesomeIcon
                                         className="fa-icon"
                                         icon={["fas", "user"]}
@@ -103,7 +106,7 @@ const UpdateEmployeeDetails = (props) => {
                                 type="text"
                                 name="employee_name"
                                 placeholder="Employee Name"
-                                className="form-control rounded-0"
+                                className="form-control"
                                 defaultValue={props.employee.employee_name}
                             />
                         </div>
@@ -111,12 +114,15 @@ const UpdateEmployeeDetails = (props) => {
                         <label className="mt-3">Phone Number</label>
 
                         <div
+                            // className={
+                            //     "form-group input-group rounded" + border
+                            // }
                             className={
-                                "form-group input-group rounded" + border
+                                "form-group input-group rounded"
                             }
                         >
                             <div className="input-group-prepend">
-                                <span className="input-group-text rounded-0">
+                                <span className="input-group-text">
                                     <FontAwesomeIcon
                                         className="fa-icon"
                                         icon={["fas", "phone"]}
@@ -127,7 +133,7 @@ const UpdateEmployeeDetails = (props) => {
                                 type="text"
                                 name="phone_number"
                                 placeholder="Phone Number"
-                                className="form-control rounded-0"
+                                className="form-control"
                                 defaultValue={props.employee.phone_number}
                             />
                         </div>
