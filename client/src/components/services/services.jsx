@@ -121,8 +121,8 @@ const Services = () => {
             {isServiceProvider ? <h4 className={"mb-5 text-center" + syntax}>Your Inventory</h4> : <PromotionalCarousel />}
 
             <div className={"text-center" + syntax}>
-                <FloatingCart />
-
+                {/* <FloatingCart /> */}
+                {isServiceProvider? "" :  <FloatingCart />}
                 {/* <h4 className={"mb-5" + syntax}>
                     {isServiceProvider ? "Your Inventory" : "Our Services"}
                 </h4> */}
