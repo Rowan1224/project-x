@@ -27,7 +27,7 @@ const PromotionalCarousel = () => {
                         <Image
                             alt="slide"
                             className="d-block w-100"
-                            style={{ maxHeight: "20rem" }}
+                            style={{ maxHeight: "13rem" }}
                             src={promotionalSlide}
                             onError={(e) => {
                                 e.target.onerror = null;
