@@ -133,7 +133,7 @@ const Service = (props) => {
                     />
                 )}
 
-                <div className={"inner border-bottom border-" + type}>
+                {/* <div className={"inner border-bottom border-" + type}>
                     <Card.Img
                         variant="top"
                         src={`https://picsum.photos/id/${Math.floor(
@@ -146,7 +146,7 @@ const Service = (props) => {
                         style={{ maxHeight: "12rem" }}
                         alt="card image"
                     />
-                </div>
+                </div> */}
 
                 <Card.Body className={syntax}>
                     <Card.Title>{props.serviceInfo.product_name}</Card.Title>

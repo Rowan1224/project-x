@@ -15,7 +15,7 @@ const UpdateProductDetails = (props) => {
     // Themes
     const { isLightTheme, theme } = useContext(ThemeContext);
     const type = isLightTheme ? theme.light.type : theme.dark.type;
-    const border = isLightTheme ? theme.light.border : theme.dark.border;
+    // const border = isLightTheme ? theme.light.border : theme.dark.border;
 
     const handleUpdate = () => {
         const API_URL = "/updateproduct/";

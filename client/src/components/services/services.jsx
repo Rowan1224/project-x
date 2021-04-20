@@ -9,6 +9,8 @@ import Infobar from "../generic/infobar";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import SearchBar from "../generic/SearchBar";
 import CustomPagination from "../generic/CustomPagination";
+import FloatingCart from "../shoppingCart/FloatingCart";
+import PromotionalCarousel from "./PromotionalCarousel";
 
 const Services = () => {
     const params = useParams();
@@ -116,6 +118,8 @@ const Services = () => {
 
     return (
         <div>
+            <PromotionalCarousel />
+
             <div className={"text-center" + syntax}>
                 {/* <div className={"inner rounded mb-4" + border}>
                     <Image
@@ -148,6 +152,8 @@ const Services = () => {
                     </Infobar>
                 )}
             </div>
+
+            <FloatingCart />
 
             {services && services.length > 0 ? (
                 <>
