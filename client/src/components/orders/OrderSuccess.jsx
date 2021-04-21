@@ -100,7 +100,7 @@ const OrderSuccess = () => {
 
                                 <div className="d-flex justify-content-between">
                                     <b>
-                                        <em>Delivery Address:</em>
+                                        <em>Delivery Instructions:</em>
                                     </b>
                                     <div>{orderDetails.address}</div>
                                 </div>
