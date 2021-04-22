@@ -57,8 +57,8 @@ app.get("/db_connection", (req, res) => {
 
 app.use(serviceProviderRoutes);
 app.get('/', (req, res) => {
-	res.setHeader('Cache-Control', 'no-cache');
-	res.sendFile(path.join(__dirname, 'build', 'index.html'))
+	// res.setHeader('Cache-Control', 'no-cache');
+	res.sendFile(path.join(__dirname, 'build', 'index-v1.html'))
   });
 // app.get('/*', (req, res) => {
 // 	return res.redirect('/');
