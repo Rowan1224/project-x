@@ -18,7 +18,7 @@ const Home = () => {
         <>
             <div className={"text-center mt-2 mb-5" + syntax}>
                 <h2>
-                    Why bother, when <span className="logo-text">ProjectX</span>{" "}
+                    Why brother, when <span className="logo-text">ProjectX</span>{" "}
                     is here!
                 </h2>
             </div>
