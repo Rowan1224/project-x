@@ -190,7 +190,7 @@ const Cart = () => {
                 </div>
                 <div className="col-sm-12 col-md-6 mb-2 text-right">
                     <Button
-                        to="/checkout"
+                        to={localStorage.getItem("isAuthenticated") ? "/checkout" : "/login"}
                         variant={type}
                         className="w-100"
                         disabled={!items.length > 0}

@@ -117,8 +117,10 @@ exports.lineChart = (req, res, nxt) => {
             for (let [key, value] of mapSort1) {
                 pairs.push({ key, value });
             }
-            if (pairs.length > 5) pairs.slice(0, 4);
-            const sortedArray = pairs.sort(
+
+            const newPair = pairs.length>5 ? pairs.slice(0,5) : pairs;
+
+            const sortedArray = newPair.sort(
                 (a, b) =>
                     moment(a.key).format("YYYYMMDD") -
                     moment(b.key).format("YYYYMMDD")

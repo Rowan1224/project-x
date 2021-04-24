@@ -4,7 +4,7 @@ export const SettingsContext = createContext();
 
 const SettingsContextProvider = (props) => {
     const [universalFlag, setUniversalFlag] = useState(false);
-    const [isAnimated, setIsAnimated] = useState(true);
+    const [isAnimated, setIsAnimated] = useState(false);
 
     const changeIsAnimated = () => setIsAnimated(!isAnimated);
     const updateUniversalFlag = () => setUniversalFlag(!universalFlag);
